@@ -7,6 +7,11 @@ import * as ports from 'ports'
 const initialize = reduxjsToolkit.createAsyncThunk(
   'page/initialize',
   async () => {
+    const state = getState();
+    if (state.page.isAuthenticated) {
+      return { userId: state.page.userId, jwtToken: state.page.jwtToken };
+    }
+
     let userId = null
     const initData = WebApp.initData
     // eslint-disable-next-line no-console
@@ -50,7 +55,7 @@ export const pageSlice = reduxjsToolkit.createSlice({
     userId: null,
     jwtToken: null,
     failMessage: null,
-    authReqsAmount: 0,
+    isAuthenticated: false, // Новый флаг
   },
   extraReducers(builder) {
     builder
@@ -61,6 +66,7 @@ export const pageSlice = reduxjsToolkit.createSlice({
         state.status = constants.status.success
         state.userId = userId
         state.jwtToken = jwtToken
+        state.isAuthenticated = true
       })
       .addCase(initialize.rejected, (state, _action) => {
         state.status = constants.status.failed
