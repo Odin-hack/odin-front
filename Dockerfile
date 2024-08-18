@@ -14,6 +14,7 @@ ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
 
 COPY package.json package-lock.json ./
 # Установка зависимостей проекта
+RUN npm install react-scripts -g
 RUN npm install
 COPY . .
 # Сборка React-приложения
