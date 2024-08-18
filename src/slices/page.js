@@ -4,12 +4,19 @@ import * as reduxjsToolkit from '@reduxjs/toolkit'
 import * as constants from 'constants'
 import * as ports from 'ports'
 
+let authPromise = null;
+
 const initialize = reduxjsToolkit.createAsyncThunk(
     'page/initialize',
-    async (_, { getState }) => {
+    async (_, {getState}) => {
         const state = getState();
         if (state.page.isAuthenticated) {
             return {userId: state.page.userId, jwtToken: state.page.jwtToken};
+        }
+
+        // Если запрос уже выполняется, ждем его завершения
+        if (authPromise) {
+            return authPromise;
         }
 
         let userId = null
@@ -34,8 +41,17 @@ const initialize = reduxjsToolkit.createAsyncThunk(
                 throw new Error('fail on user-id extract')
             }
         }
-        const {jwtToken} = await ports.fetchPostHaxAuth({initData})
-        return {userId, jwtToken}
+        authPromise = ports.fetchPostHaxAuth({initData})
+            .then((result) => {
+                authPromise = null; // Сбрасываем глобальный промис после завершения
+                return {userId, jwtToken: result.jwtToken};
+            })
+            .catch((error) => {
+                authPromise = null; // Сбрасываем глобальный промис даже при ошибке
+                throw error;
+            });
+
+        return authPromise;
     },
 )
 const showGlobalLoading = reduxjsToolkit.createAsyncThunk(
