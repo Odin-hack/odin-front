@@ -17,6 +17,10 @@ COPY package.json package-lock.json ./
 RUN npm install react-scripts -g
 RUN npm install
 COPY . .
+# Проверка установленных переменных окружения перед сборкой
+RUN echo "GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP" && \
+    echo "REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER" && \
+    echo "REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE"
 # Сборка React-приложения
 RUN npm run build
 
