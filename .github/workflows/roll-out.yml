@@ -1,0 +1,62 @@
+name: Roll out
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: npm i
+    - name: Call lint
+      run: npm run lint
+  build:
+    if: ${{ github.ref_name == 'main' }}
+    needs: [lint]
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Get repository name
+      id: repo-name
+      uses: MariachiBear/get-repo-name-action@v1.1.0
+      with:
+        with-owner: 'false'
+        string-case: 'lowercase'
+    - name: Docker Login
+      uses: docker/login-action@v2.2.0
+      with:
+        registry: ${{ vars.DOCKER_REGISTRY }}
+        username: ${{ secrets.DO_TOKEN }}
+        password: ${{ secrets.DO_TOKEN }}
+    - name: Building docker image
+      run: |
+        docker build --no-cache \
+          --build-arg GENERATE_SOURCEMAP=${{ vars.GENERATE_SOURCEMAP }} \
+          --build-arg REACT_APP_URL_SERVER=${{ secrets.REACT_APP_URL_SERVER }} \
+          --build-arg REACT_APP_RENDER_DEBUG_CONSOLE=${{ vars.REACT_APP_RENDER_DEBUG_CONSOLE }} \
+          -t ${{ env.DOCKER_REGISTRY }}/${{ steps.repo-name.outputs.repository-name }}:${{ github.sha }} .
+    - name: Pushing docker image
+      run: docker push ${{ vars.DOCKER_REGISTRY }}/${{ steps.repo-name.outputs.repository-name }}:${{ github.sha }}
+  roll-out:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@main
+    - name: Get repository name
+      id: repo-name
+      uses: MariachiBear/get-repo-name-action@v1.1.0
+      with:
+        with-owner: 'false'
+        string-case: 'lowercase'
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DO_TOKEN }}
+    - name: Setup kubernetes cluster
+      run: doctl kubernetes cluster kubeconfig save 37ca721f-7dac-4eb4-8c43-1824c5d1278e
+    - name: Deploy to DigitalOcean Kubernetes
+      run: helm upgrade --install ${{ steps.repo-name.outputs.repository-name }} helm/. --set image.repository=${{ vars.DOCKER_REGISTRY }}/${{ steps.repo-name.outputs.repository-name }} --set image.tag=${{ github.sha }}

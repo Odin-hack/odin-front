@@ -1,0 +1,6 @@
+export {userSlice} from './user'
+export {homePageSlice} from './homePage'
+export {leaderboardSlice} from './leaderboard'
+export {pageSlice} from './page'
+export {friendsSlice} from './friends'
+export {tasksSlice} from './tasks'

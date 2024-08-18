@@ -1,0 +1,129 @@
+.header
+	&__box
+		width: 100%
+		padding-top: 40px!important
+	&__logo
+		&__box
+			margin-bottom: 19px
+	&__balance
+		&__text
+			margin-left: 9px
+		&__box
+			margin-bottom: 4px
+	&__wallet
+		margin: 4px auto 32px
+.wallet_connect
+	&__button
+		background: #BCFF2F
+		width: 100%
+		max-width: 269px
+		height: 50px
+		border-radius: 10px
+		margin: 0 auto
+		margin-top: 28px
+.spinning_v2
+	&__slot
+		position: absolute
+		width: 100%
+		height: 26px
+		backface-visibility: hidden
+		transition: all 0.5s ease
+		opacity: 1
+	&__rotate
+		margin: 0 auto
+		width: 100%
+		height: 135px
+		overflow: hidden
+		transform-style: preserve-3d
+		position: relative
+	&__ring
+		width: 100%
+		height: 26px
+		transform-style: preserve-3d
+		position: absolute
+		left: 50%
+		top: 50%
+		transform: translate(-50%, -50%)
+		z-index: 100
+	&__highligh
+		height: 26px!important
+		z-index: 50
+		background: #171717
+		border-radius: 6px
+	&__top_shadow
+		z-index: 1000
+		background: linear-gradient(180deg, #232323 0%, rgba(35, 35, 35, 0) 43.35%)
+	&__bot_shadow
+		z-index: 1000
+		background: linear-gradient(180deg, #232323 0%, rgba(35, 35, 35, 0) 43.35%)
+		transform: translate(-50%, -50%) rotate(180deg)!important
+.spins_v2
+	&__box
+		background: #212121
+		border-radius: 16px
+		min-height: 262px
+		border: 1px solid #000000
+		margin-top: 40px
+		padding: 18px 20px 20px
+		justify-content: space-between!important
+		position: relative
+	&__divider
+		width: 100%
+		height: 1px
+		background: rgba(255, 255, 255, 0.05)
+	&__keys
+		&__amount_box
+			padding: 5px 9px
+			background: rgba(255, 255, 255, 0.1)
+			border-radius: 24px
+		&__button
+			background: #fff
+			width: 110px
+			height: 36px
+			border-radius: 20px
+	&__bot_landing
+		&__button
+			height: 42px
+			border-radius: 12px
+			margin-top: 16px
+			&_active
+				background: #fff
+			&_inactive
+				background: #717171
+	&__bot_end
+		&__button
+			height: 50px
+			border-radius: 10px
+			background: #fff
+		&__box
+			padding: 18px 20px 20px
+			border: 1px solid #000000
+			border-radius: 16px
+			background: #212121
+			justify-content: end!important
+.modal_reward
+	&__background
+		background: rgba(0, 0, 0, .6)
+		z-index: 1
+		transition: all .2s ease
+		opacity: 0
+		&_active
+			opacity: 1
+	&__box
+		background: #0F0F0F
+		z-index: 2
+		top: auto!important
+		bottom: 0
+		transform: translate(-50%, 100%)!important
+		border-top-left-radius: 10px
+		border-top-right-radius: 10px
+		padding: 34px 17px 90px
+		transition: all .2s ease
+		&_active
+			transform: translate(-50%, 0)!important
+.modal_learning
+	&__button
+		width: 269px
+		height: 50px
+		background: #BCFF2F
+		border-radius: 10px

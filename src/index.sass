@@ -1,0 +1,299 @@
+// reset-css start
+// http://meyerweb.com/eric/tools/css/reset/
+// v2.0 | 20110126
+// License: none (public domain)
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video
+	margin: 0
+	padding: 0
+	border: 0
+	font-size: 100%
+	font: inherit
+	vertical-align: baseline
+// HTML5 display-role reset for older browsers
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section
+	display: block
+body
+	line-height: 1
+	height: 100vh
+	overflow: hidden
+	background: #0F0F0F
+ol, ul
+	list-style: none
+blockquote, q
+	quotes: none
+blockquote:before, blockquote:after,
+q:before, q:after
+	content: ''
+	content: none
+table
+	border-collapse: collapse
+	border-spacing: 0
+// reset-css end
+
+// global start
+*
+	box-sizing: border-box
+button
+	cursor: pointer
+	background: none
+	border: none
+	padding: 0
+	margin: 0
+html
+	font-size: 10px
+	background-color: #000
+html, body, #root
+	height: 100%
+ul
+	margin: 0
+	padding: 0
+h1, p, h2, h3, h4, h5, h6
+	margin: 0
+a
+	text-decoration: none
+.container
+	margin: 0 auto
+	padding: 0 17px
+// global end
+
+// flex start
+._f
+	display: flex
+._fC
+	display: flex
+	align-items: center
+._fCC
+	display: flex
+	align-items: center
+	justify-content: center
+._fCB
+	display: flex
+	align-items: center
+	justify-content: space-between
+._fCE
+	display: flex
+	align-items: center
+	justify-content: end
+._fCol
+	flex-direction: column
+._w100
+	width: 100%
+// flex end
+
+// fonts start
+@font-face
+	font-family: 'SF Pro Display 400'
+	src: url(./fonts/sf-pro-display/SFPRODISPLAYREGULAR.OTF) format('opentype')
+@font-face
+	font-family: 'SF Pro Display 500'
+	src: url(./fonts/sf-pro-display/SFPRODISPLAYMEDIUM.OTF) format('opentype')
+@font-face
+	font-family: 'SF Pro Display 700'
+	src: url(./fonts/sf-pro-display/SFPRODISPLAYBOLD.OTF) format('opentype')
+=font($color, $family, $size, $lh)
+	color: $color
+	font:
+		family: $family
+		size: $size
+	line-height: $lh
+._w4001414
+	+font(#fff, 'SF Pro Display 400', 14px, 14px)
+._w4001013
+	+font(#fff, 'SF Pro Display 400', 14px, 14px)
+._g4001722
+	+font(#AAAAAA, 'SF Pro Display 400', 17px, 22px)
+._g4001824
+	+font(#AAAAAA, 'SF Pro Display 400', 18px, 24px)
+._w4001722
+	+font(#fff, 'SF Pro Display 400', 17px, 22px)
+._w7001316
+	+font(#fff, 'SF Pro Display 700', 13px, 16px)
+._g4001316
+	+font(#AAAAAA, 'SF Pro Display 400', 13px, 16px)
+._w7001621
+	+font(#fff, 'SF Pro Display 700', 16px, 21px)
+.w7001522
+	+font(#fff, 'SF Pro Display 700', 15px, 22px)
+._w7003441
+	+font(#fff, 'SF Pro Display 700', 34px, 41px)
+._dark7001722
+	+font(#243500, 'SF Pro Display 700', 17px, 22px)
+._dark7001522
+	+font(#1A270F, 'SF Pro Display 700', 15px, 22px)
+._g4001414
+	+font(#75786D, 'SF Pro Display 400', 14px, 14px)
+._w7003238
+	+font(#fff, 'SF Pro Display 700', 32px, 38.19px)
+._w7002025
+	+font(#fff, 'SF Pro Display 700', 20px, 25px)
+._w7002833
+	+font(#fff, 'SF Pro Display 700', 28px, 33px)
+._g4001821
+	+font(#A6A6A6, 'SF Pro Display 400', 18px, 21.48px)
+._w4001821
+	+font(#fff, 'SF Pro Display 400', 18px, 21.48px)
+._gold4001821
+	+font(#EABB1C, 'SF Pro Display 700', 18px, 21.48px)
+._w7001821
+	+font(#fff, 'SF Pro Display 700', 18px, 21.48px)
+._d4001520
+	+font(#000, 'SF Pro Display 400', 15px, 20px)
+._d7001520
+	+font(#000, 'SF Pro Display 700', 15px, 20px)
+._w7001520
+	+font(#fff, 'SF Pro Display 700', 15px, 20px)
+._w4001520
+	+font(#fff, 'SF Pro Display 400', 15px, 20px)
+._w7006041
+	+font(#fff, 'SF Pro Display 700', 60px, 41px)
+._w7001416
+	+font(#fff, 'SF Pro Display 700', 14px, 16.71px)
+._w4003422
+	+font(#fff, 'SF Pro Display 400', 34px, 22px)
+._g7001821
+	+font(#A6A6A6, 'SF Pro Display 700', 18px, 21.48px)
+._g4001520
+	+font(#707579, 'SF Pro Display 400', 15px, 20px)
+._g7003041
+	+font(#A6A6A6, 'SF Pro Display 700', 30px, 41px)
+._g7001521
+	+font(#919191, 'SF Pro Display 700', 15px, 21px)
+._gold7001521
+	+font(#EABB1C, 'SF Pro Display 700', 15px, 21px)
+._g7001418
+	+font(#939393, 'SF Pro Display 700', 14px, 18px)
+._g7002125
+	+font(#fff, 'SF Pro Display 700', 21px, 25.06px)
+._y4001821
+	+font(#BCFF2F, 'SF Pro Display 400', 18px, 21.48px)
+._y7001821
+	+font(#BCFF2F, 'SF Pro Display 700', 18px, 21.48px)
+._d7001821
+	+font(#131313, 'SF Pro Display 700', 18px, 21.48px)
+._d5001821
+	+font(#131313, 'SF Pro Display 500', 18px, 21.48px)
+._y4001414
+	+font(#BCFF2F, 'SF Pro Display 400', 14px, 14px)
+._g4001619
+	+font(#939393, 'SF Pro Display 400', 16px, 19.09px)
+._w4001619
+	+font(#fff, 'SF Pro Display 400', 16px, 19.09px)
+._w7002428
+	+font(#fff, 'SF Pro Display 700', 24px, 28.64px)
+._w7004857
+	+font(#fff, 'SF Pro Display 700', 48px, 57.28px)
+._w7003257
+	+font(#fff, 'SF Pro Display 700', 32px, 57.28px)
+._d7001416
+	+font(#000, 'SF Pro Display 700', 14px, 16.71px)
+._d7001722
+	+font(#000, 'SF Pro Display 700', 17px, 22px)
+._g7005666
+	+font(#5D5D5D, 'SF Pro Display 700', 56px, 66.83px)
+._g7004250
+	+font(#5D5D5D, 'SF Pro Display 700', 42px, 50px)
+._d7001619
+	+font(#BCFF2F, 'SF Pro Display 700', 16px, 19.09px)
+._g7001619
+	+font(#939393, 'SF Pro Display 700', 16px, 19.09px)
+._w7003232
+	+font(#fff, 'SF Pro Display 700', 32px, 32px)
+._w7003845
+	+font(#fff, 'SF Pro Display 700', 38px, 45.35px)
+._w7003825
+	+font(#fff, 'SF Pro Display 700', 38px, 25px)
+._gold7003232
+	+font(#EABB1C, 'SF Pro Display 700', 32px, 32px)
+._ta_start
+	text-align: start
+._ta_center
+	text-align: center
+._ta_end
+	text-align: end
+._tw_nowrap
+	text-wrap: normal
+._one_line_ellipsis
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+// fonts end
+
+._status_block
+	padding: 4px 6px
+	border-radius: 20px
+	background: rgba(255, 255, 255, 0.08)
+
+._op60
+	opacity: 0.6
+._op80
+	opacity: 0.8
+._op95
+	opacity: 0.95
+
+.rotate_spinner
+	animation: rotate_spinner 1s linear infinite
+@keyframes rotate_spinner
+	0%
+		transform: rotate(0deg)
+	100%
+		transform: rotate(360deg)
+.spin-6
+	transform: translate(-50%, -50%) rotateX(-2394deg)
+@keyframes spin-6
+	0%
+		transform: translate(-50%, -50%) rotateX(0deg)
+	100%
+		transform: translate(-50%, -50%) rotateX(-2394deg)
+
+._abs_mid
+	position: absolute
+	left: 50%
+	top: 50%
+	transform: translate(-50%, -50%)
+	width: 100%
+	height: 100%
+
+.ReactModal__Overlay
+	background-color: transparent!important
+	z-index: 100
+.adjusted-react-modal
+	width: 100vw
+	height: 100vh
+	top: 0!important
+	left: 0!important
+	padding: 0!important
+	transform: none!important
+	border: none!important
+	border-radius: 0!important
+
+.toast_container__box_global
+	.Toastify__toast
+		background: transparent!important
+		min-height: 65px
+		padding: 8px 17px 0
+	.Toastify__toast-body
+		padding: 0
+		margin: 0!important
+		&> div
+			height: 100%
+	.Toastify__close-button
+		display: none
+
+.modal_learning__carousel_buttons
+	.control-dots
+		margin: 0
+		padding: 10px 0
+		background: #000!important
