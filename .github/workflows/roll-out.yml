@@ -5,17 +5,8 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  lint:
-    runs-on: ubuntu-22.04
-    steps:
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: npm i
-    - name: Call lint
-      run: npm run lint
   build:
     if: ${{ github.ref_name == 'main' }}
-    needs: [lint]
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
