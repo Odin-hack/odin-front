@@ -23,9 +23,9 @@ FROM haproxy:alpine
 COPY --from=build /app/build /usr/share/haproxy/html
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 
-# Создание заглушек для файлов ошибок
-RUN echo -e "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n<h1>404 Not Found</h1>" > /usr/share/haproxy/html/index.html
-RUN echo -e "HTTP/1.1 500 Internal Server Error\r\nContent-Type: text/html\r\n\r\n<h1>500 Internal Server Error</h1>" > /usr/share/haproxy/html/50x.html
+# Копируем файлы ошибок
+COPY /path/to/your/local/404.html /usr/share/haproxy/html/index.html
+COPY /path/to/your/local/50x.html /usr/share/haproxy/html/50x.html
 
 EXPOSE 80
 CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
