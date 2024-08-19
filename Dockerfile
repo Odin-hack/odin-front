@@ -24,7 +24,7 @@ FROM alpine:latest AS nginx-build
 # Устанавливаем необходимые зависимости для сборки NGINX
 RUN apk add --no-cache \
     build-base \
-    curl \
+    wget \
     pcre-dev \
     zlib-dev \
     openssl-dev \
@@ -33,14 +33,26 @@ RUN apk add --no-cache \
 # Задаем версию NGINX
 ARG NGINX_VERSION=1.27.0
 
-# Загружаем и собираем NGINX с нужными модулями
+# Создаем рабочую директорию
 WORKDIR /usr/local/src
-RUN curl -O http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz && \
-    tar -zxvf nginx-$NGINX_VERSION.tar.gz && \
-    cd nginx-$NGINX_VERSION && \
-    ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre --with-zlib=/usr/include --with-cc-opt="-O2 -fomit-frame-pointer -pipe" && \
-    make && \
-    make install
+
+# Скачиваем исходный код NGINX
+RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz
+
+# Распаковываем архив с исходным кодом NGINX
+RUN tar -zxvf nginx-$NGINX_VERSION.tar.gz
+
+# Переходим в директорию с исходным кодом
+WORKDIR /usr/local/src/nginx-$NGINX_VERSION
+
+# Конфигурируем сборку NGINX с нужными модулями
+RUN ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre --with-zlib=/usr/include --with-cc-opt="-O2 -fomit-frame-pointer -pipe"
+
+# Сборка NGINX
+RUN make
+
+# Установка NGINX
+RUN make install
 
 # Этап 3: Настройка и запуск NGINX
 FROM alpine:latest
