@@ -59,12 +59,12 @@ ingress:
   hosts:
     - host: hax.fewcats.com
       paths:
-        - path: /fe(/|$)(.*)
+        - path: /
           pathType: Prefix
   tls:
     - hosts:
         - hax.fewcats.com
-      secretName: echo-tls
+      secretName: hax-tls
 
 resources:
   limits:
