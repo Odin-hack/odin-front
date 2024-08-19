@@ -46,7 +46,7 @@ RUN tar -zxvf nginx-$NGINX_VERSION.tar.gz
 WORKDIR /usr/local/src/nginx-$NGINX_VERSION
 
 # Конфигурируем сборку NGINX с нужными модулями
-RUN ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre --with-zlib=/usr/include --with-cc-opt="-O2 -fomit-frame-pointer -pipe"
+RUN ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre
 
 # Сборка NGINX
 RUN make
