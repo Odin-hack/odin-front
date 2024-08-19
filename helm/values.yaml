@@ -87,11 +87,11 @@ resources:
 livenessProbe:
   httpGet:
     path: /health
-    port: 8080
+    port: 80
 readinessProbe:
   httpGet:
     path: /health
-    port: 8080
+    port: 80
 
 autoscaling:
   enabled: true
