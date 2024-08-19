@@ -86,11 +86,11 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /health/liveness
+    path: /health
     port: http
 readinessProbe:
   httpGet:
-    path: /health/readiness
+    path: /health
     port: http
 
 autoscaling:
