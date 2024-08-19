@@ -1,70 +1,39 @@
-# Этап 1: Сборка приложения
-FROM node:18-alpine as build
-WORKDIR /app
+# Этап 1: Сборка NGINX с модулем real_ip
+FROM nginx:alpine as build
 
-# Определяем переменные окружения для сборки
-ARG GENERATE_SOURCEMAP
-ARG REACT_APP_URL_SERVER
-ARG REACT_APP_RENDER_DEBUG_CONSOLE
-
-ENV GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP
-ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
-ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
-
-COPY package.json package-lock.json ./
-RUN npm install react-scripts -g
-RUN npm install
-
-COPY . .
-RUN npm run build
-
-# Этап 2: Сборка и установка NGINX
-FROM alpine:latest AS nginx-build
-
-# Устанавливаем необходимые зависимости для сборки NGINX
+# Устанавливаем необходимые зависимости для сборки
 RUN apk add --no-cache \
-    build-base \
-    wget \
+    gcc \
+    libc-dev \
+    make \
     pcre-dev \
     zlib-dev \
     openssl-dev \
-    linux-headers
+    musl-dev \
+    linux-headers \
+    curl
 
-# Задаем версию NGINX
-ARG NGINX_VERSION=1.27.0
-
-# Создаем рабочую директорию
+# Скачиваем исходный код NGINX версии 1.27.0
 WORKDIR /usr/local/src
+RUN curl -O http://nginx.org/download/nginx-1.27.0.tar.gz && \
+    tar -zxvf nginx-1.27.0.tar.gz && \
+    cd nginx-1.27.0 && \
+    ./configure --with-http_realip_module && \
+    make && \
+    make install
 
-# Скачиваем исходный код NGINX
-RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz
+# Этап 2: Создание финального образа на основе официального NGINX
+FROM nginx:alpine
 
-# Распаковываем архив с исходным кодом NGINX
-RUN tar -zxvf nginx-$NGINX_VERSION.tar.gz
+# Копируем собранный NGINX с поддержкой real_ip
+COPY --from=build /usr/local/nginx /usr/local/nginx
 
-# Переходим в директорию с исходным кодом
-WORKDIR /usr/local/src/nginx-$NGINX_VERSION
-
-# Конфигурируем сборку NGINX с нужными модулями
-RUN ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre
-
-# Сборка NGINX
-RUN make
-
-# Установка NGINX
-RUN make install
-
-# Этап 3: Настройка и запуск NGINX
-FROM alpine:latest
-COPY --from=nginx-build /usr/local/nginx /usr/local/nginx
-
-# Копируем статические файлы из сборки в директорию NGINX
-COPY --from=build /app/build /usr/local/nginx/html
 # Копируем конфигурационный файл NGINX
-COPY nginx.conf /usr/local/nginx/conf/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Открытие порта 80 для HTTP трафика
+# Копируем статические файлы приложения
+COPY --from=build /app/build /usr/share/nginx/html
+
 EXPOSE 80
 
-# Запуск NGINX в фоновом режиме
-CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
