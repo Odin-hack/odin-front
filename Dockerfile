@@ -31,7 +31,7 @@ RUN apk add --no-cache \
     linux-headers
 
 # Задаем версию NGINX
-ARG NGINX_VERSION=1.24.0
+ARG NGINX_VERSION=1.27.0
 
 # Загружаем и собираем NGINX с нужными модулями
 WORKDIR /usr/local/src
