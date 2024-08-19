@@ -14,39 +14,45 @@ ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
 COPY package.json package-lock.json ./
 RUN npm install react-scripts -g
 RUN npm install
+
 COPY . .
 RUN npm run build
 
-# Этап 2: Сборка NGINX с модулем ngx_http_realip_module
-FROM alpine:3.18 AS nginx-build
+# Этап 2: Сборка и установка NGINX
+FROM alpine:latest AS nginx-build
 
-# Установка зависимостей для сборки NGINX
-RUN apk add --no-cache build-base pcre-dev zlib-dev openssl-dev wget
+# Устанавливаем необходимые зависимости для сборки NGINX
+RUN apk add --no-cache \
+    build-base \
+    curl \
+    pcre-dev \
+    zlib-dev \
+    openssl-dev \
+    linux-headers
 
-# Скачивание исходников NGINX
+# Задаем версию NGINX
 ARG NGINX_VERSION=1.24.0
+
+# Загружаем и собираем NGINX с нужными модулями
 WORKDIR /usr/local/src
-RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz && \
+RUN curl -O http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz && \
     tar -zxvf nginx-$NGINX_VERSION.tar.gz && \
     cd nginx-$NGINX_VERSION && \
-    ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre --with-zlib=/usr/include && \
+    ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre --with-zlib=/usr/include --with-cc-opt="-O2 -fomit-frame-pointer -pipe" && \
     make && \
     make install
 
-# Этап 3: Финальный образ для сервировки React-приложения
-FROM alpine:3.18
-
-# Копируем NGINX из предыдущего этапа
+# Этап 3: Настройка и запуск NGINX
+FROM alpine:latest
 COPY --from=nginx-build /usr/local/nginx /usr/local/nginx
 
-# Копируем собранное приложение
+# Копируем статические файлы из сборки в директорию NGINX
 COPY --from=build /app/build /usr/local/nginx/html
-
-# Копируем конфигурацию NGINX
+# Копируем конфигурационный файл NGINX
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 
-# Открываем порты
+# Открытие порта 80 для HTTP трафика
 EXPOSE 80
 
-# Запуск NGINX
+# Запуск NGINX в фоновом режиме
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
