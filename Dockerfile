@@ -23,5 +23,9 @@ FROM haproxy:alpine
 COPY --from=build /app/build /usr/share/haproxy/html
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 
-EXPOSE 8080
+# Добавляем возможность привязки к порту 80
+USER root
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/sbin/haproxy
+
+EXPOSE 80
 CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
