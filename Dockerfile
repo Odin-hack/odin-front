@@ -23,9 +23,5 @@ FROM haproxy:alpine
 COPY --from=build /app/build /usr/share/haproxy/html
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 
-# Копируем файлы ошибок
-COPY public/404.html /usr/share/haproxy/html/index.html
-COPY public/50x.html /usr/share/haproxy/html/50x.html
-
 EXPOSE 80
 CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
