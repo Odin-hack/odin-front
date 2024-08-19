@@ -1,32 +1,36 @@
-# Используем официальный образ Node.js для запуска проекта
-FROM node:18-alpine
-
-# Устанавливаем рабочую директорию
+# Этап 1: Сборка приложения
+# Используем официальный образ Node.js для сборки проекта
+FROM node:18-alpine as build
 WORKDIR /app
 
-# Копируем файлы package.json и package-lock.json
+# Определяем переменные окружения для сборки
+ARG GENERATE_SOURCEMAP
+ARG REACT_APP_URL_SERVER
+ARG REACT_APP_RENDER_DEBUG_CONSOLE
+
+ENV GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP
+ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
+ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
+
 COPY package.json package-lock.json ./
-
-# Устанавливаем зависимости
+# Установка зависимостей проекта
+RUN npm install react-scripts -g
 RUN npm install
-
-# Копируем весь проект в контейнер
 COPY . .
+# Проверка установленных переменных окружения перед сборкой
+RUN echo "GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP" && \
+    echo "REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER" && \
+    echo "REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE"
+# Сборка React-приложения
+RUN npm run build
 
-# Устанавливаем Nginx и Supervisord
-RUN apk add --no-cache nginx supervisor
-
-# Копируем конфигурацию Nginx
+# Этап 2: Настройка Nginx для сервировки статического контента
+FROM nginx:stable-alpine
+# Копирование статических файлов из сборки в директорию Nginx
+COPY --from=build /app/build /usr/share/nginx/html
+# Копирование конфигурационного файла Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
-
-# Создаем директорию для хранения PID файла
-RUN mkdir -p /run/nginx
-
-# Создаем конфигурацию для Supervisord
-RUN echo "[supervisord]\nnodaemon=true\n\n[program:nginx]\ncommand=/usr/sbin/nginx -g 'daemon off;'\n\n[program:node]\ncommand=npm start\n" > /etc/supervisord.conf
-
-# Открываем порты
-EXPOSE 80 3000
-
-# Запуск Supervisord для управления Nginx и Node.js
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+# Открытие порта 80 для HTTP трафика
+EXPOSE 80
+# Запуск Nginx в фоновом режиме
+CMD ["nginx", "-g", "daemon off;"]

@@ -45,7 +45,7 @@ securityContext: {}
 service:
   create: true
   type: ClusterIP
-  port: 3000
+  port: 80
   annotations: {}
 
 ingress:
@@ -121,10 +121,4 @@ affinity: {}
 
 envFrom:
   - configMapRef:
-      name: tma-platform-configmap
-  - secretRef:
-      name: tma-platform-secret
-  - secretRef:
-      name: db-secret
-  - secretRef:
-      name: redis-secret
+      name: tma-front-configmap
