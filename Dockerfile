@@ -1,5 +1,25 @@
-# Этап 1: Сборка NGINX с модулем real_ip
-FROM nginx:alpine as build
+# Этап 1: Сборка React-приложения
+FROM node:18-alpine as build
+WORKDIR /app
+
+# Определяем переменные окружения для сборки
+ARG GENERATE_SOURCEMAP
+ARG REACT_APP_URL_SERVER
+ARG REACT_APP_RENDER_DEBUG_CONSOLE
+
+ENV GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP
+ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
+ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
+
+COPY package.json package-lock.json ./
+RUN npm install react-scripts -g
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# Этап 2: Сборка NGINX с модулем real_ip
+FROM nginx:alpine as nginx-build
 
 # Устанавливаем необходимые зависимости для сборки
 RUN apk add --no-cache \
@@ -22,11 +42,11 @@ RUN curl -O http://nginx.org/download/nginx-1.27.0.tar.gz && \
     make && \
     make install
 
-# Этап 2: Создание финального образа на основе официального NGINX
+# Этап 3: Создание финального образа на основе официального NGINX
 FROM nginx:alpine
 
 # Копируем собранный NGINX с поддержкой real_ip
-COPY --from=build /usr/local/nginx /usr/local/nginx
+COPY --from=nginx-build /usr/local/nginx /usr/local/nginx
 
 # Копируем конфигурационный файл NGINX
 COPY nginx.conf /etc/nginx/nginx.conf
