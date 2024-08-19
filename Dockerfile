@@ -1,29 +1,32 @@
-# Этап 1: Сборка приложения
-# Используем официальный образ Node.js для сборки проекта
-FROM node:18-alpine as build
+# Используем официальный образ Node.js для запуска проекта
+FROM node:18-alpine
+
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Определяем переменные окружения для сборки
-ARG GENERATE_SOURCEMAP
-ARG REACT_APP_URL_SERVER
-ARG REACT_APP_RENDER_DEBUG_CONSOLE
-
-ENV GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP
-ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
-ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
-
+# Копируем файлы package.json и package-lock.json
 COPY package.json package-lock.json ./
-# Установка зависимостей проекта
-RUN npm install react-scripts -g
+
+# Устанавливаем зависимости
 RUN npm install
+
+# Копируем весь проект в контейнер
 COPY . .
-# Проверка установленных переменных окружения перед сборкой
-RUN echo "GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP" && \
-    echo "REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER" && \
-    echo "REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE"
-# Сборка React-приложения
-RUN npm run build
 
-expose 3000
+# Устанавливаем Nginx и Supervisord
+RUN apk add --no-cache nginx supervisor
 
-CMD ["npm", "run", "start"]
+# Копируем конфигурацию Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Создаем директорию для хранения PID файла
+RUN mkdir -p /run/nginx
+
+# Создаем конфигурацию для Supervisord
+RUN echo "[supervisord]\nnodaemon=true\n\n[program:nginx]\ncommand=/usr/sbin/nginx -g 'daemon off;'\n\n[program:node]\ncommand=npm start\n" > /etc/supervisord.conf
+
+# Открываем порты
+EXPOSE 80 3000
+
+# Запуск Supervisord для управления Nginx и Node.js
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
