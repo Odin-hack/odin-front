@@ -22,8 +22,8 @@ RUN npm run build
 
 # Этап 2: Настройка HAProxy для обслуживания статического контента
 FROM haproxy:alpine
-COPY --from=build /app/build /usr/share/haproxy/html
-COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
+COPY --from=build /app/build /usr/share/haproxy/html  # Копируем скомпилированные файлы React в HAProxy
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg  # Копируем конфигурацию HAProxy
 
 # Открываем порт 80 для входящих запросов
 EXPOSE 80
