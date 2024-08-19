@@ -1,4 +1,5 @@
 # Этап 1: Сборка приложения
+# Используем официальный образ Node.js для сборки проекта
 FROM node:18-alpine as build
 WORKDIR /app
 
@@ -12,20 +13,24 @@ ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
 ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
 
 COPY package.json package-lock.json ./
+# Установка зависимостей проекта
 RUN npm install react-scripts -g
 RUN npm install
-
 COPY . .
+# Проверка установленных переменных окружения перед сборкой
+RUN echo "GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP" && \
+    echo "REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER" && \
+    echo "REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE"
+# Сборка React-приложения
 RUN npm run build
 
-# Этап 2: Настройка HAProxy для обслуживания статического контента
-FROM haproxy:alpine
-COPY --from=build /app/build /usr/share/haproxy/html
-COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
-
-# Устанавливаем права, если это необходимо
-USER root
-RUN setcap 'cap_net_bind_service=+ep' /usr/local/sbin/haproxy || true
-
-EXPOSE 8080
-CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+# Этап 2: Настройка Nginx для сервировки статического контента
+FROM nginx:stable-alpine
+# Копирование статических файлов из сборки в директорию Nginx
+COPY --from=build /app/build /usr/share/nginx/html
+# Копирование конфигурационного файла Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+# Открытие порта 80 для HTTP трафика
+EXPOSE 80
+# Запуск Nginx в фоновом режиме
+CMD ["nginx", "-g", "daemon off;"]
