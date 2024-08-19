@@ -1,5 +1,4 @@
 # Этап 1: Сборка приложения
-# Используем официальный образ Node.js для сборки проекта
 FROM node:18-alpine as build
 WORKDIR /app
 
@@ -13,24 +12,41 @@ ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
 ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
 
 COPY package.json package-lock.json ./
-# Установка зависимостей проекта
 RUN npm install react-scripts -g
 RUN npm install
 COPY . .
-# Проверка установленных переменных окружения перед сборкой
-RUN echo "GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP" && \
-    echo "REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER" && \
-    echo "REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE"
-# Сборка React-приложения
 RUN npm run build
 
-# Этап 2: Настройка Nginx для сервировки статического контента
-FROM nginx:stable-alpine
-# Копирование статических файлов из сборки в директорию Nginx
-COPY --from=build /app/build /usr/share/nginx/html
-# Копирование конфигурационного файла Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-# Открытие порта 80 для HTTP трафика
+# Этап 2: Сборка NGINX с модулем ngx_http_realip_module
+FROM alpine:3.18 AS nginx-build
+
+# Установка зависимостей для сборки NGINX
+RUN apk add --no-cache build-base pcre-dev zlib-dev openssl-dev wget
+
+# Скачивание исходников NGINX
+ARG NGINX_VERSION=1.24.0
+WORKDIR /usr/local/src
+RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz && \
+    tar -zxvf nginx-$NGINX_VERSION.tar.gz && \
+    cd nginx-$NGINX_VERSION && \
+    ./configure --with-http_realip_module --with-http_ssl_module --with-http_v2_module --with-pcre --with-zlib=/usr/include && \
+    make && \
+    make install
+
+# Этап 3: Финальный образ для сервировки React-приложения
+FROM alpine:3.18
+
+# Копируем NGINX из предыдущего этапа
+COPY --from=nginx-build /usr/local/nginx /usr/local/nginx
+
+# Копируем собранное приложение
+COPY --from=build /app/build /usr/local/nginx/html
+
+# Копируем конфигурацию NGINX
+COPY nginx.conf /usr/local/nginx/conf/nginx.conf
+
+# Открываем порты
 EXPOSE 80
-# Запуск Nginx в фоновом режиме
-CMD ["nginx", "-g", "daemon off;"]
+
+# Запуск NGINX
+CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
