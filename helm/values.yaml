@@ -45,7 +45,7 @@ securityContext: {}
 service:
   create: true
   type: ClusterIP
-  port: 80
+  port: 3000
   annotations: {}
 
 ingress:
@@ -53,18 +53,18 @@ ingress:
   className: ""
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: hax.fewcats.com
+    - host: haxfe.fewcats.com
       paths:
-        - path: /fe(/|$)(.*)
+        - path: /
           pathType: Prefix
   tls:
     - hosts:
-        - hax.fewcats.com
-      secretName: echo-tls
+        - haxfe.fewcats.com
+      secretName: haxfe-tls
 
 resources:
   limits:
@@ -86,12 +86,12 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /health/liveness
-    port: http
+    path: /health
+    port: 3000
 readinessProbe:
   httpGet:
-    path: /health/readiness
-    port: http
+    path: /health
+    port: 3000
 
 autoscaling:
   enabled: true
@@ -121,10 +121,4 @@ affinity: {}
 
 envFrom:
   - configMapRef:
-      name: tma-platform-configmap
-  - secretRef:
-      name: tma-platform-secret
-  - secretRef:
-      name: db-secret
-  - secretRef:
-      name: redis-secret
+      name: tma-front-configmap

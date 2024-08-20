@@ -1,36 +1,31 @@
 # Этап 1: Сборка приложения
-# Используем официальный образ Node.js для сборки проекта
 FROM node:18-alpine as build
 WORKDIR /app
 
-# Определяем переменные окружения для сборки
-ARG GENERATE_SOURCEMAP
-ARG REACT_APP_URL_SERVER
-ARG REACT_APP_RENDER_DEBUG_CONSOLE
-
-ENV GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP
-ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
-ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
-
+# Копирование package.json и package-lock.json
 COPY package.json package-lock.json ./
-# Установка зависимостей проекта
-RUN npm install react-scripts -g
+
+# Установка зависимостей
 RUN npm install
+
+# Копирование исходного кода
 COPY . .
-# Проверка установленных переменных окружения перед сборкой
-RUN echo "GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP" && \
-    echo "REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER" && \
-    echo "REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE"
-# Сборка React-приложения
+
+# Сборка приложения
 RUN npm run build
 
-# Этап 2: Настройка Nginx для сервировки статического контента
-FROM nginx:stable-alpine
-# Копирование статических файлов из сборки в директорию Nginx
-COPY --from=build /app/build /usr/share/nginx/html
-# Копирование конфигурационного файла Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-# Открытие порта 80 для HTTP трафика
-EXPOSE 80
-# Запуск Nginx в фоновом режиме
-CMD ["nginx", "-g", "daemon off;"]
+# Этап 2: Запуск приложения
+FROM node:18-alpine
+WORKDIR /app
+
+# Копирование собранного приложения
+COPY --from=build /app /app
+
+# Установка необходимых зависимостей для запуска
+RUN npm install -g serve
+
+# Открытие порта 3000 для HTTP трафика
+EXPOSE 3000
+
+# Запуск React-приложения через serve
+CMD ["serve", "-s", "build", "-l", "3000"]

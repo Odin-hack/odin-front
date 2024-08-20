@@ -1,0 +1,32 @@
+# Этап 1: Сборка приложения
+FROM node:18-alpine as build
+WORKDIR /app
+
+# Определяем переменные окружения для сборки
+ARG GENERATE_SOURCEMAP
+ARG REACT_APP_URL_SERVER
+ARG REACT_APP_RENDER_DEBUG_CONSOLE
+
+ENV GENERATE_SOURCEMAP=$GENERATE_SOURCEMAP
+ENV REACT_APP_URL_SERVER=$REACT_APP_URL_SERVER
+ENV REACT_APP_RENDER_DEBUG_CONSOLE=$REACT_APP_RENDER_DEBUG_CONSOLE
+
+# Копируем package.json и устанавливаем зависимости
+COPY package.json package-lock.json ./
+RUN npm install react-scripts -g
+RUN npm install
+
+# Копируем исходный код и создаем сборку
+COPY . .
+RUN npm run build
+
+# Этап 2: Настройка HAProxy для обслуживания статического контента
+FROM haproxy:alpine
+COPY --from=build /app/build /usr/share/haproxy/html  # Копируем скомпилированные файлы React в HAProxy
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg  # Копируем конфигурацию HAProxy
+
+# Открываем порт 80 для входящих запросов
+EXPOSE 80
+
+# Запускаем HAProxy с указанным конфигурационным файлом
+CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
