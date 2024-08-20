@@ -45,7 +45,11 @@ securityContext: {}
 service:
   create: true
   type: ClusterIP
-  port: 3000
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
   annotations: {}
 
 ingress:
