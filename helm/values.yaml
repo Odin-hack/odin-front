@@ -49,7 +49,7 @@ service:
   annotations: {}
 
 ingress:
-  enabled: true
+  enabled: false
   className: ""
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
