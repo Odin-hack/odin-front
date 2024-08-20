@@ -1,8 +1,0 @@
-:80 {
-    # Настройка сервера для обслуживания статических файлов
-    root * /usr/share/caddy
-    file_server
-
-    # Включаем поддержку Proxy Protocol
-    header_up X-Real-IP {http.reverse_proxy.upstream.host}
-}
