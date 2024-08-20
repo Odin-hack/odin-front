@@ -37,13 +37,24 @@ const Header = () => {
         [],
     )
     const active = (metamaskSdk.account || '').length > 0
-    const logoParams = active ? {opacity: 1, blur: 0} : {opacity: 0.5, blur: 8}
     return (
         <div
             className={classnames('container', '_fCC', '_fCol', styles.header__box)}
         >
             <div className={styles.header__logo__box}>
-                <components.svg.Logo {...logoParams} />
+                <video
+                    width={300} height={300}
+                    style={{
+                        position: 'relative',
+                        zIndex: -1,
+                        margin: '-100px 0',
+                        opacity: active ? 1 : 0.5,
+                    }}
+                    autoPlay loop muted
+                >
+                    <source src={active ? '/assets/hax-idle.mp4' : '/assets/hax-sleeping.mp4'} type="video/mp4"/>
+                    Your browser does not support the video tag.
+                </video>
             </div>
             <div className={classnames('_fCC', styles.header__balance__box)}>
                 <components.svg.Polygon addShadow={!active}/>
@@ -151,47 +162,50 @@ const ModalRewardContent = ({onClickClose}) => {
                 ref={refBackground}
             />
             <div
-                className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}
-                ref={refBox}
+              className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}
+              ref={refBox}
             >
-                <components.svg.Fox width={94} height={94}/>
-                <h2 className="_g7003041" style={{margin: '31px auto 15px'}}>
+                <video width={300} height={300} style={{ margin: '-100px 0' }} autoPlay loop muted>
+                    <source src="/assets/hax-idle.mp4" type="video/mp4"/>
+                    Your browser does not support the video tag.
+                </video>
+                <h2 className="_g7003041" style={{ margin: '34px auto 3px' }}>
                     Your reward:
                 </h2>
-                <div className="_fCC" style={{marginBottom: '50px'}}>
-                    <components.svg.Polygon width={50} height={50}/>
-                    <div style={{width: '21px'}}/>
-                    <p className="_w7006041">{rewardAmount}</p>
+                <div className="_fCC" style={{ marginBottom: '50px' }}>
+                    <components.svg.Polygon width={46} height={46}/>
+                    <div style={{ width: '15px' }}/>
+                    <p className="_w7004641">{rewardAmount} HAX</p>
                 </div>
                 <ModalRewardCard
-                    icon={<components.svg.Eth width={11.25} height={18}/>}
-                    leftTitle="ETH balance"
-                    leftText={homePage?.forRegisterBody?.balance?.slice(0, 9)}
-                    priceStr={lib.formatPxlInt(
-                        homePage?.registerData?.rewardForBalance ?? 0,
-                    )}
+                  icon={<components.svg.Eth width={11.25} height={18}/>}
+                  leftTitle="ETH balance"
+                  leftText={homePage?.forRegisterBody?.balance?.slice(0, 9)}
+                  priceStr={lib.formatPxlInt(
+                    homePage?.registerData?.rewardForBalance ?? 0,
+                  )}
                 />
                 <ModalRewardCard
-                    icon={<components.svg.Arrows width={28} height={28}/>}
-                    iconBoxStyle={{background: '#A2A2A2'}}
-                    leftTitle="Transaction count"
-                    leftText={homePage?.forRegisterBody?.txCount ?? 0}
-                    priceStr={lib.formatPxlInt(
-                        homePage?.registerData?.rewardForTxCount ?? 0,
-                    )}
+                  icon={<components.svg.Arrows width={28} height={28}/>}
+                  iconBoxStyle={{ background: '#A2A2A2' }}
+                  leftTitle="Transaction count"
+                  leftText={homePage?.forRegisterBody?.txCount ?? 0}
+                  priceStr={lib.formatPxlInt(
+                    homePage?.registerData?.rewardForTxCount ?? 0,
+                  )}
                 />
                 <div className="_fCC _fCol" style={{}}>
                     <button
-                        className={classesShareButton}
-                        style={{width: '270px'}}
-                        onClick={onClickShareStory}
+                      className={classesShareButton}
+                      style={{ width: '270px' }}
+                      onClick={onClickShareStory}
                     >
-                        Share in Telegram stories
+                        Share to stories
                     </button>
                     <button
-                        className="_g4001824 _op60"
-                        style={{marginTop: '15px'}}
-                        onClick={onClickCloseInt}
+                      className="_g4001824 _op60"
+                      style={{ marginTop: '15px' }}
+                      onClick={onClickCloseInt}
                     >
                         Later
                     </button>

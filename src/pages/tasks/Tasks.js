@@ -162,7 +162,7 @@ const Card = ({
     case 'pending': {
       if (Number.isInteger(data.progress) && Number.isInteger(data.count)) {
         statusComponent = (
-          <p className="_g4001316">
+          <p className="_g7001416">
             {data.progress}/{data.count}
           </p>
         )

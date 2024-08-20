@@ -41,7 +41,7 @@ const Claim = () => {
       <div
         className={classnames('_f _fCC _fCol _abs_mid', styles.claim__content)}
       >
-        <p className={classnames('_w7003441', styles.claim__price_text)}>
+        <p className={classnames('_w7003241', styles.claim__price_text)}>
           {lib.formatPxlInt(friends.friendsData.user.account.balance)} HAX
         </p>
         {active ? (
@@ -57,10 +57,10 @@ const Claim = () => {
             className="_fCC _fCol"
             style={{position: 'relative', width: '200px'}}
           >
-            <p className="w7001522">{lib.formatMillis(dur)}</p>
+            <p className="_g7001522">{lib.formatMillis(dur)}</p>
             <div
               className="_w100"
-              style={{position: 'relative', height: '4px', marginTop: '2px'}}
+              style={{position: 'relative', height: '4px', marginTop: '4px'}}
             >
               <div
                 className="_abs_mid"
@@ -91,7 +91,7 @@ const Card = ({title, pxl, drawBottomLine, photoUrl, defaultPhoto}) => (
     <div className={classnames('_f _fCC')}>
       <div className={styles.card__circle}>
         {defaultPhoto ? (
-          <p className="_abs_mid _fCC w7001522" style={{zIndex: 1}}>
+          <p className="_abs_mid _fCC _w4001821" style={{zIndex: 1}}>
             {title.at(0) ?? ''}
           </p>
         ) : null}
@@ -195,9 +195,9 @@ export const Friends = () => {
             <p className="_ta_center _g4001722" style={{margin: '4px auto 0'}}>
               Get 10%
               <span> </span>
-              <span>
+              <span className="_y7001722">
                 <components.svg.Polygon width={15} height={15} />
-                <span> </span>
+                <span style={{display: 'inline-block', width: '2px'}}></span>
                 HAX
               </span>
               <span> </span>
@@ -205,8 +205,6 @@ export const Friends = () => {
               <br />
               wallet connections
               <br />
-            </p>
-            <p className="_ta_center _g4001821" style={{marginTop: '5px'}}>
               +5% from their spins and quest earnings
             </p>
             <p className="_w7001621" style={{padding: '44px 16px 12px'}}>
@@ -216,7 +214,7 @@ export const Friends = () => {
           </div>
           {friends.friendsData.friends.length === 0 ? (
             <div className="container _f _fCC" style={{height: '100%'}}>
-              <components.svg.FaceScary width={70} height={70} />
+              <img src="/assets/crying-face.webp" alt="Crying Face" width={70} height={70}/>
             </div>
           ) : (
             <div className="container _w100">

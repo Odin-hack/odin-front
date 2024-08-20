@@ -48,7 +48,7 @@ const Card = ({
       <div className="_fCC _w100">
         <div className={styles.card__circle}>
           {defaultPhoto ? (
-            <p className="_abs_mid _fCC _w4001619" style={{zIndex: 1}}>
+            <p className="_abs_mid _fCC _w4001821" style={{zIndex: 1}}>
               {name.at(0) ?? ''}
             </p>
           ) : null}
