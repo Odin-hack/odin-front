@@ -15,15 +15,22 @@ import * as hooks from 'hooks'
 
 import styles from './Home.module.sass'
 
-const Header = () => {
+const Header = ({ account, setAccount }) => {
+    const [isModalOpen, setIsModalOpen] = React.useState(false)
     const amountToken = reactRedux.useSelector(
         slices.userSlice.selectors.amountToken,
     )
+
     const metamaskSdk = metamaskSdkReact.useSDK()
+    const formatWallet = React.useCallback(
+        address => address && `${address.slice(0, 4)}...${address.slice(-4)}`,
+        [],
+    )
+
     const onWalletClick = React.useCallback(() => {
         const f = async () => {
             try {
-                await navigator.clipboard.writeText(metamaskSdk.account);
+                await navigator.clipboard.writeText(account);
                 components.toast.showText('Wallet address copied to clipboard');
             } catch (err) {
                 console.error(err)
@@ -32,55 +39,117 @@ const Header = () => {
         }
         f()
     }, [])
-    const formatWallet = React.useCallback(
-        address => `${address.slice(0, 4)}...${address.slice(-4)}`,
-        [],
-    )
-    const active = (metamaskSdk.account || '').length > 0
+
+    const onDisconnect = React.useCallback(() => {
+        const f = async () => {
+            try {
+                await metamaskSdk.sdk?.disconnect()
+                setAccount('')
+                components.toast.showText('Metasmask wallet disconnected')
+            } catch (err) {
+                console.error(err)
+                components.toast.showText('Error on disconnect metamask wallet')
+            }
+        }
+        f()
+    }, [])
+
     return (
-        <div
-            className={classnames('container', '_fCC', '_fCol', styles.header__box)}
-        >
-            <div className={styles.header__logo__box}>
-                <video
-                    width={300} height={300}
-                    style={{
-                        position: 'relative',
-                        zIndex: -1,
-                        margin: '-100px 0',
-                        opacity: active ? 1 : 0.5,
-                    }}
-                    autoPlay loop muted
-                >
-                    <source src={active ? '/assets/hax-idle.mp4' : '/assets/hax-sleeping.mp4'} type="video/mp4"/>
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+        <div className={classnames('container', '_fCC', '_fCol', styles.header__box)}>
+            <components.AnimatedVideo
+                key={account}
+                width={180} height={140}
+                src={account ? '/assets/hax-idle.mp4' : '/assets/hax-sleeping.mp4'}
+            />
             <div className={classnames('_fCC', styles.header__balance__box)}>
-                <components.svg.Polygon addShadow={!active}/>
+                <components.svg.Polygon addShadow={!account}/>
                 <p className={classnames('_w7003238', styles.header__balance__text)}>
-                    {lib.formatPxl(amountToken)}
+                    {lib.formatPxlInt(amountToken)} HAX
                 </p>
             </div>
-            {active ? (
-                <button
-                    className={classnames('_g4001821', styles.header__wallet)}
-                    onClick={onWalletClick}
-                >
-                    {formatWallet(metamaskSdk.account)}
-                </button>
+            {account ? (
+                <>
+                    <button
+                      className={classnames('_g4001316', styles.header__wallet)}
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                        <components.svg.Wallet width={16} height={16} color="#999999"/>
+                        {formatWallet(account)}
+                        <components.svg.Chevron width={8} height={8} color="#999999"/>
+                    </button>
+                    <ModalWallet
+                      formattedWallet={formatWallet(account)}
+                      isOpen={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      onDisconnect={() => {
+                          onDisconnect()
+                          setIsModalOpen(false)
+                      }}
+                      onWalletClick={onWalletClick}
+                    />
+                </>
             ) : null}
         </div>
     )
 }
 
+const ModalWallet = ({
+    formattedWallet,
+    isOpen,
+    onClose,
+    onDisconnect,
+    onWalletClick,
+}) => {
+    return (
+      <components.CenteredModal
+        title="Wallet"
+        isOpen={isOpen}
+        onRequestClose={onClose}
+      >
+          <div className="_fCC" style={{ margin: '30px auto', cursor: 'pointer' }} onClick={onWalletClick}>
+              <div style={{ margin: '0 15px 3px 0' }}>
+                  <components.svg.Wallet
+                    width={38}
+                    height={38}
+                    color="rgba(153,153,153,.2"
+                  />
+              </div>
+              <div>
+                  <div className="_w5001816">{formattedWallet}</div>
+                    <div style={{height: '2px'}}/>
+                    <div className="_g4001416">Connected ETH wallet</div>
+                </div>
+            </div>
+            <button
+                className={classnames(
+                    styles.modal_wallet__button,
+                    styles.modal_wallet__button__white,
+                )}
+                onClick={onDisconnect}
+            >
+                Disconnect
+            </button>
+            <div style={{ height: '10px' }}/>
+            <button
+                className={classnames(
+                    styles.modal_wallet__button,
+                    styles.modal_wallet__button__transparent,
+                )}
+                onClick={onClose}
+            >
+                Close
+            </button>
+        </components.CenteredModal>
+    )
+}
+
 const ModalRewardCard = ({
-                             icon,
-                             iconBoxStyle = {},
-                             leftTitle,
-                             leftText,
-                             priceStr,
-                         }) => (
+    icon,
+    iconBoxStyle = {},
+    leftTitle,
+    leftText,
+    priceStr,
+}) => (
     <div
         className="_fCC _w100"
         style={{
@@ -122,9 +191,6 @@ const ModalRewardCard = ({
 )
 
 const ModalRewardContent = ({onClickClose}) => {
-    // TODO: add fireworks https://t.me/c/2228668200/1/4
-    const refBackground = React.useRef(null)
-    const refBox = React.useRef(null)
     const homePage = reactRedux.useSelector(
         slices.homePageSlice.selectors.homePage,
     )
@@ -132,21 +198,6 @@ const ModalRewardContent = ({onClickClose}) => {
         const url = homePage.registerData.storyMediaUrl
         const text = homePage.registerData.storyMediaText
         WebApp.shareToStory(url, {text})
-    }, [])
-    const onClickCloseInt = React.useCallback(() => {
-        const f = async () => {
-            refBackground.current.classList.remove(
-                styles.modal_reward__background_active,
-            )
-            refBox.current.classList.remove(styles.modal_reward__box_active)
-            await new Promise(r => setTimeout(r, 500))
-            onClickClose()
-        }
-        f()
-    }, [])
-    React.useEffect(() => {
-        refBackground.current.classList.add(styles.modal_reward__background_active)
-        refBox.current.classList.add(styles.modal_reward__box_active)
     }, [])
     const classesShareButton = classnames(
         '_fCC _dark7001722',
@@ -156,66 +207,57 @@ const ModalRewardContent = ({onClickClose}) => {
         (homePage?.registerData?.rewardForBalance ?? 0) +
         (homePage?.registerData?.rewardForTxCount ?? 0)
     return (
-        <>
-            <div
-                className={classnames('_abs_mid', styles.modal_reward__background)}
-                ref={refBackground}
+        <div className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}>
+            <components.AnimatedVideo
+              width={300} height={300}
+              src="/assets/hax-idle.mp4"
             />
-            <div
-              className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}
-              ref={refBox}
-            >
-                <video width={300} height={300} style={{ margin: '-100px 0' }} autoPlay loop muted>
-                    <source src="/assets/hax-idle.mp4" type="video/mp4"/>
-                    Your browser does not support the video tag.
-                </video>
-                <h2 className="_g7003041" style={{ margin: '34px auto 3px' }}>
-                    Your reward:
-                </h2>
-                <div className="_fCC" style={{ marginBottom: '50px' }}>
-                    <components.svg.Polygon width={46} height={46}/>
-                    <div style={{ width: '15px' }}/>
-                    <p className="_w7004641">{rewardAmount} HAX</p>
-                </div>
-                <ModalRewardCard
-                  icon={<components.svg.Eth width={11.25} height={18}/>}
-                  leftTitle="ETH balance"
-                  leftText={homePage?.forRegisterBody?.balance?.slice(0, 9)}
-                  priceStr={lib.formatPxlInt(
-                    homePage?.registerData?.rewardForBalance ?? 0,
-                  )}
-                />
-                <ModalRewardCard
-                  icon={<components.svg.Arrows width={28} height={28}/>}
-                  iconBoxStyle={{ background: '#A2A2A2' }}
-                  leftTitle="Transaction count"
-                  leftText={homePage?.forRegisterBody?.txCount ?? 0}
-                  priceStr={lib.formatPxlInt(
-                    homePage?.registerData?.rewardForTxCount ?? 0,
-                  )}
-                />
-                <div className="_fCC _fCol" style={{}}>
-                    <button
-                      className={classesShareButton}
-                      style={{ width: '270px' }}
-                      onClick={onClickShareStory}
-                    >
-                        Share to stories
-                    </button>
-                    <button
-                      className="_g4001824 _op60"
-                      style={{ marginTop: '15px' }}
-                      onClick={onClickCloseInt}
-                    >
-                        Later
-                    </button>
-                </div>
+            <h2 className="_g7003041" style={{ margin: '34px auto 3px' }}>
+                Your reward:
+            </h2>
+            <div className="_fCC" style={{ marginBottom: '50px' }}>
+                <components.svg.Polygon width={46} height={46}/>
+                <div style={{ width: '15px' }}/>
+                <p className="_w7004641">{rewardAmount} HAX</p>
             </div>
-        </>
+            <ModalRewardCard
+              icon={<components.svg.Eth width={11.25} height={18}/>}
+              leftTitle="ETH balance"
+              leftText={homePage?.forRegisterBody?.balance?.slice(0, 9)}
+              priceStr={lib.formatPxlInt(
+                homePage?.registerData?.rewardForBalance ?? 0,
+              )}
+            />
+            <ModalRewardCard
+              icon={<components.svg.Arrows width={28} height={28}/>}
+              iconBoxStyle={{ background: '#A2A2A2' }}
+              leftTitle="Transaction count"
+              leftText={homePage?.forRegisterBody?.txCount ?? 0}
+              priceStr={lib.formatPxlInt(
+                homePage?.registerData?.rewardForTxCount ?? 0,
+              )}
+            />
+            <div className="_fCC _fCol" style={{}}>
+                <button
+                  className={classesShareButton}
+                  style={{ width: '270px' }}
+                  onClick={onClickShareStory}
+                >
+                    Share to stories
+                </button>
+                <button
+                  className="_g4001824 _op60"
+                  style={{ marginTop: '15px' }}
+                  onClick={onClickClose}
+                >
+                    Later
+                </button>
+            </div>
+        </div>
     )
 }
 
-const WalletConnect = () => {
+const WalletConnect = ({ account, setAccount }) => {
     // NOTE: firework implementation https://codepen.io/Bert-Beckwith/pen/QWXNOeq?editors=0010
     // TODO: wallet-connect sdk connect
     // TODO: workout metamask sdk connect
@@ -223,15 +265,17 @@ const WalletConnect = () => {
     // TODO: workout rabby wallet connect
     // TODO: set up way to collect (errors, analytics, logs-disables-in-prod)
     // TODO: how duck app do metamask connect with some url
+    const [isOpen, setIsOpen] = React.useState(false)
+
     const dispatch = reactRedux.useDispatch()
     const metamaskSdk = metamaskSdkReact.useSDK()
-    const [connectionTryHappened, setConnectionTryHappened] =
-        React.useState(false)
     const onClickConnect = React.useCallback(() => {
         const f = async () => {
             try {
-                setConnectionTryHappened(true)
                 await metamaskSdk.sdk?.connect()
+                setAccount(metamaskSdk.account)
+                dispatch(slices.homePageSlice.thunks.registerWallet({address: account}))
+                setIsOpen(false)
                 components.toast.showText('Metasmask wallet connected')
             } catch (err) {
                 console.error(err)
@@ -242,75 +286,104 @@ const WalletConnect = () => {
         }
         f()
     }, [])
-    React.useEffect(() => {
-        if (metamaskSdk.account === undefined) {
-            return
-        }
-        if (connectionTryHappened) {
-            const address = metamaskSdk.account
-            dispatch(slices.homePageSlice.thunks.registerWallet({address}))
-        }
-    }, [metamaskSdk.account])
-    const active = (metamaskSdk.account || '').length > 0
-    if (active) {
-        return null
-    }
+
+    if (account) return null
+
     const classesConnectButton = classnames(
         '_fCC _dark7001722',
         styles.wallet_connect__button,
     )
     return (
-        <div className="container _w100 _f _fCC _fCol">
-            <p className="_g4001722 _f _fCC _ta_center">
-                Connect wallet to get extra
-                <span style={{width: '3px'}}/>
-                <components.svg.Polygon width={15} height={15} grey/>
-                <span style={{width: '3px'}}/>
-                HAX
-            </p>
-            <button className={classesConnectButton} onClick={onClickConnect}>
-                Connect wallet
-                <span style={{width: '10px'}}/>
-                <components.svg.Metamask width={30} height={30}/>
-            </button>
-        </div>
+      <div className="container _w100 _f _fCC _fCol">
+          <p className="_g4001722 _f _fCC _ta_center">
+              Connect wallet to get extra
+              <span style={{ padding: '0 3px' }}>⬢</span>
+              <span className="_g7001722">HAX</span>
+          </p>
+          <button className={classesConnectButton} onClick={() => setIsOpen(true)}>
+              <components.svg.Wallet width={16} height={16} color="#1A270F"/>
+              <span style={{ width: '6px' }}/>
+              Connect wallet
+          </button>
+
+          <components.CenteredModal
+            title="Wallet"
+            isOpen={isOpen}
+            onRequestClose={() => setIsOpen(false)}
+          >
+            <div style={{padding: '40px 0'}}>
+              <button
+                className={classnames(
+                  '_fCB',
+                  styles.wallet_connect__modal__button,
+                  styles.wallet_connect__modal__button__active,
+                )}
+                onClick={onClickConnect}
+              >
+                <div className="_fC" style={{marginLeft: '10px'}}>
+                  <img src="/assets/metamask-fox.png" height={30} width={30} alt="MetaMask Fox"/>
+                  <span className="_w7001722" style={{marginLeft: '10px'}}>Metamask</span>
+                </div>
+
+                <div style={{transform: 'rotate(-90deg)'}}>
+                  <components.svg.Chevron width={16} height={16} color="#AAAAAA"/>
+                </div>
+              </button>
+              <div style={{ height: '10px' }}/>
+              <button
+                className={classnames(
+                  '_fCB',
+                  styles.wallet_connect__modal__button,
+                  styles.wallet_connect__modal__button__coming_soon,
+                )}
+              >
+                <div className="_fC" style={{marginLeft: '10px', opacity: .2}}>
+                  <img src="/assets/ton-connect.png" height={30} width={30} alt="TON Connect"/>
+                  <span className="_g7001722" style={{ marginLeft: '10px' }}>TON Connect</span>
+                </div>
+
+                <div className={classnames('_g4001316', styles.wallet_connect__modal__coming_soon_label)}>Coming soon</div>
+              </button>
+            </div>
+          </components.CenteredModal>
+      </div>
     )
 }
 
 const SpinsV2Header = () => {
-    const dispatch = reactRedux.useDispatch()
-    const amountKeys = reactRedux.useSelector(
-        slices.userSlice.selectors.amountKeys,
+  const dispatch = reactRedux.useDispatch()
+  const amountKeys = reactRedux.useSelector(
+    slices.userSlice.selectors.amountKeys,
+  )
+  const classesKeysAmountBox = classnames(
+    '_f _fCC',
+    styles.spins_v2__keys__amount_box,
+  )
+  const classesKeysAmountBoxTitle = classnames({
+    _g7001521: amountKeys === 0,
+    _gold7001521: amountKeys > 0,
+  })
+  const classesKeysAmountBoxButton = classnames(
+      '_d7001316',
+      styles.spins_v2__keys__button,
     )
-    const classesKeysAmountBox = classnames(
-        '_f _fCC',
-        styles.spins_v2__keys__amount_box,
-    )
-    const classesKeysAmountBoxTitle = classnames({
-        _g7001521: amountKeys === 0,
-        _gold7001521: amountKeys > 0,
-    })
-    const classesKeysAmountBoxButton = classnames(
-        '_d4001520 _op95',
-        styles.spins_v2__keys__button,
-    )
-    const {dur} = hooks.useDurHook(() =>
-        reactRedux.useSelector(slices.userSlice.selectors.claimKeyExpireAt),
+    const { dur } = hooks.useDurHook(() =>
+      reactRedux.useSelector(slices.userSlice.selectors.claimKeyExpireAt),
     )
     const progressClaim = parseInt((dur / (6 * 60 * 60 * 1000)) * 100, 10)
     return (
-        <div className="_f _fCB _w100">
-            <div className={classnames('_f _fCC', styles.spins_v2__keys__box)}>
-                <p className="_w4001520 _op80 _tw_nowrap">Your keys:</p>
-                <span style={{width: '5px'}}/>
-                <div className={classesKeysAmountBox}>
-                    <components.svg.Key width={14} height={14} grey={amountKeys === 0}/>
-                    <span style={{width: '4px'}}/>
-                    <p className={classesKeysAmountBoxTitle}>{amountKeys}</p>
-                </div>
-            </div>
-            {dur > 0 ? (
-                <div className="_f _fCC">
+      <div className="_f _fCB _w100">
+          <div className={classnames('_f _fCC', styles.spins_v2__keys__box)}>
+              <p className="_w4001520 _op80 _tw_nowrap">Your keys:</p>
+              <span style={{ width: '5px' }}/>
+              <div className={classesKeysAmountBox}>
+                  <components.svg.Key width={14} height={14} grey={amountKeys === 0}/>
+                  <span style={{ width: '4px' }}/>
+                  <p className={classesKeysAmountBoxTitle}>{amountKeys}</p>
+              </div>
+          </div>
+          {dur > 0 ? (
+            <div className="_f _fCC">
                     <p className="_w4001520">{lib.formatMillis(dur)}</p>
                     <span style={{width: '5px'}}/>
                     <div style={{width: '23px'}}>
@@ -568,6 +641,9 @@ const ModalOnboardingContent = ({onClickGotIt, onClickLater}) => {
     React.useEffect(() => {
         requestAnimationFrame(() =>
             requestAnimationFrame(() => {
+                if (refBackground.current === null || refT.current === null) {
+                    return
+                }
                 refBackground.current.style.opacity = '1'
                 refT.current.style.transform = 'translateY(0)'
             }),
@@ -578,6 +654,9 @@ const ModalOnboardingContent = ({onClickGotIt, onClickLater}) => {
             onClickGotIt()
             requestAnimationFrame(() =>
                 requestAnimationFrame(() => {
+                    if (refBackground.current === null || refT.current === null) {
+                        return
+                    }
                     refBackground.current.style.opacity = '0'
                     refT.current.style.transform = 'translateY(100%)'
                 }),
@@ -590,6 +669,9 @@ const ModalOnboardingContent = ({onClickGotIt, onClickLater}) => {
         onClickLater()
         requestAnimationFrame(() =>
             requestAnimationFrame(() => {
+                if (refBackground.current === null || refT.current === null) {
+                    return
+                }
                 refBackground.current.style.opacity = '0'
                 refT.current.style.transform = 'translateY(100%)'
             }),
@@ -697,6 +779,13 @@ const ModalOnboardingContent = ({onClickGotIt, onClickLater}) => {
 }
 
 export const Home = () => {
+    const metamaskSdk = metamaskSdkReact.useSDK()
+    const [account, setAccount] = React.useState('')
+
+    React.useEffect(() => {
+        setAccount(metamaskSdk.account)
+    }, [])
+
     const dispatch = reactRedux.useDispatch()
     const user = reactRedux.useSelector(slices.userSlice.selectors.user)
     const homePage = reactRedux.useSelector(
@@ -728,8 +817,8 @@ export const Home = () => {
                     className="_fCC _fCol"
                     style={{height: '100%', paddingBottom: '130px'}}
                 >
-                    <Header/>
-                    <WalletConnect/>
+                    <Header account={account} setAccount={setAccount}/>
+                    <WalletConnect account={account} setAccount={setAccount}/>
                     <SpinsV2/>
                 </div>
                 <Modal

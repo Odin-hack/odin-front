@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classnames from 'classnames'
 
-export const Home = ({opacity = 1, width, height}) => (
+export const Home = ({ opacity = 1, width, height }) => (
   <svg
     width="33"
     height="33"
@@ -9,11 +9,11 @@ export const Home = ({opacity = 1, width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <g clipPath="url(#clip0_10_29)" style={{opacity}}>
+    <g clipPath="url(#clip0_10_29)" style={{ opacity }}>
       <path
         d="M30 15V12H27V9H24V6H21V3H18V0H15V3H12V6H9V9H6V12H3V15H0V18V21H3V18H6V15H9V12H12V9H15V6H18V9H21V12H24V15H27V18H30V21H33V18V15H30Z"
         fill="white"
@@ -22,7 +22,7 @@ export const Home = ({opacity = 1, width, height}) => (
         d="M21 18V15H18V12H15V15H12V18H9V21H12H15H18H21H24V18H21Z"
         fill="white"
       />
-      <path d="M6 24H3V27V30H6V33H9H12V30V27V24H9V21H6V24Z" fill="white" />
+      <path d="M6 24H3V27V30H6V33H9H12V30V27V24H9V21H6V24Z" fill="white"/>
       <path
         d="M27 21H24V24H21V27V30V33H24H27V30H30V27V24H27V21Z"
         fill="white"
@@ -30,13 +30,13 @@ export const Home = ({opacity = 1, width, height}) => (
     </g>
     <defs>
       <clipPath id="clip0_10_29">
-        <rect width="33" height="33" fill="white" />
+        <rect width="33" height="33" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Leaderboard = ({opacity = 1, width, height}) => (
+export const Leaderboard = ({ opacity = 1, width, height }) => (
   <svg
     width="33"
     height="33"
@@ -44,11 +44,11 @@ export const Leaderboard = ({opacity = 1, width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <g clipPath="url(#clip0_10_34)" style={{opacity}}>
+    <g clipPath="url(#clip0_10_34)" style={{ opacity }}>
       <path
         d="M24 3H21H18V0H15V3H12H9V6H12V9V12H15V9H18V12H21V9V6H24V3Z"
         fill="white"
@@ -57,18 +57,18 @@ export const Leaderboard = ({opacity = 1, width, height}) => (
         d="M15 15H12V18V21V24V27V30V33H15H18H21V30V27V24V21V18V15H18H15Z"
         fill="white"
       />
-      <path d="M3 21H0V24V27V30V33H3H6H9V30V27V24V21H6H3Z" fill="white" />
-      <path d="M30 24H27H24V27V30V33H27H30H33V30V27V24H30Z" fill="white" />
+      <path d="M3 21H0V24V27V30V33H3H6H9V30V27V24V21H6H3Z" fill="white"/>
+      <path d="M30 24H27H24V27V30V33H27H30H33V30V27V24H30Z" fill="white"/>
     </g>
     <defs>
       <clipPath id="clip0_10_34">
-        <rect width="33" height="33" fill="white" />
+        <rect width="33" height="33" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Tasks = ({opacity = 1, width, height}) => (
+export const Tasks = ({ opacity = 1, width, height }) => (
   <svg
     width="30"
     height="24"
@@ -76,22 +76,22 @@ export const Tasks = ({opacity = 1, width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <g clipPath="url(#clip0_10_39)" style={{opacity}}>
-      <path d="M0 0V3V6H3H6V3V0H3H0Z" fill="white" />
+    <g clipPath="url(#clip0_10_39)" style={{ opacity }}>
+      <path d="M0 0V3V6H3H6V3V0H3H0Z" fill="white"/>
       <path
         d="M27 0H24H21H18H15H12H9V3V6H12H15H18H21H24H27H30V3V0H27Z"
         fill="white"
       />
-      <path d="M0 9V12V15H3H6V12V9H3H0Z" fill="white" />
+      <path d="M0 9V12V15H3H6V12V9H3H0Z" fill="white"/>
       <path
         d="M24 9H21H18H15H12H9V12V15H12H15H18H21H24H27H30V12V9H27H24Z"
         fill="white"
       />
-      <path d="M0 18V21V24H3H6V21V18H3H0Z" fill="white" />
+      <path d="M0 18V21V24H3H6V21V18H3H0Z" fill="white"/>
       <path
         d="M24 18H21H18H15H12H9V21V24H12H15H18H21H24H27H30V21V18H27H24Z"
         fill="white"
@@ -99,13 +99,13 @@ export const Tasks = ({opacity = 1, width, height}) => (
     </g>
     <defs>
       <clipPath id="clip0_10_39">
-        <rect width="30" height="24" fill="white" />
+        <rect width="30" height="24" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Friends = ({opacity = 1, width, height}) => (
+export const Friends = ({ opacity = 1, width, height }) => (
   <svg
     width="33"
     height="33"
@@ -113,11 +113,11 @@ export const Friends = ({opacity = 1, width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <g clipPath="url(#clip0_10_46)" style={{opacity}}>
+    <g clipPath="url(#clip0_10_46)" style={{ opacity }}>
       <path
         d="M30 21V24V27H27V30H24H21H18H15H12H9H6V27H3V24V21H0V24V27V30V33H3H6H9H12H15H18H21H24H27H30H33V30V27V24V21H30Z"
         fill="white"
@@ -129,18 +129,18 @@ export const Friends = ({opacity = 1, width, height}) => (
     </g>
     <defs>
       <clipPath id="clip0_10_46">
-        <rect width="33" height="33" fill="white" />
+        <rect width="33" height="33" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Polygon = ({addShadow, width, height, className, grey}) => (
+export const Polygon = ({ addShadow, width, height, className, grey }) => (
   <span
     style={{
       position: 'relative',
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <span
@@ -148,11 +148,11 @@ export const Polygon = ({addShadow, width, height, className, grey}) => (
       style={
         addShadow
           ? {
-              zIndex: 5,
-              width: '18px',
-              height: '18px',
-              boxShadow: '0px 0px 26px rgba(188, 255, 47, 0.4)',
-            }
+            zIndex: 5,
+            width: '18px',
+            height: '18px',
+            boxShadow: '0px 0px 26px rgba(188, 255, 47, 0.4)',
+          }
           : {}
       }
     />
@@ -163,9 +163,9 @@ export const Polygon = ({addShadow, width, height, className, grey}) => (
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{
-        ...(width ? {width: `${width}px`} : {}),
-        ...(height ? {height: `${height}px`} : {}),
-        ...(grey ? {filter: `grayscale(1)`} : {}),
+        ...(width ? { width: `${width}px` } : {}),
+        ...(height ? { height: `${height}px` } : {}),
+        ...(grey ? { filter: `grayscale(1)` } : {}),
         position: 'relative',
         zIndex: 10,
       }}
@@ -173,14 +173,14 @@ export const Polygon = ({addShadow, width, height, className, grey}) => (
     >
       <mask
         id="mask0_14_8"
-        style={{maskType: 'alpha'}}
+        style={{ maskType: 'alpha' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="26"
         height="27"
       >
-        <rect width="26" height="27" fill="#D9D9D9" />
+        <rect width="26" height="27" fill="#D9D9D9"/>
       </mask>
       <g mask="url(#mask0_14_8)">
         <path
@@ -202,14 +202,14 @@ export const Clock = () => (
   >
     <mask
       id="mask0_29_46"
-      style={{maskType: 'alpha'}}
+      style={{ maskType: 'alpha' }}
       maskUnits="userSpaceOnUse"
       x="0"
       y="0"
       width="17"
       height="17"
     >
-      <rect width="17" height="17" fill="#D9D9D9" />
+      <rect width="17" height="17" fill="#D9D9D9"/>
     </mask>
     <g mask="url(#mask0_29_46)">
       <path
@@ -230,17 +230,17 @@ export const Dots = () => (
   >
     <mask
       id="mask0_29_42"
-      style={{maskType: 'alpha'}}
+      style={{ maskType: 'alpha' }}
       maskUnits="userSpaceOnUse"
       x="0"
       y="0"
       width="16"
       height="16"
     >
-      <rect width="16" height="16" fill="#D9D9D9" />
+      <rect width="16" height="16" fill="#D9D9D9"/>
     </mask>
     <g mask="url(#mask0_29_42)">
-      <circle cx="8" cy="8" r="7.5" stroke="#5E5E5E" />
+      <circle cx="8" cy="8" r="7.5" stroke="#5E5E5E"/>
       <path
         d="M4.13281 9.12305C3.57031 9.12305 3.13086 8.68359 3.13086 8.12109C3.13086 7.55859 3.57031 7.11914 4.13281 7.11914C4.69531 7.11914 5.13477 7.55859 5.13477 8.12109C5.13477 8.68359 4.69531 9.12305 4.13281 9.12305ZM8 9.12305C7.4375 9.12305 6.99805 8.68359 6.99805 8.12109C6.99805 7.55859 7.4375 7.11914 8 7.11914C8.5625 7.11914 9.00195 7.55859 9.00195 8.12109C9.00195 8.68359 8.5625 9.12305 8 9.12305ZM11.8672 9.12305C11.3047 9.12305 10.8652 8.68359 10.8652 8.12109C10.8652 7.55859 11.3047 7.11914 11.8672 7.11914C12.4297 7.11914 12.8691 7.55859 12.8691 8.12109C12.8691 8.68359 12.4297 9.12305 11.8672 9.12305Z"
         fill="#5E5E5E"
@@ -249,7 +249,7 @@ export const Dots = () => (
   </svg>
 )
 
-export const Plus = ({className}) => (
+export const Plus = ({ className }) => (
   <svg
     width="24"
     height="24"
@@ -284,7 +284,7 @@ export const Copy = () => (
   </svg>
 )
 
-export const Copy2 = ({width, height, fill = 'white'}) => (
+export const Copy2 = ({ width, height, fill = 'white' }) => (
   <svg
     width="24"
     height="24"
@@ -292,8 +292,8 @@ export const Copy2 = ({width, height, fill = 'white'}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <path
@@ -305,7 +305,7 @@ export const Copy2 = ({width, height, fill = 'white'}) => (
   </svg>
 )
 
-export const Arrow = ({width, height, className}) => (
+export const Arrow = ({ width, height, className }) => (
   <svg
     width="12"
     height="22"
@@ -313,8 +313,8 @@ export const Arrow = ({width, height, className}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
@@ -328,7 +328,7 @@ export const Arrow = ({width, height, className}) => (
   </svg>
 )
 
-export const ArrowV2 = ({width, height}) => (
+export const ArrowV2 = ({ width, height }) => (
   <svg
     width="16"
     height="16"
@@ -336,8 +336,8 @@ export const ArrowV2 = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <path
@@ -350,7 +350,7 @@ export const ArrowV2 = ({width, height}) => (
   </svg>
 )
 
-export const Spinner = ({width, height, className, stroke = '#5D5D5D'}) => (
+export const Spinner = ({ width, height, className, stroke = '#5D5D5D' }) => (
   <svg
     width="22"
     height="22"
@@ -358,8 +358,8 @@ export const Spinner = ({width, height, className, stroke = '#5D5D5D'}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
@@ -371,7 +371,7 @@ export const Spinner = ({width, height, className, stroke = '#5D5D5D'}) => (
   </svg>
 )
 
-export const SpinnerV2 = ({width, height, className}) => (
+export const SpinnerV2 = ({ width, height, className }) => (
   <svg
     width="16"
     height="16"
@@ -379,8 +379,8 @@ export const SpinnerV2 = ({width, height, className}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={className}
   >
@@ -425,7 +425,7 @@ export const SpinnerV2 = ({width, height, className}) => (
   </svg>
 )
 
-export const Ok1 = ({width, height, className, stroke = '#BCFF2F'}) => (
+export const Ok1 = ({ width, height, className, stroke = '#BCFF2F' }) => (
   <svg
     width="19"
     height="14"
@@ -433,8 +433,8 @@ export const Ok1 = ({width, height, className, stroke = '#BCFF2F'}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
@@ -448,7 +448,7 @@ export const Ok1 = ({width, height, className, stroke = '#BCFF2F'}) => (
   </svg>
 )
 
-export const Ok2 = ({width, height, className, stroke = '#000'}) => (
+export const Ok2 = ({ width, height, className, stroke = '#000' }) => (
   <svg
     width="20"
     height="14"
@@ -456,8 +456,8 @@ export const Ok2 = ({width, height, className, stroke = '#000'}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
@@ -471,7 +471,7 @@ export const Ok2 = ({width, height, className, stroke = '#000'}) => (
   </svg>
 )
 
-export const Ok3 = ({width, height}) => (
+export const Ok3 = ({ width, height }) => (
   <svg
     width="49"
     height="26"
@@ -479,8 +479,8 @@ export const Ok3 = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <path
@@ -498,7 +498,7 @@ export const Ok3 = ({width, height}) => (
   </svg>
 )
 
-export const HighlightArrow = ({width, height, flipHorizontally}) => (
+export const HighlightArrow = ({ width, height, flipHorizontally }) => (
   <svg
     width="38"
     height="55"
@@ -506,9 +506,9 @@ export const HighlightArrow = ({width, height, flipHorizontally}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
-      ...(flipHorizontally ? {transform: 'rotateZ(180deg)'} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+      ...(flipHorizontally ? { transform: 'rotateZ(180deg)' } : {}),
     }}
   >
     <path
@@ -520,7 +520,7 @@ export const HighlightArrow = ({width, height, flipHorizontally}) => (
   </svg>
 )
 
-export const Gift = ({width, height, className, grey}) => (
+export const Gift = ({ width, height, className, grey }) => (
   <svg
     width="512"
     height="512"
@@ -528,23 +528,23 @@ export const Gift = ({width, height, className, grey}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
-      ...(grey ? {filter: `grayscale(1)`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+      ...(grey ? { filter: `grayscale(1)` } : {}),
     }}
     className={classnames(className)}
   >
     <g clipPath="url(#clip0_77_410)">
       <mask
         id="mask0_77_410"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_77_410)">
         <path
@@ -909,9 +909,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="205.137"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#B8700D" />
-        <stop offset="0.32" stopColor="#C0830F" />
-        <stop offset="1" stopColor="#C89510" />
+        <stop stopColor="#B8700D"/>
+        <stop offset="0.32" stopColor="#C0830F"/>
+        <stop offset="1" stopColor="#C89510"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_77_410"
@@ -921,9 +921,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="432.714"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#6C2304" />
-        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#6C2304" stopOpacity="0" />
+        <stop stopColor="#6C2304"/>
+        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#6C2304" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint2_linear_77_410"
@@ -933,9 +933,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="267.503"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#DB9818" />
-        <stop offset="0.38" stopColor="#DFA019" />
-        <stop offset="1" stopColor="#E4A91A" />
+        <stop stopColor="#DB9818"/>
+        <stop offset="0.38" stopColor="#DFA019"/>
+        <stop offset="1" stopColor="#E4A91A"/>
       </linearGradient>
       <linearGradient
         id="paint3_linear_77_410"
@@ -945,9 +945,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="428.112"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#6C2304" />
-        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#6C2304" stopOpacity="0" />
+        <stop stopColor="#6C2304"/>
+        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#6C2304" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint4_linear_77_410"
@@ -957,9 +957,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="147.209"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#B8700D" />
-        <stop offset="0.32" stopColor="#C0830F" />
-        <stop offset="1" stopColor="#C89510" />
+        <stop stopColor="#B8700D"/>
+        <stop offset="0.32" stopColor="#C0830F"/>
+        <stop offset="1" stopColor="#C89510"/>
       </linearGradient>
       <linearGradient
         id="paint5_linear_77_410"
@@ -969,9 +969,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="229.433"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#DB9818" />
-        <stop offset="0.38" stopColor="#DFA019" />
-        <stop offset="1" stopColor="#E4A91A" />
+        <stop stopColor="#DB9818"/>
+        <stop offset="0.38" stopColor="#DFA019"/>
+        <stop offset="1" stopColor="#E4A91A"/>
       </linearGradient>
       <linearGradient
         id="paint6_linear_77_410"
@@ -981,9 +981,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="229.433"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#DB9818" />
-        <stop offset="0.38" stopColor="#DFA019" />
-        <stop offset="1" stopColor="#E4A91A" />
+        <stop stopColor="#DB9818"/>
+        <stop offset="0.38" stopColor="#DFA019"/>
+        <stop offset="1" stopColor="#E4A91A"/>
       </linearGradient>
       <radialGradient
         id="paint7_radial_77_410"
@@ -993,9 +993,9 @@ export const Gift = ({width, height, className, grey}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(133.905 189.809) scale(109.828 109.828)"
       >
-        <stop stopColor="#FEFF20" />
-        <stop offset="0.63" stopColor="#FEFF20" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#FEFF20" stopOpacity="0" />
+        <stop stopColor="#FEFF20"/>
+        <stop offset="0.63" stopColor="#FEFF20" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#FEFF20" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint8_linear_77_410"
@@ -1005,9 +1005,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="202.891"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C89510" />
-        <stop offset="0.61" stopColor="#D29314" />
-        <stop offset="1" stopColor="#DB9118" />
+        <stop stopColor="#C89510"/>
+        <stop offset="0.61" stopColor="#D29314"/>
+        <stop offset="1" stopColor="#DB9118"/>
       </linearGradient>
       <radialGradient
         id="paint9_radial_77_410"
@@ -1017,9 +1017,9 @@ export const Gift = ({width, height, className, grey}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(227.905 202.803) scale(27.077 27.077)"
       >
-        <stop stopColor="#F7F85A" />
-        <stop offset="0.71" stopColor="#F7F85A" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#F7F85A" stopOpacity="0" />
+        <stop stopColor="#F7F85A"/>
+        <stop offset="0.71" stopColor="#F7F85A" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#F7F85A" stopOpacity="0"/>
       </radialGradient>
       <radialGradient
         id="paint10_radial_77_410"
@@ -1029,9 +1029,9 @@ export const Gift = ({width, height, className, grey}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(237.905 191.463) scale(37.033 37.033)"
       >
-        <stop stopColor="#F7310B" />
-        <stop offset="0.67" stopColor="#F7310B" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#F7310B" stopOpacity="0" />
+        <stop stopColor="#F7310B"/>
+        <stop offset="0.67" stopColor="#F7310B" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#F7310B" stopOpacity="0"/>
       </radialGradient>
       <radialGradient
         id="paint11_radial_77_410"
@@ -1041,9 +1041,9 @@ export const Gift = ({width, height, className, grey}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(292.905 148.809) scale(115.748 115.748)"
       >
-        <stop stopColor="#652F06" />
-        <stop offset="0.74" stopColor="#652F06" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#652F06" stopOpacity="0" />
+        <stop stopColor="#652F06"/>
+        <stop offset="0.74" stopColor="#652F06" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#652F06" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint12_linear_77_410"
@@ -1053,9 +1053,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="203.726"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#A21512" />
-        <stop offset="0.64" stopColor="#BA1717" />
-        <stop offset="1" stopColor="#D31A1D" />
+        <stop stopColor="#A21512"/>
+        <stop offset="0.64" stopColor="#BA1717"/>
+        <stop offset="1" stopColor="#D31A1D"/>
       </linearGradient>
       <linearGradient
         id="paint13_linear_77_410"
@@ -1065,9 +1065,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="165.209"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#491212" />
-        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#491212" stopOpacity="0" />
+        <stop stopColor="#491212"/>
+        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#491212" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint14_linear_77_410"
@@ -1077,11 +1077,11 @@ export const Gift = ({width, height, className, grey}) => (
         y2="396.197"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625" />
-        <stop offset="0.25" stopColor="#E53D3D" />
-        <stop offset="0.4" stopColor="#F55455" />
-        <stop offset="0.52" stopColor="#E53D3D" />
-        <stop offset="1" stopColor="#D62625" />
+        <stop stopColor="#D62625"/>
+        <stop offset="0.25" stopColor="#E53D3D"/>
+        <stop offset="0.4" stopColor="#F55455"/>
+        <stop offset="0.52" stopColor="#E53D3D"/>
+        <stop offset="1" stopColor="#D62625"/>
       </linearGradient>
       <linearGradient
         id="paint15_linear_77_410"
@@ -1091,9 +1091,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="194.714"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#491212" />
-        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#491212" stopOpacity="0" />
+        <stop stopColor="#491212"/>
+        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#491212" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint16_linear_77_410"
@@ -1103,9 +1103,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="147.804"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#491212" />
-        <stop offset="0.78" stopColor="#491212" stopOpacity="0.6" />
-        <stop offset="1" stopColor="#491212" stopOpacity="0.2" />
+        <stop stopColor="#491212"/>
+        <stop offset="0.78" stopColor="#491212" stopOpacity="0.6"/>
+        <stop offset="1" stopColor="#491212" stopOpacity="0.2"/>
       </linearGradient>
       <linearGradient
         id="paint17_linear_77_410"
@@ -1115,9 +1115,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="164.198"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#390A07" />
-        <stop offset="0.58" stopColor="#781E19" />
-        <stop offset="1" stopColor="#B7322B" />
+        <stop stopColor="#390A07"/>
+        <stop offset="0.58" stopColor="#781E19"/>
+        <stop offset="1" stopColor="#B7322B"/>
       </linearGradient>
       <linearGradient
         id="paint18_linear_77_410"
@@ -1127,9 +1127,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="77.6211"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.23" stopColor="#D62625" />
-        <stop offset="0.38" stopColor="#E53D3D" />
-        <stop offset="1" stopColor="#F55455" />
+        <stop offset="0.23" stopColor="#D62625"/>
+        <stop offset="0.38" stopColor="#E53D3D"/>
+        <stop offset="1" stopColor="#F55455"/>
       </linearGradient>
       <linearGradient
         id="paint19_linear_77_410"
@@ -1139,9 +1139,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="124.898"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625" />
-        <stop offset="0.39" stopColor="#D62625" stopOpacity="0.5" />
-        <stop offset="0.8" stopColor="#D62625" stopOpacity="0" />
+        <stop stopColor="#D62625"/>
+        <stop offset="0.39" stopColor="#D62625" stopOpacity="0.5"/>
+        <stop offset="0.8" stopColor="#D62625" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint20_linear_77_410"
@@ -1151,9 +1151,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="147.844"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73" />
-        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
+        <stop stopColor="#F97F73"/>
+        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint21_linear_77_410"
@@ -1163,9 +1163,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="95.95"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625" />
-        <stop offset="0.59" stopColor="#E53D3D" />
-        <stop offset="0.8" stopColor="#F55455" />
+        <stop stopColor="#D62625"/>
+        <stop offset="0.59" stopColor="#E53D3D"/>
+        <stop offset="0.8" stopColor="#F55455"/>
       </linearGradient>
       <linearGradient
         id="paint22_linear_77_410"
@@ -1175,9 +1175,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="135.962"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73" />
-        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
+        <stop stopColor="#F97F73"/>
+        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint23_linear_77_410"
@@ -1187,9 +1187,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="157.976"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#390A07" />
-        <stop offset="0.43" stopColor="#390A07" stopOpacity="0.8" />
-        <stop offset="1" stopColor="#390A07" stopOpacity="0.6" />
+        <stop stopColor="#390A07"/>
+        <stop offset="0.43" stopColor="#390A07" stopOpacity="0.8"/>
+        <stop offset="1" stopColor="#390A07" stopOpacity="0.6"/>
       </linearGradient>
       <linearGradient
         id="paint24_linear_77_410"
@@ -1199,9 +1199,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="83.35"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73" />
-        <stop offset="0.26" stopColor="#F97F73" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
+        <stop stopColor="#F97F73"/>
+        <stop offset="0.26" stopColor="#F97F73" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint25_linear_77_410"
@@ -1211,9 +1211,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="105.821"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625" />
-        <stop offset="0.29" stopColor="#E53D3D" />
-        <stop offset="1" stopColor="#F55455" />
+        <stop stopColor="#D62625"/>
+        <stop offset="0.29" stopColor="#E53D3D"/>
+        <stop offset="1" stopColor="#F55455"/>
       </linearGradient>
       <linearGradient
         id="paint26_linear_77_410"
@@ -1223,9 +1223,9 @@ export const Gift = ({width, height, className, grey}) => (
         y2="143.879"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#99130F" stopOpacity="0" />
-        <stop offset="0.56" stopColor="#99130F" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#99130F" />
+        <stop stopColor="#99130F" stopOpacity="0"/>
+        <stop offset="0.56" stopColor="#99130F" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#99130F"/>
       </linearGradient>
       <linearGradient
         id="paint27_linear_77_410"
@@ -1235,23 +1235,23 @@ export const Gift = ({width, height, className, grey}) => (
         y2="135.327"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73" />
-        <stop offset="0.63" stopColor="#F97F73" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
+        <stop stopColor="#F97F73"/>
+        <stop offset="0.63" stopColor="#F97F73" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
       </linearGradient>
       <clipPath id="clip0_77_410">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const GiftV2 = ({width, height, grey}) => (
+export const GiftV2 = ({ width, height, grey }) => (
   <svg
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
-      ...(grey ? {filter: `grayscale(1)`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+      ...(grey ? { filter: `grayscale(1)` } : {}),
     }}
     width="313"
     height="284"
@@ -1261,26 +1261,26 @@ export const GiftV2 = ({width, height, grey}) => (
   >
     <mask
       id="mask0_144_540"
-      style={{maskType: 'alpha'}}
+      style={{ maskType: 'alpha' }}
       maskUnits="userSpaceOnUse"
       x="0"
       y="0"
       width="313"
       height="284"
     >
-      <rect width="313" height="284" fill="#D9D9D9" />
+      <rect width="313" height="284" fill="#D9D9D9"/>
     </mask>
     <g mask="url(#mask0_144_540)">
       <mask
         id="mask1_144_540"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="-101"
         y="-216"
         width="512"
         height="512"
       >
-        <path d="M411 -216H-101V296H411V-216Z" fill="white" />
+        <path d="M411 -216H-101V296H411V-216Z" fill="white"/>
       </mask>
       <g mask="url(#mask1_144_540)">
         <path
@@ -1547,9 +1547,9 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="173.009"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#00B61F" />
-        <stop offset="0.5" stopColor="#2EB610" />
-        <stop offset="1" stopColor="#5CB600" />
+        <stop stopColor="#00B61F"/>
+        <stop offset="0.5" stopColor="#2EB610"/>
+        <stop offset="1" stopColor="#5CB600"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_144_540"
@@ -1559,9 +1559,9 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="83.845"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#00B61F" />
-        <stop offset="0.5" stopColor="#2EB610" />
-        <stop offset="1" stopColor="#5CB600" />
+        <stop stopColor="#00B61F"/>
+        <stop offset="0.5" stopColor="#2EB610"/>
+        <stop offset="1" stopColor="#5CB600"/>
       </linearGradient>
       <linearGradient
         id="paint2_linear_144_540"
@@ -1571,9 +1571,9 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="231.714"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFEC33" />
-        <stop offset="0.5" stopColor="#FDD11A" />
-        <stop offset="1" stopColor="#FBB500" />
+        <stop stopColor="#FFEC33"/>
+        <stop offset="0.5" stopColor="#FDD11A"/>
+        <stop offset="1" stopColor="#FBB500"/>
       </linearGradient>
       <linearGradient
         id="paint3_linear_144_540"
@@ -1583,9 +1583,9 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="177.362"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFEC33" />
-        <stop offset="0.5" stopColor="#FCC11A" />
-        <stop offset="1" stopColor="#FA9600" />
+        <stop stopColor="#FFEC33"/>
+        <stop offset="0.5" stopColor="#FCC11A"/>
+        <stop offset="1" stopColor="#FA9600"/>
       </linearGradient>
       <linearGradient
         id="paint4_linear_144_540"
@@ -1595,9 +1595,9 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="76.447"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFCE00" />
-        <stop offset="0.5" stopColor="#FFDD1A" />
-        <stop offset="1" stopColor="#FFEC33" />
+        <stop stopColor="#FFCE00"/>
+        <stop offset="0.5" stopColor="#FFDD1A"/>
+        <stop offset="1" stopColor="#FFEC33"/>
       </linearGradient>
       <linearGradient
         id="paint5_linear_144_540"
@@ -1607,9 +1607,9 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="72.171"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFCE00" />
-        <stop offset="0.4" stopColor="#FFDD1A" />
-        <stop offset="0.8" stopColor="#FFEC33" />
+        <stop stopColor="#FFCE00"/>
+        <stop offset="0.4" stopColor="#FFDD1A"/>
+        <stop offset="0.8" stopColor="#FFEC33"/>
       </linearGradient>
       <linearGradient
         id="paint6_linear_144_540"
@@ -1619,9 +1619,9 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="64.261"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F38B00" />
-        <stop offset="0.5" stopColor="#F9A911" />
-        <stop offset="1" stopColor="#FFC621" />
+        <stop stopColor="#F38B00"/>
+        <stop offset="0.5" stopColor="#F9A911"/>
+        <stop offset="1" stopColor="#FFC621"/>
       </linearGradient>
       <linearGradient
         id="paint7_linear_144_540"
@@ -1631,15 +1631,15 @@ export const GiftV2 = ({width, height, grey}) => (
         y2="77.033"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F38B00" />
-        <stop offset="0.5" stopColor="#F9A911" />
-        <stop offset="1" stopColor="#FFC621" />
+        <stop stopColor="#F38B00"/>
+        <stop offset="0.5" stopColor="#F9A911"/>
+        <stop offset="1" stopColor="#FFC621"/>
       </linearGradient>
     </defs>
   </svg>
 )
 
-export const Key = ({width, height, className, grey}) => (
+export const Key = ({ width, height, className, grey }) => (
   <svg
     width="512"
     height="512"
@@ -1647,23 +1647,23 @@ export const Key = ({width, height, className, grey}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`, minWidth: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
-      ...(grey ? {filter: `grayscale(1)`} : {}),
+      ...(width ? { width: `${width}px`, minWidth: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+      ...(grey ? { filter: `grayscale(1)` } : {}),
     }}
     className={classnames(className)}
   >
     <g clipPath="url(#clip0_78_546)">
       <mask
         id="mask0_78_546"
-        style={{masktype: 'luminance'}}
+        style={{ masktype: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_78_546)">
         <path
@@ -1845,11 +1845,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="376.589"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFF100" />
-        <stop offset="0.28" stopColor="#F3D50F" />
-        <stop offset="0.55" stopColor="#E6B91E" />
-        <stop offset="0.77" stopColor="#D1A120" />
-        <stop offset="1" stopColor="#BC8A23" />
+        <stop stopColor="#FFF100"/>
+        <stop offset="0.28" stopColor="#F3D50F"/>
+        <stop offset="0.55" stopColor="#E6B91E"/>
+        <stop offset="0.77" stopColor="#D1A120"/>
+        <stop offset="1" stopColor="#BC8A23"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_78_546"
@@ -1859,11 +1859,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="354.317"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401" />
-        <stop offset="0.2" stopColor="#A26905" />
-        <stop offset="0.4" stopColor="#7C4D09" />
-        <stop offset="0.7" stopColor="#BB9321" />
-        <stop offset="1" stopColor="#FADA39" />
+        <stop stopColor="#C88401"/>
+        <stop offset="0.2" stopColor="#A26905"/>
+        <stop offset="0.4" stopColor="#7C4D09"/>
+        <stop offset="0.7" stopColor="#BB9321"/>
+        <stop offset="1" stopColor="#FADA39"/>
       </linearGradient>
       <linearGradient
         id="paint2_linear_78_546"
@@ -1873,9 +1873,9 @@ export const Key = ({width, height, className, grey}) => (
         y2="347.2"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04" />
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
+        <stop stopColor="#5D2D04"/>
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint3_linear_78_546"
@@ -1885,9 +1885,9 @@ export const Key = ({width, height, className, grey}) => (
         y2="257.457"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.27" stopColor="#5D2D04" stopOpacity="0" />
-        <stop offset="0.63" stopColor="#5D2D04" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#5D2D04" />
+        <stop offset="0.27" stopColor="#5D2D04" stopOpacity="0"/>
+        <stop offset="0.63" stopColor="#5D2D04" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#5D2D04"/>
       </linearGradient>
       <linearGradient
         id="paint4_linear_78_546"
@@ -1897,9 +1897,9 @@ export const Key = ({width, height, className, grey}) => (
         y2="295.241"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04" stopOpacity="0" />
-        <stop offset="0.5" stopColor="#5D2D04" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#5D2D04" />
+        <stop stopColor="#5D2D04" stopOpacity="0"/>
+        <stop offset="0.5" stopColor="#5D2D04" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#5D2D04"/>
       </linearGradient>
       <linearGradient
         id="paint5_linear_78_546"
@@ -1909,11 +1909,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="363.373"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401" />
-        <stop offset="0.28" stopColor="#A26905" />
-        <stop offset="0.4" stopColor="#7C4D09" />
-        <stop offset="0.52" stopColor="#BD8E19" />
-        <stop offset="1" stopColor="#FFCF29" />
+        <stop stopColor="#C88401"/>
+        <stop offset="0.28" stopColor="#A26905"/>
+        <stop offset="0.4" stopColor="#7C4D09"/>
+        <stop offset="0.52" stopColor="#BD8E19"/>
+        <stop offset="1" stopColor="#FFCF29"/>
       </linearGradient>
       <linearGradient
         id="paint6_linear_78_546"
@@ -1923,9 +1923,9 @@ export const Key = ({width, height, className, grey}) => (
         y2="348.752"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04" />
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
+        <stop stopColor="#5D2D04"/>
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint7_linear_78_546"
@@ -1935,11 +1935,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="414.251"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401" />
-        <stop offset="0.28" stopColor="#A26905" />
-        <stop offset="0.4" stopColor="#7C4D09" />
-        <stop offset="0.52" stopColor="#BD8E19" />
-        <stop offset="1" stopColor="#FFCF29" />
+        <stop stopColor="#C88401"/>
+        <stop offset="0.28" stopColor="#A26905"/>
+        <stop offset="0.4" stopColor="#7C4D09"/>
+        <stop offset="0.52" stopColor="#BD8E19"/>
+        <stop offset="1" stopColor="#FFCF29"/>
       </linearGradient>
       <linearGradient
         id="paint8_linear_78_546"
@@ -1949,9 +1949,9 @@ export const Key = ({width, height, className, grey}) => (
         y2="398.454"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04" />
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
+        <stop stopColor="#5D2D04"/>
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint9_linear_78_546"
@@ -1961,11 +1961,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="458.078"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401" />
-        <stop offset="0.28" stopColor="#A26905" />
-        <stop offset="0.4" stopColor="#7C4D09" />
-        <stop offset="0.52" stopColor="#BD8E19" />
-        <stop offset="1" stopColor="#FFCF29" />
+        <stop stopColor="#C88401"/>
+        <stop offset="0.28" stopColor="#A26905"/>
+        <stop offset="0.4" stopColor="#7C4D09"/>
+        <stop offset="0.52" stopColor="#BD8E19"/>
+        <stop offset="1" stopColor="#FFCF29"/>
       </linearGradient>
       <linearGradient
         id="paint10_linear_78_546"
@@ -1975,9 +1975,9 @@ export const Key = ({width, height, className, grey}) => (
         y2="443.339"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04" />
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
+        <stop stopColor="#5D2D04"/>
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint11_linear_78_546"
@@ -1987,9 +1987,9 @@ export const Key = ({width, height, className, grey}) => (
         y2="285.616"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#9F3E01" />
-        <stop offset="0.5" stopColor="#8E4601" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#7C4F00" stopOpacity="0" />
+        <stop stopColor="#9F3E01"/>
+        <stop offset="0.5" stopColor="#8E4601" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#7C4F00" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint12_linear_78_546"
@@ -1999,11 +1999,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="375.773"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFF100" />
-        <stop offset="0.28" stopColor="#F3D50F" />
-        <stop offset="0.55" stopColor="#E6B91E" />
-        <stop offset="0.77" stopColor="#D1A120" />
-        <stop offset="1" stopColor="#BC8A23" />
+        <stop stopColor="#FFF100"/>
+        <stop offset="0.28" stopColor="#F3D50F"/>
+        <stop offset="0.55" stopColor="#E6B91E"/>
+        <stop offset="0.77" stopColor="#D1A120"/>
+        <stop offset="1" stopColor="#BC8A23"/>
       </linearGradient>
       <linearGradient
         id="paint13_linear_78_546"
@@ -2013,11 +2013,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="100.702"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FEFF5C" />
-        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7" />
-        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4" />
-        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7" />
-        <stop offset="1" stopColor="#E7B216" />
+        <stop stopColor="#FEFF5C"/>
+        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7"/>
+        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4"/>
+        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7"/>
+        <stop offset="1" stopColor="#E7B216"/>
       </linearGradient>
       <linearGradient
         id="paint14_linear_78_546"
@@ -2027,11 +2027,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="292.612"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#E6AE13" />
-        <stop offset="0.28" stopColor="#D89D17" />
-        <stop offset="0.55" stopColor="#CA8B1B" />
-        <stop offset="0.77" stopColor="#9C6813" />
-        <stop offset="1" stopColor="#6E440B" />
+        <stop stopColor="#E6AE13"/>
+        <stop offset="0.28" stopColor="#D89D17"/>
+        <stop offset="0.55" stopColor="#CA8B1B"/>
+        <stop offset="0.77" stopColor="#9C6813"/>
+        <stop offset="1" stopColor="#6E440B"/>
       </linearGradient>
       <linearGradient
         id="paint15_linear_78_546"
@@ -2041,11 +2041,11 @@ export const Key = ({width, height, className, grey}) => (
         y2="271.932"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FEFF5C" />
-        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7" />
-        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4" />
-        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7" />
-        <stop offset="1" stopColor="#E7B216" />
+        <stop stopColor="#FEFF5C"/>
+        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7"/>
+        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4"/>
+        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7"/>
+        <stop offset="1" stopColor="#E7B216"/>
       </linearGradient>
       <linearGradient
         id="paint16_linear_78_546"
@@ -2055,18 +2055,18 @@ export const Key = ({width, height, className, grey}) => (
         y2="184.042"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFFF68" />
-        <stop offset="0.5" stopColor="#FEF344" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#FEE620" stopOpacity="0" />
+        <stop stopColor="#FFFF68"/>
+        <stop offset="0.5" stopColor="#FEF344" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#FEE620" stopOpacity="0"/>
       </linearGradient>
       <clipPath id="clip0_78_546">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Cup = ({width, height}) => (
+export const Place1 = ({ width, height }) => (
   <svg
     width="512"
     height="512"
@@ -2074,695 +2074,21 @@ export const Cup = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`, minWidth: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
-    }}
-  >
-    <g clipPath="url(#clip0_80_30)">
-      <mask
-        id="mask0_80_30"
-        style={{maskType: 'luminance'}}
-        maskUnits="userSpaceOnUse"
-        x="0"
-        y="0"
-        width="512"
-        height="512"
-      >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
-      </mask>
-      <g mask="url(#mask0_80_30)">
-        <path
-          d="M390.905 448.62C390.905 448.62 380.696 434.909 375.349 431.787C374.662 431.386 374.056 431.16 373.562 431.16H251.735H129.909C125.566 431.16 121.545 433.451 119.332 437.189L112.564 448.62C111.854 449.819 111.48 451.187 111.48 452.58L111.436 461.793C112.69 469.039 123.527 468.413 124.73 468.413H378.74C379.942 468.413 391.73 469.005 391.94 462.368L391.99 452.58C391.99 451.187 391.616 449.819 390.905 448.62Z"
-          fill="url(#paint0_linear_80_30)"
-        />
-        <g opacity="0.5">
-          <path
-            d="M163.08 449.786L122.801 435.556L121.872 435.227L149.424 433.281L163.08 449.786Z"
-            fill="#550E00"
-          />
-        </g>
-        <g opacity="0.5">
-          <path
-            d="M111.623 450.359L122.988 454.71C122.988 454.71 125.948 455.671 126.684 455.674L377.235 456.579C378.145 456.582 379.045 456.388 379.871 456.007L391.99 450.43C391.99 450.43 391.987 457.863 391.846 462.374C391.118 467.769 384.591 468.173 380.57 468.27C379.811 468.288 379.14 468.296 378.616 468.324C375.312 468.5 127.856 468.682 124.73 468.42C115.411 467.637 111.815 465.762 111.613 462.091C111.531 460.593 111.48 455.761 111.48 455.761L111.511 454.589L111.623 450.359Z"
-            fill="#550E00"
-          />
-        </g>
-        <g opacity="0.5">
-          <path
-            d="M124.527 455.282C124.527 455.282 124.684 466.774 124.802 468.491C122.815 468.715 112.538 468.355 111.619 462.144C111.239 459.575 111.48 455.761 111.48 455.761V452.663V450.43L123.363 454.849L124.527 455.282Z"
-            fill="#550E00"
-          />
-        </g>
-        <path
-          d="M379.872 456.007L379.903 468.264C379.903 468.264 391.197 469.29 391.995 462.216C392.305 459.471 392.146 457.201 392.048 456.247C392.016 455.933 391.99 455.761 391.99 455.761V450.43L379.872 456.007Z"
-          fill="#BF6121"
-        />
-        <path
-          d="M390.905 448.62C390.905 448.62 380.696 434.909 375.349 431.787C374.662 431.386 374.056 431.16 373.562 431.16H251.735H129.909C125.566 431.16 121.545 433.451 119.332 437.189L112.564 448.62C111.854 449.819 111.48 451.187 111.48 452.58L111.436 461.793C112.69 469.039 123.527 468.413 124.73 468.413H378.74C379.942 468.413 391.73 469.005 391.94 462.368L391.99 452.58C391.99 451.187 391.616 449.819 390.905 448.62Z"
-          stroke="#550E00"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M355.606 373.292C355.561 367.83 351.123 363.432 345.663 363.432H159.419C153.959 363.432 149.52 367.83 149.475 373.292C149.345 389.217 149.497 420.51 149.547 429.788C149.556 431.487 150.266 433.097 151.508 434.257L162.679 444.687C163.796 445.729 165.267 446.309 166.795 446.309H338.287C339.815 446.309 341.287 445.729 342.403 444.687L353.575 434.257C354.817 433.097 355.525 431.487 355.534 429.788C355.566 423.822 355.641 408.757 355.655 394.525C355.663 386.622 355.652 378.977 355.606 373.292Z"
-          fill="url(#paint1_linear_80_30)"
-        />
-        <path
-          d="M355.606 373.292C355.561 367.83 351.123 363.432 345.663 363.432H159.419C153.959 363.432 149.52 367.83 149.475 373.292C149.345 389.217 149.497 420.51 149.547 429.788C149.556 431.487 150.266 433.097 151.508 434.257L162.679 444.687C163.796 445.729 165.267 446.309 166.795 446.309H338.287C339.815 446.309 341.287 445.729 342.403 444.687L353.575 434.257C354.817 433.097 355.525 431.487 355.534 429.788C355.566 423.822 355.641 408.757 355.655 394.525C355.663 386.622 355.652 378.977 355.606 373.292Z"
-          stroke="#550E00"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M355.537 429.788C355.526 431.486 354.817 433.099 353.57 434.26L342.404 444.687C341.286 445.729 339.814 446.31 338.288 446.31H337.041V391.896C337.041 390.294 335.741 388.994 334.14 388.994L355.601 373.289C355.665 380.564 355.666 391.045 355.644 401.167C355.619 413.21 355.561 424.748 355.537 429.788Z"
-          fill="#BF6121"
-        />
-        <path
-          d="M355.537 429.788C355.526 431.486 354.817 433.099 353.57 434.26L342.404 444.687C341.286 445.729 339.814 446.31 338.288 446.31H337.041V391.896C337.041 390.294 335.741 388.994 334.14 388.994L355.601 373.289C355.665 380.564 355.666 391.045 355.644 401.167C355.619 413.21 355.561 424.748 355.537 429.788Z"
-          stroke="#BF6E2C"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M169.624 388.994C168.023 388.994 166.723 390.294 166.723 391.896V446.31C165.218 446.288 163.778 445.708 162.682 444.687L156.111 433.58C154.875 432.419 149.56 431.486 149.549 429.788C149.495 420.511 149.345 389.219 149.474 373.289L169.624 388.994Z"
-          fill="#672600"
-        />
-        <path
-          d="M169.624 388.994C168.023 388.994 166.723 390.294 166.723 391.896V446.31C165.218 446.288 163.778 445.708 162.682 444.687L156.111 433.58C154.875 432.419 149.56 431.486 149.549 429.788C149.495 420.511 149.345 389.219 149.474 373.289L169.624 388.994Z"
-          stroke="#631F04"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M355.606 373.292C355.561 367.83 351.123 363.432 345.663 363.432H159.419C153.959 363.432 149.52 367.83 149.475 373.292C149.345 389.217 149.497 420.51 149.547 429.788C149.556 431.487 150.266 433.097 151.508 434.257L162.679 444.687C163.796 445.729 165.267 446.309 166.795 446.309H338.287C339.815 446.309 341.287 445.729 342.403 444.687L353.575 434.257C354.817 433.097 355.525 431.487 355.534 429.788C355.566 423.822 355.641 408.757 355.655 394.525C355.663 386.622 355.652 378.977 355.606 373.292Z"
-          stroke="#550E00"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M337.044 446.309H166.723V391.895C166.723 390.291 168.023 388.99 169.626 388.99H334.141C335.744 388.99 337.044 390.291 337.044 391.895V446.309Z"
-          fill="url(#paint2_linear_80_30)"
-        />
-        <path
-          d="M337.044 446.309H166.723V391.895C166.723 390.291 168.023 388.99 169.626 388.99H334.141C335.744 388.99 337.044 390.291 337.044 391.895V446.309Z"
-          stroke="#672600"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <g opacity="0.2">
-          <path
-            d="M337.04 391.892V403.168C337.04 401.566 335.74 400.265 334.138 400.265H169.623C168.022 400.265 166.722 401.566 166.722 403.168V391.892C166.722 390.29 168.022 388.989 169.623 388.989H334.138C335.74 388.989 337.04 390.29 337.04 391.892Z"
-            fill="#672600"
-          />
-        </g>
-        <path
-          d="M355.606 373.292C355.561 367.83 351.123 363.432 345.663 363.432H159.419C153.959 363.432 149.52 367.83 149.475 373.292C149.345 389.217 149.497 420.51 149.547 429.788C149.556 431.487 150.266 433.097 151.508 434.257L162.679 444.687C163.796 445.729 165.267 446.309 166.795 446.309H338.287C339.815 446.309 341.287 445.729 342.403 444.687L353.575 434.257C354.817 433.097 355.525 431.487 355.534 429.788C355.566 423.822 355.641 408.757 355.655 394.525C355.663 386.622 355.652 378.977 355.606 373.292Z"
-          stroke="#6B2100"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M149.475 373.292C149.345 389.217 149.497 420.51 149.547 429.788C149.556 431.487 150.266 433.097 151.508 434.256L162.679 444.687C163.796 445.729 165.267 446.309 166.795 446.309H338.287"
-          stroke="#470A00"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M337.044 446.309H166.723V391.895C166.723 390.291 168.023 388.99 169.626 388.99"
-          stroke="#470A00"
-          strokeWidth="8.5986"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M390.808 117.166C390.808 117.166 382.347 107.982 387.95 99.8851C393.998 91.1457 414.842 92.4857 422.212 104.666C429.581 116.846 424.455 135.436 401.382 153.065C378.31 170.695 361.995 180.924 352.702 194.707C343.409 208.489 352.037 221.181 365.171 221.311C375.703 221.414 380.553 215.247 380.553 215.247C380.553 215.247 367.027 216.366 367.094 207.555C367.152 200.121 388.72 191.933 412.598 176.144C427.055 166.585 456.82 145.638 456.82 116.525C456.82 91.83 436.205 70.6564 404.907 72.9063C373.609 75.1562 369.695 94.2678 370.619 102.422C371.882 113.558 385.04 120.692 390.808 117.166Z"
-          fill="url(#paint3_radial_80_30)"
-        />
-        <g opacity="0.7">
-          <path
-            d="M422.028 151.639C397.399 174.049 366.234 185.956 357.029 197.003C347.834 208.04 353.786 221.045 365.167 221.312C352.036 221.183 343.405 208.485 352.699 194.709C361.993 180.922 378.307 170.697 401.383 153.063C424.45 135.44 429.582 116.848 422.216 104.664C414.84 92.4896 393.998 91.1446 387.947 99.887C382.35 107.977 390.804 117.164 390.804 117.164C390.804 117.164 376.352 114.399 381.421 100.322C387.078 84.6155 418.983 78.1398 433.863 98.2651C447.705 117.006 436.829 138.18 422.028 151.639Z"
-            fill="url(#paint4_radial_80_30)"
-          />
-        </g>
-        <path
-          d="M409.307 87.0721C397.756 82.78 381.833 86.7903 378.621 98.7033C376.881 105.159 379.115 117.19 390.808 117.166C390.808 117.166 380.164 102.175 390.79 96.5345C401.417 90.8945 416.589 93.8801 422.212 104.666C422.212 104.666 422.658 92.0338 409.307 87.0721Z"
-          fill="#FED759"
-        />
-        <path
-          d="M390.808 117.166C390.808 117.166 382.347 107.982 387.95 99.8851C393.998 91.1457 414.842 92.4857 422.212 104.666C429.581 116.846 424.455 135.436 401.382 153.065C378.31 170.695 361.995 180.924 352.702 194.707C343.409 208.489 352.037 221.181 365.171 221.311C375.703 221.414 380.553 215.247 380.553 215.247C380.553 215.247 367.027 216.366 367.094 207.555C367.152 200.121 388.72 191.933 412.598 176.144C427.055 166.585 456.82 145.638 456.82 116.525C456.82 91.83 436.205 70.6564 404.907 72.9063C373.609 75.1562 369.695 94.2678 370.619 102.422C371.882 113.558 385.04 120.692 390.808 117.166Z"
-          stroke="#A05700"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <g opacity="0.7">
-          <path
-            d="M370.619 102.422C371.882 113.558 385.04 120.692 390.808 117.166C390.808 117.166 382.347 107.982 387.951 99.8851C393.999 91.1457 414.842 92.4857 422.212 104.666C429.582 116.846 424.455 135.436 401.382 153.065C378.31 170.695 361.995 180.924 352.702 194.707"
-            stroke="#7A3A00"
-            strokeWidth="7.91072"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <path
-          d="M113.882 117.166C113.882 117.166 122.341 107.982 116.738 99.885C110.69 91.1456 89.8477 92.4856 82.4778 104.666C75.1079 116.846 80.2344 135.436 103.307 153.065C126.379 170.695 142.695 180.924 151.988 194.706C161.281 208.489 152.652 221.181 139.518 221.31C128.986 221.414 124.137 215.247 124.137 215.247C124.137 215.247 137.662 216.366 137.595 207.555C137.538 200.121 115.97 191.932 92.0911 176.144C77.6341 166.584 47.8696 145.638 47.8696 116.525C47.8696 91.8299 68.4844 70.6563 99.7824 72.9062C131.08 75.1561 134.995 94.2677 134.07 102.422C132.808 113.558 119.65 120.692 113.882 117.166Z"
-          fill="url(#paint5_radial_80_30)"
-        />
-        <g opacity="0.7">
-          <path
-            d="M139.521 221.311C150.901 221.044 156.853 208.04 147.658 197.003C138.453 185.956 107.289 174.049 82.6599 151.639C67.8588 138.18 56.9928 117.006 70.8348 98.2651C85.7052 78.1397 117.612 81.4498 122.278 99.3332C126.335 114.88 113.884 117.164 113.884 117.164C113.884 117.164 122.337 107.977 116.741 99.887C110.69 91.1446 89.8479 92.4896 82.482 104.664C75.1061 116.848 80.2376 135.44 103.304 153.063C126.381 170.697 142.695 180.922 151.989 194.708C161.283 208.485 152.651 221.183 139.521 221.311Z"
-            fill="url(#paint6_radial_80_30)"
-          />
-        </g>
-        <path
-          d="M80.8354 108.018C84.9723 92.3007 100.088 82.5426 114.75 87.612C130.77 93.1512 126.185 113.122 116.863 116.944C116.863 116.944 123.732 98.189 107.787 95.2448C91.8409 92.3007 80.8354 108.018 80.8354 108.018Z"
-          fill="#FED759"
-        />
-        <path
-          d="M113.882 117.166C113.882 117.166 122.341 107.982 116.738 99.885C110.69 91.1456 89.8477 92.4856 82.4778 104.666C75.1079 116.846 80.2344 135.436 103.307 153.065C126.379 170.695 142.695 180.924 151.988 194.706C161.281 208.489 152.652 221.181 139.518 221.31C128.986 221.414 124.137 215.247 124.137 215.247C124.137 215.247 137.662 216.366 137.595 207.555C137.538 200.121 115.97 191.932 92.0911 176.144C77.6341 166.584 47.8696 145.638 47.8696 116.525C47.8696 91.8299 68.4844 70.6563 99.7824 72.9062C131.08 75.1561 134.995 94.2677 134.07 102.422C132.808 113.558 119.65 120.692 113.882 117.166Z"
-          stroke="#A05700"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <g opacity="0.7">
-          <path
-            d="M113.882 117.166C113.882 117.166 122.341 107.982 116.738 99.885C110.69 91.1456 89.8477 92.4856 82.4778 104.666C75.1079 116.846 80.2344 135.436 103.307 153.065C126.379 170.695 142.695 180.924 151.988 194.706"
-            stroke="#7A3A00"
-            strokeWidth="7.91072"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <path
-          d="M370.953 62.3864C380.475 57.9054 375.976 52.7005 367.637 49.8958C333.117 38.2854 275.127 36.356 252.525 36.356C225.853 36.356 130.051 42.3876 131.413 54.6379C131.985 59.7913 134.096 62.3864 134.096 62.3864C134.096 62.3864 131.41 139.047 154.272 200.015C173.2 250.491 215.545 274.359 252.525 274.359C289.505 274.359 331.85 250.491 350.778 200.015C373.64 139.047 370.953 62.3864 370.953 62.3864Z"
-          fill="url(#paint7_radial_80_30)"
-        />
-        <g opacity="0.6">
-          <path
-            d="M370.953 62.3864C334.473 51.3634 281.333 47.8773 252.525 47.8773C221.347 47.8773 160.943 52.4374 134.096 62.3864"
-            stroke="#FED759"
-            strokeWidth="5.93304"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <path
-          d="M177.598 41.6904C177.598 41.6904 185.195 259.634 254.352 259.634C323.508 259.634 325.803 41.6904 325.803 41.6904C325.803 41.6904 234.039 33.2082 177.598 41.6904Z"
-          fill="url(#paint8_radial_80_30)"
-        />
-        <g opacity="0.8">
-          <path
-            d="M250.626 37.2954C248.757 118.617 248.756 137.652 248.756 237.404C248.756 260.903 220.875 246.723 208.554 148.949C202.621 101.866 202.682 66.355 203.246 49.3696C203.246 49.3696 196.548 43.8858 203.815 39.2733L250.626 37.2954Z"
-            fill="url(#paint9_linear_80_30)"
-          />
-        </g>
-        <g opacity="0.3">
-          <path
-            d="M370.953 62.3864C334.473 51.3634 281.333 47.8773 252.525 47.8773C221.347 47.8773 160.943 52.4374 134.096 62.3864"
-            stroke="#FED759"
-            strokeWidth="5.93304"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <g opacity="0.4">
-          <path
-            d="M350.781 200.019C331.847 250.495 289.5 274.359 252.522 274.359C215.544 274.359 173.197 250.495 154.273 200.019C131.404 139.05 134.093 62.3853 134.093 62.3853C116.629 45.9765 168.42 40.9447 168.42 40.9447C120.578 60.6379 180.172 49.786 180.172 49.786C148.516 53.4471 148.809 66.1513 148.501 70.8083C148.058 77.5006 149.77 146.204 165.366 190.752C174.946 218.123 187.522 233.026 206.207 243.958C219.9 251.971 239.36 255.424 253.076 255.424C268.485 255.424 285.028 251.317 300.09 241.15C316.728 229.919 330.97 215.645 339.678 190.752C353.96 149.958 356.996 80.6593 356.512 69.5256C356.02 58.2278 341.321 51.5206 316.839 48.8C316.839 48.8 371.051 57.5296 335.79 42.6368C335.79 42.6368 364.497 46.7568 372.413 51.8233C380.481 56.9866 370.951 62.3853 370.951 62.3853C370.951 62.3853 373.64 139.05 350.781 200.019Z"
-            fill="url(#paint10_linear_80_30)"
-          />
-        </g>
-        <g opacity="0.8">
-          <path
-            d="M228.183 269.212C221.994 266.425 210.729 246.98 219.944 250.022C229.672 253.233 242.192 255.425 252.67 255.423C262.679 255.421 273.685 253.361 279.835 251.129C297.605 244.679 283.458 268.618 273.009 271.072C259.849 274.162 238.09 273.675 228.183 269.212Z"
-            fill="url(#paint11_radial_80_30)"
-          />
-        </g>
-        <g opacity="0.3">
-          <path
-            d="M293.042 209.06C272.095 209.546 260.579 219.849 210.208 207.795C190.486 203.076 211.799 232.527 249.45 232.559C283.133 232.587 313.147 208.594 293.042 209.06Z"
-            fill="#FFE471"
-          />
-        </g>
-        <path
-          d="M134.096 62.3863C134.096 62.3863 128.598 59.2088 130.422 54.2689C133.107 47.0021 171.975 36.3519 252.525 36.3519C319.516 36.3519 372.734 48.1344 375.864 54.3965C378.994 60.6586 370.953 62.3863 370.953 62.3863"
-          stroke="#A05700"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M134.096 62.3864C134.096 62.3864 131.41 139.047 154.272 200.015C173.2 250.491 215.545 274.359 252.525 274.359C289.505 274.359 331.85 250.491 350.778 200.015C373.64 139.047 370.953 62.3864 370.953 62.3864"
-          stroke="#935400"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M134.096 62.3864C134.096 62.3864 131.41 139.047 154.272 200.015C173.2 250.491 215.545 274.359 252.525 274.359C289.505 274.359 331.85 250.491 350.778 200.015"
-          stroke="#7A3A00"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M314.51 350.779C312.495 348.511 304.556 346.312 304.556 346.312C304.556 346.312 304.096 341.079 303.689 339.186C302.805 335.074 297.757 336.15 291.079 333.485C277.797 328.184 274.047 308.801 274.047 288.812L252.525 287.299L231.002 288.812C231.002 308.801 227.252 328.184 213.97 333.485C207.292 336.15 202.244 335.074 201.36 339.186C200.952 341.079 200.492 346.312 200.492 346.312C200.492 346.312 192.555 348.511 190.54 350.779C188.525 353.047 188.273 361.633 189.028 362.641C189.784 363.648 201.417 371.712 252.525 371.712C303.633 371.712 315.266 363.648 316.021 362.641C316.777 361.633 316.525 353.047 314.51 350.779Z"
-          fill="url(#paint12_linear_80_30)"
-        />
-        <path
-          d="M266.718 307.069C266.718 354.144 254.675 353.972 252.173 353.972C250.106 353.972 237.559 344.684 237.559 307.103C237.559 285.737 250.791 289.554 252.173 289.554C253.555 289.554 266.718 286.57 266.718 307.069Z"
-          fill="url(#paint13_radial_80_30)"
-        />
-        <g opacity="0.8">
-          <path
-            d="M252.522 294.588C252.043 315.413 252.043 316.479 252.043 342.023C252.043 348.04 244.635 349.968 241.48 324.929C239.96 312.872 240.245 298.702 240.389 294.353"
-            fill="url(#paint14_linear_80_30)"
-          />
-        </g>
-        <path
-          d="M316.018 362.643C315.266 363.652 303.629 371.712 252.522 371.712C201.415 371.712 189.788 363.652 189.027 362.643C188.275 361.635 188.522 353.051 190.539 350.776C192.556 348.511 200.496 346.316 200.496 346.316C200.496 346.316 200.951 341.074 201.356 339.185C201.702 337.603 202.661 333.815 204.095 333.261C204.095 333.261 216.978 338.295 252.522 338.295C288.067 338.295 299.744 332.876 299.744 332.876C301.859 333.449 303.263 337.188 303.689 339.185C304.094 341.074 304.559 346.316 304.559 346.316C304.559 346.316 312.498 348.511 314.505 350.776C316.522 353.051 316.779 361.635 316.018 362.643Z"
-          fill="url(#paint15_radial_80_30)"
-        />
-        <path
-          d="M289.05 360.892C289.05 365.055 273.291 369.067 253.85 369.067C234.409 369.067 218.648 365.055 218.648 360.892C218.648 356.729 234.409 359.954 253.85 359.954C273.291 359.954 289.05 356.729 289.05 360.892Z"
-          fill="url(#paint16_radial_80_30)"
-        />
-        <g opacity="0.5">
-          <path
-            d="M228.484 324.099C228.484 324.099 223.275 338.091 250.945 338.328C277.208 338.553 278.115 328.187 274.393 318.706C274.393 318.706 283.403 331.925 301.502 337.745C301.502 337.745 292.441 344.213 252.525 344.147C233.825 344.116 222.346 342.987 213.428 341.507C207.604 340.539 206.064 353.565 222.49 358.501C223.533 358.814 197.583 353.885 202.485 368.084C202.485 368.084 193.274 368.03 189.028 362.641C187.344 360.501 192.548 346.645 200.493 346.312L203.366 338.553C203.366 338.553 217.442 331.646 228.484 324.099Z"
-            fill="#894700"
-          />
-        </g>
-        <path
-          d="M284.175 347.812C284.175 351.975 270.598 354.01 253.85 354.01C237.102 354.01 223.524 351.975 223.524 347.812C223.524 343.65 237.102 344.231 253.85 344.231C270.598 344.231 284.175 343.65 284.175 347.812Z"
-          fill="url(#paint17_radial_80_30)"
-        />
-        <g opacity="0.7">
-          <path
-            d="M249.841 344.222C249.841 344.222 251.038 351.707 251.086 358.02C251.144 365.768 250.398 373.728 248.543 371.695C248.543 371.695 226.837 371.768 228.101 363.915C228.427 361.887 230.413 360.431 233.782 359.171C235.705 358.452 237.386 356.664 233.483 354.431C230.735 352.859 228.566 350.363 230.135 347.462C232.828 342.482 249.841 344.222 249.841 344.222Z"
-            fill="url(#paint18_linear_80_30)"
-          />
-        </g>
-        <g opacity="0.5">
-          <path
-            d="M274.393 298.668C268.569 299.953 260.669 300.567 252.522 300.567C244.375 300.567 236.485 299.953 230.662 298.668C230.889 295.444 230.998 292.131 230.998 288.808L252.522 287.295L274.047 288.808C274.047 292.131 274.155 295.444 274.393 298.668Z"
-            fill="#7C3200"
-          />
-        </g>
-        <g opacity="0.7">
-          <path
-            d="M190.54 350.779C190.54 350.779 214.13 356.992 252.525 356.992C290.92 356.992 314.51 350.779 314.51 350.779"
-            stroke="#914500"
-            strokeWidth="5.93304"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <g opacity="0.7">
-          <path
-            d="M204.099 336.232C204.099 336.232 216.979 341.264 252.525 341.264C288.072 341.264 299.742 335.843 299.742 335.843"
-            stroke="#914500"
-            strokeWidth="5.93304"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <path
-          d="M314.51 350.779C312.495 348.511 304.556 346.312 304.556 346.312C304.556 346.312 304.096 341.079 303.689 339.186C302.805 335.074 297.757 336.15 291.079 333.485C277.797 328.184 274.047 308.801 274.047 288.812L252.525 287.299L231.002 288.812C231.002 308.801 227.252 328.184 213.97 333.485C207.292 336.15 202.244 335.074 201.36 339.186C200.952 341.079 200.492 346.312 200.492 346.312C200.492 346.312 192.555 348.511 190.54 350.779C188.525 353.047 188.273 361.633 189.028 362.641C189.784 363.648 201.417 371.712 252.525 371.712C303.633 371.712 315.266 363.648 316.021 362.641C316.777 361.633 316.525 353.047 314.51 350.779Z"
-          stroke="#A05700"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M231.002 288.812C231.002 308.801 227.252 328.184 213.97 333.485C207.292 336.15 202.244 335.074 201.36 339.186C200.952 341.079 200.492 346.312 200.492 346.312C200.492 346.312 192.555 348.511 190.54 350.779C188.525 353.047 188.273 361.633 189.028 362.641C189.033 362.647 189.037 362.653 189.043 362.66C189.927 363.747 201.729 371.712 252.525 371.712C303.633 371.712 315.266 363.648 316.021 362.641"
-          stroke="#7A3A00"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M279.836 276.742C279.836 276.742 280.112 272.526 275.696 270.306C271.279 268.087 268.509 269.511 252.525 269.511C239.327 269.511 233.771 268.087 229.354 270.306C224.938 272.526 225.214 276.742 225.214 276.742C225.214 276.742 218.187 280.957 222.017 285.398C225.374 289.289 238.579 291.075 252.525 291.075C266.471 291.075 279.676 289.289 283.033 285.398C286.863 280.957 279.836 276.742 279.836 276.742Z"
-          fill="url(#paint19_radial_80_30)"
-        />
-        <path
-          d="M273.55 276.656C273.55 283.388 268.626 294.042 252.522 294.042C239.216 294.042 231.494 283.388 231.494 276.656C231.494 269.925 243.629 269.665 252.522 269.665C261.416 269.665 273.55 269.925 273.55 276.656Z"
-          fill="url(#paint20_radial_80_30)"
-        />
-        <g opacity="0.8">
-          <path
-            d="M252.522 272.618C252.095 280.749 252.096 280.61 252.096 290.583C252.096 292.759 234.758 289.337 239.188 280.876C239.878 279.558 239.953 278.028 239.497 276.611C239.101 275.38 239.108 273.825 240.718 272.526"
-            fill="url(#paint21_linear_80_30)"
-          />
-        </g>
-        <g opacity="0.6">
-          <path
-            d="M225.214 276.742C225.214 276.742 250.957 282.093 279.836 276.742"
-            stroke="#914500"
-            strokeWidth="5.93304"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <path
-          d="M279.836 276.742C279.836 276.742 280.112 272.526 275.696 270.306C271.279 268.087 268.509 269.511 252.525 269.511C239.327 269.511 233.771 268.087 229.354 270.306C224.938 272.526 225.214 276.742 225.214 276.742C225.214 276.742 218.187 280.957 222.017 285.398C225.374 289.289 238.579 291.075 252.525 291.075C266.471 291.075 279.676 289.289 283.033 285.398C286.863 280.957 279.836 276.742 279.836 276.742Z"
-          stroke="#9E6100"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M222.017 285.398C225.374 289.289 238.579 291.075 252.525 291.075C266.471 291.075 279.676 289.289 283.033 285.398"
-          stroke="#7A3A00"
-          strokeWidth="7.91072"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
-    </g>
-    <defs>
-      <linearGradient
-        id="paint0_linear_80_30"
-        x1="112.071"
-        y1="450.559"
-        x2="392.582"
-        y2="450.559"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.14" stopColor="#853301" />
-        <stop offset="0.57" stopColor="#933C01" />
-        <stop offset="0.92" stopColor="#A24500" />
-      </linearGradient>
-      <linearGradient
-        id="paint1_linear_80_30"
-        x1="149.686"
-        y1="405.411"
-        x2="355.92"
-        y2="405.411"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#843D1C" />
-        <stop offset="0.51" stopColor="#9A4B21" />
-        <stop offset="0.92" stopColor="#B05926" />
-      </linearGradient>
-      <linearGradient
-        id="paint2_linear_80_30"
-        x1="191.599"
-        y1="384.987"
-        x2="318.303"
-        y2="456.114"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.02" stopColor="#E6AE45" />
-        <stop offset="0.14" stopColor="#F3D06B" />
-        <stop offset="0.34" stopColor="#FFF291" />
-        <stop offset="0.47" stopColor="#EAC56C" />
-        <stop offset="0.62" stopColor="#D59746" />
-        <stop offset="0.79" stopColor="#EAB14F" />
-        <stop offset="0.88" stopColor="#FECC57" />
-      </linearGradient>
-      <radialGradient
-        id="paint3_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(399.146 151) scale(85.3196 85.3403)"
-      >
-        <stop offset="0.14" stopColor="#FFE978" />
-        <stop offset="0.57" stopColor="#E8B63C" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </radialGradient>
-      <radialGradient
-        id="paint4_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(411.01 122.32) scale(76.2629 76.2814)"
-      >
-        <stop offset="0.14" stopColor="#7C3200" />
-        <stop offset="0.57" stopColor="#A65A01" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </radialGradient>
-      <radialGradient
-        id="paint5_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(103.519 154.955) scale(80.9505 80.9701)"
-      >
-        <stop offset="0.14" stopColor="#FFE978" />
-        <stop offset="0.57" stopColor="#E8B63C" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </radialGradient>
-      <radialGradient
-        id="paint6_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(110.44 152.977) scale(58.1674 58.1815)"
-      >
-        <stop offset="0.14" stopColor="#7C3200" />
-        <stop offset="0.57" stopColor="#A65A01" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </radialGradient>
-      <radialGradient
-        id="paint7_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(257.759 163.175) scale(168.437 168.478)"
-      >
-        <stop offset="0.44" stopColor="#FEDA59" />
-        <stop offset="0.7" stopColor="#E7AE2D" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </radialGradient>
-      <radialGradient
-        id="paint8_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(252.364 29.293) scale(67.2521 229.538)"
-      >
-        <stop stopColor="#F5BF52" />
-        <stop offset="0.53" stopColor="#DB9F2A" />
-        <stop offset="0.82" stopColor="#C07F01" />
-        <stop offset="0.91" stopColor="#C38301" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#C68701" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient
-        id="paint9_linear_80_30"
-        x1="208.324"
-        y1="143.087"
-        x2="245.812"
-        y2="143.087"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.09" stopColor="#592A00" />
-        <stop offset="0.75" stopColor="#6C3600" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#7F4200" stopOpacity="0" />
-      </linearGradient>
-      <linearGradient
-        id="paint10_linear_80_30"
-        x1="253.804"
-        y1="54.081"
-        x2="253.804"
-        y2="256.531"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.36" stopColor="#A75602" />
-        <stop offset="0.61" stopColor="#984F01" />
-        <stop offset="0.69" stopColor="#894700" />
-        <stop offset="0.87" stopColor="#793900" />
-        <stop offset="1" stopColor="#682C00" />
-      </linearGradient>
-      <radialGradient
-        id="paint11_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(252.891 249.009) scale(32.5467 32.5546)"
-      >
-        <stop offset="0.04" stopColor="#FFC952" />
-        <stop offset="0.12" stopColor="#C28B29" />
-        <stop offset="0.29" stopColor="#854E00" />
-        <stop offset="0.5" stopColor="#C28A29" />
-        <stop offset="0.69" stopColor="#FFC752" />
-        <stop offset="0.84" stopColor="#FFC752" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#FFC852" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient
-        id="paint12_linear_80_30"
-        x1="250.838"
-        y1="302.31"
-        x2="252.164"
-        y2="332.453"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.14" stopColor="#FED059" />
-        <stop offset="0.57" stopColor="#E7A92D" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </linearGradient>
-      <radialGradient
-        id="paint13_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(252.148 318.227) scale(13.5245 58.8165)"
-      >
-        <stop stopColor="#F5BF52" />
-        <stop offset="0.33" stopColor="#DB9F2A" />
-        <stop offset="0.63" stopColor="#C07F01" />
-        <stop offset="0.83" stopColor="#C38301" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#C68701" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient
-        id="paint14_linear_80_30"
-        x1="242.928"
-        y1="320.111"
-        x2="252.08"
-        y2="320.111"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.09" stopColor="#592A00" />
-        <stop offset="0.75" stopColor="#6C3600" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#7F4200" stopOpacity="0" />
-      </linearGradient>
-      <radialGradient
-        id="paint15_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(252.816 352.747) scale(61.9651 61.9801)"
-      >
-        <stop offset="0.14" stopColor="#FFE978" />
-        <stop offset="0.57" stopColor="#E8B63C" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </radialGradient>
-      <radialGradient
-        id="paint16_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(388.078 364.152) scale(178.785 178.828)"
-      >
-        <stop stopColor="#DAA32A" />
-        <stop offset="0.18" stopColor="#CD9115" />
-        <stop offset="0.56" stopColor="#C07F01" />
-        <stop offset="0.8" stopColor="#C38301" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#C68701" stopOpacity="0" />
-      </radialGradient>
-      <radialGradient
-        id="paint17_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(254.793 349.334) scale(28.5634 28.5703)"
-      >
-        <stop stopColor="#DAA32A" />
-        <stop offset="0.18" stopColor="#CD9115" />
-        <stop offset="0.56" stopColor="#C07F01" />
-        <stop offset="0.8" stopColor="#C38301" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#C68701" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient
-        id="paint18_linear_80_30"
-        x1="232.053"
-        y1="358.681"
-        x2="249.262"
-        y2="358.681"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.09" stopColor="#592A00" />
-        <stop offset="0.75" stopColor="#6C3600" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#7F4200" stopOpacity="0" />
-      </linearGradient>
-      <radialGradient
-        id="paint19_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(252.816 283.468) scale(31.5362 31.5439)"
-      >
-        <stop offset="0.44" stopColor="#FCDA5F" />
-        <stop offset="0.7" stopColor="#E6AE30" />
-        <stop offset="0.92" stopColor="#D08201" />
-      </radialGradient>
-      <radialGradient
-        id="paint20_radial_80_30"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(252.548 279.684) scale(21.2978 21.303)"
-      >
-        <stop stopColor="#F5BF52" stopOpacity="0" />
-        <stop offset="0.33" stopColor="#DB9F2A" stopOpacity="0.5" />
-        <stop offset="0.63" stopColor="#C07F01" />
-        <stop offset="0.83" stopColor="#C38301" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#C68701" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient
-        id="paint21_linear_80_30"
-        x1="240.951"
-        y1="282.531"
-        x2="251.451"
-        y2="282.531"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="0.09" stopColor="#592A00" />
-        <stop offset="0.75" stopColor="#6C3600" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#7F4200" stopOpacity="0" />
-      </linearGradient>
-      <clipPath id="clip0_80_30">
-        <rect width="512" height="512" fill="white" />
-      </clipPath>
-    </defs>
-  </svg>
-)
-
-export const Place1 = ({width, height}) => (
-  <svg
-    width="512"
-    height="512"
-    viewBox="0 0 512 512"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <g clipPath="url(#clip0_81_170)">
       <mask
         id="mask0_81_170"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_81_170)">
         <path
@@ -2931,9 +2257,9 @@ export const Place1 = ({width, height}) => (
         y2="106.553"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.5" stopColor="#E9E9E9" />
-        <stop offset="1" stopColor="#D3D3D3" />
+        <stop stopColor="white"/>
+        <stop offset="0.5" stopColor="#E9E9E9"/>
+        <stop offset="1" stopColor="#D3D3D3"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_81_170"
@@ -2943,9 +2269,9 @@ export const Place1 = ({width, height}) => (
         y2="83.2361"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FF4040" />
-        <stop offset="0.5" stopColor="#E62020" />
-        <stop offset="1" stopColor="#CD0100" />
+        <stop stopColor="#FF4040"/>
+        <stop offset="0.5" stopColor="#E62020"/>
+        <stop offset="1" stopColor="#CD0100"/>
       </linearGradient>
       <linearGradient
         id="paint2_linear_81_170"
@@ -2955,10 +2281,10 @@ export const Place1 = ({width, height}) => (
         y2="139.702"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#3142A8" />
-        <stop offset="0.01" stopColor="#3142A8" />
-        <stop offset="0.51" stopColor="#2C399B" />
-        <stop offset="1" stopColor="#262F8D" />
+        <stop stopColor="#3142A8"/>
+        <stop offset="0.01" stopColor="#3142A8"/>
+        <stop offset="0.51" stopColor="#2C399B"/>
+        <stop offset="1" stopColor="#262F8D"/>
       </linearGradient>
       <linearGradient
         id="paint3_linear_81_170"
@@ -2968,9 +2294,9 @@ export const Place1 = ({width, height}) => (
         y2="170.447"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.5" stopColor="#F5F4F1" />
-        <stop offset="1" stopColor="#EBE9E3" />
+        <stop stopColor="white"/>
+        <stop offset="0.5" stopColor="#F5F4F1"/>
+        <stop offset="1" stopColor="#EBE9E3"/>
       </linearGradient>
       <linearGradient
         id="paint4_linear_81_170"
@@ -2980,9 +2306,9 @@ export const Place1 = ({width, height}) => (
         y2="167.788"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FF4040" />
-        <stop offset="0.5" stopColor="#FF3632" />
-        <stop offset="1" stopColor="#FF2B24" />
+        <stop stopColor="#FF4040"/>
+        <stop offset="0.5" stopColor="#FF3632"/>
+        <stop offset="1" stopColor="#FF2B24"/>
       </linearGradient>
       <linearGradient
         id="paint5_linear_81_170"
@@ -2992,10 +2318,10 @@ export const Place1 = ({width, height}) => (
         y2="153.234"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#3142A8" />
-        <stop offset="0.01" stopColor="#3142A8" />
-        <stop offset="0.51" stopColor="#2A3CA1" />
-        <stop offset="1" stopColor="#23379B" />
+        <stop stopColor="#3142A8"/>
+        <stop offset="0.01" stopColor="#3142A8"/>
+        <stop offset="0.51" stopColor="#2A3CA1"/>
+        <stop offset="1" stopColor="#23379B"/>
       </linearGradient>
       <linearGradient
         id="paint6_linear_81_170"
@@ -3005,11 +2331,11 @@ export const Place1 = ({width, height}) => (
         y2="430"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D38D00" />
-        <stop offset="0.26" stopColor="#E28C02" />
-        <stop offset="0.52" stopColor="#F28B03" />
-        <stop offset="0.76" stopColor="#E38F02" />
-        <stop offset="1" stopColor="#D49201" />
+        <stop stopColor="#D38D00"/>
+        <stop offset="0.26" stopColor="#E28C02"/>
+        <stop offset="0.52" stopColor="#F28B03"/>
+        <stop offset="0.76" stopColor="#E38F02"/>
+        <stop offset="1" stopColor="#D49201"/>
       </linearGradient>
       <radialGradient
         id="paint7_radial_81_170"
@@ -3019,11 +2345,11 @@ export const Place1 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(185 391) scale(193.413)"
       >
-        <stop stopColor="#FFE20D" />
-        <stop offset="0.04" stopColor="#FFE20D" />
-        <stop offset="0.07" stopColor="#FFE20D" />
-        <stop offset="0.54" stopColor="#F9BD09" stopOpacity="0.55" />
-        <stop offset="1" stopColor="#F49806" stopOpacity="0.1" />
+        <stop stopColor="#FFE20D"/>
+        <stop offset="0.04" stopColor="#FFE20D"/>
+        <stop offset="0.07" stopColor="#FFE20D"/>
+        <stop offset="0.54" stopColor="#F9BD09" stopOpacity="0.55"/>
+        <stop offset="1" stopColor="#F49806" stopOpacity="0.1"/>
       </radialGradient>
       <radialGradient
         id="paint8_radial_81_170"
@@ -3033,11 +2359,11 @@ export const Place1 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(343 244) scale(178.246)"
       >
-        <stop stopColor="#FFE20D" />
-        <stop offset="0.05" stopColor="#FFE20D" />
-        <stop offset="0.09" stopColor="#FFE20D" />
-        <stop offset="0.55" stopColor="#F5B20F" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#EA8211" stopOpacity="0" />
+        <stop stopColor="#FFE20D"/>
+        <stop offset="0.05" stopColor="#FFE20D"/>
+        <stop offset="0.09" stopColor="#FFE20D"/>
+        <stop offset="0.55" stopColor="#F5B20F" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#EA8211" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint9_linear_81_170"
@@ -3047,11 +2373,11 @@ export const Place1 = ({width, height}) => (
         y2="429.383"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F5E827" stopOpacity="0" />
-        <stop offset="0.26" stopColor="#FAEE2A" stopOpacity="0.5" />
-        <stop offset="0.52" stopColor="#FFF42C" />
-        <stop offset="0.76" stopColor="#FAEE2A" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#F5E827" stopOpacity="0" />
+        <stop stopColor="#F5E827" stopOpacity="0"/>
+        <stop offset="0.26" stopColor="#FAEE2A" stopOpacity="0.5"/>
+        <stop offset="0.52" stopColor="#FFF42C"/>
+        <stop offset="0.76" stopColor="#FAEE2A" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#F5E827" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint10_linear_81_170"
@@ -3061,11 +2387,11 @@ export const Place1 = ({width, height}) => (
         y2="240.002"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#E8BC05" />
-        <stop offset="0.01" stopColor="#E8BC05" />
-        <stop offset="0.02" stopColor="#E8BC05" />
-        <stop offset="0.52" stopColor="#EBBE07" />
-        <stop offset="1" stopColor="#EDC10A" />
+        <stop stopColor="#E8BC05"/>
+        <stop offset="0.01" stopColor="#E8BC05"/>
+        <stop offset="0.02" stopColor="#E8BC05"/>
+        <stop offset="0.52" stopColor="#EBBE07"/>
+        <stop offset="1" stopColor="#EDC10A"/>
       </linearGradient>
       <linearGradient
         id="paint11_linear_81_170"
@@ -3075,10 +2401,10 @@ export const Place1 = ({width, height}) => (
         y2="312.957"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#EEC108" />
-        <stop offset="0.01" stopColor="#EEC108" />
-        <stop offset="0.5" stopColor="#F7D132" />
-        <stop offset="1" stopColor="#FFE05C" />
+        <stop stopColor="#EEC108"/>
+        <stop offset="0.01" stopColor="#EEC108"/>
+        <stop offset="0.5" stopColor="#F7D132"/>
+        <stop offset="1" stopColor="#FFE05C"/>
       </linearGradient>
       <linearGradient
         id="paint12_linear_81_170"
@@ -3088,9 +2414,9 @@ export const Place1 = ({width, height}) => (
         y2="396.744"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FEFABE" />
-        <stop offset="0.5" stopColor="#F9E56C" />
-        <stop offset="1" stopColor="#F4D11B" />
+        <stop stopColor="#FEFABE"/>
+        <stop offset="0.5" stopColor="#F9E56C"/>
+        <stop offset="1" stopColor="#F4D11B"/>
       </linearGradient>
       <linearGradient
         id="paint13_linear_81_170"
@@ -3100,10 +2426,10 @@ export const Place1 = ({width, height}) => (
         y2="298.085"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F1CB48" />
-        <stop offset="0.01" stopColor="#F1CB48" />
-        <stop offset="0.51" stopColor="#F3D055" />
-        <stop offset="1" stopColor="#F4D463" />
+        <stop stopColor="#F1CB48"/>
+        <stop offset="0.01" stopColor="#F1CB48"/>
+        <stop offset="0.51" stopColor="#F3D055"/>
+        <stop offset="1" stopColor="#F4D463"/>
       </linearGradient>
       <linearGradient
         id="paint14_linear_81_170"
@@ -3113,10 +2439,10 @@ export const Place1 = ({width, height}) => (
         y2="237.192"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F1CD09" />
-        <stop offset="0.01" stopColor="#F1CD09" />
-        <stop offset="0.5" stopColor="#F2D237" />
-        <stop offset="1" stopColor="#F3D864" />
+        <stop stopColor="#F1CD09"/>
+        <stop offset="0.01" stopColor="#F1CD09"/>
+        <stop offset="0.5" stopColor="#F2D237"/>
+        <stop offset="1" stopColor="#F3D864"/>
       </linearGradient>
       <linearGradient
         id="paint15_linear_81_170"
@@ -3126,10 +2452,10 @@ export const Place1 = ({width, height}) => (
         y2="401.319"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#E5C536" />
-        <stop offset="0.01" stopColor="#E5C536" />
-        <stop offset="0.51" stopColor="#E3C329" />
-        <stop offset="1" stopColor="#E1C01B" />
+        <stop stopColor="#E5C536"/>
+        <stop offset="0.01" stopColor="#E5C536"/>
+        <stop offset="0.51" stopColor="#E3C329"/>
+        <stop offset="1" stopColor="#E1C01B"/>
       </linearGradient>
       <linearGradient
         id="paint16_linear_81_170"
@@ -3139,18 +2465,18 @@ export const Place1 = ({width, height}) => (
         y2="397.979"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FBE17B" />
-        <stop offset="0.51" stopColor="#FADF76" />
-        <stop offset="1" stopColor="#F9DE71" />
+        <stop stopColor="#FBE17B"/>
+        <stop offset="0.51" stopColor="#FADF76"/>
+        <stop offset="1" stopColor="#F9DE71"/>
       </linearGradient>
       <clipPath id="clip0_81_170">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Place2 = ({width, height}) => (
+export const Place2 = ({ width, height }) => (
   <svg
     width="512"
     height="512"
@@ -3158,21 +2484,21 @@ export const Place2 = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <g clipPath="url(#clip0_81_247)">
       <mask
         id="mask0_81_247"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_81_247)">
         <path
@@ -3254,7 +2580,7 @@ export const Place2 = ({width, height}) => (
         />
         <mask
           id="mask1_81_247"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="118"
           y="182"
@@ -3310,7 +2636,7 @@ export const Place2 = ({width, height}) => (
         />
         <mask
           id="mask2_81_247"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="197"
           y="237"
@@ -3376,9 +2702,9 @@ export const Place2 = ({width, height}) => (
         y2="106.553"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.5" stopColor="#E9E9E9" />
-        <stop offset="1" stopColor="#D3D3D3" />
+        <stop stopColor="white"/>
+        <stop offset="0.5" stopColor="#E9E9E9"/>
+        <stop offset="1" stopColor="#D3D3D3"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_81_247"
@@ -3388,9 +2714,9 @@ export const Place2 = ({width, height}) => (
         y2="83.2371"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FF4040" />
-        <stop offset="0.5" stopColor="#E62020" />
-        <stop offset="1" stopColor="#CD0100" />
+        <stop stopColor="#FF4040"/>
+        <stop offset="0.5" stopColor="#E62020"/>
+        <stop offset="1" stopColor="#CD0100"/>
       </linearGradient>
       <linearGradient
         id="paint2_linear_81_247"
@@ -3400,10 +2726,10 @@ export const Place2 = ({width, height}) => (
         y2="139.702"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#3142A8" />
-        <stop offset="0.01" stopColor="#3142A8" />
-        <stop offset="0.51" stopColor="#2C399B" />
-        <stop offset="1" stopColor="#262F8D" />
+        <stop stopColor="#3142A8"/>
+        <stop offset="0.01" stopColor="#3142A8"/>
+        <stop offset="0.51" stopColor="#2C399B"/>
+        <stop offset="1" stopColor="#262F8D"/>
       </linearGradient>
       <linearGradient
         id="paint3_linear_81_247"
@@ -3413,11 +2739,11 @@ export const Place2 = ({width, height}) => (
         y2="382.027"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#79797A" />
-        <stop offset="0.24" stopColor="#8D8D8D" />
-        <stop offset="0.48" stopColor="#A0A0A0" />
-        <stop offset="0.74" stopColor="#919191" />
-        <stop offset="1" stopColor="#828282" />
+        <stop stopColor="#79797A"/>
+        <stop offset="0.24" stopColor="#8D8D8D"/>
+        <stop offset="0.48" stopColor="#A0A0A0"/>
+        <stop offset="0.74" stopColor="#919191"/>
+        <stop offset="1" stopColor="#828282"/>
       </linearGradient>
       <radialGradient
         id="paint4_radial_81_247"
@@ -3427,9 +2753,9 @@ export const Place2 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(217.212 377.689) rotate(-7.18076) scale(133.322 138.786)"
       >
-        <stop offset="0.16" stopColor="#AFAFAF" />
-        <stop offset="0.31" stopColor="#AFAFAF" stopOpacity="0.5" />
-        <stop offset="0.6" stopColor="#AFAFAF" stopOpacity="0" />
+        <stop offset="0.16" stopColor="#AFAFAF"/>
+        <stop offset="0.31" stopColor="#AFAFAF" stopOpacity="0.5"/>
+        <stop offset="0.6" stopColor="#AFAFAF" stopOpacity="0"/>
       </radialGradient>
       <radialGradient
         id="paint5_radial_81_247"
@@ -3439,9 +2765,9 @@ export const Place2 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(348.131 245.003) rotate(-6.82784) scale(154.445 160.793)"
       >
-        <stop offset="0.04" stopColor="#BCBCBC" />
-        <stop offset="0.34" stopColor="#BCBCBC" stopOpacity="0.5" />
-        <stop offset="0.62" stopColor="#BCBCBC" stopOpacity="0" />
+        <stop offset="0.04" stopColor="#BCBCBC"/>
+        <stop offset="0.34" stopColor="#BCBCBC" stopOpacity="0.5"/>
+        <stop offset="0.62" stopColor="#BCBCBC" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint6_linear_81_247"
@@ -3451,11 +2777,11 @@ export const Place2 = ({width, height}) => (
         y2="441.564"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.07" stopColor="#D9D9D9" stopOpacity="0.1" />
-        <stop offset="0.29" stopColor="#D9D9D9" stopOpacity="0.55" />
-        <stop offset="0.51" stopColor="#D9D9D9" />
-        <stop offset="0.72" stopColor="#D9D9D9" stopOpacity="0.55" />
-        <stop offset="0.94" stopColor="#D9D9D9" stopOpacity="0.1" />
+        <stop offset="0.07" stopColor="#D9D9D9" stopOpacity="0.1"/>
+        <stop offset="0.29" stopColor="#D9D9D9" stopOpacity="0.55"/>
+        <stop offset="0.51" stopColor="#D9D9D9"/>
+        <stop offset="0.72" stopColor="#D9D9D9" stopOpacity="0.55"/>
+        <stop offset="0.94" stopColor="#D9D9D9" stopOpacity="0.1"/>
       </linearGradient>
       <linearGradient
         id="paint7_linear_81_247"
@@ -3465,13 +2791,13 @@ export const Place2 = ({width, height}) => (
         y2="178.402"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.21" stopColor="white" stopOpacity="0" />
-        <stop offset="0.4" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.5" stopColor="white" />
-        <stop offset="0.61" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.83" stopColor="white" stopOpacity="0" />
-        <stop offset="0.84" stopColor="white" stopOpacity="0" />
-        <stop offset="0.85" stopColor="white" stopOpacity="0" />
+        <stop offset="0.21" stopColor="white" stopOpacity="0"/>
+        <stop offset="0.4" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.5" stopColor="white"/>
+        <stop offset="0.61" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.83" stopColor="white" stopOpacity="0"/>
+        <stop offset="0.84" stopColor="white" stopOpacity="0"/>
+        <stop offset="0.85" stopColor="white" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint8_linear_81_247"
@@ -3481,11 +2807,11 @@ export const Place2 = ({width, height}) => (
         y2="178.402"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.25" stopColor="white" />
-        <stop offset="0.5" stopColor="white" />
-        <stop offset="0.75" stopColor="white" />
-        <stop offset="1" stopColor="white" />
+        <stop stopColor="white"/>
+        <stop offset="0.25" stopColor="white"/>
+        <stop offset="0.5" stopColor="white"/>
+        <stop offset="0.75" stopColor="white"/>
+        <stop offset="1" stopColor="white"/>
       </linearGradient>
       <linearGradient
         id="paint9_linear_81_247"
@@ -3495,11 +2821,11 @@ export const Place2 = ({width, height}) => (
         y2="350.894"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D0D0D0" />
-        <stop offset="0.35" stopColor="#DEDEDE" />
-        <stop offset="0.69" stopColor="#ECECEC" />
-        <stop offset="0.84" stopColor="#CACACA" />
-        <stop offset="1" stopColor="#A9A9A9" />
+        <stop stopColor="#D0D0D0"/>
+        <stop offset="0.35" stopColor="#DEDEDE"/>
+        <stop offset="0.69" stopColor="#ECECEC"/>
+        <stop offset="0.84" stopColor="#CACACA"/>
+        <stop offset="1" stopColor="#A9A9A9"/>
       </linearGradient>
       <radialGradient
         id="paint10_radial_81_247"
@@ -3509,9 +2835,9 @@ export const Place2 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(251.842 240.002) rotate(0.08) scale(61.8423 64.4586)"
       >
-        <stop stopColor="#AFAFAF" />
-        <stop offset="0.5" stopColor="#ACACAC" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#AAAAAA" stopOpacity="0" />
+        <stop stopColor="#AFAFAF"/>
+        <stop offset="0.5" stopColor="#ACACAC" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#AAAAAA" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint11_linear_81_247"
@@ -3521,9 +2847,9 @@ export const Place2 = ({width, height}) => (
         y2="381.256"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D3D3D3" />
-        <stop offset="0.51" stopColor="#D0D0D0" />
-        <stop offset="1" stopColor="#CDCDCD" />
+        <stop stopColor="#D3D3D3"/>
+        <stop offset="0.51" stopColor="#D0D0D0"/>
+        <stop offset="1" stopColor="#CDCDCD"/>
       </linearGradient>
       <linearGradient
         id="paint12_linear_81_247"
@@ -3533,13 +2859,13 @@ export const Place2 = ({width, height}) => (
         y2="195.644"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.3" stopColor="white" stopOpacity="0" />
-        <stop offset="0.34" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.37" stopColor="white" />
-        <stop offset="0.44" stopColor="white" />
-        <stop offset="0.6" stopColor="white" />
-        <stop offset="0.64" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.68" stopColor="white" stopOpacity="0" />
+        <stop offset="0.3" stopColor="white" stopOpacity="0"/>
+        <stop offset="0.34" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.37" stopColor="white"/>
+        <stop offset="0.44" stopColor="white"/>
+        <stop offset="0.6" stopColor="white"/>
+        <stop offset="0.64" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.68" stopColor="white" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint13_linear_81_247"
@@ -3549,11 +2875,11 @@ export const Place2 = ({width, height}) => (
         y2="195.644"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.25" stopColor="white" />
-        <stop offset="0.5" stopColor="white" />
-        <stop offset="0.75" stopColor="white" />
-        <stop offset="1" stopColor="white" />
+        <stop stopColor="white"/>
+        <stop offset="0.25" stopColor="white"/>
+        <stop offset="0.5" stopColor="white"/>
+        <stop offset="0.75" stopColor="white"/>
+        <stop offset="1" stopColor="white"/>
       </linearGradient>
       <linearGradient
         id="paint14_linear_81_247"
@@ -3563,9 +2889,9 @@ export const Place2 = ({width, height}) => (
         y2="170.447"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.5" stopColor="#F5F4F1" />
-        <stop offset="1" stopColor="#EBE9E3" />
+        <stop stopColor="white"/>
+        <stop offset="0.5" stopColor="#F5F4F1"/>
+        <stop offset="1" stopColor="#EBE9E3"/>
       </linearGradient>
       <linearGradient
         id="paint15_linear_81_247"
@@ -3575,9 +2901,9 @@ export const Place2 = ({width, height}) => (
         y2="167.787"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FF4040" />
-        <stop offset="0.5" stopColor="#FF3632" />
-        <stop offset="1" stopColor="#FF2B24" />
+        <stop stopColor="#FF4040"/>
+        <stop offset="0.5" stopColor="#FF3632"/>
+        <stop offset="1" stopColor="#FF2B24"/>
       </linearGradient>
       <linearGradient
         id="paint16_linear_81_247"
@@ -3587,19 +2913,19 @@ export const Place2 = ({width, height}) => (
         y2="153.234"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#3142A8" />
-        <stop offset="0.01" stopColor="#3142A8" />
-        <stop offset="0.51" stopColor="#2A3CA1" />
-        <stop offset="1" stopColor="#23379B" />
+        <stop stopColor="#3142A8"/>
+        <stop offset="0.01" stopColor="#3142A8"/>
+        <stop offset="0.51" stopColor="#2A3CA1"/>
+        <stop offset="1" stopColor="#23379B"/>
       </linearGradient>
       <clipPath id="clip0_81_247">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Place3 = ({width, height}) => (
+export const Place3 = ({ width, height }) => (
   <svg
     width="512"
     height="512"
@@ -3607,21 +2933,21 @@ export const Place3 = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <g clipPath="url(#clip0_81_325)">
       <mask
         id="mask0_81_325"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_81_325)">
         <path
@@ -3748,7 +3074,7 @@ export const Place3 = ({width, height}) => (
         />
         <mask
           id="mask1_81_325"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="115"
           y="191"
@@ -3810,7 +3136,7 @@ export const Place3 = ({width, height}) => (
         />
         <mask
           id="mask2_81_325"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="187"
           y="239"
@@ -3858,7 +3184,7 @@ export const Place3 = ({width, height}) => (
         />
         <mask
           id="mask3_81_325"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="190"
           y="246"
@@ -3887,9 +3213,9 @@ export const Place3 = ({width, height}) => (
         y2="106.553"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.5" stopColor="#E9E9E9" />
-        <stop offset="1" stopColor="#D3D3D3" />
+        <stop stopColor="white"/>
+        <stop offset="0.5" stopColor="#E9E9E9"/>
+        <stop offset="1" stopColor="#D3D3D3"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_81_325"
@@ -3899,9 +3225,9 @@ export const Place3 = ({width, height}) => (
         y2="83.237"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FF4040" />
-        <stop offset="0.5" stopColor="#E62020" />
-        <stop offset="1" stopColor="#CD0100" />
+        <stop stopColor="#FF4040"/>
+        <stop offset="0.5" stopColor="#E62020"/>
+        <stop offset="1" stopColor="#CD0100"/>
       </linearGradient>
       <linearGradient
         id="paint2_linear_81_325"
@@ -3911,10 +3237,10 @@ export const Place3 = ({width, height}) => (
         y2="139.702"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#3142A8" />
-        <stop offset="0.01" stopColor="#3142A8" />
-        <stop offset="0.51" stopColor="#2C399B" />
-        <stop offset="1" stopColor="#262F8D" />
+        <stop stopColor="#3142A8"/>
+        <stop offset="0.01" stopColor="#3142A8"/>
+        <stop offset="0.51" stopColor="#2C399B"/>
+        <stop offset="1" stopColor="#262F8D"/>
       </linearGradient>
       <linearGradient
         id="paint3_linear_81_325"
@@ -3924,9 +3250,9 @@ export const Place3 = ({width, height}) => (
         y2="170.447"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.5" stopColor="#F5F4F1" />
-        <stop offset="1" stopColor="#EBE9E3" />
+        <stop stopColor="white"/>
+        <stop offset="0.5" stopColor="#F5F4F1"/>
+        <stop offset="1" stopColor="#EBE9E3"/>
       </linearGradient>
       <linearGradient
         id="paint4_linear_81_325"
@@ -3936,9 +3262,9 @@ export const Place3 = ({width, height}) => (
         y2="167.787"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FF4040" />
-        <stop offset="0.5" stopColor="#FF3632" />
-        <stop offset="1" stopColor="#FF2B24" />
+        <stop stopColor="#FF4040"/>
+        <stop offset="0.5" stopColor="#FF3632"/>
+        <stop offset="1" stopColor="#FF2B24"/>
       </linearGradient>
       <linearGradient
         id="paint5_linear_81_325"
@@ -3948,10 +3274,10 @@ export const Place3 = ({width, height}) => (
         y2="153.234"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#3142A8" />
-        <stop offset="0.01" stopColor="#3142A8" />
-        <stop offset="0.51" stopColor="#2A3CA1" />
-        <stop offset="1" stopColor="#23379B" />
+        <stop stopColor="#3142A8"/>
+        <stop offset="0.01" stopColor="#3142A8"/>
+        <stop offset="0.51" stopColor="#2A3CA1"/>
+        <stop offset="1" stopColor="#23379B"/>
       </linearGradient>
       <linearGradient
         id="paint6_linear_81_325"
@@ -3961,9 +3287,9 @@ export const Place3 = ({width, height}) => (
         y2="490.393"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#7F3005" stopOpacity="0" />
-        <stop offset="0.5" stopColor="#802F05" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#802F05" />
+        <stop stopColor="#7F3005" stopOpacity="0"/>
+        <stop offset="0.5" stopColor="#802F05" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#802F05"/>
       </linearGradient>
       <linearGradient
         id="paint7_linear_81_325"
@@ -3973,9 +3299,9 @@ export const Place3 = ({width, height}) => (
         y2="314.161"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#7F2F04" />
-        <stop offset="0.44" stopColor="#7F2F04" stopOpacity="0.5" />
-        <stop offset="0.87" stopColor="#7F3004" stopOpacity="0" />
+        <stop stopColor="#7F2F04"/>
+        <stop offset="0.44" stopColor="#7F2F04" stopOpacity="0.5"/>
+        <stop offset="0.87" stopColor="#7F3004" stopOpacity="0"/>
       </linearGradient>
       <radialGradient
         id="paint8_radial_81_325"
@@ -3985,9 +3311,9 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(162.296 224.796) rotate(-4.46702) scale(165.461 160.44)"
       >
-        <stop stopColor="#802F05" />
-        <stop offset="0.55" stopColor="#802F05" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#802F05" stopOpacity="0" />
+        <stop stopColor="#802F05"/>
+        <stop offset="0.55" stopColor="#802F05" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#802F05" stopOpacity="0"/>
       </radialGradient>
       <radialGradient
         id="paint9_radial_81_325"
@@ -3997,9 +3323,9 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(352.401 432.764) rotate(-3.15618) scale(152.608 147.949)"
       >
-        <stop stopColor="#7E2F04" />
-        <stop offset="0.54" stopColor="#7F2F04" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#803004" stopOpacity="0" />
+        <stop stopColor="#7E2F04"/>
+        <stop offset="0.54" stopColor="#7F2F04" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#803004" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint10_linear_81_325"
@@ -4009,11 +3335,11 @@ export const Place3 = ({width, height}) => (
         y2="440.676"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#822D01" />
-        <stop offset="0.2" stopColor="#AF591C" />
-        <stop offset="0.51" stopColor="#DD8536" />
-        <stop offset="0.7" stopColor="#AE5722" />
-        <stop offset="0.96" stopColor="#7F290E" />
+        <stop stopColor="#822D01"/>
+        <stop offset="0.2" stopColor="#AF591C"/>
+        <stop offset="0.51" stopColor="#DD8536"/>
+        <stop offset="0.7" stopColor="#AE5722"/>
+        <stop offset="0.96" stopColor="#7F290E"/>
       </linearGradient>
       <linearGradient
         id="paint11_linear_81_325"
@@ -4023,11 +3349,11 @@ export const Place3 = ({width, height}) => (
         y2="414.551"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.13" stopColor="white" stopOpacity="0" />
-        <stop offset="0.37" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.49" stopColor="white" />
-        <stop offset="0.59" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.88" stopColor="white" stopOpacity="0" />
+        <stop offset="0.13" stopColor="white" stopOpacity="0"/>
+        <stop offset="0.37" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.49" stopColor="white"/>
+        <stop offset="0.59" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.88" stopColor="white" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint12_linear_81_325"
@@ -4037,11 +3363,11 @@ export const Place3 = ({width, height}) => (
         y2="414.551"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFA748" />
-        <stop offset="0.25" stopColor="#FFA748" />
-        <stop offset="0.49" stopColor="#FFA748" />
-        <stop offset="0.75" stopColor="#FFA748" />
-        <stop offset="1" stopColor="#FFA748" />
+        <stop stopColor="#FFA748"/>
+        <stop offset="0.25" stopColor="#FFA748"/>
+        <stop offset="0.49" stopColor="#FFA748"/>
+        <stop offset="0.75" stopColor="#FFA748"/>
+        <stop offset="1" stopColor="#FFA748"/>
       </linearGradient>
       <linearGradient
         id="paint13_linear_81_325"
@@ -4051,11 +3377,11 @@ export const Place3 = ({width, height}) => (
         y2="411.262"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C6610A" />
-        <stop offset="0.25" stopColor="#CD6406" />
-        <stop offset="0.5" stopColor="#D36802" />
-        <stop offset="0.75" stopColor="#A73E01" />
-        <stop offset="1" stopColor="#7B1401" />
+        <stop stopColor="#C6610A"/>
+        <stop offset="0.25" stopColor="#CD6406"/>
+        <stop offset="0.5" stopColor="#D36802"/>
+        <stop offset="0.75" stopColor="#A73E01"/>
+        <stop offset="1" stopColor="#7B1401"/>
       </linearGradient>
       <radialGradient
         id="paint14_radial_81_325"
@@ -4065,9 +3391,9 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(229 358.598) scale(33.434 32.4069)"
       >
-        <stop stopColor="#D87B1F" />
-        <stop offset="0.49" stopColor="#DF8222" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#E68A26" stopOpacity="0" />
+        <stop stopColor="#D87B1F"/>
+        <stop offset="0.49" stopColor="#DF8222" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#E68A26" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint15_linear_81_325"
@@ -4077,9 +3403,9 @@ export const Place3 = ({width, height}) => (
         y2="350.715"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#CD5C10" />
-        <stop offset="0.5" stopColor="#B14508" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#952E00" stopOpacity="0" />
+        <stop stopColor="#CD5C10"/>
+        <stop offset="0.5" stopColor="#B14508" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#952E00" stopOpacity="0"/>
       </linearGradient>
       <radialGradient
         id="paint16_radial_81_325"
@@ -4089,9 +3415,9 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(250 371.199) scale(79.856 77.4028)"
       >
-        <stop stopColor="#C86309" />
-        <stop offset="0.25" stopColor="#D0761A" stopOpacity="0.5" />
-        <stop offset="0.31" stopColor="#D8882A" stopOpacity="0" />
+        <stop stopColor="#C86309"/>
+        <stop offset="0.25" stopColor="#D0761A" stopOpacity="0.5"/>
+        <stop offset="0.31" stopColor="#D8882A" stopOpacity="0"/>
       </radialGradient>
       <linearGradient
         id="paint17_linear_81_325"
@@ -4101,9 +3427,9 @@ export const Place3 = ({width, height}) => (
         y2="354.615"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#9B3B01" />
-        <stop offset="0.47" stopColor="#9C3C01" stopOpacity="0.5" />
-        <stop offset="0.93" stopColor="#9C3C00" stopOpacity="0" />
+        <stop stopColor="#9B3B01"/>
+        <stop offset="0.47" stopColor="#9C3C01" stopOpacity="0.5"/>
+        <stop offset="0.93" stopColor="#9C3C00" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint18_linear_81_325"
@@ -4113,9 +3439,9 @@ export const Place3 = ({width, height}) => (
         y2="326.291"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C7560B" />
-        <stop offset="0.49" stopColor="#C4540A" stopOpacity="0.5" />
-        <stop offset="0.93" stopColor="#C25208" stopOpacity="0" />
+        <stop stopColor="#C7560B"/>
+        <stop offset="0.49" stopColor="#C4540A" stopOpacity="0.5"/>
+        <stop offset="0.93" stopColor="#C25208" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint19_linear_81_325"
@@ -4125,11 +3451,11 @@ export const Place3 = ({width, height}) => (
         y2="330.905"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#A14003" />
-        <stop offset="0.28" stopColor="#B04E05" />
-        <stop offset="0.57" stopColor="#C05B07" />
-        <stop offset="0.79" stopColor="#B54A04" />
-        <stop offset="1" stopColor="#A93900" />
+        <stop stopColor="#A14003"/>
+        <stop offset="0.28" stopColor="#B04E05"/>
+        <stop offset="0.57" stopColor="#C05B07"/>
+        <stop offset="0.79" stopColor="#B54A04"/>
+        <stop offset="1" stopColor="#A93900"/>
       </linearGradient>
       <radialGradient
         id="paint20_radial_81_325"
@@ -4139,10 +3465,10 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(310 269.425) scale(54.584 52.9072)"
       >
-        <stop stopColor="white" />
-        <stop offset="0.01" stopColor="white" />
-        <stop offset="0.36" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.7" stopColor="white" stopOpacity="0" />
+        <stop stopColor="white"/>
+        <stop offset="0.01" stopColor="white"/>
+        <stop offset="0.36" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.7" stopColor="white" stopOpacity="0"/>
       </radialGradient>
       <radialGradient
         id="paint21_radial_81_325"
@@ -4152,11 +3478,11 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(310 269.425) scale(54.584 52.9072)"
       >
-        <stop stopColor="#D88826" />
-        <stop offset="0.03" stopColor="#D88826" />
-        <stop offset="0.05" stopColor="#D88826" />
-        <stop offset="0.39" stopColor="#D38020" />
-        <stop offset="0.73" stopColor="#CD781A" />
+        <stop stopColor="#D88826"/>
+        <stop offset="0.03" stopColor="#D88826"/>
+        <stop offset="0.05" stopColor="#D88826"/>
+        <stop offset="0.39" stopColor="#D38020"/>
+        <stop offset="0.73" stopColor="#CD781A"/>
       </radialGradient>
       <linearGradient
         id="paint22_linear_81_325"
@@ -4166,9 +3492,9 @@ export const Place3 = ({width, height}) => (
         y2="281.878"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#BF4B02" />
-        <stop offset="0.51" stopColor="#C45004" stopOpacity="0.5" />
-        <stop offset="1" stopColor="#C95606" stopOpacity="0" />
+        <stop stopColor="#BF4B02"/>
+        <stop offset="0.51" stopColor="#C45004" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="#C95606" stopOpacity="0"/>
       </linearGradient>
       <radialGradient
         id="paint23_radial_81_325"
@@ -4178,9 +3504,9 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(268 292.687) scale(54.584 52.9072)"
       >
-        <stop stopColor="#CC5E07" />
-        <stop offset="0.22" stopColor="#CD5D09" stopOpacity="0.5" />
-        <stop offset="0.43" stopColor="#CE5D0B" stopOpacity="0" />
+        <stop stopColor="#CC5E07"/>
+        <stop offset="0.22" stopColor="#CD5D09" stopOpacity="0.5"/>
+        <stop offset="0.43" stopColor="#CE5D0B" stopOpacity="0"/>
       </radialGradient>
       <radialGradient
         id="paint24_radial_81_325"
@@ -4190,9 +3516,9 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(230 287.841) scale(54.584 52.9072)"
       >
-        <stop stopColor="#D86F0C" />
-        <stop offset="0.17" stopColor="#D56B0C" stopOpacity="0.5" />
-        <stop offset="0.34" stopColor="#D1680C" stopOpacity="0" />
+        <stop stopColor="#D86F0C"/>
+        <stop offset="0.17" stopColor="#D56B0C" stopOpacity="0.5"/>
+        <stop offset="0.34" stopColor="#D1680C" stopOpacity="0"/>
       </radialGradient>
       <radialGradient
         id="paint25_radial_81_325"
@@ -4202,9 +3528,9 @@ export const Place3 = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(296 279.117) scale(141.557 137.208)"
       >
-        <stop stopColor="#E2953C" />
-        <stop offset="0.5" stopColor="#DD8B33" />
-        <stop offset="1" stopColor="#D7812B" />
+        <stop stopColor="#E2953C"/>
+        <stop offset="0.5" stopColor="#DD8B33"/>
+        <stop offset="1" stopColor="#D7812B"/>
       </radialGradient>
       <linearGradient
         id="paint26_linear_81_325"
@@ -4214,11 +3540,11 @@ export const Place3 = ({width, height}) => (
         y2="405.587"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.28" stopColor="white" stopOpacity="0" />
-        <stop offset="0.32" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.47" stopColor="white" />
-        <stop offset="0.65" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.68" stopColor="white" stopOpacity="0" />
+        <stop offset="0.28" stopColor="white" stopOpacity="0"/>
+        <stop offset="0.32" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.47" stopColor="white"/>
+        <stop offset="0.65" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.68" stopColor="white" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint27_linear_81_325"
@@ -4228,18 +3554,18 @@ export const Place3 = ({width, height}) => (
         y2="405.587"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.47" stopColor="#FFDCA0" />
-        <stop offset="0.73" stopColor="#FFD58C" />
-        <stop offset="1" stopColor="#FFCE78" />
+        <stop offset="0.47" stopColor="#FFDCA0"/>
+        <stop offset="0.73" stopColor="#FFD58C"/>
+        <stop offset="1" stopColor="#FFCE78"/>
       </linearGradient>
       <clipPath id="clip0_81_325">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const X = ({width, height, className}) => (
+export const X = ({ width, height, className }) => (
   <svg
     width="34"
     height="31"
@@ -4247,8 +3573,8 @@ export const X = ({width, height, className}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
@@ -4259,7 +3585,7 @@ export const X = ({width, height, className}) => (
   </svg>
 )
 
-export const Telegram = ({width, height, className, withoutBackground}) => (
+export const Telegram = ({ width, height, className, withoutBackground }) => (
   <svg
     width="38"
     height="38"
@@ -4267,13 +3593,13 @@ export const Telegram = ({width, height, className, withoutBackground}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
     <path
-      style={{...(withoutBackground ? {visibility: `hidden`} : {})}}
+      style={{ ...(withoutBackground ? { visibility: `hidden` } : {}) }}
       d="M38 19C38 29.4975 29.4975 38 19 38C8.5025 38 0 29.4975 0 19C0 8.5025 8.5025 0 19 0C29.4975 0 38 8.5025 38 19Z"
       fill="url(#paint0_linear_84_578)"
     />
@@ -4298,8 +3624,8 @@ export const Telegram = ({width, height, className, withoutBackground}) => (
         y2="28.1719"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#37AEE2" />
-        <stop offset="1" stopColor="#1E96C8" />
+        <stop stopColor="#37AEE2"/>
+        <stop offset="1" stopColor="#1E96C8"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_84_578"
@@ -4309,14 +3635,14 @@ export const Telegram = ({width, height, className, withoutBackground}) => (
         y2="25.9279"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#EFF7FC" />
-        <stop offset="1" stopColor="white" />
+        <stop stopColor="#EFF7FC"/>
+        <stop offset="1" stopColor="white"/>
       </linearGradient>
     </defs>
   </svg>
 )
 
-export const Hands = ({width, height, className}) => (
+export const Hands = ({ width, height, className }) => (
   <svg
     width="512"
     height="512"
@@ -4324,22 +3650,22 @@ export const Hands = ({width, height, className}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
     <g clipPath="url(#clip0_88_11)">
       <mask
         id="mask0_88_11"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_88_11)">
         <path
@@ -4820,13 +4146,13 @@ export const Hands = ({width, height, className}) => (
     </g>
     <defs>
       <clipPath id="clip0_88_11">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Youtube = ({width, height, className}) => (
+export const Youtube = ({ width, height, className }) => (
   <svg
     width="38"
     height="27"
@@ -4834,8 +4160,8 @@ export const Youtube = ({width, height, className}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     className={classnames(className)}
   >
@@ -4854,7 +4180,7 @@ export const Youtube = ({width, height, className}) => (
   </svg>
 )
 
-export const FaceScary = ({width, height}) => (
+export const FaceScary = ({ width, height }) => (
   <svg
     width="512"
     height="512"
@@ -4862,21 +4188,21 @@ export const FaceScary = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <g clipPath="url(#clip0_110_22)">
       <mask
         id="mask0_110_22"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_110_22)">
         <path
@@ -4980,9 +4306,9 @@ export const FaceScary = ({width, height}) => (
         y2="444.576"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FDCF18" />
-        <stop offset="0.47" stopColor="#F5AB0C" />
-        <stop offset="0.93" stopColor="#ED8700" />
+        <stop stopColor="#FDCF18"/>
+        <stop offset="0.47" stopColor="#F5AB0C"/>
+        <stop offset="0.93" stopColor="#ED8700"/>
       </linearGradient>
       <radialGradient
         id="paint1_radial_110_22"
@@ -4992,24 +4318,24 @@ export const FaceScary = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(249.961 93.4479) scale(342.856 342.856)"
       >
-        <stop offset="0.07" stopColor="#FEFEE2" />
-        <stop offset="0.28" stopColor="#FDEE8C" />
-        <stop offset="0.49" stopColor="#FCDE36" />
-        <stop offset="0.82" stopColor="#F5B820" />
-        <stop offset="1" stopColor="#EE910A" />
+        <stop offset="0.07" stopColor="#FEFEE2"/>
+        <stop offset="0.28" stopColor="#FDEE8C"/>
+        <stop offset="0.49" stopColor="#FCDE36"/>
+        <stop offset="0.82" stopColor="#F5B820"/>
+        <stop offset="1" stopColor="#EE910A"/>
       </radialGradient>
       <clipPath id="clip0_110_22">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Firework = ({width, height}) => (
+export const Firework = ({ width, height }) => (
   <svg
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
     width="512"
     height="512"
@@ -5020,14 +4346,14 @@ export const Firework = ({width, height}) => (
     <g clipPath="url(#clip0_146_79)">
       <mask
         id="mask0_146_79"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white" />
+        <path d="M512 0H0V512H512V0Z" fill="white"/>
       </mask>
       <g mask="url(#mask0_146_79)">
         <path
@@ -5050,7 +4376,7 @@ export const Firework = ({width, height}) => (
         />
         <mask
           id="mask1_146_79"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="343"
           y="301"
@@ -5070,7 +4396,7 @@ export const Firework = ({width, height}) => (
         </g>
         <mask
           id="mask2_146_79"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="230"
           y="171"
@@ -5090,7 +4416,7 @@ export const Firework = ({width, height}) => (
         </g>
         <mask
           id="mask3_146_79"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="169"
           y="127"
@@ -5152,7 +4478,7 @@ export const Firework = ({width, height}) => (
         />
         <mask
           id="mask4_146_79"
-          style={{maskType: 'luminance'}}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="92"
           y="320"
@@ -5340,9 +4666,9 @@ export const Firework = ({width, height}) => (
         y2="310.875"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.71" stopColor="white" stopOpacity="0.5" />
-        <stop offset="1" stopColor="white" stopOpacity="0" />
+        <stop stopColor="white"/>
+        <stop offset="0.71" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="white" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint1_linear_146_79"
@@ -5352,9 +4678,9 @@ export const Firework = ({width, height}) => (
         y2="310.875"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.19" stopColor="#FCD642" />
-        <stop offset="0.88" stopColor="#E7B831" />
-        <stop offset="1" stopColor="#D29A20" />
+        <stop offset="0.19" stopColor="#FCD642"/>
+        <stop offset="0.88" stopColor="#E7B831"/>
+        <stop offset="1" stopColor="#D29A20"/>
       </linearGradient>
       <linearGradient
         id="paint2_linear_146_79"
@@ -5364,11 +4690,11 @@ export const Firework = ({width, height}) => (
         y2="274.626"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" stopOpacity="0" />
-        <stop offset="0.11" stopColor="white" stopOpacity="0.5" />
-        <stop offset="0.49" stopColor="white" />
-        <stop offset="0.86" stopColor="white" stopOpacity="0.505" />
-        <stop offset="1" stopColor="white" stopOpacity="0.01" />
+        <stop stopColor="white" stopOpacity="0"/>
+        <stop offset="0.11" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="0.49" stopColor="white"/>
+        <stop offset="0.86" stopColor="white" stopOpacity="0.505"/>
+        <stop offset="1" stopColor="white" stopOpacity="0.01"/>
       </linearGradient>
       <linearGradient
         id="paint3_linear_146_79"
@@ -5378,11 +4704,11 @@ export const Firework = ({width, height}) => (
         y2="274.626"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FCD642" />
-        <stop offset="0.14" stopColor="#FCD642" />
-        <stop offset="0.5" stopColor="#FCD642" />
-        <stop offset="0.84" stopColor="#FCD642" />
-        <stop offset="0.99" stopColor="#FCD642" />
+        <stop stopColor="#FCD642"/>
+        <stop offset="0.14" stopColor="#FCD642"/>
+        <stop offset="0.5" stopColor="#FCD642"/>
+        <stop offset="0.84" stopColor="#FCD642"/>
+        <stop offset="0.99" stopColor="#FCD642"/>
       </linearGradient>
       <linearGradient
         id="paint4_linear_146_79"
@@ -5392,9 +4718,9 @@ export const Firework = ({width, height}) => (
         y2="174.377"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.71" stopColor="white" stopOpacity="0.5" />
-        <stop offset="1" stopColor="white" stopOpacity="0" />
+        <stop stopColor="white"/>
+        <stop offset="0.71" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="white" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint5_linear_146_79"
@@ -5404,9 +4730,9 @@ export const Firework = ({width, height}) => (
         y2="174.377"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.29" stopColor="#9A6C07" />
-        <stop offset="0.9" stopColor="#B68314" />
-        <stop offset="1" stopColor="#D29A20" />
+        <stop offset="0.29" stopColor="#9A6C07"/>
+        <stop offset="0.9" stopColor="#B68314"/>
+        <stop offset="1" stopColor="#D29A20"/>
       </linearGradient>
       <linearGradient
         id="paint6_linear_146_79"
@@ -5416,11 +4742,11 @@ export const Firework = ({width, height}) => (
         y2="350.627"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.11" stopColor="#C0951B" />
-        <stop offset="0.42" stopColor="#DBAD2A" />
-        <stop offset="0.72" stopColor="#F5C539" />
-        <stop offset="0.82" stopColor="#FAE24F" />
-        <stop offset="1" stopColor="#FFFF64" />
+        <stop offset="0.11" stopColor="#C0951B"/>
+        <stop offset="0.42" stopColor="#DBAD2A"/>
+        <stop offset="0.72" stopColor="#F5C539"/>
+        <stop offset="0.82" stopColor="#FAE24F"/>
+        <stop offset="1" stopColor="#FFFF64"/>
       </linearGradient>
       <linearGradient
         id="paint7_linear_146_79"
@@ -5430,9 +4756,9 @@ export const Firework = ({width, height}) => (
         y2="388.761"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="white" />
-        <stop offset="0.71" stopColor="white" stopOpacity="0.5" />
-        <stop offset="1" stopColor="white" stopOpacity="0" />
+        <stop stopColor="white"/>
+        <stop offset="0.71" stopColor="white" stopOpacity="0.5"/>
+        <stop offset="1" stopColor="white" stopOpacity="0"/>
       </linearGradient>
       <linearGradient
         id="paint8_linear_146_79"
@@ -5442,9 +4768,9 @@ export const Firework = ({width, height}) => (
         y2="388.761"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.29" stopColor="#9A6C07" />
-        <stop offset="0.9" stopColor="#CDB636" />
-        <stop offset="1" stopColor="#FFFF64" />
+        <stop offset="0.29" stopColor="#9A6C07"/>
+        <stop offset="0.9" stopColor="#CDB636"/>
+        <stop offset="1" stopColor="#FFFF64"/>
       </linearGradient>
       <linearGradient
         id="paint9_linear_146_79"
@@ -5454,11 +4780,11 @@ export const Firework = ({width, height}) => (
         y2="396.876"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.27" stopColor="#8A48BE" />
-        <stop offset="0.63" stopColor="#C579DE" />
-        <stop offset="0.88" stopColor="#FFABFD" />
-        <stop offset="0.92" stopColor="#B064BC" />
-        <stop offset="0.99" stopColor="#611E7B" />
+        <stop offset="0.27" stopColor="#8A48BE"/>
+        <stop offset="0.63" stopColor="#C579DE"/>
+        <stop offset="0.88" stopColor="#FFABFD"/>
+        <stop offset="0.92" stopColor="#B064BC"/>
+        <stop offset="0.99" stopColor="#611E7B"/>
       </linearGradient>
       <linearGradient
         id="paint10_linear_146_79"
@@ -5468,11 +4794,11 @@ export const Firework = ({width, height}) => (
         y2="448.376"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.27" stopColor="#8A48BE" />
-        <stop offset="0.62" stopColor="#C579DE" />
-        <stop offset="0.85" stopColor="#FFABFD" />
-        <stop offset="0.92" stopColor="#B064BC" />
-        <stop offset="0.99" stopColor="#611E7B" />
+        <stop offset="0.27" stopColor="#8A48BE"/>
+        <stop offset="0.62" stopColor="#C579DE"/>
+        <stop offset="0.85" stopColor="#FFABFD"/>
+        <stop offset="0.92" stopColor="#B064BC"/>
+        <stop offset="0.99" stopColor="#611E7B"/>
       </linearGradient>
       <linearGradient
         id="paint11_linear_146_79"
@@ -5482,20 +4808,20 @@ export const Firework = ({width, height}) => (
         y2="478.126"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.27" stopColor="#8A48BE" />
-        <stop offset="0.7" stopColor="#B76BD9" />
-        <stop offset="0.88" stopColor="#E38EF4" />
-        <stop offset="0.92" stopColor="#A256B7" />
-        <stop offset="0.99" stopColor="#611E7B" />
+        <stop offset="0.27" stopColor="#8A48BE"/>
+        <stop offset="0.7" stopColor="#B76BD9"/>
+        <stop offset="0.88" stopColor="#E38EF4"/>
+        <stop offset="0.92" stopColor="#A256B7"/>
+        <stop offset="0.99" stopColor="#611E7B"/>
       </linearGradient>
       <clipPath id="clip0_146_79">
-        <rect width="512" height="512" fill="white" />
+        <rect width="512" height="512" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 )
 
-export const Person = ({width, height}) => (
+export const Person = ({ width, height }) => (
   <svg
     width="24"
     height="24"
@@ -5503,8 +4829,8 @@ export const Person = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <path
@@ -5516,7 +4842,7 @@ export const Person = ({width, height}) => (
   </svg>
 )
 
-export const Metamask = ({width, height}) => (
+export const Metamask = ({ width, height }) => (
   <svg
     width="319"
     height="319"
@@ -5524,8 +4850,8 @@ export const Metamask = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <path
@@ -5615,7 +4941,7 @@ export const Metamask = ({width, height}) => (
   </svg>
 )
 
-export const Eth = ({width, height}) => (
+export const Eth = ({ width, height }) => (
   <svg
     width="12"
     height="18"
@@ -5623,8 +4949,8 @@ export const Eth = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <path
@@ -5632,13 +4958,13 @@ export const Eth = ({width, height}) => (
       fill="white"
       fillOpacity="0.602"
     />
-    <path d="M5.62467 0L0 9.16691L5.62467 6.65389V0Z" fill="white" />
+    <path d="M5.62467 0L0 9.16691L5.62467 6.65389V0Z" fill="white"/>
     <path
       d="M5.62451 13.4788V18L11.2522 10.2141L5.62451 13.4788Z"
       fill="white"
       fillOpacity="0.602"
     />
-    <path d="M5.62467 18V13.478L0 10.2141L5.62467 18Z" fill="white" />
+    <path d="M5.62467 18V13.478L0 10.2141L5.62467 18Z" fill="white"/>
     <path
       d="M5.62451 12.4324L11.2484 9.16692L5.62451 6.6554V12.4324Z"
       fill="white"
@@ -5652,7 +4978,7 @@ export const Eth = ({width, height}) => (
   </svg>
 )
 
-export const Arrows = ({width, height}) => (
+export const Arrows = ({ width, height }) => (
   <svg
     width="28"
     height="28"
@@ -5660,8 +4986,8 @@ export const Arrows = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <path
@@ -5673,47 +4999,55 @@ export const Arrows = ({width, height}) => (
   </svg>
 )
 
-export const Wallet = ({width, height}) => (
+export const Wallet = ({ width, height, color = '#fff' }) => (
   <svg
-    width="24"
-    height="19"
-    viewBox="0 0 24 19"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <mask
-      id="mask0_190_22"
-      style={{maskType: 'alpha'}}
-      maskUnits="userSpaceOnUse"
-      x="0"
-      y="0"
-      width="24"
-      height="19"
-    >
-      <rect width="24" height="19" fill="#D9D9D9" />
-    </mask>
-    <g mask="url(#mask0_190_22)">
+    <path
+      d="M14.3 11.6999H10.6C9.59995 11.6999 8.69995 10.8999 8.69995 9.7999V7.8999C8.69995 6.8999 9.49995 5.9999 10.6 5.9999H14.3C14.5 5.9999 14.6 5.9999 14.7 6.0999V5.9999C14.6 5.4999 14.5 4.9999 14.1 4.5999L14 4.4999C13.6 4.0999 13.1 3.9999 12.6 3.8999C12.1 3.7999 10.2 3.7999 9.39995 3.7999H8.89995C8.59995 3.7999 8.49995 3.7999 8.39995 3.7999C8.19995 3.7999 7.99995 3.6999 7.79995 3.5999C7.79995 3.4999 7.69995 3.4999 7.49995 3.2999C7.29995 2.9999 7.09995 2.8999 6.99995 2.7999C6.69995 2.5999 6.29995 2.3999 5.89995 2.3999C5.69995 2.3999 5.49995 2.3999 5.29995 2.3999H4.89995C4.29995 2.3999 3.79995 2.3999 3.39995 2.3999C2.99995 2.3999 2.59995 2.4999 2.29995 2.6999C1.99995 2.8999 1.79995 3.0999 1.59995 3.3999C1.39995 3.7999 1.29995 4.0999 1.19995 4.5999C1.19995 4.9999 1.19995 5.4999 1.19995 6.0999V9.9999C1.19995 10.7999 1.19995 11.4999 1.29995 12.0999C1.39995 12.6999 1.49995 13.1999 1.89995 13.5999C2.29995 13.9999 2.79995 14.1999 3.39995 14.1999C3.89995 14.2999 4.59995 14.2999 5.49995 14.2999H9.39995C10.2 14.2999 12.2 14.2999 12.7 14.1999C13.3 14.0999 13.8 13.9999 14.2 13.5999C14.6 13.1999 14.8 12.6999 14.8 12.0999C14.8 11.9999 14.8 11.7999 14.8 11.6999C14.6 11.6999 14.5 11.6999 14.3 11.6999Z"
+      fill={color}/>
+    <path
+      d="M14.3 7.30005H10.6C10.3 7.30005 10 7.60005 10 7.90005V9.80005C10 10.1 10.3 10.4 10.6 10.4H14.3C14.6 10.4 14.9 10.1 14.9 9.80005V7.90005C14.9 7.60005 14.7 7.30005 14.3 7.30005ZM11.5 9.80005C11 9.80005 10.6 9.40005 10.6 8.90005C10.6 8.40005 11 8.00005 11.5 8.00005C12 8.00005 12.4 8.40005 12.4 8.90005C12.4 9.40005 12 9.80005 11.5 9.80005Z"
+      fill={color}/>
+  </svg>
+)
+
+export const Chevron = ({ width, height, color = '#fff' }) => (
+  <svg
+    width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style={{
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+    }}
+  >
+    <path d="M7 3.00024L4.5 5.50024L2 3.00024" stroke={color} strokeWidth={9/width*2} strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+export const Close = ({ width, height }) => (
+  <svg
+    width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style={{
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+    }}
+  >
+    <g clipPath="url(#clip0_655_18207)">
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M6.53201 1.05472e-05C6.94918 -9.9781e-05 7.25401 -0.000180427 7.55193 0.0462007C8.16992 0.142411 8.7555 0.386599 9.25875 0.757955C9.50136 0.93698 9.71582 1.15361 10.0093 1.45008C10.0238 1.46472 10.0385 1.47955 10.0534 1.49459C10.4091 1.85364 10.5215 1.96364 10.638 2.04957C10.9077 2.24864 11.2216 2.37954 11.5529 2.43111C11.6959 2.45337 11.8532 2.45587 12.3586 2.45587L13.1258 2.45587C14.4184 2.45584 17.4755 2.45582 18.3133 2.56398C19.188 2.67693 19.9515 2.92103 20.5744 3.50488C20.6355 3.56214 20.6947 3.62136 20.752 3.68246C21.3358 4.30538 21.5799 5.06884 21.6929 5.94359C21.801 6.78134 21.801 8.83841 21.801 11.1311V12.2311C21.801 13.581 21.801 14.6847 21.6839 15.5562C21.5613 16.4675 21.2961 17.2584 20.6646 17.8899C20.0331 18.5214 19.2422 18.7866 18.331 18.9091C17.4594 19.0263 14.3557 19.0263 13.0058 19.0263H6.7952C5.44529 19.0263 4.34155 19.0263 3.47001 18.9091C2.55878 18.7866 1.76784 18.5214 1.13636 17.8899C0.504893 17.2584 0.239635 16.4675 0.117122 15.5562C-5.22509e-05 14.6847 -2.82881e-05 13.581 9.18223e-07 12.2311L1.39506e-06 6.00407C-1.41618e-05 5.02766 -2.69189e-05 4.22884 0.0636648 3.58452C0.129769 2.9158 0.271373 2.31735 0.617663 1.7795C0.917551 1.31373 1.31371 0.917571 1.77948 0.617683C2.31733 0.271393 2.91578 0.129789 3.5845 0.0636845C4.22882 -7.27177e-06 5.02764 5.48077e-06 6.00405 2.10376e-05L6.46936 2.15144e-05C6.49053 2.15144e-05 6.51141 1.59712e-05 6.53201 1.05472e-05Z"
-        fill="white"
-      />
-      <rect
-        x="13"
-        y="7"
-        width="10"
-        height="7"
-        rx="2"
-        fill="white"
-        stroke="#269ED0"
-        strokeWidth="2"
-      />
-      <circle cx="16.5" cy="10.5" r="1.5" fill="#269ED0" />
+        d="M14 28.5C21.6589 28.5 28 22.1451 28 14.5C28 6.84117 21.6451 0.5 13.9863 0.5C6.34117 0.5 0 6.84117 0 14.5C0 22.1451 6.35489 28.5 14 28.5Z"
+        fill="#282828"/>
+      <path opacity="0.5"
+            d="M9.17282 20.5C8.51489 20.5 8 19.9702 8 19.3115C8 18.9964 8.11441 18.6957 8.34326 18.4808L12.3051 14.5L8.34326 10.5334C8.11441 10.3043 8 10.0179 8 9.70286C8 9.02982 8.51489 8.52864 9.17282 8.52864C9.50178 8.52864 9.75923 8.64319 9.98807 8.85799L13.9785 12.8389L17.9976 8.84367C18.2407 8.60024 18.4982 8.5 18.8128 8.5C19.4707 8.5 20 9.01551 20 9.67422C20 10.0036 19.8998 10.2613 19.6423 10.5191L15.6663 14.5L19.6281 18.4666C19.8713 18.6814 19.9856 18.982 19.9856 19.3115C19.9856 19.9702 19.4565 20.5 18.7842 20.5C18.4553 20.5 18.1549 20.3855 17.9403 20.1563L13.9785 16.1754L10.031 20.1563C9.80214 20.3855 9.50178 20.5 9.17282 20.5Z"
+            fill="#999999"/>
     </g>
+    <defs>
+      <clipPath id="clip0_655_18207">
+        <rect width="28" height="28" fill="white" transform="translate(0 0.5)"/>
+      </clipPath>
+    </defs>
   </svg>
 )

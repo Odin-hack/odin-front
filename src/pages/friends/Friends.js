@@ -24,20 +24,16 @@ const Claim = () => {
   const claimProgressWidth = parseInt((dur / (24 * 60 * 60 * 1000)) * 100, 10)
   return (
     <div className={styles.claim__box}>
-      <div
-        className={classnames({
-          [styles.claim__background_inactive]: !active,
-        })}
-      >
-        <div className="stars__container">
-          <div
-            className={classnames('stars', {
-              stars_active: active,
-              stars_inactive: !active,
-            })}
-          />
-        </div>
-      </div>
+      <img
+        src="/assets/friends-cover-active.png"
+        alt="Cover"
+        style={{
+          height: '200px',
+          width: '100%',
+          objectFit: 'cover',
+          filter: active ? 'none' : 'grayscale(100%)',
+        }}
+      />
       <div
         className={classnames('_f _fCC _fCol _abs_mid', styles.claim__content)}
       >

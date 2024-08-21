@@ -1,0 +1,1 @@
+export { AnimatedVideo } from './AnimatedVideo'

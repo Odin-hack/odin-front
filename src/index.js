@@ -20,7 +20,6 @@ import 'react-circular-progressbar/dist/styles.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import './index.sass'
-import './index.scss'
 
 const routePathComponent = {
   '/home': <pages.Home />,

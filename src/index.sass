@@ -113,12 +113,22 @@ a
 	+font(#fff, 'SF Pro Display 400', 14px, 14px)
 ._w4001013
 	+font(#fff, 'SF Pro Display 400', 14px, 14px)
+._w5001816
+	+font(#fff, 'SF Pro Display 500', 18px, 16px)
+._w7001722
+	+font(#fff, 'SF Pro Display 700', 17px, 22px)
 ._g4001722
 	+font(#AAAAAA, 'SF Pro Display 400', 17px, 22px)
+._g7001722
+	+font(#AAAAAA, 'SF Pro Display 700', 17px, 22px)
 ._g5001722
 	+font(#AAAAAA, 'SF Pro Display 500', 17px, 22px)
 ._g4001824
 	+font(#AAAAAA, 'SF Pro Display 400', 18px, 24px)
+._g4001416
+	+font(#999999, 'SF Pro Display 400', 14px, 16px)
+._g7001722
+	+font(#A8A8A8, 'SF Pro Display 700', 17px, 22px)
 ._w4001722
 	+font(#fff, 'SF Pro Display 400', 17px, 22px)
 ._w7001316
@@ -209,6 +219,8 @@ a
 	+font(#fff, 'SF Pro Display 700', 48px, 57.28px)
 ._w7003257
 	+font(#fff, 'SF Pro Display 700', 32px, 57.28px)
+._d7001316
+	+font(#000, 'SF Pro Display 700', 13px, 16px)
 ._d7001416
 	+font(#000, 'SF Pro Display 700', 14px, 16.71px)
 ._d7001722
@@ -278,9 +290,33 @@ a
 	width: 100%
 	height: 100%
 
+.ReactModal__Content
+	top: 50%
+	left: 50%
+	transform: translate(-50%, 50%)
+	transition: transform 0.3s, opacity 0.3s
+	opacity: 0
+
+	&--after-open
+		transform: translate(-50%, -50%)
+		opacity: 1
+
+	&--before-close
+		transform: translate(-50%, 50%)
+		opacity: 0
+
 .ReactModal__Overlay
-	background-color: transparent!important
+	background-color: rgba(0,0,0,.9)!important
 	z-index: 100
+	opacity: 0
+	transition: opacity 0.3s
+
+	&--after-open
+		opacity: 1
+
+	&--before-close
+		opacity: 0
+
 .adjusted-react-modal
 	width: 100vw
 	height: 100vh

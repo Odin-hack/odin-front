@@ -2,25 +2,40 @@
 	&__box
 		width: 100%
 		padding-top: 40px!important
-	&__logo
-		&__box
-			margin-bottom: 19px
 	&__balance
 		&__text
 			margin-left: 9px
 		&__box
 			margin-bottom: 4px
 	&__wallet
+		background: #282828
+		display: flex
+		align-items: center
+		gap: 10px
+		padding: 6px 10px
 		margin: 4px auto 32px
+		border-radius: 7px
 .wallet_connect
 	&__button
 		background: #BCFF2F
-		width: 100%
-		max-width: 269px
-		height: 50px
-		border-radius: 10px
+		padding: 6px 15px
+		border-radius: 7px
 		margin: 0 auto
 		margin-top: 28px
+	&__modal
+		&__coming_soon_label
+			background: #282828
+			padding: 2px 5px
+			border-radius: 20px
+			color: #5E5E5E
+		&__button
+			width: 100%
+			padding: 10px
+			border-radius: 10px
+			&__active
+				background: #282828
+			&__coming_soon
+				box-shadow: 0 0 0 2px inset #282828
 .spinning_v2
 	&__slot
 		position: absolute
@@ -78,9 +93,8 @@
 			border-radius: 24px
 		&__button
 			background: #fff
-			width: 110px
-			height: 36px
-			border-radius: 20px
+			padding: 6px 20px
+			border-radius: 7px
 	&__bot_landing
 		&__button
 			height: 42px
@@ -101,6 +115,25 @@
 			border-radius: 16px
 			background: #212121
 			justify-content: end!important
+.modal_wallet
+	&__box
+		background: #000
+		border-radius: 10px
+		padding: 20px
+	&__button
+		display: block
+		width: 100%
+		height: 50px
+		border-radius: 10px
+		text-align: center
+		cursor: pointer
+
+		&__white
+			background: #fff
+			color: #000
+		&__transparent
+			border: 2px solid #282828
+			color: #999999
 .modal_reward
 	&__background
 		background: rgba(0, 0, 0, .6)
@@ -112,9 +145,9 @@
 	&__box
 		background: #000
 		z-index: 2
-		top: auto!important
+		top: 0!important
 		bottom: 0
-		transform: translate(-50%, 100%)!important
+		transform: translate(-50%, 0)!important
 		border-top-left-radius: 10px
 		border-top-right-radius: 10px
 		padding: 34px 17px 90px

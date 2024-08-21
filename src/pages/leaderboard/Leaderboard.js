@@ -46,13 +46,17 @@ const Card = ({
   return (
     <div className={classesBox}>
       <div className="_fCC _w100">
-        <div className={styles.card__circle}>
+        <div
+          className={styles.card__circle}
+          style={{backgroundColor: lib.getAvatarColor(name)}}
+        >
           {defaultPhoto ? (
             <p className="_abs_mid _fCC _w4001821" style={{zIndex: 1}}>
               {name.at(0) ?? ''}
             </p>
-          ) : null}
-          <img src={photoUrl} className={styles.card__circle} />
+          ) : (
+            <img src={photoUrl} className={styles.card__circle}/>
+          )}
         </div>
         <h4 className="_w4001722 _one_line_ellipsis">{name}</h4>
         <span style={{width: '10px'}} />
@@ -94,7 +98,10 @@ export const Leaderboard = () => {
       <components.container.BodyScroll>
         <div className="container _w100" style={{paddingBottom: '110px'}}>
           <div className={classnames('_f _fCC', styles.page__icon)}>
-            <components.svg.Cup width={98} height={98} />
+            <components.AnimatedVideo
+              width={98} height={98}
+              src="/assets/trophy.mp4"
+            />
           </div>
           <h2 className="_w7003238 _ta_center">Leaderboard</h2>
           <p
