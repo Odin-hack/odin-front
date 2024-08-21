@@ -8,6 +8,16 @@ COPY package.json package-lock.json ./
 # Установка зависимостей
 RUN npm install
 
+# Объявление переменных окружения
+ARG GENERATE_SOURCEMAP
+ARG REACT_APP_URL_SERVER
+ARG REACT_APP_RENDER_DEBUG_CONSOLE
+
+# Эти переменные окружения будут доступны на этапе сборки
+ENV GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP}
+ENV REACT_APP_URL_SERVER=${REACT_APP_URL_SERVER}
+ENV REACT_APP_RENDER_DEBUG_CONSOLE=${REACT_APP_RENDER_DEBUG_CONSOLE}
+
 # Копирование исходного кода
 COPY . .
 
