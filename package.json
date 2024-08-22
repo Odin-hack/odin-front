@@ -13,6 +13,7 @@
     "classnames": "2.5.1",
     "ethers": "6.13.2",
     "joi": "17.13.3",
+    "lottie-react": "^2.4.0",
     "react": "18.3.1",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "18.3.1",
@@ -28,7 +29,7 @@
     "web-vitals": "2.1.4"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=true REACT_APP_URL_SERVER=https://hax.fewcats.com/be REACT_APP_RENDER_DEBUG_CONSOLE=1 react-scripts start",
+    "start": "GENERATE_SOURCEMAP=false REACT_APP_URL_SERVER=http://127.0.0.1:3010 REACT_APP_RENDER_DEBUG_CONSOLE=1 react-scripts start",
     "start-win": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -72,4 +73,3 @@
     "node-telegram-bot-api": "^0.66.0"
   }
 }
-

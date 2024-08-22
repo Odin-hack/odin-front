@@ -56,11 +56,19 @@ const Header = ({ account, setAccount }) => {
 
   return (
     <div className={classnames('container', '_fCC', '_fCol', styles.header__box)}>
-      <components.AnimatedVideo
-        key={account}
-        width={180} height={140}
-        src={account ? '/assets/hax-idle.mp4' : '/assets/hax-sleeping.mp4'}
-      />
+      {
+        account ? (
+          <components.animations.HaxIdle
+            key={account}
+            style={{ width: '200px', height: '180px' }}
+          />
+        ) : (
+          <components.animations.HaxSleeping
+            key={account}
+            style={{ width: '200px', height: '180px' }}
+          />
+        )
+      }
       <div className={classnames('_fCC', styles.header__balance__box)}>
         <components.svg.Polygon addShadow={!account}/>
         <p className={classnames('_w7003238', styles.header__balance__text)}>
