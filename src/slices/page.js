@@ -31,9 +31,9 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         })
         try {
             const q = new URLSearchParams(initData)
-            const parsed = JSON.parse(q)
-            userId = parsed.user?.id
-            fullName = `${parsed.user?.first_name} ${parsed.user?.last_name}`
+            const user = JSON.parse(q.get('user'))
+            userId = user.id
+            fullName = `${user.first_name} ${user?.last_name}`
 
         } catch (e) {
             console.warn("user info haven't extracted", {initData})
