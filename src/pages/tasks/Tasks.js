@@ -89,7 +89,7 @@ const Card = ({
                 break
             case 'share_story':
                 callbackCta = () => {
-                    WebApp.shareToStory(storyMediaUrl, {storyText})
+                    WebApp.shareToStory(storyMediaUrl, {text: storyText})
                 }
                 callbackSyntheticPending = () => {
                 }
