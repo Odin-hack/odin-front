@@ -91,8 +91,6 @@ const Card = ({
                 callbackCta = () => {
                     WebApp.shareToStory(storyMediaUrl, {text: storyText})
                 }
-                callbackSyntheticPending = () => {
-                }
                 break
             case 'invite_friends':
                 const link = `https://t.me/share/url?url=${refUrl}`
