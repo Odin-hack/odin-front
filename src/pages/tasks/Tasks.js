@@ -39,6 +39,8 @@ const Card = ({
                   refUrl,
                   actionUrl,
                   data,
+                  storyMediaUrl,
+                  storyText,
                   syntheticThresholdMillis,
                   drawBottomLine,
               }) => {
@@ -82,6 +84,13 @@ const Card = ({
             case 'spin':
             case 'connect_wallet':
                 callbackCta = () => navigate('/home')
+                callbackSyntheticPending = () => {
+                }
+                break
+            case 'share_story':
+                callbackCta = () => {
+                    WebApp.shareToStory(storyMediaUrl, {storyText})
+                }
                 callbackSyntheticPending = () => {
                 }
                 break
@@ -145,6 +154,13 @@ const Card = ({
             iconComponent = (
                 <div className={classesIcon} style={{background: '#269ED0'}}>
                     <components.svg.Wallet width={22} height={19}/>
+                </div>
+            )
+            break
+        case 'share_story':
+            iconComponent = (
+                <div className={classesIcon} style={{background: '#212121'}}>
+                    <components.svg.ShareStoryTask width={22} height={19}/>
                 </div>
             )
             break
@@ -304,6 +320,8 @@ export const Tasks = () => {
             data={item.data}
             refUrl={friends?.friendsData?.link}
             url={item.data.url ?? null}
+            storyMediaUrl={item.data.storyMediaUrl ?? null}
+            storyText={item.data.storyText ?? null}
             actionUrl={item.data.actionUrl ?? null}
             syntheticThresholdMillis={tasks.syntheticThresholdMillisMap[item.id] ?? 0}
             drawBottomLine={drawBottomLine}
