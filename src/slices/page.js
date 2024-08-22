@@ -21,6 +21,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
 
         let userId = null
         let fullName = 'Anonimus'
+        let ref = null
         const initData = WebApp.initData
         // eslint-disable-next-line no-console
         console.info({
@@ -31,6 +32,12 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         })
         try {
             const q = new URLSearchParams(initData)
+            const startParamsQuery = JSON.parse(q.get('start_param'))
+            const startParam = startParamsQuery?.split('&').reduce((acc, item) => ({
+                ...acc,
+                [item.split('_')[0]]: item.split('_')[1]
+            }), {})
+            ref = startParam?.ref
             const user = JSON.parse(q.get('user'))
             userId = user.id
             fullName = `${user.first_name} ${user?.last_name}`
@@ -48,7 +55,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         authPromise = ports.fetchPostHaxAuth({initData})
             .then((result) => {
                 authPromise = null; // Сбрасываем глобальный промис после завершения
-                return {userId, jwtToken: result.jwtToken, fullName};
+                return {userId, jwtToken: result.jwtToken, fullName, friendId: ref};
             })
             .catch((error) => {
                 authPromise = null; // Сбрасываем глобальный промис даже при ошибке
