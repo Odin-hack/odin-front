@@ -114,8 +114,10 @@ export const fetchPostHaxClaimKeys = async ({userId, jwtToken}) => {
 /**
  * GET /users/:userId
  */
-export const fetchGetHaxUsersUserid = async ({userId, jwtToken}) => {
-    const path = `/users/${userId}`
+export const fetchGetHaxUsersUserid = async ({userId, jwtToken, fullName, friendId = null}) => {
+    const path = friendId
+        ? `/users/${userId}?fullName=${fullName}&friendId=${friendId}`
+        : `/users/${userId}?fullName=${fullName}`
     const schema = Joi.object({
         id: Joi.string().required().min(1),
         status: Joi.string().required().min(1),
