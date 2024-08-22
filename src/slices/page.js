@@ -11,7 +11,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
     async (_, {getState}) => {
         const state = getState();
         if (state.page.isAuthenticated) {
-            return {userId: state.page.userId, jwtToken: state.page.jwtToken};
+            return {userId: state.page.userId, jwtToken: state.page.jwtToken, fullName: state.page.fullName, friendId: state.page.friendId};
         }
 
         // Если запрос уже выполняется, ждем его завершения
@@ -95,10 +95,11 @@ export const pageSlice = reduxjsToolkit.createSlice({
             .addCase(initialize.pending, state => {
                 state.status = constants.status.loading
             })
-            .addCase(initialize.fulfilled, (state, {payload: {userId, jwtToken, fullName}}) => {
+            .addCase(initialize.fulfilled, (state, {payload: {userId, jwtToken, fullName, friendId}}) => {
                 state.status = constants.status.success
                 state.userId = userId
                 state.fullName = fullName
+                state.friendId = friendId
                 state.jwtToken = jwtToken
                 state.isAuthenticated = true
             })

@@ -12,7 +12,8 @@ const syncWithServer = reduxjsToolkit.createAsyncThunk(
         const userId = o.getState().page.userId
         const jwtToken = o.getState().page.jwtToken
         const fullName = o.getState().page.fullName
-        return ports.fetchGetHaxUsersUserid({userId, jwtToken, fullName})
+        const friendId = o.getState().page.friendId
+        return ports.fetchGetHaxUsersUserid({userId, jwtToken, fullName, friendId})
     },
 )
 const updateUser = reduxjsToolkit.createAsyncThunk(
