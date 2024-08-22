@@ -130,10 +130,10 @@
 
 		&__white
 			background: #fff
-			color: #000
+			color: #000 !important
 		&__transparent
 			border: 2px solid #282828
-			color: #999999
+			color: #999999 !important
 .modal_reward
 	&__background
 		background: rgba(0, 0, 0, .6)
@@ -159,4 +159,51 @@
 		width: 269px
 		height: 50px
 		background: #BCFF2F
+		border-radius: 10px
+.modal_onboarding
+	&__indicators
+		position: absolute
+		top: 20px
+		left: 50%
+		z-index: 2
+		width: 300px
+		transform: translateX(-50%)
+		gap: 10px
+	&__indicator
+		width: 100%
+		height: 3px
+		border-radius: 5px
+		background: #5E5E5E
+		transition: background .2s
+		&_active
+			background: #fff
+	&__slide
+		user-select: none
+		height: 100vh
+		width: 100vw
+		text-align: left
+		overflow-x: hidden
+		overflow-y: auto
+		background: #000
+		display: flex
+		flex-direction: column
+		justify-content: flex-start
+		align-items: center
+	&__image
+		width: 100%
+		height: auto
+		margin-top: 30px
+		margin-bottom: 50px
+	&__title
+		width: 310px
+		margin-bottom: 4px
+	&__text
+		width: 310px
+		min-height: 80px
+		margin-bottom: 30px
+		span
+			white-space: nowrap
+	&__button
+		width: 310px
+		height: 50px
 		border-radius: 10px

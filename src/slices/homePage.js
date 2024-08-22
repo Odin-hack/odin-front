@@ -116,10 +116,6 @@ const closeOnboardingModal = reduxjsToolkit.createAsyncThunk(
     o.dispatch(slices.userSlice.thunks.updateUser({userData}))
   },
 )
-const closeOnboardingModalForCurrentRun = reduxjsToolkit.createAsyncThunk(
-  'home/closeOnboardingModalForCurrentRun',
-  () => new Promise(r => setTimeout(r, 400)),
-)
 
 export const homePageSlice = reduxjsToolkit.createSlice({
   name: 'homePage',
@@ -209,9 +205,6 @@ export const homePageSlice = reduxjsToolkit.createSlice({
       .addCase(closeOnboardingModal.rejected, state => {
         state.isSpinnerOpen = false
       })
-    builder.addCase(closeOnboardingModalForCurrentRun.fulfilled, state => {
-      state.ignoreOnboardingModalInCurrentRun = true
-    })
     builder
       .addCase(syncGameRewardsWithServer.pending, state => {
         state.rewardsReqsAmount += 1
@@ -249,5 +242,4 @@ homePageSlice.thunks = {
   applyUseKeyToSpinEndVals,
   closeRewardsModal,
   closeOnboardingModal,
-  closeOnboardingModalForCurrentRun,
 }

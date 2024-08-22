@@ -130,6 +130,7 @@ const ModalWallet = ({
       </div>
       <button
         className={classnames(
+          '_w4001722',
           styles.modal_wallet__button,
           styles.modal_wallet__button__white,
         )}
@@ -140,6 +141,7 @@ const ModalWallet = ({
       <div style={{ height: '10px' }}/>
       <button
         className={classnames(
+          '_w4001722',
           styles.modal_wallet__button,
           styles.modal_wallet__button__transparent,
         )}
@@ -607,179 +609,135 @@ const SpinsV2 = () => {
   )
 }
 
-const ModalOnboardingContent = ({ onClickGotIt, onClickLater }) => {
-  const images = [
-    {
-      urlImage:
-        'https://hax-commonity.fra1.cdn.digitaloceanspaces.com/onboarding-modal-image-1.png',
-      title: 'Connect your wallet',
-      description: `Connect your Metamask wallet on Ethereum to get your HAX token reward. If you don't have Metamask, download it from the Apple Store or Play Market.`,
-    },
-    {
-      urlImage:
-        'https://hax-commonity.fra1.cdn.digitaloceanspaces.com/onboarding-modal-image-2.png',
-      title: 'Quests',
-      description: `Complete tasks and unlock extra HAX rewards.`,
-    },
-    {
-      urlImage:
-        'https://hax-commonity.fra1.cdn.digitaloceanspaces.com/onboarding-modal-image-3.png',
-      title: 'Friends',
-      description: `Earn 10% from your invitees' MetaMask connections and 2.5% from their spins and quests. Claim your rewards every 24 hours.`,
-    },
-    {
-      urlImage:
-        'https://hax-commonity.fra1.cdn.digitaloceanspaces.com/onboarding-modal-image-4.png',
-      title: 'Leaderboard',
-      description: `Track your progress on the leaderboard and compete with other HAX holders for top rewards.`,
-    },
-    {
-      urlImage:
-        'https://hax-commonity.fra1.cdn.digitaloceanspaces.com/onboarding-modal-image-5.png',
-      title: 'Spin',
-      description: `Earn HAX by spinning with a key every 6 hours. Don't forget to log in to claim your key on time!`,
-    },
-  ]
-  const refBackground = React.useRef(null)
-  const refT = React.useRef(null)
-  const [currentSlice, setCurrentSlide] = React.useState(0)
-  React.useEffect(() => {
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        if (refBackground.current === null || refT.current === null) {
-          return
-        }
-        refBackground.current.style.opacity = '1'
-        refT.current.style.transform = 'translateY(0)'
-      }),
-    )
-  }, [])
-  const onClickGotItInt = React.useCallback(async () => {
-    if (currentSlice === images.length - 1) {
-      onClickGotIt()
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          if (refBackground.current === null || refT.current === null) {
-            return
-          }
-          refBackground.current.style.opacity = '0'
-          refT.current.style.transform = 'translateY(100%)'
-        }),
-      )
-      return
-    }
-    setCurrentSlide(Math.min(currentSlice + 1, images.length - 1))
-  }, [currentSlice])
-  const onClickLaterInt = React.useCallback(async () => {
-    onClickLater()
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        if (refBackground.current === null || refT.current === null) {
-          return
-        }
-        refBackground.current.style.opacity = '0'
-        refT.current.style.transform = 'translateY(100%)'
-      }),
-    )
-    return
-  }, [currentSlice])
-  const onChange = React.useCallback(
-    i => {
-      if (currentSlice !== i) {
-        setCurrentSlide(i)
-      }
-    },
-    [currentSlice],
-  )
-  const stylesIndicator = {
-    width: 50,
-    height: 3,
-    borderRadius: 2,
-    display: 'inline-block',
-    margin: '0 9px',
-    position: 'relative',
-  }
-  const renderIndicator = (onClickHandler, isSelected, i) =>
-    isSelected ? (
-      <li style={{ ...stylesIndicator, background: '#BCFF2F' }}/>
-    ) : (
-      <li
-        style={{ ...stylesIndicator, background: '#F4F4F7' }}
-        onClick={onClickHandler}
-        onKeyDown={onClickHandler}
-        value={i}
-        key={i}
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
-        role="button"
-      />
-    )
-  // TODO: adjust request to server (try to use axios for all this requests)
-  // TODO: test localtunnel
-  return (
-    <div style={{ position: 'relative' }}>
-      <div
-        ref={refBackground}
-        className="_abs_mid"
-        style={{ background: '#000', opacity: 0, transition: 'all 500ms ease' }}
-      />
-      <components.container.BodyScroll>
-        <div
-          className="_fCC _fCol"
-          style={{
-            height: '100%',
-            background: '#000',
-            transform: 'translateY(100%)',
-            transition: 'all 500ms ease',
-          }}
-          ref={refT}
-        >
-          <div style={{ position: 'relative' }}>
-            <div className="_abs_mid" style={{ zIndex: 1 }}/>
-            <Carousel
-              statusFormatter={() => null}
-              renderArrowPrev={() => null}
-              renderArrowNext={() => null}
-              renderThumbs={() => null}
-              selectedItem={currentSlice}
-              onChange={onChange}
-              swipeable={false}
-              className="modal_learning__carousel_buttons"
-              renderIndicator={renderIndicator}
-            >
-              {images.map(({ urlImage }, i) => (
-                <div
-                  key={i.toString()}
-                  className="_fCC"
-                  style={{ height: '390px', marginBottom: '27px' }}
-                >
-                  <img src={urlImage}/>
-                </div>
-              ))}
-            </Carousel>
-          </div>
-          <div className="_f _fCol" style={{ padding: '18px 47px 0' }}>
-            <h4 className="_w7002428 _ta_center" style={{ marginBottom: '4px' }}>
-              Connect your wallet
-            </h4>
-            <h4 className="_g4001520 _ta_center">
-              Connect your Metamask wallet on Ethereum to get your HAX token
-              reward. If you don't have Metamask, download it from the Apple
-              Store or Play Market.
-            </h4>
-            <button
-              className={classnames('_d7001722', styles.modal_learning__button)}
-              style={{ margin: '40px auto 15px' }}
-              onClick={onClickGotItInt}
-            >
-              Got it
-            </button>
-            <button className="_g4001824 _op60" onClick={onClickLaterInt}>
-              Later
-            </button>
-          </div>
-        </div>
-      </components.container.BodyScroll>
+const ModalOnboardingContent = ({ onClickGotIt }) => {
+  const slider = React.useRef()
+  const nextSlide = () => slider.current.onClickNext()
+  const [currentSlide, setCurrentSlide] = React.useState(0)
+
+  const Slide = ({
+    imgSrc,
+    title,
+    content,
+    buttonText,
+    buttonColor,
+    onButtonClick,
+  }) => (
+    <div className={styles.modal_onboarding__slide}>
+      <img src={imgSrc} alt="Onboarding" className={styles.modal_onboarding__image}/>
+      <div className={classnames('_w7002428', styles.modal_onboarding__title)}>{title}</div>
+      <div className={classnames('_g4001520', styles.modal_onboarding__text)}>{content}</div>
+      <button
+        className={classnames('_d7001821', styles.modal_onboarding__button)}
+        style={{ backgroundColor: buttonColor }}
+        onClick={onButtonClick}
+      >
+        {buttonText}
+      </button>
     </div>
+  )
+
+  const Word = ({bold, colored, color, children}) => (
+    <span style={{
+      fontFamily: bold ? '"SF Pro Display 700"' : undefined,
+      color: colored || color
+        ? color || '#BCFF2F'
+        : undefined,
+    }}>{children}</span>
+  )
+
+  return (
+    <>
+      <div className={classnames('_fCC', styles.modal_onboarding__indicators)}>
+        {
+          Array.from({ length: 5 }, (_, i) => (
+            <div
+              key={i}
+              className={classnames(styles.modal_onboarding__indicator, {
+                [styles.modal_onboarding__indicator_active]: i <= currentSlide,
+              })}
+            />
+          ))
+        }
+      </div>
+
+      <Carousel
+        ref={slider}
+        swipeable={true}
+        showArrows={false}
+        showThumbs={false}
+        showStatus={false}
+        showIndicators={false}
+        emulateTouch={true}
+        onChange={index => setCurrentSlide(index)}
+      >
+        <Slide
+          imgSrc="/assets/onboarding-1.png"
+          title="Connect your wallet"
+          content={(
+            <p>
+              Connect your Metamask wallet on Ethereum to get your <Word bold={true}>⬢HAX</Word> token reward.
+              If you don't have Metamask, download it from the <Word colored={true}>Apple Store</Word> or <Word colored={true}>Play Market</Word>.
+            </p>
+          )}
+          buttonText="Yeah"
+          buttonColor="#fff"
+          onButtonClick={nextSlide}
+        />
+        <Slide
+          imgSrc="/assets/onboarding-2.png"
+          title="Quests"
+          content={(
+            <p>
+              Complete tasks and unlock extra <Word bold={true} colored={true}>⬢HAX</Word> rewards.
+            </p>
+          )}
+          buttonText="Got it!"
+          buttonColor="#fff"
+          onButtonClick={nextSlide}
+        />
+        <Slide
+          imgSrc="/assets/onboarding-3.png"
+          title="Friends"
+          content={(
+            <p>
+              Earn <Word colored={true}>10%</Word> from your invitees' MetaMask
+              connections and <Word colored={true}>5%</Word> from their spins
+              and quests. Claim your rewards every 24 hours.
+            </p>
+          )}
+          buttonText="Cool"
+          buttonColor="#fff"
+          onButtonClick={nextSlide}
+        />
+        <Slide
+          imgSrc="/assets/onboarding-3.png"
+          title="Leaderboard"
+          content={(
+            <p>
+              Track your <Word colored={true}>progress</Word> on the leaderboard
+              and compete with other <Word bold={true}>⬢HAX</Word> holders
+              for top rewards.
+            </p>
+          )}
+          buttonText="Cool"
+          buttonColor="#fff"
+          onButtonClick={nextSlide}
+        />
+        <Slide
+          imgSrc="/assets/onboarding-1.png"
+          title="Spin"
+          content={(
+            <p>
+              Earn <Word bold={true} colored={true}>⬢HAX</Word> by <Word colored={true}>spinning</Word> with a key every
+              6 hours. Don't forget to log in to <Word colored={true}>claim</Word> your <Word color="#EABB1C">🔑 Key</Word> on time!
+            </p>
+          )}
+          buttonText="LET ME SPIN!"
+          buttonColor="#BCFF2F"
+          onButtonClick={onClickGotIt}
+        />
+      </Carousel>
+    </>
   )
 }
 
@@ -838,14 +796,7 @@ export const Home = () => {
         </Modal>
         <Modal isOpen={renderOnboardingModal} className="adjusted-react-modal">
           <ModalOnboardingContent
-            onClickGotIt={() =>
-              dispatch(slices.homePageSlice.thunks.closeOnboardingModal())
-            }
-            onClickLater={() =>
-              dispatch(
-                slices.homePageSlice.thunks.closeOnboardingModalForCurrentRun(),
-              )
-            }
+            onClickGotIt={() => dispatch(slices.homePageSlice.thunks.closeOnboardingModal())}
           />
         </Modal>
       </components.container.BodyScroll>
