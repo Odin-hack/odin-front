@@ -807,7 +807,7 @@ export const Home = () => {
           <SpinsV2/>
         </div>
         <Modal
-          isOpen={true}
+          isOpen={homePage.isOpenRewardModal}
           className="adjusted-react-modal"
         >
           <ModalRewardContent
