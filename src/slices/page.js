@@ -40,7 +40,10 @@ const initialize = reduxjsToolkit.createAsyncThunk(
             ref = startParam?.ref
             const user = JSON.parse(q.get('user'))
             userId = user.id
-            fullName = `${user.first_name} ${user?.last_name}`
+            fullName = user.first_name || user?.last_name ? `${user.first_name} ${user?.last_name}` : user?.username
+            if (!fullName) {
+                fullName = 'Anonimus'
+            }
 
         } catch (e) {
             console.warn("user info haven't extracted", {initData})
