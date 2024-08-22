@@ -32,7 +32,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         })
         try {
             const q = new URLSearchParams(initData)
-            const startParamsQuery = JSON.parse(q.get('start_param'))
+            const startParamsQuery = q.get('start_param')
             const startParam = startParamsQuery?.split('&').reduce((acc, item) => ({
                 ...acc,
                 [item.split('_')[0]]: item.split('_')[1]
