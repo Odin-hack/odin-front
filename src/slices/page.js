@@ -20,6 +20,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         }
 
         let userId = null
+        let fullName = 'Anonimus'
         const initData = WebApp.initData
         // eslint-disable-next-line no-console
         console.info({
@@ -30,7 +31,10 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         })
         try {
             const q = new URLSearchParams(initData)
-            userId = JSON.parse(q.get('user')).id
+            const parsed = JSON.parse(q)
+            userId = parsed.user?.id
+            fullName = `${parsed.user?.first_name} ${parsed.user?.last_name}`
+
         } catch (e) {
             console.warn("user info haven't extracted", {initData})
             const debugUserId = process.env.REACT_APP_DEBUG_USER_ID
@@ -44,7 +48,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         authPromise = ports.fetchPostHaxAuth({initData})
             .then((result) => {
                 authPromise = null; // Сбрасываем глобальный промис после завершения
-                return {userId, jwtToken: result.jwtToken};
+                return {userId, jwtToken: result.jwtToken, fullName};
             })
             .catch((error) => {
                 authPromise = null; // Сбрасываем глобальный промис даже при ошибке
@@ -80,9 +84,10 @@ export const pageSlice = reduxjsToolkit.createSlice({
             .addCase(initialize.pending, state => {
                 state.status = constants.status.loading
             })
-            .addCase(initialize.fulfilled, (state, {payload: {userId, jwtToken}}) => {
+            .addCase(initialize.fulfilled, (state, {payload: {userId, jwtToken, fullName}}) => {
                 state.status = constants.status.success
                 state.userId = userId
+                state.fullName = fullName
                 state.jwtToken = jwtToken
                 state.isAuthenticated = true
             })
