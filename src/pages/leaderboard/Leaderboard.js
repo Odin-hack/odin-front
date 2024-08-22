@@ -9,20 +9,14 @@ import * as constants from 'constants'
 
 import styles from './Leaderboard.module.sass'
 
-const Svg = ({comp}) => (
-  <div style={{position: 'relative', width: '32px', height: '32px'}}>
-    <div className="_abs_mid">{comp}</div>
-  </div>
-)
-
 const genCardPlace = place => {
   switch (place) {
     case 1:
-      return <Svg comp={<components.svg.Place1 width={46} height={32} />} />
+      return <components.animations.EmojiComp1 style={{ width: '32px', height: '32px' }}/>
     case 2:
-      return <Svg comp={<components.svg.Place2 width={46} height={32} />} />
+      return <components.animations.EmojiComp2 style={{ width: '32px', height: '32px' }}/>
     case 3:
-      return <Svg comp={<components.svg.Place3 width={46} height={32} />} />
+      return <components.animations.EmojiComp3 style={{ width: '32px', height: '32px' }}/>
     default:
       return <p className="_w4001722">#{place}</p>
   }
@@ -98,10 +92,7 @@ export const Leaderboard = () => {
       <components.container.BodyScroll>
         <div className="container _w100" style={{paddingBottom: '110px'}}>
           <div className={classnames('_f _fCC', styles.page__icon)}>
-            <components.AnimatedVideo
-              width={98} height={98}
-              src="/assets/trophy.mp4"
-            />
+            <components.animations.EmojiTrophy style={{ width: '98px', height: '98px' }}/>
           </div>
           <h2 className="_w7003238 _ta_center">Leaderboard</h2>
           <p

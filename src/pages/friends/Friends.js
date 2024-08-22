@@ -210,7 +210,7 @@ export const Friends = () => {
           </div>
           {friends.friendsData.friends.length === 0 ? (
             <div className="container _f _fCC" style={{height: '100%'}}>
-              <img src="/assets/crying-face.webp" alt="Crying Face" width={70} height={70}/>
+              <components.animations.EmojiCryingFace style={{ width: '70px', height: '70px' }}/>
             </div>
           ) : (
             <div className="container _w100">

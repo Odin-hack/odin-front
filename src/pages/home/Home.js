@@ -216,10 +216,7 @@ const ModalRewardContent = ({ onClickClose }) => {
     (homePage?.registerData?.rewardForTxCount ?? 0)
   return (
     <div className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}>
-      <components.AnimatedVideo
-        width={300} height={300}
-        src="/assets/hax-idle.mp4"
-      />
+      <components.animations.HaxIdle style={{ width: '200px', height: '180px' }}/>
       <h2 className="_g7003041" style={{ margin: '34px auto 3px' }}>
         Your reward:
       </h2>
@@ -559,7 +556,7 @@ const SpinningV2End = ({ onClickClaim }) => {
   return (
     <div className={classesBox}>
       <div style={{ position: 'absolute', top: '-30px' }}>
-        <components.svg.Firework width={86} height={86}/>
+        <components.animations.EmojiBoomstick style={{ width: '86px', height: '86px'}}/>
       </div>
       <h4 className="_g4001722">Your reward</h4>
       <p className="_w7003825" style={{ margin: '8px 0 40px' }}>
