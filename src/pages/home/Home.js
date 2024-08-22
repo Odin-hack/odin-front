@@ -6,6 +6,7 @@ import * as reactCircularProgressbar from 'react-circular-progressbar'
 import Modal from 'react-modal'
 import * as metamaskSdkReact from '@metamask/sdk-react'
 import { Carousel } from 'react-responsive-carousel'
+import Lottie from 'lottie-react'
 
 import * as components from 'components'
 import * as slices from 'slices'
@@ -14,6 +15,7 @@ import * as lib from 'lib'
 import * as hooks from 'hooks'
 
 import styles from './Home.module.sass'
+import confetti from './confetti.json'
 
 const Header = ({ account, setAccount }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -216,8 +218,28 @@ const ModalRewardContent = ({ onClickClose }) => {
   const rewardAmount =
     (homePage?.registerData?.rewardForBalance ?? 0) +
     (homePage?.registerData?.rewardForTxCount ?? 0)
+
+  const confettiRef = React.useRef(null)
+
+  React.useEffect(() => {
+    confettiRef.current?.play()
+  })
+
   return (
     <div className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}>
+      <Lottie
+        animationData={confetti}
+        loop={false}
+        ref={confettiRef}
+        style={{
+          position: 'absolute',
+          width: '100vw',
+          height: '100vh',
+          top: 0,
+          left: 0,
+          pointerEvents: 'none',
+        }}
+      />
       <components.animations.HaxIdle style={{ width: '200px', height: '180px' }}/>
       <h2 className="_g7003041" style={{ margin: '34px auto 3px' }}>
         Your reward:
@@ -785,7 +807,7 @@ export const Home = () => {
           <SpinsV2/>
         </div>
         <Modal
-          isOpen={homePage.isOpenRewardModal}
+          isOpen={true}
           className="adjusted-react-modal"
         >
           <ModalRewardContent
