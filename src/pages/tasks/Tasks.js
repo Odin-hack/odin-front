@@ -91,6 +91,8 @@ const Card = ({
                 callbackCta = () => {
                     WebApp.shareToStory(storyMediaUrl, {text: storyText})
                 }
+                callbackSyntheticPending = () =>
+                    dispatch(slices.tasksSlice.thunks.addSyntheticThreshold({taskId}))
                 break
             case 'invite_friends':
                 const link = `https://t.me/share/url?url=${refUrl}`
