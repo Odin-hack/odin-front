@@ -11,7 +11,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
     async (_, {getState}) => {
         const state = getState();
         if (state.page.isAuthenticated) {
-            return {userId: state.page.userId, jwtToken: state.page.jwtToken};
+            return {userId: state.page.userId, jwtToken: state.page.jwtToken, fullName: state.page.fullName, friendId: state.page.friendId};
         }
 
         // Если запрос уже выполняется, ждем его завершения
@@ -22,7 +22,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         let userId = null
         let fullName = 'Anonimus'
         let ref = null
-        const initData = WebApp.initData
+        let initData = WebApp.initData
         // eslint-disable-next-line no-console
         console.info({
             m: 'debug-purpose',
@@ -52,6 +52,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
             if (debugUserId) {
                 console.warn(`using debug user-id`, {debugUserId})
                 userId = debugUserId
+                initData = "query_id=AAGJNXcQAwAAAIk1dxDmPFw1&user=%7B%22id%22%3A6718698889%2C%22first_name%22%3A%22Grace%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22sanya_bullshit%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1723666121&hash=4e147fdc275016262add8251043f72257c285e79acdc9f7c93b1a37533991943"
             } else {
                 throw new Error('fail on user-id extract')
             }
@@ -95,10 +96,11 @@ export const pageSlice = reduxjsToolkit.createSlice({
             .addCase(initialize.pending, state => {
                 state.status = constants.status.loading
             })
-            .addCase(initialize.fulfilled, (state, {payload: {userId, jwtToken, fullName}}) => {
+            .addCase(initialize.fulfilled, (state, {payload: {userId, jwtToken, fullName, friendId}}) => {
                 state.status = constants.status.success
                 state.userId = userId
                 state.fullName = fullName
+                state.friendId = friendId
                 state.jwtToken = jwtToken
                 state.isAuthenticated = true
             })
