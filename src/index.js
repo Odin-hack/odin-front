@@ -8,7 +8,6 @@ import * as metamaskSdkReact from '@metamask/sdk-react'
 import * as reactRouterDom from 'react-router-dom'
 import * as reactRedux from 'react-redux'
 import * as reduxjsToolkit from '@reduxjs/toolkit'
-import * as tonconnectUiReact from '@tonconnect/ui-react'
 
 import * as pages from 'pages'
 import * as slices from 'slices'
@@ -81,33 +80,9 @@ const store = reduxjsToolkit.configureStore({
   },
 })
 
-const walletsListConfiguration = {
-  includeWallets: [
-    {
-      appName: 'tonwallet',
-      name: 'TON Wallet',
-      imageUrl: 'https://wallet.ton.org/assets/ui/qr-logo.png',
-      aboutUrl:
-        'https://chrome.google.com/webstore/detail/ton-wallet/nphplpgoakhhjchkkhmiggakijnkhfnd',
-      universalLink: 'https://wallet.ton.org/ton-connect',
-      jsBridgeKey: 'tonwallet',
-      bridgeUrl: 'https://bridge.tonapi.io/bridge',
-      platforms: ['chrome', 'android'],
-    },
-  ],
-}
-
 const App = () => (
   <reactRedux.Provider store={store}>
     <reactRouterDom.BrowserRouter>
-      <tonconnectUiReact.TonConnectUIProvider
-        manifestUrl="https://ton-connect.github.io/demo-dapp-with-wallet/tonconnect-manifest.json"
-        uiPreferences={{theme: tonconnectUiReact.THEME.DARK}}
-        walletsListConfiguration={walletsListConfiguration}
-        actionsConfiguration={{
-          twaReturnUrl: 'https://t.me/tc_twa_demo_bot/start',
-        }}
-      >
         <components.toast.Container />
         <metamaskSdkReact.MetaMaskProvider
           debug={false}
@@ -128,7 +103,6 @@ const App = () => (
         >
           <_App />
         </metamaskSdkReact.MetaMaskProvider>
-      </tonconnectUiReact.TonConnectUIProvider>
     </reactRouterDom.BrowserRouter>
   </reactRedux.Provider>
 )
