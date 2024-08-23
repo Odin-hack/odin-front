@@ -294,8 +294,6 @@ const WalletConnect = () => {
   // TODO: workout rabby wallet connect
   // TODO: set up way to collect (errors, analytics, logs-disables-in-prod)
   // TODO: how duck app do metamask connect with some url
-  const [isOpen, setIsOpen] = React.useState(false)
-
   const dispatch = reactRedux.useDispatch()
 
   const config = useConfig()
@@ -308,7 +306,6 @@ const WalletConnect = () => {
 
         const account = getAccount(config)
         dispatch(slices.homePageSlice.thunks.registerWallet({address: account.address}))
-        setIsOpen(false)
         components.toast.showText('Metasmask wallet connected')
       } catch (err) {
         console.error(err)
@@ -339,49 +336,6 @@ const WalletConnect = () => {
         <span style={{width: '6px'}}/>
         {isConnecting ? 'Connecting...' : 'Connect wallet'}
       </button>
-
-      <components.CenteredModal
-        title="Wallet"
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
-      >
-        <div style={{padding: '40px 0'}}>
-          <button
-            className={classnames(
-              '_fCB',
-              styles.wallet_connect__modal__button,
-              styles.wallet_connect__modal__button__active,
-            )}
-            onClick={onClickConnect}
-          >
-            <div className="_fC" style={{marginLeft: '10px'}}>
-              <img src="/assets/metamask-fox.png" height={30} width={30} alt="MetaMask Fox"/>
-              <span className="_w7001722" style={{marginLeft: '10px'}}>Metamask</span>
-            </div>
-
-            <div style={{transform: 'rotate(-90deg)'}}>
-              <components.svg.Chevron width={16} height={16} color="#AAAAAA"/>
-            </div>
-          </button>
-          <div style={{height: '10px'}}/>
-          <button
-            className={classnames(
-              '_fCB',
-              styles.wallet_connect__modal__button,
-              styles.wallet_connect__modal__button__coming_soon,
-            )}
-          >
-            <div className="_fC" style={{marginLeft: '10px', opacity: .2}}>
-              <img src="/assets/ton-connect.png" height={30} width={30} alt="TON Connect"/>
-              <span className="_g7001722" style={{marginLeft: '10px'}}>TON Connect</span>
-            </div>
-
-            <div className={classnames('_g4001316', styles.wallet_connect__modal__coming_soon_label)}>Coming
-                            soon
-            </div>
-          </button>
-        </div>
-      </components.CenteredModal>
     </div>
   )
 }
