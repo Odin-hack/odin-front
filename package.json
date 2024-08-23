@@ -51,7 +51,7 @@
       ">0.2%",
       "not dead",
       "not op_mini all",
-      "Safari >= 10"
+      "Safari >= 15"
     ],
     "development": [
       "last 1 chrome version",
