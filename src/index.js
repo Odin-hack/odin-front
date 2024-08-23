@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client'
 import eruda from 'eruda'
 import Modal from 'react-modal'
 
-import * as metamaskSdkReact from '@metamask/sdk-react'
 import * as reactRouterDom from 'react-router-dom'
 import * as reactRedux from 'react-redux'
 import * as reduxjsToolkit from '@reduxjs/toolkit'
@@ -13,6 +12,8 @@ import * as pages from 'pages'
 import * as slices from 'slices'
 import * as constants from 'constants'
 import * as components from 'components'
+
+import { WalletConnectProvider } from './wallet_connect'
 
 import 'simplebar-react/dist/simplebar.min.css'
 import 'react-circular-progressbar/dist/styles.css'
@@ -84,25 +85,9 @@ const App = () => (
   <reactRedux.Provider store={store}>
     <reactRouterDom.BrowserRouter>
         <components.toast.Container />
-        <metamaskSdkReact.MetaMaskProvider
-          debug={false}
-          sdkOptions={{
-            logging: {
-              developerMode: false,
-            },
-            communicationServerUrl: 'https://metamask-sdk.api.cx.metamask.io/',
-            checkInstallationImmediately: false, // This will automatically connect to MetaMask on page load
-            i18nOptions: {
-              enabled: true,
-            },
-            dappMetadata: {
-              name: 'Demo React App',
-              url: window.location.protocol + '//' + window.location.host,
-            },
-          }}
-        >
+        <WalletConnectProvider>
           <_App />
-        </metamaskSdkReact.MetaMaskProvider>
+        </WalletConnectProvider>
     </reactRouterDom.BrowserRouter>
   </reactRedux.Provider>
 )

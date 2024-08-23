@@ -4,7 +4,9 @@ import WebApp from '@twa-dev/sdk'
 import * as reactRedux from 'react-redux'
 import * as reactCircularProgressbar from 'react-circular-progressbar'
 import Modal from 'react-modal'
-import * as metamaskSdkReact from '@metamask/sdk-react'
+import { getAccount } from '@wagmi/core'
+import { useAccount, useConfig, useDisconnect } from 'wagmi'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 import {Carousel} from 'react-responsive-carousel'
 import Lottie from 'lottie-react'
 
@@ -17,13 +19,14 @@ import * as hooks from 'hooks'
 import styles from './Home.module.sass'
 import confetti from './confetti.json'
 
-const Header = ({account, setAccount}) => {
+const Header = () => {
+    const { address, isDisconnected } = useAccount()
+
     const [isModalOpen, setIsModalOpen] = React.useState(false)
     const amountToken = reactRedux.useSelector(
         slices.userSlice.selectors.amountToken,
     )
 
-    const metamaskSdk = metamaskSdkReact.useSDK()
     const formatWallet = React.useCallback(
         address => address && `${address.slice(0, 4)}...${address.slice(-4)}`,
         [],
@@ -32,7 +35,7 @@ const Header = ({account, setAccount}) => {
     const onWalletClick = React.useCallback(() => {
         const f = async () => {
             try {
-                await navigator.clipboard.writeText(account)
+                await navigator.clipboard.writeText(address)
                 components.toast.showText('Wallet address copied to clipboard')
             } catch (err) {
                 console.error(err)
@@ -42,11 +45,11 @@ const Header = ({account, setAccount}) => {
         f()
     }, [])
 
+    const { disconnect } = useDisconnect()
     const onDisconnect = React.useCallback(() => {
         const f = async () => {
             try {
-                await metamaskSdk.sdk?.disconnect()
-                setAccount('')
+                await disconnect()
                 components.toast.showText('Metasmask wallet disconnected')
             } catch (err) {
                 console.error(err)
@@ -59,36 +62,36 @@ const Header = ({account, setAccount}) => {
     return (
         <div className={classnames('container', '_fCC', '_fCol', styles.header__box)}>
             {
-                account ? (
-                    <components.animations.HaxIdle
-                        key={account}
-                        style={{width: '200px', height: '180px'}}
+                isDisconnected ? (
+                    <components.animations.HaxSleeping
+                      key={address}
+                      style={{ width: '200px', height: '180px' }}
                     />
                 ) : (
-                    <components.animations.HaxSleeping
-                        key={account}
-                        style={{width: '200px', height: '180px'}}
+                    <components.animations.HaxIdle
+                      key={address}
+                      style={{ width: '200px', height: '180px' }}
                     />
                 )
             }
             <div className={classnames('_fCC', styles.header__balance__box)}>
-                <components.svg.Polygon addShadow={!account}/>
+                <components.svg.Polygon addShadow={isDisconnected}/>
                 <p className={classnames('_w7003238', styles.header__balance__text)}>
                     {lib.formatPxlInt(amountToken)} HAX
                 </p>
             </div>
-            {account ? (
+            {!isDisconnected ? (
                 <>
                     <button
                         className={classnames('_g4001316', styles.header__wallet)}
                         onClick={() => setIsModalOpen(true)}
                     >
                         <components.svg.Wallet width={16} height={16} color="#999999"/>
-                        {formatWallet(account)}
+                        {formatWallet(address)}
                         <components.svg.Chevron width={8} height={8} color="#999999"/>
                     </button>
                     <ModalWallet
-                        formattedWallet={formatWallet(account)}
+                        formattedWallet={formatWallet(address)}
                         isOpen={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
                         onDisconnect={() => {
@@ -297,17 +300,20 @@ const WalletConnect = ({account, setAccount}) => {
     const [isOpen, setIsOpen] = React.useState(false)
 
     const dispatch = reactRedux.useDispatch()
-    const metamaskSdk = metamaskSdkReact.useSDK()
+
+    const config = useConfig()
+    const { open } = useWeb3Modal()
+
     const onClickConnect = React.useCallback(() => {
         const f = async () => {
             try {
-                await metamaskSdk.sdk?.connect()
-                    .then((accounts) => {
-                        setAccount(accounts[0])
-                        dispatch(slices.homePageSlice.thunks.registerWallet({address: accounts[0]}))
-                        setIsOpen(false)
-                        components.toast.showText('Metasmask wallet connected')
-                    })
+                await open({ view: 'Connect' })
+
+                const account = getAccount(config)
+                setAccount(account.address)
+                dispatch(slices.homePageSlice.thunks.registerWallet({address: account.address}))
+                setIsOpen(false)
+                components.toast.showText('Metasmask wallet connected')
             } catch (err) {
                 console.error(err)
                 components.toast.showText(
@@ -772,13 +778,6 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
 }
 
 export const Home = () => {
-    const metamaskSdk = metamaskSdkReact.useSDK()
-    const [account, setAccount] = React.useState('')
-
-    React.useEffect(() => {
-        setAccount(metamaskSdk.account)
-    }, [])
-
     const dispatch = reactRedux.useDispatch()
     const user = reactRedux.useSelector(slices.userSlice.selectors.user)
     const homePage = reactRedux.useSelector(
@@ -810,8 +809,8 @@ export const Home = () => {
                     className="_fCC _fCol"
                     style={{height: '100%', paddingBottom: '130px'}}
                 >
-                    <Header account={account} setAccount={setAccount}/>
-                    <WalletConnect account={account} setAccount={setAccount}/>
+                    <Header/>
+                    <WalletConnect/>
                     <SpinsV2/>
                 </div>
                 <Modal
