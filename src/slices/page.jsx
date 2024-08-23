@@ -22,7 +22,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         let userId = null
         let fullName = 'Anonimus'
         let ref = null
-        let initData = 'query_id=AAGYPnAPAAAAAJg-cA_KZqk7&user=%7B%22id%22%3A259014296%2C%22first_name%22%3A%22Andres%22%2C%22last_name%22%3A%22Pavliuk%22%2C%22username%22%3A%22serdnaley%22%2C%22language_code%22%3A%22en%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1724437227&hash=930a7e8e319df4dcbd715a6e992187c3a1b8edcc007e67d50c94f6db982066e8'
+        let initData = WebApp.initData
 
         console.info({
             m: 'debug-purpose',
