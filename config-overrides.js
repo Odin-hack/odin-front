@@ -14,8 +14,6 @@ module.exports = override(
     '@babel/plugin-proposal-private-property-in-object',
     { loose: true }
   ]),
-  addBabelPlugin('babel-plugin-detective', { regex: true }),
-  addBabelPlugin('@babel/plugin-transform-named-capturing-groups-regex'),
   babelInclude([
     path.resolve('src'),
     path.resolve('node_modules')
