@@ -20,7 +20,8 @@ import styles from './Home.module.sass'
 import confetti from './confetti.json'
 
 const Header = () => {
-    const { address, isDisconnected } = useAccount()
+    const { address, isConnecting, isConnected } = useAccount()
+    console.log('isConnecting', isConnecting)
 
     const [isModalOpen, setIsModalOpen] = React.useState(false)
     const amountToken = reactRedux.useSelector(
@@ -32,55 +33,49 @@ const Header = () => {
         [],
     )
 
-    const onWalletClick = React.useCallback(() => {
-        const f = async () => {
-            try {
-                await navigator.clipboard.writeText(address)
-                components.toast.showText('Wallet address copied to clipboard')
-            } catch (err) {
-                console.error(err)
-                components.toast.showText('Error on connect metamask wallet')
-            }
+    const onWalletClick = React.useCallback(async () => {
+        try {
+            await navigator.clipboard.writeText(address)
+            components.toast.showText('Wallet address copied to clipboard')
+        } catch (err) {
+            console.error(err)
+            components.toast.showText('Error on connect metamask wallet')
         }
-        f()
-    }, [])
+    }, [address])
 
     const { disconnect } = useDisconnect()
-    const onDisconnect = React.useCallback(() => {
-        const f = async () => {
-            try {
-                await disconnect()
-                components.toast.showText('Metasmask wallet disconnected')
-            } catch (err) {
-                console.error(err)
-                components.toast.showText('Error on disconnect metamask wallet')
-            }
+    const onDisconnect = React.useCallback(async () => {
+        try {
+            await disconnect()
+            components.toast.showText('Metasmask wallet disconnected')
+        } catch (err) {
+            console.error(err)
+            components.toast.showText('Error on disconnect metamask wallet')
         }
-        f()
-    }, [])
+    }, [disconnect])
 
     return (
         <div className={classnames('container', '_fCC', '_fCol', styles.header__box)}>
             {
-                isDisconnected ? (
-                    <components.animations.HaxSleeping
-                      key={address}
-                      style={{ width: '200px', height: '180px' }}
-                    />
+                isConnected ? (
+                  <components.animations.HaxIdle
+                    key={address}
+                    style={{ width: '200px', height: '180px' }}
+                  />
                 ) : (
-                    <components.animations.HaxIdle
-                      key={address}
-                      style={{ width: '200px', height: '180px' }}
-                    />
+                  <components.animations.HaxSleeping
+                    key={address}
+                    style={{ width: '200px', height: '180px' }}
+                  />
                 )
             }
             <div className={classnames('_fCC', styles.header__balance__box)}>
-                <components.svg.Polygon addShadow={isDisconnected}/>
+                <components.svg.Polygon addShadow={!isConnected}/>
                 <p className={classnames('_w7003238', styles.header__balance__text)}>
                     {lib.formatPxlInt(amountToken)} HAX
                 </p>
             </div>
-            {!isDisconnected ? (
+            {isConnected ? (
                 <>
                     <button
                         className={classnames('_g4001316', styles.header__wallet)}
@@ -101,7 +96,9 @@ const Header = () => {
                         onWalletClick={onWalletClick}
                     />
                 </>
-            ) : null}
+            ) : (
+              <WalletConnect/>
+            )}
         </div>
     )
 }
@@ -289,7 +286,7 @@ const ModalRewardContent = ({onClickClose}) => {
     )
 }
 
-const WalletConnect = ({account, setAccount}) => {
+const WalletConnect = () => {
     // NOTE: firework implementation https://codepen.io/Bert-Beckwith/pen/QWXNOeq?editors=0010
     // TODO: wallet-connect sdk connect
     // TODO: workout metamask sdk connect
@@ -310,7 +307,6 @@ const WalletConnect = ({account, setAccount}) => {
                 await open({ view: 'Connect' })
 
                 const account = getAccount(config)
-                setAccount(account.address)
                 dispatch(slices.homePageSlice.thunks.registerWallet({address: account.address}))
                 setIsOpen(false)
                 components.toast.showText('Metasmask wallet connected')
@@ -322,9 +318,10 @@ const WalletConnect = ({account, setAccount}) => {
             }
         }
         f()
-    }, [])
+    })
 
-    if (account) return null
+    const { address, isConnecting } = useAccount()
+    if (address) return null
 
     const classesConnectButton = classnames(
         '_fCC _dark7001722',
@@ -337,10 +334,10 @@ const WalletConnect = ({account, setAccount}) => {
                 <span style={{padding: '0 3px'}}>⬢</span>
                 <span className="_g7001722">HAX</span>
             </p>
-            <button className={classesConnectButton} onClick={() => setIsOpen(true)}>
+            <button className={classesConnectButton} disabled={isConnecting} onClick={onClickConnect}>
                 <components.svg.Wallet width={16} height={16} color="#1A270F"/>
                 <span style={{width: '6px'}}/>
-                Connect wallet
+                {isConnecting ? 'Connecting...' : 'Connect wallet'}
             </button>
 
             <components.CenteredModal
@@ -709,7 +706,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
                         <p>
                             Connect your Metamask wallet on Ethereum to get your <Word bold={true}>⬢HAX</Word> token
                             reward.
-                            If you don't have Metamask, download it from the <Word colored={true}>Apple
+                            If you don&apos;t have Metamask, download it from the <Word colored={true}>Apple
                             Store</Word> or <Word colored={true}>Play Market</Word>.
                         </p>
                     )}
@@ -734,7 +731,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
                     title="Friends"
                     content={(
                         <p>
-                            Earn <Word colored={true}>10%</Word> from your invitees' MetaMask
+                            Earn <Word colored={true}>10%</Word> from your invitees&apos; MetaMask
                             connections and <Word colored={true}>5%</Word> from their spins
                             and quests. Claim your rewards every 24 hours.
                         </p>
@@ -764,7 +761,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
                         <p>
                             Earn <Word bold={true} colored={true}>⬢HAX</Word> by <Word
                             colored={true}>spinning</Word> with a key every
-                            6 hours. Don't forget to log in to <Word colored={true}>claim</Word> your <Word
+                            6 hours. Don&apos;t forget to log in to <Word colored={true}>claim</Word> your <Word
                             color="#EABB1C">🔑 Key</Word> on time!
                         </p>
                     )}
@@ -810,7 +807,6 @@ export const Home = () => {
                     style={{height: '100%', paddingBottom: '130px'}}
                 >
                     <Header/>
-                    <WalletConnect/>
                     <SpinsV2/>
                 </div>
                 <Modal
