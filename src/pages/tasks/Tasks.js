@@ -84,8 +84,6 @@ const Card = ({
             case 'spin':
             case 'connect_wallet':
                 callbackCta = () => navigate('/home')
-                callbackSyntheticPending = () => {
-                }
                 break
             case 'share_story':
                 callbackCta = () => {

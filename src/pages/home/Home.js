@@ -738,7 +738,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
                     onButtonClick={nextSlide}
                 />
                 <Slide
-                    imgSrc="/assets/onboarding-3.png"
+                    imgSrc="/assets/onboarding-4.png"
                     title="Leaderboard"
                     content={(
                         <p>
@@ -752,7 +752,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
                     onButtonClick={nextSlide}
                 />
                 <Slide
-                    imgSrc="/assets/onboarding-1.png"
+                    imgSrc="/assets/onboarding-5.png"
                     title="Spin"
                     content={(
                         <p>
