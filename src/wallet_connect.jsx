@@ -31,6 +31,8 @@ createWeb3Modal({
   metadata,
   wagmiConfig: config,
   projectId,
+  enableOnramp: true,
+  enableAnalytics: true
 })
 
 export function WalletConnectProvider({ children }) {
