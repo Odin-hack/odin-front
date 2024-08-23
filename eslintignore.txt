@@ -1,5 +1,0 @@
-/**/*.d.ts
-/**/*.yaml
-helm/
-node_modules/
-**/*.test.js

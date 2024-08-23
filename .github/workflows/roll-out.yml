@@ -22,12 +22,11 @@ jobs:
         registry: ${{ vars.DOCKER_REGISTRY }}
         username: ${{ secrets.DO_TOKEN }}
         password: ${{ secrets.DO_TOKEN }}
+    - name: Copy env file
+      run: cp .env.prod .env
     - name: Building docker image
       run: |
         docker build --no-cache \
-          --build-arg GENERATE_SOURCEMAP=${{ vars.GENERATE_SOURCEMAP }} \
-          --build-arg REACT_APP_URL_SERVER=${{ secrets.REACT_APP_URL_SERVER }} \
-          --build-arg REACT_APP_RENDER_DEBUG_CONSOLE=${{ vars.REACT_APP_RENDER_DEBUG_CONSOLE }} \
           -t ${{ vars.DOCKER_REGISTRY }}/${{ steps.repo-name.outputs.repository-name }}:${{ github.sha }} .
     - name: Pushing docker image
       run: docker push ${{ vars.DOCKER_REGISTRY }}/${{ steps.repo-name.outputs.repository-name }}:${{ github.sha }}

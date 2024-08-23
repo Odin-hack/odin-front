@@ -2,10 +2,10 @@ import React from 'react'
 import classnames from 'classnames'
 import * as reactRedux from 'react-redux'
 
-import * as components from 'components'
-import * as lib from 'lib'
-import * as slices from 'slices'
-import * as constants from 'constants'
+import * as components from '@/components'
+import * as lib from '@/lib'
+import * as slices from '@/slices/index.jsx'
+import * as constants from '@/constants'
 
 import styles from './Leaderboard.module.sass'
 

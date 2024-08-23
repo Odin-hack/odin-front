@@ -1,8 +1,8 @@
 import WebApp from '@twa-dev/sdk'
 import * as reduxjsToolkit from '@reduxjs/toolkit'
 
-import * as constants from 'constants'
-import * as ports from 'ports'
+import * as constants from '@/constants'
+import * as ports from '@/ports'
 
 let authPromise = null;
 
@@ -22,8 +22,8 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         let userId = null
         let fullName = 'Anonimus'
         let ref = null
-        let initData = WebApp.initData
-        // eslint-disable-next-line no-console
+        let initData = 'query_id=AAGYPnAPAAAAAJg-cA_KZqk7&user=%7B%22id%22%3A259014296%2C%22first_name%22%3A%22Andres%22%2C%22last_name%22%3A%22Pavliuk%22%2C%22username%22%3A%22serdnaley%22%2C%22language_code%22%3A%22en%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1724437227&hash=930a7e8e319df4dcbd715a6e992187c3a1b8edcc007e67d50c94f6db982066e8'
+
         console.info({
             m: 'debug-purpose',
             t: Array.from(new URLSearchParams(WebApp.initData)),
@@ -48,7 +48,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
         } catch (e) {
             console.warn("user info haven't extracted", {initData})
             console.error(e)
-            const debugUserId = process.env.REACT_APP_DEBUG_USER_ID
+            const debugUserId = import.meta.env.VITE_APP_REACT_APP_DEBUG_USER_ID
             if (debugUserId) {
                 console.warn(`using debug user-id`, {debugUserId})
                 userId = debugUserId

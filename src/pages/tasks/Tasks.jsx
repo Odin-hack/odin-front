@@ -5,10 +5,10 @@ import * as reactRedux from 'react-redux'
 import * as reactRouterDom from 'react-router-dom'
 import {CircularProgressbar, buildStyles} from 'react-circular-progressbar'
 
-import * as slices from 'slices'
-import * as components from 'components'
-import * as lib from 'lib'
-import * as constants from 'constants'
+import * as slices from '@/slices/index.jsx'
+import * as components from '@/components'
+import * as lib from '@/lib'
+import * as constants from '@/constants'
 
 import styles from './Tasks.module.sass'
 

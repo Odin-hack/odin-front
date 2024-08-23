@@ -1,8 +1,8 @@
 import * as reduxjsToolkit from '@reduxjs/toolkit'
 
-import * as constants from 'constants'
-import * as ports from 'ports'
-import * as slices from 'slices'
+import * as constants from '@/constants'
+import * as ports from '@/ports'
+import * as slices from '@/slices/index.jsx'
 
 const syncWithServer = reduxjsToolkit.createAsyncThunk(
     'tasks/syncWithServer',

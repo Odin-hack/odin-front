@@ -1,11 +1,11 @@
 import * as reduxjsToolkit from '@reduxjs/toolkit'
 import * as ethers from 'ethers'
 
-import * as constants from 'constants'
-import * as components from 'components'
-import * as ports from 'ports'
-import * as slices from 'slices'
-import * as lib from 'lib'
+import * as constants from '@/constants'
+import * as components from '@/components'
+import * as ports from '@/ports'
+import * as slices from '@/slices/index.jsx'
+import * as lib from '@/lib'
 
 const syncGameRewardsWithServer = reduxjsToolkit.createAsyncThunk(
   'home/syncGameRewardsWithServer',

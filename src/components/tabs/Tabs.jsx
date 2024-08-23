@@ -2,8 +2,8 @@ import React from 'react'
 import classnames from 'classnames'
 import * as reactRouterDom from 'react-router-dom'
 
-import * as constants from 'constants'
-import * as components from 'components'
+import * as constants from '@/constants'
+import * as components from '@/components'
 
 import styles from './Tabs.module.sass'
 

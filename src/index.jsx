@@ -8,12 +8,12 @@ import * as reactRouterDom from 'react-router-dom'
 import * as reactRedux from 'react-redux'
 import * as reduxjsToolkit from '@reduxjs/toolkit'
 
-import * as pages from 'pages'
-import * as slices from 'slices'
-import * as constants from 'constants'
-import * as components from 'components'
+import * as pages from '@/pages'
+import * as slices from '@/slices'
+import * as constants from '@/constants'
+import * as components from '@/components'
 
-import { WalletConnectProvider } from './wallet_connect'
+import { WalletConnectProvider } from './wallet_connect.jsx'
 
 import 'simplebar-react/dist/simplebar.min.css'
 import 'react-circular-progressbar/dist/styles.css'
@@ -37,7 +37,7 @@ const _App = () => {
     WebApp.enableClosingConfirmation()
     Modal.setAppElement('#root-modal')
     dispatch(slices.pageSlice.thunks.initialize())
-    if (process.env.REACT_APP_RENDER_DEBUG_CONSOLE === '1') {
+    if (import.meta.env.VITE_APP_REACT_APP_RENDER_DEBUG_CONSOLE === '1') {
       eruda.default.init()
     }
   }, [])

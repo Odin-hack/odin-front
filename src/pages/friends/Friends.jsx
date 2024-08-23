@@ -3,11 +3,11 @@ import classnames from 'classnames'
 import WebApp from '@twa-dev/sdk'
 import * as reactRedux from 'react-redux'
 
-import * as slices from 'slices'
-import * as components from 'components'
-import * as lib from 'lib'
-import * as constants from 'constants'
-import * as hooks from 'hooks'
+import * as slices from '@/slices/index.jsx'
+import * as components from '@/components'
+import * as lib from '@/lib'
+import * as constants from '@/constants'
+import * as hooks from '@/hooks'
 
 import styles from './Friends.module.sass'
 
