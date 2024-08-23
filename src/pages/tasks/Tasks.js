@@ -157,7 +157,7 @@ const Card = ({
             break
         case 'share_story':
             iconComponent = (
-                <div className={classesIcon} style={{background: '#212121'}}>
+                <div className={classesIcon} style={{background: '#000000'}}>
                     <components.svg.ShareStoryTask width={22} height={19}/>
                 </div>
             )
