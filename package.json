@@ -30,7 +30,7 @@
   "scripts": {
     "start": "PORT=3000 GENERATE_SOURCEMAP=true REACT_APP_URL_SERVER=https://app.hax.fewcats.com REACT_APP_RENDER_DEBUG_CONSOLE=1 react-app-rewired start",
     "start-win": "react-app-rewired start",
-    "build": "cross-env BABEL_SHOW_CONFIG_FOR=src/index.js react-app-rewired build",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "run-mock-server": "npx nodemon src/mock_server.js",
