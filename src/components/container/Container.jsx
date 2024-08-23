@@ -33,7 +33,7 @@ export const BodyScroll = ({
     }
     t.addEventListener('scroll', onScroll)
     return () => t.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [tRef, onBumpBottom])
   return (
     <SimpleBar style={{maxHeight: '100vh'}} scrollableNodeProps={{ref: tRef}}>
       <div className="_fCB _fCol" style={{minHeight: '101vh', height: '101vh'}}>

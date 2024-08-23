@@ -4,7 +4,7 @@ import * as ethers from 'ethers'
 import * as constants from '@/constants'
 import * as components from '@/components'
 import * as ports from '@/ports'
-import * as slices from '@/slices/index.jsx'
+import * as slices from '@/slices'
 import * as lib from '@/lib'
 
 const syncGameRewardsWithServer = reduxjsToolkit.createAsyncThunk(
@@ -133,7 +133,7 @@ export const homePageSlice = reduxjsToolkit.createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(registerWallet.pending, (state, _action) => {
+      .addCase(registerWallet.pending, (state) => {
         state.isSpinnerOpen = true
       })
       .addCase(
@@ -154,13 +154,13 @@ export const homePageSlice = reduxjsToolkit.createSlice({
         state.isSpinnerOpen = false
       })
     builder
-      .addCase(triggerClaim.pending, (state, _action) => {
+      .addCase(triggerClaim.pending, (state) => {
         state.isSpinnerOpen = true
       })
-      .addCase(triggerClaim.fulfilled, (state, _action) => {
+      .addCase(triggerClaim.fulfilled, (state) => {
         state.isSpinnerOpen = false
       })
-      .addCase(triggerClaim.rejected, (state, _action) => {
+      .addCase(triggerClaim.rejected, (state) => {
         state.isSpinnerOpen = false
         const m = 'Server is under load. Please write to support.'
         components.toast.showText(m)
@@ -169,7 +169,7 @@ export const homePageSlice = reduxjsToolkit.createSlice({
       state.phase = phase
     })
     builder
-      .addCase(triggerUseKeyToSpin.pending, (state, _action) => {
+      .addCase(triggerUseKeyToSpin.pending, (state) => {
         state.isSpinnerOpen = true
       })
       .addCase(
@@ -181,12 +181,12 @@ export const homePageSlice = reduxjsToolkit.createSlice({
           state.nextSpingReward = nextSpingReward
         },
       )
-      .addCase(triggerUseKeyToSpin.rejected, (state, _action) => {
+      .addCase(triggerUseKeyToSpin.rejected, (state) => {
         state.isSpinnerOpen = false
         const m = 'Server is under load. Please write to support.'
         components.toast.showText(m)
       })
-    builder.addCase(applyUseKeyToSpinEndVals.fulfilled, (state, _action) => {
+    builder.addCase(applyUseKeyToSpinEndVals.fulfilled, (state) => {
       state.spinEndAccountsUpdates = null
       state.nextSpingReward = null
     })

@@ -28,7 +28,7 @@ const routePathComponent = {
   '/friends': <pages.Friends />,
 }
 
-const _App = () => {
+export const AppInner = () => {
   const dispatch = reactRedux.useDispatch()
   const page = reactRedux.useSelector(slices.pageSlice.selectors.page)
   React.useEffect(() => {
@@ -84,10 +84,10 @@ const store = reduxjsToolkit.configureStore({
 const App = () => (
   <reactRedux.Provider store={store}>
     <reactRouterDom.BrowserRouter>
-        <components.toast.Container />
-        <WalletConnectProvider>
-          <_App />
-        </WalletConnectProvider>
+      <components.toast.Container />
+      <WalletConnectProvider>
+        <AppInner />
+      </WalletConnectProvider>
     </reactRouterDom.BrowserRouter>
   </reactRedux.Provider>
 )

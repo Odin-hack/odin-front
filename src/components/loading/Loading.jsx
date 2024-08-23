@@ -14,10 +14,7 @@ const LoadingPolygon = ({tRef}) => {
         styles.loading_polygon_idle,
       )}
     >
-      <div
-        shadow="true"
-        className={classnames('_abs_mid', styles.loading_polygon__shadow_box)}
-      />
+      <div className={classnames('_abs_mid', styles.loading_polygon__shadow_box)}/>
       <components.svg.Polygon />
     </div>
   )

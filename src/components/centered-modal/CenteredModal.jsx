@@ -1,6 +1,5 @@
 import Modal from 'react-modal'
 import * as components from '../'
-import React from 'react'
 import styles from './CenteredModal.module.sass'
 
 export const CenteredModal = ({

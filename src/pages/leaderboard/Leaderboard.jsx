@@ -4,21 +4,21 @@ import * as reactRedux from 'react-redux'
 
 import * as components from '@/components'
 import * as lib from '@/lib'
-import * as slices from '@/slices/index.jsx'
+import * as slices from '@/slices'
 import * as constants from '@/constants'
 
 import styles from './Leaderboard.module.sass'
 
 const genCardPlace = place => {
   switch (place) {
-    case 1:
-      return <components.animations.EmojiComp1 style={{ width: '32px', height: '32px' }}/>
-    case 2:
-      return <components.animations.EmojiComp2 style={{ width: '32px', height: '32px' }}/>
-    case 3:
-      return <components.animations.EmojiComp3 style={{ width: '32px', height: '32px' }}/>
-    default:
-      return <p className="_w4001722">#{place}</p>
+  case 1:
+    return <components.animations.EmojiComp1 style={{ width: '32px', height: '32px' }}/>
+  case 2:
+    return <components.animations.EmojiComp2 style={{ width: '32px', height: '32px' }}/>
+  case 3:
+    return <components.animations.EmojiComp3 style={{ width: '32px', height: '32px' }}/>
+  default:
+    return <p className="_w4001722">#{place}</p>
   }
 }
 
@@ -76,14 +76,14 @@ export const Leaderboard = () => {
   )
   React.useEffect(() => {
     dispatch(slices.leaderboardSlice.thunks.syncWithServer())
-  }, [])
+  })
   React.useEffect(() => {
     if (l.status === constants.status.success) {
       dispatch(slices.pageSlice.thunks.hideGlobalLoading())
     } else {
       dispatch(slices.pageSlice.thunks.showGlobalLoading())
     }
-  }, [l.status])
+  })
   if (l.status !== constants.status.success) {
     return null
   }

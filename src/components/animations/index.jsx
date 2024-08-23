@@ -1,4 +1,3 @@
-import React from 'react'
 import Lottie from 'lottie-react'
 import haxIdle from './data/hax-idle.json'
 import haxSleeping from './data/hax-sleeping.json'
