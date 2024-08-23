@@ -303,7 +303,7 @@ const WalletConnect = ({ account, setAccount }) => {
       try {
         await metamaskSdk.sdk?.connect()
         setAccount(metamaskSdk.account)
-        dispatch(slices.homePageSlice.thunks.registerWallet({ address: account }))
+        dispatch(slices.homePageSlice.thunks.registerWallet({ address: metamaskSdk.account }))
         setIsOpen(false)
         components.toast.showText('Metasmask wallet connected')
       } catch (err) {
