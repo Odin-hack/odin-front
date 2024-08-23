@@ -7,7 +7,7 @@ COPY package.json package-lock.json ./
 
 # Установка зависимостей
 RUN npm install
-RUN nmp install react-scripts -g
+RUN npm install react-scripts -g
 
 # Объявление переменных окружения
 ARG GENERATE_SOURCEMAP
