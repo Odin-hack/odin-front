@@ -33,7 +33,18 @@ createWeb3Modal({
   projectId,
   enableOnramp: false,
   enableAnalytics: true,
-  allWallets: 'ONLY_MOBILE'
+  allWallets: 'ONLY_MOBILE',
+  customWallets: [
+    {
+      id: 'metamask',
+      name: 'MetaMask test',
+      homepage: 'https://metamask.io', // Опционально, ссылка на домашнюю страницу MetaMask
+      image_url: '', // Опционально, ссылка на изображение иконки MetaMask
+      mobile_link: (uri) => `metamask://wc?uri=${encodeURIComponent(uri)}`,
+      app_store: 'https://apps.apple.com/app/metamask/id1438144202', // Ссылка на App Store
+      play_store: 'https://play.google.com/store/apps/details?id=io.metamask' // Ссылка на Play Store
+    }
+  ]
 })
 
 export function WalletConnectProvider({ children }) {
