@@ -85,7 +85,7 @@ const App = () => (
     <reactRouterDom.BrowserRouter>
       <components.toast.Container/>
       <metamaskSdkReact.MetaMaskProvider
-        debug={false}
+        debug={true}
         sdkOptions={{
           logging: {
             developerMode: true,
