@@ -98,7 +98,7 @@ const Header = ({account, setAccount}) => {
           />
         </>
       ) : (
-        <WalletConnect/>
+        <WalletConnect account={account} setAccount={setAccount}/>
       )}
     </div>
   )
