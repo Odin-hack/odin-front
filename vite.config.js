@@ -9,5 +9,12 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL("./src", import.meta.url)),
     }
+  },
+  build: {
+    minify: 'esbuild',
+    sourcemap: false,
+  },
+  server: {
+    open: false,
   }
 })
