@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import eruda from 'eruda'
 import Modal from 'react-modal'
 
+import * as metamaskSdkReact from '@metamask/sdk-react'
 import * as reactRouterDom from 'react-router-dom'
 import * as reactRedux from 'react-redux'
 import * as reduxjsToolkit from '@reduxjs/toolkit'
@@ -13,8 +14,6 @@ import * as slices from '@/slices'
 import * as constants from '@/constants'
 import * as components from '@/components'
 
-import { WalletConnectProvider } from './wallet_connect.jsx'
-
 import 'simplebar-react/dist/simplebar.min.css'
 import 'react-circular-progressbar/dist/styles.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -22,10 +21,10 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import './index.sass'
 
 const routePathComponent = {
-  '/home': <pages.Home />,
-  '/leaderboard': <pages.Leaderboard />,
-  '/tasks': <pages.Tasks />,
-  '/friends': <pages.Friends />,
+  '/home': <pages.Home/>,
+  '/leaderboard': <pages.Leaderboard/>,
+  '/tasks': <pages.Tasks/>,
+  '/friends': <pages.Friends/>,
 }
 
 export const AppInner = () => {
@@ -44,13 +43,13 @@ export const AppInner = () => {
   return (
     <>
       {page.status !== constants.status.success || page.renderGlobalLoading ? (
-        <components.loading.LoadingOnLoad failMessage={page.failMessage} />
+        <components.loading.LoadingOnLoad failMessage={page.failMessage}/>
       ) : null}
       {page.status === constants.status.success && (
         <reactRouterDom.Routes>
           <reactRouterDom.Route
             path="*"
-            element={<reactRouterDom.Navigate to="/home" />}
+            element={<reactRouterDom.Navigate to="/home"/>}
           />
           {constants.routes
             .map(({path}) => ({
@@ -84,13 +83,30 @@ const store = reduxjsToolkit.configureStore({
 const App = () => (
   <reactRedux.Provider store={store}>
     <reactRouterDom.BrowserRouter>
-      <components.toast.Container />
-      <WalletConnectProvider>
-        <AppInner />
-      </WalletConnectProvider>
+      <components.toast.Container/>
+      <metamaskSdkReact.MetaMaskProvider
+        debug={false}
+        sdkOptions={{
+          logging: {
+            developerMode: true,
+          },
+          communicationServerUrl: 'https://metamask-sdk.api.cx.metamask.io/',
+          checkInstallationImmediately: false, // This will automatically connect to MetaMask on page load
+          i18nOptions: {
+            enabled: true,
+          },
+          dappMetadata: {
+            name: 'Demo React App',
+            url: window.location.protocol + '//' + window.location.host,
+          },
+          useDeeplink: true,
+        }}
+      >
+        <AppInner/>
+      </metamaskSdkReact.MetaMaskProvider>
     </reactRouterDom.BrowserRouter>
   </reactRedux.Provider>
 )
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<App />)
+root.render(<App/>)
