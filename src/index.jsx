@@ -96,10 +96,9 @@ const App = () => (
             enabled: true,
           },
           dappMetadata: {
-            name: 'Demo React App',
+            name: 'Hax Community',
             url: window.location.protocol + '//' + window.location.host,
           },
-          useDeeplink: true,
         }}
       >
         <AppInner/>
