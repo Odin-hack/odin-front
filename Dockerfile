@@ -28,4 +28,4 @@ RUN npm install -g serve
 EXPOSE 3000
 
 # Запуск React-приложения через serve
-CMD ["serve", "-s", "dist", "-l", "3000", "--debug"]
+CMD ["serve", "-s", "dist", "-l", "3000"]
