@@ -10,7 +10,7 @@ COPY package.json package-lock.json ./
 
 # Установка зависимостей
 RUN npm install
-
+RUN npm install vite -g
 # Копирование исходного кода
 COPY . .
 
