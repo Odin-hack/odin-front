@@ -2,9 +2,6 @@
 FROM node:18-alpine as build
 WORKDIR /app
 
-# Установка переменной окружения
-ENV NODE_ENV=production
-
 # Копирование package.json и package-lock.json
 COPY package.json package-lock.json ./
 
