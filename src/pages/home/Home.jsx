@@ -824,6 +824,7 @@ export const Home = () => {
       if (wallet?.account?.address) {
         try {
           const address = tonConnect.toUserFriendlyAddress(wallet.account.address)
+          alert(address)
           dispatch(slices.homePageSlice.thunks.registerWallet({address}))
           components.toast.showText('TON Wallet connected')
         } catch (err) {
