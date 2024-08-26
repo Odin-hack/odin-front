@@ -824,7 +824,7 @@ export const Home = () => {
     tonConnectUI.onStatusChange(wallet => {
       if (wallet.connectItems?.tonProof && 'proof' in wallet.connectItems.tonProof) {
         try {
-          alert('GOTCHA!!!')
+          alert('GOTCHA!!! ' + wallet.account.address)
           dispatch(slices.homePageSlice.thunks.registerWallet({address: wallet.account.address}))
           components.toast.showText('TON Wallet connected')
         } catch (err) {
