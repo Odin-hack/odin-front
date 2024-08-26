@@ -752,6 +752,7 @@ const MarqueeFreeDurov = () => {
         top: 0,
         left: 0,
         right: 0,
+        zIndex: 9999999,
         background: 'linear-gradient(to right, #0074B0, #2CA3DF, #0074B0)',
         userSelect: 'none',
       }}
