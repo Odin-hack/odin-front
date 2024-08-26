@@ -10,6 +10,7 @@ import * as constants from '@/constants'
 import * as hooks from '@/hooks'
 
 import styles from './Friends.module.sass'
+import { useThrottledFn } from '@/hooks'
 
 const Claim = () => {
   const dispatch = reactRedux.useDispatch()
@@ -144,22 +145,31 @@ const CopyButton = () => {
 export const Friends = () => {
   // XXX: adjust scroll httml+css
   // TODO: users dissapear on first load - fix it (2 requests), that's because metamask provider renders components more than 1 time
+
   const dispatch = reactRedux.useDispatch()
   const friends = reactRedux.useSelector(slices.friendsSlice.selectors.friends)
+
+  const onBumpBottom = useThrottledFn(() => {
+    dispatch(slices.friendsSlice.thunks.loadNextFriendsListPart())
+  }, 1000)
+
   React.useEffect(() => {
     dispatch(slices.friendsSlice.thunks.syncWithServer())
     return () => dispatch(slices.friendsSlice.thunks.resetPagination())
-  }, [])
+  }, [dispatch])
+
   React.useEffect(() => {
     if (friends.status === constants.status.success) {
       dispatch(slices.pageSlice.thunks.hideGlobalLoading())
     } else {
       dispatch(slices.pageSlice.thunks.showGlobalLoading())
     }
-  }, [friends.status])
+  }, [dispatch, friends.status])
+
   if (friends.status !== constants.status.success) {
     return null
   }
+
   const onClickInviteFriendsButton = () => {
     const linkRef = friends.friendsData.link
     const link = `https://t.me/share/url?url=${linkRef}`
@@ -169,9 +179,7 @@ export const Friends = () => {
     <components.container.Page>
       <components.loading.LoadingFullPage isOpen={friends.loading} />
       <components.container.BodyScroll
-        onBumpBottom={() =>
-          dispatch(slices.friendsSlice.thunks.loadNextFriendsListPart())
-        }
+        onBumpBottom={() => onBumpBottom()}
       >
         <div
           className="_f _fCol"

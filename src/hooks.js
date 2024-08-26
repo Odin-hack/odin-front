@@ -12,3 +12,29 @@ export const useDurHook = selectT => {
   }, [t])
   return {dur}
 }
+
+export const useThrottledFn = (callback, delay) => {
+  const lastCall = React.useRef(0);
+  const timeoutId = React.useRef(null);
+
+  return React.useCallback(
+    (...args) => {
+      const now = Date.now();
+      const remainingTime = delay - (now - lastCall.current);
+
+      if (remainingTime <= 0) {
+        lastCall.current = now;
+        callback(...args);
+      } else {
+        if (!timeoutId.current) {
+          timeoutId.current = setTimeout(() => {
+            lastCall.current = Date.now();
+            callback(...args);
+            timeoutId.current = null;
+          }, remainingTime);
+        }
+      }
+    },
+    [callback, delay]
+  );
+}
