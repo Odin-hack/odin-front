@@ -22,7 +22,7 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [tonConnectUI] = tonConnect.useTonConnectUI();
   const rawAddress = tonConnect.useTonAddress(false);
-  const userFriendlyAddress = tonConnect.useTonAddress(false);
+  const userFriendlyAddress = tonConnect.useTonAddress(true);
   const formattedWallet = `${userFriendlyAddress.slice(0, 4)}...${userFriendlyAddress.slice(-4)}`;
 
   const amountToken = reactRedux.useSelector(
@@ -287,30 +287,10 @@ const ModalRewardContent = ({onClickClose}) => {
 }
 
 const WalletConnect = () => {
-  const dispatch = reactRedux.useDispatch()
-
   const rawAddress = tonConnect.useTonAddress(false);
   const [tonConnectUI] = tonConnect.useTonConnectUI();
 
-  const onClickConnect = async () => {
-    await tonConnectUI.openModal()
-  }
-
-  React.useEffect(() => {
-    tonConnectUI.onStatusChange(wallet => {
-      if (wallet.connectItems?.tonProof && 'proof' in wallet.connectItems.tonProof) {
-        try {
-          dispatch(slices.homePageSlice.thunks.registerWallet({address: wallet.account.address}))
-          components.toast.showText('TON Wallet connected')
-        } catch (err) {
-          console.error(err)
-          components.toast.showText(
-            'Error on connect TON wallet. Please contact support',
-          )
-        }
-      }
-    })
-  }, [dispatch, tonConnectUI]);
+  const onClickConnect = () => tonConnectUI.openModal()
 
   if (rawAddress) return null
 
@@ -826,19 +806,40 @@ export const Home = () => {
   const renderOnboardingModal = !(
     homePage.ignoreOnboardingModalInCurrentRun || onboardedModalShowed
   )
+
   React.useEffect(() => {
     if (user.status === constants.status.success) {
       dispatch(slices.pageSlice.thunks.hideGlobalLoading())
     } else {
       dispatch(slices.pageSlice.thunks.showGlobalLoading())
     }
-  }, [user.status])
+  }, [dispatch, user.status])
+
   React.useEffect(() => {
     dispatch(slices.homePageSlice.thunks.initialize())
-  }, [])
+  }, [dispatch])
+
+  const [tonConnectUI] = tonConnect.useTonConnectUI()
+  React.useEffect(() => {
+    tonConnectUI.onStatusChange(wallet => {
+      if (wallet.connectItems?.tonProof && 'proof' in wallet.connectItems.tonProof) {
+        try {
+          dispatch(slices.homePageSlice.thunks.registerWallet({address: wallet.account.address}))
+          components.toast.showText('TON Wallet connected')
+        } catch (err) {
+          console.error(err)
+          components.toast.showText(
+            'Error on connect TON wallet. Please contact support',
+          )
+        }
+      }
+    })
+  }, [dispatch, tonConnectUI]);
+
   if (user.status !== constants.status.success) {
     return null
   }
+
   return (
     <components.container.Page>
       <components.container.BodyScroll>
