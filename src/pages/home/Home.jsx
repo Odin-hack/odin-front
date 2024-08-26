@@ -212,34 +212,9 @@ const ModalRewardContent = ({onClickClose}) => {
         (homePage?.registerData?.rewardForBalance ?? 0) +
         (homePage?.registerData?.rewardForTxCount ?? 0)
 
-  const [isPlaying, setIsPlaying] = React.useState(false)
-  const confettiRef = React.useRef(null)
-  React.useEffect(() => {
-    setTimeout(() => {
-      confettiRef.current?.play()
-      setIsPlaying(true)
-      setTimeout(() => setIsPlaying(false), 3000)
-    }, 3000)
-  }, [])
-
   return (
     <div className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}>
-      <Lottie
-        animationData={confetti}
-        loop={false}
-        autoplay={false}
-        lottieRef={confettiRef}
-        style={{
-          position: 'absolute',
-          width: '100vw',
-          height: '100vh',
-          top: 0,
-          left: 0,
-          opacity: isPlaying ? 1 : 0,
-          transition: '.3s',
-          pointerEvents: 'none',
-        }}
-      />
+      <components.animations.Confetti delay={3000}/>
       <components.animations.HaxIdle style={{width: '200px', height: '180px'}}/>
       <h2 className="_g7003041" style={{margin: '34px auto 3px'}}>
         Your reward:
@@ -523,7 +498,7 @@ const SpinningV2End = ({onClickClaim}) => {
         {lib.formatPxlInt(nextSpingReward.amount)}
       </p>
       <button className={classesButton} onClick={onClickClaim}>
-                Claim
+        Claim
       </button>
     </div>
   )

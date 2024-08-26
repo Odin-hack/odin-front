@@ -23,8 +23,16 @@ const Claim = () => {
   const {dur} = hooks.useDurHook(() => friends.friendsData.user.timer.expireAt)
   const active = dur === 0
   const claimProgressWidth = parseInt((dur / (24 * 60 * 60 * 1000)) * 100, 10)
+
+  const [showConfetti, setShowConfetti] = React.useState(false)
+  const onClickClaim = React.useCallback(() => {
+    dispatch(slices.friendsSlice.thunks.triggerClaim())
+    setShowConfetti(true)
+  }, [dispatch])
+
   return (
     <div className={styles.claim__box}>
+      {showConfetti && <components.animations.Confetti/>}
       <img
         src="/assets/friends-cover-active.png"
         alt="Cover"
@@ -44,7 +52,7 @@ const Claim = () => {
         {active ? (
           <button
             className={claimButtonClasses}
-            onClick={() => dispatch(slices.friendsSlice.thunks.triggerClaim())}
+            onClick={() => onClickClaim()}
             disabled={!active}
           >
             <p className={styles.claim__button__text}>Claim</p>
