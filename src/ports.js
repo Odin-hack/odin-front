@@ -1,8 +1,5 @@
 import Joi from 'joi'
 import {ethers} from "ethers";
-import TonWeb from "tonweb";
-
-const tonweb = new TonWeb();
 
 const urlRoot = import.meta.env.VITE_REACT_APP_URL_SERVER
 
@@ -412,8 +409,27 @@ const fetchTxCountAndBalanceMainnet = async ({address}) => {
   return {balance: ethers.utils.formatEther(balanceWei), txCount}
 }
 const fetchTxCountAndBalanceTon = async ({address}) => {
-  const balance = await tonweb.provider.getBalance(address);
-  async function f() {
+  async function getBalance() {
+    const url = `https://toncenter.com/api/v2/getAddressInformation?address=${address}`
+    try {
+      let res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      const {ok, result} = await res.json()
+      if (!ok) {
+        return '0'
+      }
+      const {balance} = result
+      return (Number(balance) / 1e9).toFixed(3)
+    } catch (error) {
+      console.error('Error fetching transaction count:', error);
+      return 0
+    }
+  }
+  async function getTxCount() {
     const url = `https://toncenter.com/api/v2/getTransactions?address=${address}&archival=true`
     try {
       let res = await fetch(url, {
@@ -430,6 +446,7 @@ const fetchTxCountAndBalanceTon = async ({address}) => {
     }
   }
 
-  const txCount = await f();
+  const balance = await getBalance();
+  const txCount = await getTxCount();
   return {balance: balance, txCount}
 }
