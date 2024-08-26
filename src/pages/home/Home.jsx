@@ -21,7 +21,7 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [tonConnectUI] = tonConnect.useTonConnectUI();
   const rawAddress = tonConnect.useTonAddress(false);
-  const formattedWallet = tonConnect.useTonAddress(true);
+  const formattedWallet = `${rawAddress.slice(0, 4)}...${rawAddress.slice(-4)}`;
 
   const amountToken = reactRedux.useSelector(
     slices.userSlice.selectors.amountToken,
