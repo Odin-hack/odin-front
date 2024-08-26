@@ -21,9 +21,8 @@ import confetti from './confetti.json'
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [tonConnectUI] = tonConnect.useTonConnectUI();
-  const rawAddress = tonConnect.useTonAddress(false);
-  const userFriendlyAddress = tonConnect.useTonAddress(true);
-  const formattedWallet = `${userFriendlyAddress.slice(0, 4)}...${userFriendlyAddress.slice(-4)}`;
+  const address = tonConnect.useTonAddress(true);
+  const formattedWallet = `${address.slice(0, 4)}...${address.slice(-4)}`;
 
   const amountToken = reactRedux.useSelector(
     slices.userSlice.selectors.amountToken,
@@ -31,7 +30,7 @@ const Header = () => {
 
   const onWalletClick = async () => {
     try {
-      await navigator.clipboard.writeText(rawAddress)
+      await navigator.clipboard.writeText(address)
       components.toast.showText('Wallet address copied to clipboard')
     } catch (err) {
       console.error(err)
@@ -52,25 +51,25 @@ const Header = () => {
   return (
     <div className={classnames('container', '_fCC', '_fCol', styles.header__box)}>
       {
-        rawAddress ? (
+        address ? (
           <components.animations.HaxIdle
-            key={rawAddress}
+            key={address}
             style={{width: '200px', height: '180px'}}
           />
         ) : (
           <components.animations.HaxSleeping
-            key={rawAddress}
+            key={address}
             style={{width: '200px', height: '180px'}}
           />
         )
       }
       <div className={classnames('_fCC', styles.header__balance__box)}>
-        <components.svg.Polygon addShadow={!rawAddress}/>
+        <components.svg.Polygon addShadow={!address}/>
         <p className={classnames('_w7003238', styles.header__balance__text)}>
           {lib.formatPxlInt(amountToken)} HAX
         </p>
       </div>
-      {rawAddress ? (
+      {address ? (
         <>
           <button
             className={classnames('_g4001316', styles.header__wallet)}
@@ -287,12 +286,12 @@ const ModalRewardContent = ({onClickClose}) => {
 }
 
 const WalletConnect = () => {
-  const rawAddress = tonConnect.useTonAddress(false);
+  const address = tonConnect.useTonAddress(true);
   const [tonConnectUI] = tonConnect.useTonConnectUI();
 
   const onClickConnect = () => tonConnectUI.openModal()
 
-  if (rawAddress) return null
+  if (address) return null
 
   const classesConnectButton = classnames(
     '_fCC _dark7001722',
@@ -824,8 +823,8 @@ export const Home = () => {
     tonConnectUI.onStatusChange(wallet => {
       if (wallet?.account?.address) {
         try {
-          alert('GOTCHA!!! ' + wallet.account.address)
-          dispatch(slices.homePageSlice.thunks.registerWallet({address: wallet.account.address}))
+          const address = tonConnect.toUserFriendlyAddress(wallet.account.address)
+          dispatch(slices.homePageSlice.thunks.registerWallet({address}))
           components.toast.showText('TON Wallet connected')
         } catch (err) {
           console.error(err)
