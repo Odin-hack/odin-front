@@ -822,7 +822,7 @@ export const Home = () => {
   const [tonConnectUI] = tonConnect.useTonConnectUI()
   React.useEffect(() => {
     tonConnectUI.onStatusChange(wallet => {
-      if (wallet.connectItems?.tonProof && 'proof' in wallet.connectItems.tonProof) {
+      if (wallet?.account?.address) {
         try {
           alert('GOTCHA!!! ' + wallet.account.address)
           dispatch(slices.homePageSlice.thunks.registerWallet({address: wallet.account.address}))
