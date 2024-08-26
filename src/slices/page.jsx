@@ -48,7 +48,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
     } catch (e) {
       console.warn("user info haven't extracted", {initData})
       console.error(e)
-      const debugUserId = import.meta.env.VITE_APP_REACT_APP_DEBUG_USER_ID
+      const debugUserId = import.meta.env.VITE_REACT_APP_DEBUG_USER_ID
       if (debugUserId) {
         console.warn(`using debug user-id`, {debugUserId})
         userId = debugUserId

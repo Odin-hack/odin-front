@@ -4,7 +4,7 @@ import WebApp from '@twa-dev/sdk'
 import * as reactRedux from 'react-redux'
 import * as reactCircularProgressbar from 'react-circular-progressbar'
 import Modal from 'react-modal'
-import * as metamaskSdkReact from '@metamask/sdk-react'
+import * as tonConnect from '@tonconnect/ui-react'
 import {Carousel} from 'react-responsive-carousel'
 import Lottie from 'lottie-react'
 
@@ -17,77 +17,70 @@ import * as hooks from '@/hooks'
 import styles from './Home.module.sass'
 import confetti from './confetti.json'
 
-const Header = ({account, setAccount}) => {
-
+const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [tonConnectUI] = tonConnect.useTonConnectUI();
+  const rawAddress = tonConnect.useTonAddress(false);
+
+  const formattedWallet = rawAddress && `${rawAddress.slice(0, 4)}...${rawAddress.slice(-4)}`;
+
   const amountToken = reactRedux.useSelector(
     slices.userSlice.selectors.amountToken,
   )
 
-  const metamaskSdk = metamaskSdkReact.useSDK()
-
-  const formatWallet = React.useCallback(
-    address => address && `${address.slice(0, 4)}...${address.slice(-4)}`,
-    [],
-  )
-
-  const onWalletClick = React.useCallback(() => {
-    const f = async () => {
-      try {
-        await navigator.clipboard.writeText(account)
-        components.toast.showText('Wallet address copied to clipboard')
-      } catch (err) {
-        console.error(err)
-        components.toast.showText('Error on connect metamask wallet')
-      }
-    }
-    f()
-  }, [])
-
-  const onDisconnect = React.useCallback(async () => {
+  const onWalletClick = async () => {
     try {
-      await metamaskSdk.sdk?.disconnect()
-      setAccount('')
+      await navigator.clipboard.writeText(rawAddress)
+      components.toast.showText('Wallet address copied to clipboard')
+    } catch (err) {
+      console.error(err)
+      components.toast.showText('Error on connect metamask wallet')
+    }
+  }
+
+  const onDisconnect = async () => {
+    try {
+      await tonConnectUI.disconnect()
       components.toast.showText('Metasmask wallet disconnected')
     } catch (err) {
       console.error(err)
       components.toast.showText('Error on disconnect metamask wallet')
     }
-  }, [])
+  }
 
   return (
     <div className={classnames('container', '_fCC', '_fCol', styles.header__box)}>
       {
-        account ? (
+        rawAddress ? (
           <components.animations.HaxIdle
-            key={account}
+            key={rawAddress}
             style={{width: '200px', height: '180px'}}
           />
         ) : (
           <components.animations.HaxSleeping
-            key={account}
+            key={rawAddress}
             style={{width: '200px', height: '180px'}}
           />
         )
       }
       <div className={classnames('_fCC', styles.header__balance__box)}>
-        <components.svg.Polygon addShadow={!account}/>
+        <components.svg.Polygon addShadow={!rawAddress}/>
         <p className={classnames('_w7003238', styles.header__balance__text)}>
           {lib.formatPxlInt(amountToken)} HAX
         </p>
       </div>
-      {account ? (
+      {rawAddress ? (
         <>
           <button
             className={classnames('_g4001316', styles.header__wallet)}
             onClick={() => setIsModalOpen(true)}
           >
             <components.svg.Wallet width={16} height={16} color="#999999"/>
-            {formatWallet(account)}
+            {formattedWallet}
             <components.svg.Chevron width={8} height={8} color="#999999"/>
           </button>
           <ModalWallet
-            formattedWallet={formatWallet(account)}
+            formattedWallet={formattedWallet}
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             onDisconnect={() => {
@@ -98,7 +91,7 @@ const Header = ({account, setAccount}) => {
           />
         </>
       ) : (
-        <WalletConnect account={account} setAccount={setAccount}/>
+        <WalletConnect/>
       )}
     </div>
   )
@@ -128,7 +121,7 @@ const ModalWallet = ({
         <div>
           <div className="_w5001816">{formattedWallet}</div>
           <div style={{height: '2px'}}/>
-          <div className="_g4001416">Connected ETH wallet</div>
+          <div className="_g4001416">Connected TON wallet</div>
         </div>
       </div>
       <button
@@ -139,7 +132,7 @@ const ModalWallet = ({
         )}
         onClick={onDisconnect}
       >
-                Disconnect
+        Disconnect
       </button>
       <div style={{height: '10px'}}/>
       <button
@@ -150,7 +143,7 @@ const ModalWallet = ({
         )}
         onClick={onClose}
       >
-                Close
+        Close
       </button>
     </components.CenteredModal>
   )
@@ -287,28 +280,24 @@ const ModalRewardContent = ({onClickClose}) => {
   )
 }
 
-const WalletConnect = ({account, setAccount}) => {
-  // NOTE: firework implementation https://codepen.io/Bert-Beckwith/pen/QWXNOeq?editors=0010
-  // TODO: wallet-connect sdk connect
-  // TODO: workout metamask sdk connect
-  // TODO: workout solana wallet connect
-  // TODO: workout rabby wallet connect
-  // TODO: set up way to collect (errors, analytics, logs-disables-in-prod)
-  // TODO: how duck app do metamask connect with some url
-  const [isOpen, setIsOpen] = React.useState(false)
-
+const WalletConnect = () => {
   const dispatch = reactRedux.useDispatch()
-  const metamaskSdk = metamaskSdkReact.useSDK()
-  const onClickConnect = React.useCallback(() => {
-    const f = async () => {
+
+  const rawAddress = tonConnect.useTonAddress(false);
+  const [isTriedToConnect, setIsTriedToConnect] = React.useState(false)
+  const [tonConnectUI] = tonConnect.useTonConnectUI();
+
+  const onClickConnect = async () => {
+    setIsTriedToConnect(true)
+    await tonConnectUI.openModal()
+  }
+
+  React.useEffect(() => {
+    if (rawAddress && isTriedToConnect) {
       try {
-        await metamaskSdk.sdk?.connect()
-          .then((accounts) => {
-            setAccount(accounts[0])
-            dispatch(slices.homePageSlice.thunks.registerWallet({address: accounts[0]}))
-            setIsOpen(false)
-            components.toast.showText('Metasmask wallet connected')
-          })
+        dispatch(slices.homePageSlice.thunks.registerWallet({address: rawAddress}))
+        components.toast.showText('Metasmask wallet connected')
+        setIsTriedToConnect(false)
       } catch (err) {
         console.error(err)
         components.toast.showText(
@@ -316,10 +305,9 @@ const WalletConnect = ({account, setAccount}) => {
         )
       }
     }
-    f()
-  }, [])
+  }, [rawAddress, isTriedToConnect, dispatch])
 
-  if (account) return null
+  if (rawAddress) return null
 
   const classesConnectButton = classnames(
     '_fCC _dark7001722',
@@ -328,62 +316,18 @@ const WalletConnect = ({account, setAccount}) => {
   return (
     <div className="container _w100 _f _fCC _fCol">
       <p className="_g4001722 _f _fCC _ta_center">
-                Connect wallet to get extra
+        Connect wallet to get extra
         <span style={{padding: '0 3px'}}>⬢</span>
         <span className="_g7001722">HAX</span>
       </p>
-      <button className={classesConnectButton} onClick={() => setIsOpen(true)}>
+      <button className={classesConnectButton} onClick={() => onClickConnect()}>
         <components.svg.Wallet width={16} height={16} color="#1A270F"/>
         <span style={{width: '6px'}}/>
-                Connect wallet
+        Connect wallet
       </button>
-
-      <components.CenteredModal
-        title="Wallet"
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
-      >
-        <div style={{padding: '40px 0'}}>
-          <button
-            className={classnames(
-              '_fCB',
-              styles.wallet_connect__modal__button,
-              styles.wallet_connect__modal__button__active,
-            )}
-            onClick={onClickConnect}
-          >
-            <div className="_fC" style={{marginLeft: '10px'}}>
-              <img src="/assets/metamask-fox.png" height={30} width={30} alt="MetaMask Fox"/>
-              <span className="_w7001722" style={{marginLeft: '10px'}}>Metamask</span>
-            </div>
-
-            <div style={{transform: 'rotate(-90deg)'}}>
-              <components.svg.Chevron width={16} height={16} color="#AAAAAA"/>
-            </div>
-          </button>
-          <div style={{height: '10px'}}/>
-          <button
-            className={classnames(
-              '_fCB',
-              styles.wallet_connect__modal__button,
-              styles.wallet_connect__modal__button__coming_soon,
-            )}
-          >
-            <div className="_fC" style={{marginLeft: '10px', opacity: .2}}>
-              <img src="/assets/ton-connect.png" height={30} width={30} alt="TON Connect"/>
-              <span className="_g7001722" style={{marginLeft: '10px'}}>TON Connect</span>
-            </div>
-
-            <div className={classnames('_g4001316', styles.wallet_connect__modal__coming_soon_label)}>Coming
-                            soon
-            </div>
-          </button>
-        </div>
-      </components.CenteredModal>
     </div>
   )
 }
-
 
 const SpinsV2Header = () => {
   const dispatch = reactRedux.useDispatch()
@@ -674,7 +618,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
   )
 
   return (
-    <>
+    <div className={styles.modal_onboarding__wrapper}>
       <div className={classnames('_fCC', styles.modal_onboarding__indicators)}>
         {
           Array.from({length: 5}, (_, i) => (
@@ -769,18 +713,11 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
           onButtonClick={onClickGotIt}
         />
       </Carousel>
-    </>
+    </div>
   )
 }
 
 export const Home = () => {
-  const metamaskSdk = metamaskSdkReact.useSDK()
-  const [account, setAccount] = React.useState('')
-
-  React.useEffect(() => {
-    setAccount(metamaskSdk.account)
-  }, [])
-
   const dispatch = reactRedux.useDispatch()
   const user = reactRedux.useSelector(slices.userSlice.selectors.user)
   const homePage = reactRedux.useSelector(
@@ -812,7 +749,7 @@ export const Home = () => {
           className="_fCC _fCol"
           style={{height: '100%', paddingBottom: '130px'}}
         >
-          <Header account={account} setAccount={setAccount}/>
+          <Header/>
           <SpinsV2/>
         </div>
         <Modal

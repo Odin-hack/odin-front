@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const urlRoot = import.meta.env.VITE_APP_REACT_APP_URL_SERVER
+const urlRoot = import.meta.env.VITE_REACT_APP_URL_SERVER
 
 const fetchAndAssert = async ({
   path,

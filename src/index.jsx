@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import eruda from 'eruda'
 import Modal from 'react-modal'
 
-import * as metamaskSdkReact from '@metamask/sdk-react'
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import * as reactRouterDom from 'react-router-dom'
 import * as reactRedux from 'react-redux'
 import * as reduxjsToolkit from '@reduxjs/toolkit'
@@ -36,10 +36,10 @@ export const AppInner = () => {
     WebApp.enableClosingConfirmation()
     Modal.setAppElement('#root-modal')
     dispatch(slices.pageSlice.thunks.initialize())
-    if (import.meta.env.VITE_APP_REACT_APP_RENDER_DEBUG_CONSOLE === '1') {
+    if (import.meta.env.VITE_REACT_APP_RENDER_DEBUG_CONSOLE === '1') {
       eruda.default.init()
     }
-  }, [])
+  }, [dispatch])
   return (
     <>
       {page.status !== constants.status.success || page.renderGlobalLoading ? (
@@ -84,25 +84,14 @@ const App = () => (
   <reactRedux.Provider store={store}>
     <reactRouterDom.BrowserRouter>
       <components.toast.Container/>
-      <metamaskSdkReact.MetaMaskProvider
-        debug={true}
-        sdkOptions={{
-          logging: {
-            developerMode: true,
-          },
-          communicationServerUrl: 'https://metamask-sdk.api.cx.metamask.io/',
-          checkInstallationImmediately: false, // This will automatically connect to MetaMask on page load
-          i18nOptions: {
-            enabled: true,
-          },
-          dappMetadata: {
-            name: 'Hax Community',
-            url: window.location.protocol + '//' + window.location.host,
-          },
+      <TonConnectUIProvider
+        manifestUrl={`${ import.meta.env.VITE_REACT_APP_URL_UI }/tonconnect-manifest.json`}
+        actionsConfiguration={{
+          twaReturnUrl: import.meta.env.VITE_TELEGRAM_APP_URL,
         }}
       >
         <AppInner/>
-      </metamaskSdkReact.MetaMaskProvider>
+      </TonConnectUIProvider>
     </reactRouterDom.BrowserRouter>
   </reactRedux.Provider>
 )
