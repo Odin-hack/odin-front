@@ -1,4 +1,8 @@
 import Joi from 'joi'
+import {ethers} from "ethers";
+import TonWeb from "tonweb";
+
+const tonweb = new TonWeb();
 
 const urlRoot = import.meta.env.VITE_REACT_APP_URL_SERVER
 
@@ -386,4 +390,46 @@ export const fetchPostHaxAuth = async ({initData}) => {
     schema,
   })
   return {jwtToken}
+}
+
+export const fetchTxCountAndBalance = async ({address, network}) => {
+  switch (network) {
+  case 'mainnet':
+    return fetchTxCountAndBalanceMainnet({address})
+  case 'ton':
+    return fetchTxCountAndBalanceTon({address})
+  default:
+    throw new Error('Unsupported network')
+  }
+}
+
+const fetchTxCountAndBalanceMainnet = async ({address}) => {
+  const provider = new ethers.InfuraProvider('mainnet')
+  const [balanceWei, txCount] = await Promise.all([
+    provider.getBalance(address),
+    provider.getTransactionCount(address),
+  ])
+  return {balance: ethers.utils.formatEther(balanceWei), txCount}
+}
+const fetchTxCountAndBalanceTon = async ({address}) => {
+  const balance = await tonweb.provider.getBalance(address);
+  async function f() {
+    const url = `https://toncenter.com/api/v2/getTransactions?address=${address}&archival=true`
+    try {
+      let res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      const {ok, result} = await res.json()
+      return ok ? result.length : 0
+    } catch (error) {
+      console.error('Error fetching transaction count:', error);
+      return 0
+    }
+  }
+
+  const txCount = await f();
+  return {balance: balance, txCount}
 }

@@ -1,5 +1,4 @@
 import * as reduxjsToolkit from '@reduxjs/toolkit'
-import * as ethers from 'ethers'
 
 import * as constants from '@/constants'
 import * as components from '@/components'
@@ -31,17 +30,13 @@ const initialize = reduxjsToolkit.createAsyncThunk(
 )
 const registerWallet = reduxjsToolkit.createAsyncThunk(
   'home/registerWallet',
-  async ({address}, o) => {
-    const provider = new ethers.InfuraProvider('mainnet')
-    const [balanceWei, txCount] = await Promise.all([
-      provider.getBalance(address),
-      provider.getTransactionCount(address),
-    ])
+  async ({address, network}, o) => {
+    const {balance, txCount} = await ports.fetchTxCountAndBalance({address, network})
     const userId = o.getState().page.userId
     const forRegisterBody = {
-      balance: ethers.formatEther(balanceWei),
-      network: 'mainnet',
-      walletType: 'metamask',
+      balance,
+      network,
+      walletType: network,
       txCount,
       address,
     }

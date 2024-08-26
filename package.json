@@ -29,9 +29,11 @@
     "react-toastify": "^10.0.5",
     "sass": "^1.77.8",
     "sass-loader": "^16.0.1",
-    "simplebar-react": "^3.2.6"
+    "simplebar-react": "^3.2.6",
+    "tonweb": "^0.0.66"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@eslint/js": "^9.9.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
