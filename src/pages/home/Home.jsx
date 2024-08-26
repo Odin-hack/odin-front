@@ -42,7 +42,7 @@ const Header = () => {
   const onDisconnect = async () => {
     try {
       await tonConnectUI.disconnect()
-      components.toast.showText('Metasmask wallet disconnected')
+      components.toast.showText('TON Wallet disconnected')
     } catch (err) {
       console.error(err)
       components.toast.showText('Error on disconnect TON wallet')
@@ -301,7 +301,7 @@ const WalletConnect = () => {
       if (wallet.connectItems?.tonProof && 'proof' in wallet.connectItems.tonProof) {
         try {
           dispatch(slices.homePageSlice.thunks.registerWallet({address: wallet.account.address}))
-          components.toast.showText('Metasmask wallet connected')
+          components.toast.showText('TON Wallet connected')
         } catch (err) {
           console.error(err)
           components.toast.showText(
