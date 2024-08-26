@@ -430,7 +430,7 @@ const fetchTxCountAndBalanceTon = async ({address}) => {
     }
   }
   async function getTxCount() {
-    const url = `https://toncenter.com/api/v2/getTransactions?address=${address}&archival=true`
+    const url = `https://toncenter.com/api/v2/getTransactions?address=${address}&archival=true&limit=100`
     try {
       let res = await fetch(url, {
         method: 'GET',
