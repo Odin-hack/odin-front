@@ -40,7 +40,7 @@ export const Tabs = () => {
                   />
                 </div>
                 <p
-                  className={classnames('_w4001013', {
+                  className={classnames('_w4001414', {
                     [styles.item_inactive]: !isActive,
                   })}
                 >

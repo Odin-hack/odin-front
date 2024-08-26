@@ -36,6 +36,7 @@ const Card = ({
   status,
   type,
   url,
+  iconUrl,
   refUrl,
   actionUrl,
   data,
@@ -101,69 +102,6 @@ const Card = ({
     }
     callbackSyntheticPending()
     callbackCta()
-  }
-  let iconComponent = null
-  const classesIcon = classnames('_fCC', styles.card__icon)
-  switch (type) {
-  case 'tg_blue':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#269ED0'}}>
-        <components.svg.Telegram width={40} height={40} withoutBackground/>
-      </div>
-    )
-    break
-  case 'tg_black':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#0F0F0F'}}>
-        <components.svg.Telegram width={40} height={40} withoutBackground/>
-      </div>
-    )
-    break
-  case 'X':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#0F0F0F'}}>
-        <components.svg.X width={16} height={16}/>
-      </div>
-    )
-    break
-  case 'youtube':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#212121'}}>
-        <components.svg.Youtube width={28} height={28}/>
-      </div>
-    )
-    break
-  case 'spin':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#1C2F1B'}}>
-        <components.svg.GiftV2 width={28} height={28}/>
-      </div>
-    )
-    break
-  case 'invite_friends':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#212121'}}>
-        <components.svg.Hands width={28} height={28}/>
-      </div>
-    )
-    break
-  case 'connect_wallet':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#269ED0'}}>
-        <components.svg.Wallet width={22} height={19}/>
-      </div>
-    )
-    break
-  case 'share_story':
-    iconComponent = (
-      <div className={classesIcon} style={{background: '#000000'}}>
-        <components.svg.ShareStoryTask width={22} height={19}/>
-      </div>
-    )
-    break
-  default:
-    console.warn(`empty iconComponent for type=${type}`)
-    return null
   }
   let statusComponent = null
   const syntheticStatus =
@@ -235,7 +173,7 @@ const Card = ({
     >
       <div className="_fCC _w100">
         <div className={classnames('_fCC', styles.card__icon__box)}>
-          {iconComponent}
+          {iconUrl && <img src={iconUrl} className={styles.card__icon} alt="Task Icon"/>}
         </div>
         <div className="_f _fCol _w100" style={{minWidth: 0}}>
           <div className="_fCC">
@@ -307,7 +245,7 @@ export const Tasks = () => {
   )
   const renderCard = (item, drawBottomLine) => (
     <Card
-      key={item.position}
+      key={`${item.id}-${item.position}`}
       taskId={item.id}
       title={item.title}
       description={item.description}
@@ -315,6 +253,7 @@ export const Tasks = () => {
       status={item.status}
       type={item.type}
       data={item.data}
+      iconUrl={item.iconUrl}
       refUrl={friends?.friendsData?.link}
       url={item.data.url ?? null}
       storyMediaUrl={item.data.storyMediaUrl ?? null}
