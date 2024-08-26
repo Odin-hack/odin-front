@@ -50,6 +50,18 @@ export const intToKM = (num, digits) => {
     : '0';
 }
 
+/**
+ * Returns a new array with the elements shuffled.
+ */
+export const shuffle = (arr) => {
+  const res = [...arr]
+  for (let i = res.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[res[i], res[j]] = [res[j], res[i]]
+  }
+  return res
+}
+
 export const race = async (p, ms = 750) => {
   const o = await Promise.all([p, new Promise(r => setTimeout(r, ms))])
   return o[0]

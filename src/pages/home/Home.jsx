@@ -6,7 +6,6 @@ import * as reactCircularProgressbar from 'react-circular-progressbar'
 import Modal from 'react-modal'
 import * as tonConnect from '@tonconnect/ui-react'
 import {Carousel} from 'react-responsive-carousel'
-import Lottie from 'lottie-react'
 import Marquee from 'react-fast-marquee'
 
 import * as components from '@/components'
@@ -16,7 +15,7 @@ import * as lib from '@/lib'
 import * as hooks from '@/hooks'
 
 import styles from './Home.module.sass'
-import confetti from './confetti.json'
+import { shuffle } from '@/lib'
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -369,7 +368,11 @@ const SpinsV2BotLanding = ({onClickUseToSpin}) => {
   }, [amountKeys])
   return (
     <div className="_f _fCC _fCol _w100">
-      <components.svg.GiftV2 width={104} height={106} grey={amountKeys === 0}/>
+      <img
+        src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-active.svg'}
+        alt="Gift Box"
+        width={104} height={106}
+      />
       <button className={classesButton} onClick={onClick}>
                 Use
         <span style={{width: '3px'}}/>
@@ -423,16 +426,15 @@ const SpinningV2 = ({onEnd}) => {
     key: <components.svg.Key width={16} height={17}/>,
     token: <components.svg.Polygon width={16} height={17}/>,
   }
-  const tRewards = Array(parseInt(20 / rewards.length + 1, 10))
-    .fill()
-    .map(() => rewards)
-    .flat()
-    .slice(0, 20)
-    // NOTE: source code is here https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-  for (let i = tRewards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-        ;[tRewards[i], tRewards[j]] = [tRewards[j], tRewards[i]]
-  }
+
+  const tRewards = shuffle(
+    Array(parseInt(20 / rewards.length + 1, 10))
+      .fill()
+      .map(() => rewards)
+      .flat()
+      .slice(0, 20)
+  )
+
   const slotsComponentsList = tRewards.map(({rewardType, amount}, i) => {
     const iconComponent = rewardTypeIconMap[rewardType]
     const amountAdjusted = i === 13 ? nextSpingReward.amount : amount

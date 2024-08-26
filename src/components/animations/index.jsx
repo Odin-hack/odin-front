@@ -7,8 +7,8 @@ import emojiComp1 from './data/emoji-comp-1.json'
 import emojiComp2 from './data/emoji-comp-2.json'
 import emojiComp3 from './data/emoji-comp-3.json'
 import emojiBoomstick from './data/emoji-boomstick.json'
+import confetti from './data/confetti.json'
 import React from 'react'
-import confetti from '@/pages/home/confetti.json'
 
 export const HaxIdle = ({ style }) => <Lottie animationData={haxIdle} loop={true} style={style} />
 export const HaxSleeping = ({ style }) => <Lottie animationData={haxSleeping} loop={true} style={style} />
