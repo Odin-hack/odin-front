@@ -33,7 +33,7 @@ const Header = () => {
       components.toast.showText('Wallet address copied to clipboard')
     } catch (err) {
       console.error(err)
-      components.toast.showText('Error on connect metamask wallet')
+      components.toast.showText('Error on connect TON wallet')
     }
   }
 
@@ -43,7 +43,7 @@ const Header = () => {
       components.toast.showText('Metasmask wallet disconnected')
     } catch (err) {
       console.error(err)
-      components.toast.showText('Error on disconnect metamask wallet')
+      components.toast.showText('Error on disconnect TON wallet')
     }
   }
 
@@ -167,9 +167,8 @@ const ModalRewardCard = ({
     <div
       className="_fCC"
       style={{
-        background: '#171717',
-        minWidth: '28px',
-        height: '28px',
+        minWidth: '32px',
+        height: '32px',
         borderRadius: '50%',
         ...iconBoxStyle,
       }}
@@ -235,7 +234,7 @@ const ModalRewardContent = ({onClickClose}) => {
       />
       <components.animations.HaxIdle style={{width: '200px', height: '180px'}}/>
       <h2 className="_g7003041" style={{margin: '34px auto 3px'}}>
-                Your reward:
+        Your reward:
       </h2>
       <div className="_fCC" style={{marginBottom: '50px'}}>
         <components.svg.Polygon width={46} height={46}/>
@@ -243,16 +242,15 @@ const ModalRewardContent = ({onClickClose}) => {
         <p className="_w7004641">{rewardAmount} HAX</p>
       </div>
       <ModalRewardCard
-        icon={<components.svg.Eth width={11.25} height={18}/>}
-        leftTitle="ETH balance"
+        icon={<components.svg.Ton width={32} height={32}/>}
+        leftTitle="TON balance"
         leftText={homePage?.forRegisterBody?.balance?.slice(0, 9)}
         priceStr={lib.formatPxlInt(
           homePage?.registerData?.rewardForBalance ?? 0,
         )}
       />
       <ModalRewardCard
-        icon={<components.svg.Arrows width={28} height={28}/>}
-        iconBoxStyle={{background: '#A2A2A2'}}
+        icon={<components.svg.Arrows width={32} height={32}/>}
         leftTitle="Transaction count"
         leftText={homePage?.forRegisterBody?.txCount ?? 0}
         priceStr={lib.formatPxlInt(
@@ -300,7 +298,7 @@ const WalletConnect = () => {
       } catch (err) {
         console.error(err)
         components.toast.showText(
-          'Error on connect metamask wallet. Please contact support',
+          'Error on connect TON wallet. Please contact support',
         )
       }
     }
@@ -617,7 +615,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
   )
 
   return (
-    <div className={styles.modal_onboarding__wrapper}>
+    <>
       <div className={classnames('_fCC', styles.modal_onboarding__indicators)}>
         {
           Array.from({length: 5}, (_, i) => (
@@ -646,10 +644,9 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
           title="Connect your wallet"
           content={(
             <p>
-                            Connect your Metamask wallet on Ethereum to get your <Word bold={true}>⬢HAX</Word> token
-                            reward.
-                            If you don&apos;t have Metamask, download it from the <Word colored={true}>Apple
-                            Store</Word> or <Word colored={true}>Play Market</Word>.
+              Connect your <Word colored={true}>TON Wallet</Word> to
+              get your <Word bold={true} colored={true}>⬢HAX</Word> token reward.
+              Show your love for TON!
             </p>
           )}
           buttonText="Yeah"
@@ -661,7 +658,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
           title="Quests"
           content={(
             <p>
-                            Complete tasks and unlock extra <Word bold={true} colored={true}>⬢HAX</Word> rewards.
+              Complete tasks and unlock extra <Word bold={true} colored={true}>⬢HAX</Word> rewards.
             </p>
           )}
           buttonText="Got it!"
@@ -673,9 +670,9 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
           title="Friends"
           content={(
             <p>
-                            Earn <Word colored={true}>10%</Word> from your invitees&apos; MetaMask
-                            connections and <Word colored={true}>5%</Word> from their spins
-                            and quests. Claim your rewards every 24 hours.
+              Earn <Word colored={true}>10%</Word> from your invitees&apos; TON Wallet
+              connections and <Word colored={true}>5%</Word> from their spins
+              and quests. Claim your rewards every 24 hours.
             </p>
           )}
           buttonText="Cool"
@@ -687,9 +684,9 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
           title="Leaderboard"
           content={(
             <p>
-                            Track your <Word colored={true}>progress</Word> on the leaderboard
-                            and compete with other <Word bold={true}>⬢HAX</Word> holders
-                            for top rewards.
+              Track your <Word colored={true}>progress</Word> on the leaderboard
+              and compete with other <Word bold={true}>⬢HAX</Word> holders
+              for top rewards.
             </p>
           )}
           buttonText="Cool"
@@ -701,10 +698,9 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
           title="Spin"
           content={(
             <p>
-                            Earn <Word bold={true} colored={true}>⬢HAX</Word> by <Word
-                colored={true}>spinning</Word> with a key every
-                            6 hours. Don&apos;t forget to log in to <Word colored={true}>claim</Word> your <Word
-                color="#EABB1C">🔑 Key</Word> on time!
+              Earn <Word bold={true} colored={true}>⬢HAX</Word> by <Word colored={true}>spinning</Word> with
+              a key every 6 hours. Don&apos;t forget to log in
+              to <Word colored={true}>claim</Word> your <Word color="#EABB1C">🔑 Key</Word> on time!
             </p>
           )}
           buttonText="LET ME SPIN!"
@@ -712,7 +708,7 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
           onButtonClick={onClickGotIt}
         />
       </Carousel>
-    </div>
+    </>
   )
 }
 
@@ -753,6 +749,7 @@ export const Home = () => {
         </div>
         <Modal
           isOpen={homePage.isOpenRewardModal}
+          overlayClassName="adjusted-react-modal-overlay"
           className="adjusted-react-modal"
         >
           <ModalRewardContent
@@ -761,7 +758,11 @@ export const Home = () => {
             }
           />
         </Modal>
-        <Modal isOpen={renderOnboardingModal} className="adjusted-react-modal">
+        <Modal
+          isOpen={renderOnboardingModal}
+          overlayClassName="adjusted-react-modal-overlay"
+          className="adjusted-react-modal"
+        >
           <ModalOnboardingContent
             onClickGotIt={() => dispatch(slices.homePageSlice.thunks.closeOnboardingModal())}
           />
