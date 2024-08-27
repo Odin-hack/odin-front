@@ -27,6 +27,13 @@ const routePathComponent = {
   '/friends': <pages.Friends/>,
 }
 
+const isReloaded = sessionStorage.getItem('isReloaded')
+if (!isReloaded) {
+  sessionStorage.setItem('isReloaded', '1')
+  WebApp.expand()
+  setTimeout(() => window.location.reload(), 500)
+}
+
 export const AppInner = () => {
   const dispatch = reactRedux.useDispatch()
   const page = reactRedux.useSelector(slices.pageSlice.selectors.page)
@@ -36,7 +43,7 @@ export const AppInner = () => {
     WebApp.enableClosingConfirmation()
     Modal.setAppElement('#root-modal')
     dispatch(slices.pageSlice.thunks.initialize())
-    
+
     WebApp.onEvent('viewportChanged', () => window.dispatchEvent(new Event('resize')))
 
     if (import.meta.env.VITE_REACT_APP_RENDER_DEBUG_CONSOLE === '1') {
