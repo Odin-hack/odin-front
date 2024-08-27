@@ -405,6 +405,7 @@ const SpinningV2 = ({ onEnd }) => {
 
     // Setup ring and slots
     const setupRingAndSlots = () => {
+      window.dispatchEvent(new Event('resize')) // trigger browser frame rerender
       gsap.set(refRing.current, {
         perspective: 1000,
         rotationX: START_ROTATION,
@@ -421,6 +422,7 @@ const SpinningV2 = ({ onEnd }) => {
 
     // Animation function
     const startSpinning = () => {
+      window.dispatchEvent(new Event('resize')) // trigger browser frame rerender
       gsap.to(refRing.current, {
         rotationX: END_ROTATION, // 6 full rotations + centering
         duration: 10,
