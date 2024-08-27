@@ -190,7 +190,7 @@ const ModalRewardCard = ({
       <div className="_fCC">
         <components.svg.Polygon width={14} height={14}/>
         <div style={{width: '6px'}}/>
-        <p className="_w4001722 _tw_nowrap">{priceStr}</p>
+        <p className="_w4001722 _tw_nowrap" style={{ whiteSpace: 'nowrap' }}>{priceStr}</p>
       </div>
     </div>
   </div>
@@ -215,7 +215,7 @@ const ModalRewardContent = ({onClickClose}) => {
 
   return (
     <div className={classnames('_abs_mid _fCC _fCol', styles.modal_reward__box)}>
-      <components.animations.Confetti delay={3000}/>
+      <components.animations.Confetti/>
       <components.animations.HaxIdle style={{width: '200px', height: '180px'}}/>
       <h2 className="_g7003041" style={{margin: '34px auto 3px'}}>
         Your reward:
