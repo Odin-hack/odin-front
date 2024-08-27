@@ -36,6 +36,15 @@ export const AppInner = () => {
     WebApp.enableClosingConfirmation()
     Modal.setAppElement('#root-modal')
     dispatch(slices.pageSlice.thunks.initialize())
+
+    const triggerRerender = () => window.dispatchEvent(new Event('resize'))
+
+    triggerRerender()
+    setTimeout(() => triggerRerender(), 1000)
+    setTimeout(() => triggerRerender(), 2000)
+    setTimeout(() => triggerRerender(), 3000)
+    WebApp.onEvent('viewportChanged', () => triggerRerender())
+
     if (import.meta.env.VITE_REACT_APP_RENDER_DEBUG_CONSOLE === '1') {
       eruda.default.init()
     }
