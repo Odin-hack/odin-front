@@ -190,7 +190,7 @@ const ModalRewardCard = ({
       <div className="_fCC">
         <components.svg.Polygon width={14} height={14}/>
         <div style={{width: '6px'}}/>
-        <p className="_w4001722 _tw_nowrap" style={{ whiteSpace: 'nowrap' }}>{priceStr}</p>
+        <p className="_w4001722 _nowrap" style={{ whiteSpace: 'nowrap' }}>{priceStr}</p>
       </div>
     </div>
   </div>
@@ -313,7 +313,7 @@ const SpinsV2Header = () => {
   return (
     <div className="_f _fCB _w100">
       <div className={classnames('_f _fCC', styles.spins_v2__keys__box)}>
-        <p className="_w4001520 _op80 _tw_nowrap">Your keys:</p>
+        <p className="_w4001520 _op80 _nowrap">Your keys:</p>
         <span style={{width: '5px'}}/>
         <div className={classesKeysAmountBox}>
           <components.svg.Key width={14} height={14} grey={amountKeys === 0}/>
@@ -483,8 +483,8 @@ const SpinningV2 = ({ onEnd }) => {
 
   return (
     <div className={classnames('_w100', styles.spinning_v2__rotate)}>
-      <div className={classnames('_abs_mid', styles.spinning_v2__top_shadow)}/>
-      <div className={classnames('_abs_mid', styles.spinning_v2__bot_shadow)}/>
+      <div className={classnames(styles.spinning_v2__top_shadow)}/>
+      <div className={classnames(styles.spinning_v2__bot_shadow)}/>
       <div className={classnames('_abs_mid', styles.spinning_v2__highligh)}/>
       <div
         ref={refRing}

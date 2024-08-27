@@ -107,7 +107,7 @@ const Card = ({title, pxl, drawBottomLine, photoUrl, defaultPhoto}) => (
       <div className="_fCC _status_block">
         <components.svg.Polygon width={12} height={12} />
         <span style={{width: '4px'}} />
-        <p className="_w7001316 _tw_nowrap">{lib.formatPxlInt(pxl)}</p>
+        <p className="_w7001316 _nowrap">{lib.formatPxlInt(pxl)}</p>
       </div>
     </div>
     <div

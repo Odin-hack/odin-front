@@ -34,7 +34,7 @@ const Card = ({
   const classesBox = classnames('_w100', styles.card__box, {
     [styles.card__box_grey_bg]: greyBg,
   })
-  const classesPrice = classnames('_w7001316 _tw_nowrap', styles.card__price, {
+  const classesPrice = classnames('_w7001316 _nowrap', styles.card__price, {
     [styles.card__price_white]: greyBg,
   })
   return (
