@@ -444,7 +444,7 @@ const fetchTxCountAndBalanceTon = async ({address}) => {
   }
 
   async function getTxCount() {
-    const url = `https://toncenter.com/api/v2/getTransactions?address=${address}&archival=true&limit=100`;
+    const url = `https://toncenter.com/api/v3/transactions?account=${address}&limit=128&offset=0&sort=desc`
     try {
       if (!txPromise) {
         txPromise = fetch(url, {
@@ -453,9 +453,9 @@ const fetchTxCountAndBalanceTon = async ({address}) => {
             'Accept': 'application/json'
           }
         }).then(res => res.json())
-          .then(({ok, result}) => {
+          .then(({transactions}) => {
             txPromise = null; // Обнуляем промис после использования
-            return ok ? result.length : 0;
+            return transactions.length || 0;
           }).catch(error => {
             txPromise = null; // Обнуляем промис в случае ошибки
             console.error('Error fetching transaction count:', error);
