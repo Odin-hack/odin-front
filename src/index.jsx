@@ -20,13 +20,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import './index.sass'
 
-const isReloaded = sessionStorage.getItem('isReloaded')
-if (!isReloaded) {
-  alert('Reload!')
-  sessionStorage.setItem('isReloaded', 'true')
-  location.reload()
-}
-
 const routePathComponent = {
   '/home': <pages.Home/>,
   '/leaderboard': <pages.Leaderboard/>,
@@ -39,7 +32,7 @@ export const AppInner = () => {
   const page = reactRedux.useSelector(slices.pageSlice.selectors.page)
   React.useEffect(() => {
     WebApp.expand()
-    WebApp.ready()
+    WebApp.disableVerticalSwipes()
     WebApp.enableClosingConfirmation()
     Modal.setAppElement('#root-modal')
     dispatch(slices.pageSlice.thunks.initialize())

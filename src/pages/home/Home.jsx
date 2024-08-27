@@ -7,6 +7,8 @@ import Modal from 'react-modal'
 import * as tonConnect from '@tonconnect/ui-react'
 import {Carousel} from 'react-responsive-carousel'
 import Marquee from 'react-fast-marquee'
+import gsap from 'gsap'
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 
 import * as components from '@/components'
 import * as slices from '@/slices'
@@ -340,7 +342,7 @@ const SpinsV2Header = () => {
           onClick={() => dispatch(slices.homePageSlice.thunks.triggerClaim())}
           className={classesKeysAmountBoxButton}
         >
-                    Claim
+          Claim
         </button>
       )}
     </div>
@@ -384,99 +386,122 @@ const SpinsV2BotLanding = ({onClickUseToSpin}) => {
   )
 }
 
-const SpinningV2 = ({onEnd}) => {
-  const nextSpingReward = reactRedux.useSelector(
-    slices.homePageSlice.selectors.nextSpingReward,
-  )
+const SpinningV2 = ({ onEnd }) => {
+  const REEL_RADIUS = 90
+  const SLOT_COUNT = 20
+  const ACTIVE_SLOT = 1
+  const SLOT_ANGLE = 360 / SLOT_COUNT
+  const START_ROTATION = -(180 + 360/SLOT_COUNT/2) // a half of ring + centering
+  const END_ROTATION = START_ROTATION - 360 * 6.5 // 6 full rotations + half of ring
+
+  const nextSpinReward = reactRedux.useSelector(slices.homePageSlice.selectors.nextSpingReward)
   const rewards = reactRedux.useSelector(slices.homePageSlice.selectors.rewards)
   const refRing = React.useRef(null)
+  const refSlots = React.useRef([])
+
   React.useEffect(() => {
-    const REEL_RADIUS = 90
-    const children = Array.from(refRing.current.children)
-    const slotAngle = 360 / children.length
-    for (var i = 0; i < children.length; i++) {
-      children[i].classList.add(styles.spinning_v2__slot)
-      children[i].style.transform =
-                `rotateX(${slotAngle * i}deg) translateZ(${REEL_RADIUS}px)`
+    // Setup GSAP
+    gsap.registerPlugin(MotionPathPlugin)
+
+    // Setup ring and slots
+    const setupRingAndSlots = () => {
+      gsap.set(refRing.current, {
+        perspective: 1000,
+        rotationX: START_ROTATION,
+        transformStyle: "preserve-3d"
+      })
+
+      refSlots.current.forEach((slot, i) => {
+        gsap.set(slot, {
+          rotationX: SLOT_ANGLE * i,
+          z: REEL_RADIUS,
+        })
+      })
     }
-    const onInit = () => {
-      refRing.current.style.animation = `10s cubic-bezier(.62,.55,0,.99) 0s 1 normal none running spin-6`
-      refRing.current.classList.add('spin-6')
+
+    // Animation function
+    const startSpinning = () => {
+      gsap.to(refRing.current, {
+        rotationX: END_ROTATION, // 6 full rotations + centering
+        duration: 10,
+        ease: "power2.inOut",
+        onComplete: () => {
+          setTimeout(() => onEnd(), 1000)
+        }
+      })
     }
-    let ended = false
-    const f = async () => {
-      await new Promise(r => setTimeout(r, 750))
-      if (ended) {
-        return
-      }
-      onInit()
-      await new Promise(r => setTimeout(r, 11000))
-      if (ended) {
-        return
-      }
-      onEnd()
+
+    // Run animation sequence
+    const runSpinSequence = async () => {
+      setupRingAndSlots()
+      await gsap.delayedCall(0.75, startSpinning)
     }
-    f()
+
+    runSpinSequence()
+
+    // Cleanup
     return () => {
-      ended = true
-      onEnd()
+      gsap.killTweensOf(refRing.current)
     }
-  }, [])
+  }, [onEnd])
+
   const rewardTypeIconMap = {
-    key: <components.svg.Key width={16} height={17}/>,
-    token: <components.svg.Polygon width={16} height={17}/>,
+    key: <components.svg.Key width={16} height={17} />,
+    token: <components.svg.Polygon width={16} height={17} />,
   }
 
-  const tRewards = shuffle(
-    Array(parseInt(20 / rewards.length + 1, 10))
-      .fill()
-      .map(() => rewards)
-      .flat()
-      .slice(0, 20)
-  )
-
-  const slotsComponentsList = tRewards.map(({rewardType, amount}, i) => {
-    const iconComponent = rewardTypeIconMap[rewardType]
-    const amountAdjusted = i === 13 ? nextSpingReward.amount : amount
-    return (
-      <div className="_f _fCC" key={i.toString()}>
-        {iconComponent}
-        <p style={{marginLeft: '10px'}} className="_w7002025">
-          {amountAdjusted}
-        </p>
-      </div>
+  const tRewards = React.useMemo(() => {
+    return shuffle(
+      Array(Math.ceil(20 / rewards.length))
+        .fill(rewards)
+        .flat()
+        .slice(0, 20)
     )
-  })
-  const stylesPerspectiveAppearanceFix = {
-    background: '#212121',
-    height: '1px',
-    top: 0,
-    zIndex: 1000,
-  }
+  }, [rewards])
+
+  const slotsComponentsList = tRewards.map(({ rewardType, amount }, i) => (
+    <div
+      className="_f _fCC"
+      key={i.toString()}
+      ref={el => refSlots.current[i] = el}
+      style={{
+        position: 'absolute',
+        top: '50%',
+        width: '100%',
+        backfaceVisibility: 'hidden',
+        transformOrigin: "50% 50% -" + REEL_RADIUS + "px",
+      }}
+    >
+      {rewardTypeIconMap[rewardType]}
+      <p style={{ marginLeft: '10px' }} className={classnames('_w7002025', i === ACTIVE_SLOT ? 'active' : 'regular')}>
+        {i === ACTIVE_SLOT ? nextSpinReward.amount : amount}
+      </p>
+    </div>
+  ))
+
   return (
-    <div className="_w100" style={{position: 'relative'}}>
-      <div className="_abs_mid" style={stylesPerspectiveAppearanceFix}/>
+    <div className={classnames('_w100', styles.spinning_v2__rotate)}>
+      <div className={classnames('_abs_mid', styles.spinning_v2__top_shadow)}/>
+      <div className={classnames('_abs_mid', styles.spinning_v2__bot_shadow)}/>
+      <div className={classnames('_abs_mid', styles.spinning_v2__highligh)}/>
       <div
-        className="_abs_mid"
-        style={{...stylesPerspectiveAppearanceFix, top: '100%'}}
-      />
-      <div className={styles.spinning_v2__rotate}>
-        <div
-          className={classnames('_abs_mid', styles.spinning_v2__top_shadow)}
-        />
-        <div
-          className={classnames('_abs_mid', styles.spinning_v2__bot_shadow)}
-        />
-        <div className={classnames('_abs_mid', styles.spinning_v2__highligh)}/>
-        <div className={styles.spinning_v2__ring} ref={refRing}>
-          {slotsComponentsList}
-        </div>
+        ref={refRing}
+        style={{
+          position: 'absolute',
+          zIndex: 999,
+          width: '100%',
+          height: '100%',
+          transformOrigin: "50% 50%",
+          transformStyle: 'preserve-3d'
+        }}
+      >
+        {slotsComponentsList}
       </div>
     </div>
   )
 }
 
-const SpinningV2End = ({onClickClaim}) => {
+const SpinningV2End = ({ onClickClaim }) => {
   const nextSpingReward = reactRedux.useSelector(
     slices.homePageSlice.selectors.nextSpingReward,
   )
@@ -798,11 +823,10 @@ export const Home = () => {
 
   const [tonConnectUI] = tonConnect.useTonConnectUI()
   React.useEffect(() => {
-    tonConnectUI.onStatusChange(wallet => {
+    const unsubscribe = tonConnectUI.onStatusChange(wallet => {
       if (wallet?.account?.address) {
         try {
           const address = tonConnect.toUserFriendlyAddress(wallet.account.address)
-          alert(address)
           dispatch(slices.homePageSlice.thunks.registerWallet({address}))
           components.toast.showText('TON Wallet connected')
         } catch (err) {
@@ -813,6 +837,8 @@ export const Home = () => {
         }
       }
     })
+
+    return unsubscribe
   }, [dispatch, tonConnectUI]);
 
   if (user.status !== constants.status.success) {

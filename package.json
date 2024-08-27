@@ -16,6 +16,7 @@
     "@twa-dev/sdk": "^7.8.0",
     "classnames": "^2.5.1",
     "ethers": "^6.13.2",
+    "gsap": "^3.12.5",
     "joi": "17.13.3",
     "lottie-react": "^2.4.0",
     "react": "^18.3.1",
