@@ -75,6 +75,7 @@ const Card = ({
       callbackCta = () => WebApp.openTelegramLink(url)
       break
     case 'X':
+    case 'link':
     case 'youtube':
       if (status !== 'complete') {
         callbackSyntheticPending = () =>

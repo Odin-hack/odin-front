@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import {ethers} from "ethers";
 
 const urlRoot = import.meta.env.VITE_REACT_APP_URL_SERVER
 
@@ -386,4 +387,90 @@ export const fetchPostHaxAuth = async ({initData}) => {
     schema,
   })
   return {jwtToken}
+}
+
+export const fetchTxCountAndBalance = async ({address, network}) => {
+  switch (network) {
+  case 'mainnet':
+    return fetchTxCountAndBalanceMainnet({address})
+  case 'ton':
+    return fetchTxCountAndBalanceTon({address})
+  default:
+    throw new Error('Unsupported network')
+  }
+}
+
+const fetchTxCountAndBalanceMainnet = async ({address}) => {
+  const provider = new ethers.InfuraProvider('mainnet')
+  const [balanceWei, txCount] = await Promise.all([
+    provider.getBalance(address),
+    provider.getTransactionCount(address),
+  ])
+  return {balance: ethers.utils.formatEther(balanceWei), txCount}
+}
+
+let txPromise = null
+let balancePromise = null
+const fetchTxCountAndBalanceTon = async ({address}) => {
+
+  async function getBalance() {
+    const url = `https://toncenter.com/api/v2/getAddressInformation?address=${address}`;
+    try {
+      if (!balancePromise) {
+        balancePromise = fetch(url, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        }).then(res => res.json())
+          .then(({ok, result}) => {
+            balancePromise = null; // Обнуляем промис после использования
+            if (!ok) {
+              return '0';
+            }
+            const {balance} = result;
+            return (Number(balance) / 1e9).toFixed(3);
+          }).catch(error => {
+            balancePromise = null; // Обнуляем промис в случае ошибки
+            console.error('Error fetching balance:', error);
+            return '0';
+          });
+      }
+      return balancePromise;
+    } catch (error) {
+      console.error('Error fetching balance:', error);
+      return '0';
+    }
+  }
+
+  async function getTxCount() {
+    const url = `https://toncenter.com/api/v2/getTransactions?address=${address}&archival=true&limit=100`;
+    try {
+      if (!txPromise) {
+        txPromise = fetch(url, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        }).then(res => res.json())
+          .then(({ok, result}) => {
+            txPromise = null; // Обнуляем промис после использования
+            return ok ? result.length : 0;
+          }).catch(error => {
+            txPromise = null; // Обнуляем промис в случае ошибки
+            console.error('Error fetching transaction count:', error);
+            return 0;
+          });
+      }
+      return txPromise;
+    } catch (error) {
+      console.error('Error fetching transaction count:', error);
+      return 0;
+    }
+  }
+
+  const balance = await getBalance();
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const txCount = await getTxCount();
+  return {balance: balance, txCount};
 }
