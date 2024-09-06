@@ -386,24 +386,6 @@ export const Friends = () => {
           <Claim />
           <div className="container _w100">
             <ReferralDropdown />
-            {/*<h2 className="_ta_center _w7003238" style={{marginTop: '42px'}}>*/}
-            {/*  Invite Friends*/}
-            {/*</h2>*/}
-            {/*<p className="_ta_center _g4001722" style={{margin: '4px auto 0'}}>*/}
-            {/*  Get 10%*/}
-            {/*  <span> </span>*/}
-            {/*  <span className="_y7001722">*/}
-            {/*    <components.svg.Polygon width={15} height={15} />*/}
-            {/*    <span style={{display: 'inline-block', width: '2px'}}></span>*/}
-            {/*    HAX*/}
-            {/*  </span>*/}
-            {/*  <span> </span>*/}
-            {/*  from referrals*/}
-            {/*  <br />*/}
-            {/*  wallet connections*/}
-            {/*  <br />*/}
-            {/*  +5% from their spins and quest earnings*/}
-            {/*</p>*/}
             <p className="_w7001621" style={{padding: '44px 16px 12px'}}>
               You have {friends.friendsData.friendsCount} friend
               {friends.friendsData.friendsCount === 1 ? '' : 's'}
