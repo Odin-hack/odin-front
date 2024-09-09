@@ -310,6 +310,11 @@ const SpinsV2Header = () => {
     reactRedux.useSelector(slices.userSlice.selectors.claimKeyExpireAt),
   )
   const progressClaim = parseInt((dur / (6 * 60 * 60 * 1000)) * 100, 10)
+
+  const onClickClaim = React.useCallback(() => {
+    dispatch(slices.homePageSlice.thunks.triggerClaim())
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
+  }, [dispatch])
   return (
     <div className="_f _fCB _w100">
       <div className={classnames('_f _fCC', styles.spins_v2__keys__box)}>
@@ -339,7 +344,7 @@ const SpinsV2Header = () => {
         </div>
       ) : (
         <button
-          onClick={() => dispatch(slices.homePageSlice.thunks.triggerClaim())}
+          onClick={() => onClickClaim()}
           className={classesKeysAmountBoxButton}
         >
           Claim
@@ -541,6 +546,8 @@ const SpinsV2 = () => {
   )
   const onClickUseToSpin = React.useCallback(() => {
     dispatch(slices.homePageSlice.thunks.triggerUseKeyToSpin())
+
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
   }, [])
   const onSpinningEnd = React.useCallback(() => {
     dispatch(slices.homePageSlice.thunks.setPhase({phase: 'end'}))
@@ -548,6 +555,8 @@ const SpinsV2 = () => {
   const onClickClaim = React.useCallback(() => {
     dispatch(slices.homePageSlice.thunks.applyUseKeyToSpinEndVals())
     dispatch(slices.homePageSlice.thunks.setPhase({phase: 'landing'}))
+
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
   }, [])
   const phaseComponentMap = {
     landing: <SpinsV2BotLanding onClickUseToSpin={onClickUseToSpin}/>,

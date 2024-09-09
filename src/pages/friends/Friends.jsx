@@ -28,6 +28,8 @@ const Claim = () => {
   const [showConfetti, setShowConfetti] = React.useState(false)
   const onClickClaim = React.useCallback(() => {
     dispatch(slices.friendsSlice.thunks.triggerClaim())
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
+
     setShowConfetti(true)
   }, [dispatch])
 
