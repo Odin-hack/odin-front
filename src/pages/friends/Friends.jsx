@@ -119,7 +119,7 @@ const ReferralStats = ({amount = 1000000 }) => {
   )
 }
 
-const ReferralScale = ({percents = 0}) => {
+const ReferralScale = ({percents = 0, spinRewards = 0}) => {
   const milestones = [
     { users: "1M", rewards: "50%", percent: 20 },
     { users: "2M", rewards: "40%", percent: 40 },
@@ -128,15 +128,11 @@ const ReferralScale = ({percents = 0}) => {
     { users: "5M", rewards: "10%", percent: 100 },
   ];
 
-  const updatedMilestones = milestones.map((milestone, index, arr) => {
-    const isRewardActive =
-      (index === arr.length - 1 && percents >= milestone.percent) ||
-      (index > 0 && percents >= arr[index - 1].percent && percents < milestone.percent)
-
+  const updatedMilestones = milestones.map((milestone) => {
     return {
       ...milestone,
       active: percents >= milestone.percent,
-      rewardActive: isRewardActive,
+      rewardActive: spinRewards && milestone.rewards.includes(String(spinRewards * 100)),
     }
   })
 
@@ -194,10 +190,14 @@ const ReferralScale = ({percents = 0}) => {
   )
 }
 
-const ReferralDropdown = () => {
+const ReferralDropdown = ({stats}) => {
+  const maxAmount = 5000000
+
   const [isOpen, setIsOpen] = React.useState(true)
   const [percents, setPercents] = React.useState(0)
   const contentRef = React.useRef(null)
+
+  const calculatedPercents = React.useMemo(() => (stats?.usersCount / maxAmount) * 100, [stats?.usersCount])
 
   const toggleDropdown = () => setIsOpen((prev) => !prev)
 
@@ -218,7 +218,7 @@ const ReferralDropdown = () => {
           duration: 0.5,
           ease: 'power2.out',
           clearProps: 'height',
-          onStart: () => setPercents(50),
+          onStart: () => setPercents(calculatedPercents),
           onComplete: () => content.style.height = 'auto',
         }
       )
@@ -265,8 +265,14 @@ const ReferralDropdown = () => {
           ref={contentRef}
           style={{ height: 0, overflow: 'hidden', display: 'none' }}
         >
-          <ReferralScale percents={percents} />
-          <ReferralStats />
+          <ReferralScale
+            percents={percents}
+            spinRewards={ isOpen && stats?.spinRewards }
+          />
+
+          <ReferralStats
+            amount={ stats?.usersCount }
+          />
         </div>
       </div>
     </div>
@@ -353,6 +359,10 @@ export const Friends = () => {
   }, [dispatch])
 
   React.useEffect(() => {
+    dispatch(slices.friendsSlice.thunks.fetchFriends())
+  }, [dispatch])
+
+  React.useEffect(() => {
     if (friends.status === constants.status.success) {
       dispatch(slices.pageSlice.thunks.hideGlobalLoading())
     } else {
@@ -387,7 +397,7 @@ export const Friends = () => {
         >
           <Claim />
           <div className="container _w100">
-            <ReferralDropdown />
+            <ReferralDropdown stats={friends?.friendsStats}/>
             <p className="_w7001621" style={{padding: '44px 16px 12px'}}>
               You have {friends.friendsData.friendsCount} friend
               {friends.friendsData.friendsCount === 1 ? '' : 's'}
