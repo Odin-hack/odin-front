@@ -62,6 +62,17 @@ const initialPaginationState = {
   friendsListLimit: 10,
 }
 
+
+const fetchFriends = reduxjsToolkit.createAsyncThunk(
+  'friends/fetchFriends',
+  async (_, o) => {
+    const jwtToken = o.getState().page.jwtToken
+    const { friendsStatsData } = await ports.fetchGetFriends({ jwtToken })
+
+    return { friendsStatsData }
+  }
+)
+
 export const friendsSlice = reduxjsToolkit.createSlice({
   name: 'friends',
   initialState: {
@@ -118,6 +129,22 @@ export const friendsSlice = reduxjsToolkit.createSlice({
       state.friendsListLimit = initialPaginationState.friendsListLimit
       state.friendsListOffset = initialPaginationState.friendsListOffset
     })
+    builder
+      .addCase(fetchFriends.pending, state => {
+        state.loading = true
+      })
+      .addCase(fetchFriends.fulfilled, (state, {
+        payload: {
+          friendsStatsData
+        }
+      }) => {
+        state.loading = false
+        state.friendsStats = friendsStatsData
+      })
+      .addCase(fetchFriends.rejected, state => {
+        state.loading = false
+        components.toast.showText('Failed to load friends stats')
+      })
   },
 })
 friendsSlice.selectors = {friends: state => state.friends}
@@ -126,4 +153,5 @@ friendsSlice.thunks = {
   loadNextFriendsListPart,
   triggerClaim,
   resetPagination,
+  fetchFriends
 }

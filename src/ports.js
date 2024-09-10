@@ -264,6 +264,37 @@ export const fetchGetHaxLeaderboardList = async ({userId, jwtToken}) => {
 }
 
 /**
+ * GET /friends
+ */
+export const fetchGetFriends = async ({ jwtToken }) => {
+  const path = '/friends';
+
+  const schema = Joi.object({
+    version: Joi.number().required(),
+    spinRewards: Joi.number().optional(),
+    usersCount: Joi.number().optional(),
+    walletConnectRewards: Joi.number().optional(),
+  })
+    .when(Joi.object({ version: 2 }).unknown(), {
+      then: Joi.object({
+        spinRewards: Joi.number().required(),
+        usersCount: Joi.number().required(),
+        walletConnectRewards: Joi.number().required(),
+      })
+    })
+    .required()
+
+  const { data: friendsStatsData } = await fetchAndAssert({
+    path,
+    method: 'get',
+    jwtToken,
+    schema,
+  });
+
+  return { friendsStatsData };
+};
+
+/**
  * GET /friends/:userId?offset=&limit=
  */
 export const fetchGetHaxFriendsUserid = async ({
