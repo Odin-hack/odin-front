@@ -9,6 +9,7 @@ import {Carousel} from 'react-responsive-carousel'
 import Marquee from 'react-fast-marquee'
 import gsap from 'gsap'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
+import {useNavigate} from "react-router-dom";
 
 import * as components from '@/components'
 import * as slices from '@/slices'
@@ -401,6 +402,9 @@ const SpinningV2 = ({ onEnd }) => {
 
   const nextSpinReward = reactRedux.useSelector(slices.homePageSlice.selectors.nextSpingReward)
   const rewards = reactRedux.useSelector(slices.homePageSlice.selectors.rewards)
+
+  const dispatch = reactRedux.useDispatch()
+
   const refRing = React.useRef(null)
   const refSlots = React.useRef([])
 
@@ -436,6 +440,7 @@ const SpinningV2 = ({ onEnd }) => {
           setTimeout(() => onEnd(), 1000)
         }
       })
+      dispatch(slices.routeBlockSlice.actions.setRouteBlock(true))
     }
 
     // Run animation sequence
@@ -550,6 +555,7 @@ const SpinsV2 = () => {
     if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
   }, [])
   const onSpinningEnd = React.useCallback(() => {
+    dispatch(slices.routeBlockSlice.actions.setRouteBlock(false))
     dispatch(slices.homePageSlice.thunks.setPhase({phase: 'end'}))
   }, [])
   const onClickClaim = React.useCallback(() => {
