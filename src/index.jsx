@@ -43,6 +43,8 @@ if (!isReloaded) {
 export const AppInner = () => {
   const dispatch = reactRedux.useDispatch()
   const page = reactRedux.useSelector(slices.pageSlice.selectors.page)
+  const {routeBlock} = reactRedux.useSelector(slices.routeBlockSlice.selectors.routeBlock)
+
   React.useEffect(() => {
     WebApp.expand()
     WebApp.disableVerticalSwipes()
@@ -56,30 +58,36 @@ export const AppInner = () => {
       eruda.default.init()
     }
   }, [dispatch])
+
+  const routeStyles = {
+    pointerEvents: routeBlock ? 'none' : 'auto',
+  }
   return (
     <>
       {page.status !== constants.status.success || page.renderGlobalLoading ? (
         <components.loading.LoadingOnLoad failMessage={page.failMessage}/>
       ) : null}
       {page.status === constants.status.success && (
-        <reactRouterDom.Routes>
-          <reactRouterDom.Route
-            path="*"
-            element={<reactRouterDom.Navigate to="/home"/>}
-          />
-          {constants.routes
-            .map(({path}) => ({
-              path,
-              component: routePathComponent[path],
-            }))
-            .map(({path, component}) => (
-              <reactRouterDom.Route
-                key={path}
-                path={path}
-                element={component}
-              />
-            ))}
-        </reactRouterDom.Routes>
+        <div style={routeStyles}>
+          <reactRouterDom.Routes>
+            <reactRouterDom.Route
+              path="*"
+              element={<reactRouterDom.Navigate to="/home"/>}
+            />
+            {constants.routes
+              .map(({path}) => ({
+                path,
+                component: routePathComponent[path],
+              }))
+              .map(({path, component}) => (
+                <reactRouterDom.Route
+                  key={path}
+                  path={path}
+                  element={component}
+                />
+              ))}
+          </reactRouterDom.Routes>
+        </div>
       )}
     </>
   )
@@ -93,6 +101,7 @@ const store = reduxjsToolkit.configureStore({
     page: slices.pageSlice.reducer,
     friends: slices.friendsSlice.reducer,
     tasks: slices.tasksSlice.reducer,
+    routeBlock: slices.routeBlockSlice.reducer,
   },
 })
 
