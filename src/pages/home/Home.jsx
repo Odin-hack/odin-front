@@ -313,7 +313,7 @@ const SpinsV2Header = () => {
 
   const onClickClaim = React.useCallback(() => {
     dispatch(slices.homePageSlice.thunks.triggerClaim())
-    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
   }, [dispatch])
   return (
     <div className="_f _fCB _w100">
@@ -551,7 +551,7 @@ const SpinsV2 = () => {
   const onClickUseToSpin = React.useCallback(() => {
     dispatch(slices.homePageSlice.thunks.triggerUseKeyToSpin())
 
-    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
   }, [])
   const onSpinningEnd = React.useCallback(() => {
     dispatch(slices.routeBlockSlice.actions.setRouteBlock(false))
@@ -561,7 +561,7 @@ const SpinsV2 = () => {
     dispatch(slices.homePageSlice.thunks.applyUseKeyToSpinEndVals())
     dispatch(slices.homePageSlice.thunks.setPhase({phase: 'landing'}))
 
-    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('medium')
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
   }, [])
   const phaseComponentMap = {
     landing: <SpinsV2BotLanding onClickUseToSpin={onClickUseToSpin}/>,
