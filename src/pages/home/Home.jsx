@@ -9,7 +9,6 @@ import {Carousel} from 'react-responsive-carousel'
 import Marquee from 'react-fast-marquee'
 import gsap from 'gsap'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
-import {useNavigate} from "react-router-dom";
 
 import * as components from '@/components'
 import * as slices from '@/slices'
