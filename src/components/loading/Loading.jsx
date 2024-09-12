@@ -105,7 +105,7 @@ export const LoadingOnLoad = ({failMessage = null}) => {
             >
               <components.svg.Telegram width={32} height={32} />
               <p className={classnames('_d7001821', styles.loader__info__text)}>
-                Follow our chat
+                Follow our community
               </p>
             </button>
           </div>
