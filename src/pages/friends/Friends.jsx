@@ -201,6 +201,12 @@ const ReferralDropdown = ({stats}) => {
 
   const toggleDropdown = () => setIsOpen((prev) => !prev)
 
+  const onClickReadMore = () => {
+    const link = 'https://telegra.ph/Referral-event-from-HAX-Community-with-increased-rewards-for-inviting-friends-09-11'
+
+    WebApp.openLink(link)
+  }
+
   React.useEffect(() => {
     const content = contentRef.current
 
@@ -249,7 +255,7 @@ const ReferralDropdown = ({stats}) => {
               Hurry to claim increased bonuses in the HAX limited referral event
               by inviting friends!
             </p>
-            <p className={classnames('_y4001520', styles.referral_dropdown_readMore)}>􀅴 Read more</p>
+            <p onClick={onClickReadMore} className={classnames('_y4001520', styles.referral_dropdown_readMore)}>􀅴 Read more</p>
           </div>
           <div
             className={classnames(styles.referral_dropdown__chevron, {
