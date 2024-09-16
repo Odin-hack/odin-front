@@ -14,7 +14,7 @@ image:
 imagePullSecrets:
   - name: "do-registry"
 
-nameOverride: ""
+nameOverride: "stage"
 fullnameOverride: ""
 
 serviceAccount:
