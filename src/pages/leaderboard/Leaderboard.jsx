@@ -76,7 +76,7 @@ export const Leaderboard = () => {
   )
   React.useEffect(() => {
     dispatch(slices.leaderboardSlice.thunks.syncWithServer())
-  })
+  }, [])
   React.useEffect(() => {
     if (l.status === constants.status.success) {
       dispatch(slices.pageSlice.thunks.hideGlobalLoading())
