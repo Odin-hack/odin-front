@@ -19,6 +19,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import './index.sass'
+import { initializeGA } from "@/gtag.js";
 
 const routePathComponent = {
   '/home': <pages.Home/>,
@@ -51,6 +52,7 @@ export const AppInner = () => {
     WebApp.enableClosingConfirmation()
     Modal.setAppElement('#root-modal')
     dispatch(slices.pageSlice.thunks.initialize())
+    initializeGA()
 
     WebApp.onEvent('viewportChanged', () => window.dispatchEvent(new Event('resize')))
 
