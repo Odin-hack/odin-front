@@ -52,7 +52,7 @@ const initialize = reduxjsToolkit.createAsyncThunk(
       if (debugUserId) {
         console.warn(`using debug user-id`, {debugUserId})
         userId = debugUserId
-        initData = `user=%7B%22id%22%3A1896126465%2C%22first_name%22%3A%22Dmitry%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22kotov_94%22%2C%22language_code%22%3A%22en%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=5199260139153611969&chat_type=supergroup&auth_date=1725964260&hash=ef8c6944f8a043eeedd00ccf33166e5764ffca7b3576cd3a3b63be17ccfaff18`
+        initData = `query_id=AAGJNXcQAwAAAIk1dxDmPFw1&user=%7B%22id%22%3A${debugUserId}%2C%22first_name%22%3A%22Grace%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22sanya_bullshit%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1723666121&hash=4e147fdc275016262add8251043f72257c285e79acdc9f7c93b1a37533991943`
       } else {
         throw new Error('fail on user-id extract')
       }
