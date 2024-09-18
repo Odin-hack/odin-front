@@ -382,7 +382,7 @@ export const Friends = () => {
 
   const onClickInviteFriendsButton = () => {
     const linkRef = friends.friendsData.link
-    const link = `https://t.me/share/url?url=${linkRef}`
+    const link = `https://t.me/share/url?url=${linkRef}&text=Are you really deep in the crypto, or just flexin? 👾`
     WebApp.openTelegramLink(link)
   }
   return (
