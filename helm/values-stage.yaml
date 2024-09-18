@@ -15,7 +15,7 @@ imagePullSecrets:
   - name: "do-registry"
 
 nameOverride: "stage"
-fullnameOverride: ""
+fullnameOverride: "tma-front-stage"
 
 serviceAccount:
   # Specifies whether a service account should be created
