@@ -310,6 +310,11 @@ const SpinsV2Header = () => {
     reactRedux.useSelector(slices.userSlice.selectors.claimKeyExpireAt),
   )
   const progressClaim = parseInt((dur / (6 * 60 * 60 * 1000)) * 100, 10)
+
+  const onClickClaim = React.useCallback(() => {
+    dispatch(slices.homePageSlice.thunks.triggerClaim())
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
+  }, [dispatch])
   return (
     <div className="_f _fCB _w100">
       <div className={classnames('_f _fCC', styles.spins_v2__keys__box)}>
@@ -339,7 +344,7 @@ const SpinsV2Header = () => {
         </div>
       ) : (
         <button
-          onClick={() => dispatch(slices.homePageSlice.thunks.triggerClaim())}
+          onClick={() => onClickClaim()}
           className={classesKeysAmountBoxButton}
         >
           Claim
@@ -396,6 +401,9 @@ const SpinningV2 = ({ onEnd }) => {
 
   const nextSpinReward = reactRedux.useSelector(slices.homePageSlice.selectors.nextSpingReward)
   const rewards = reactRedux.useSelector(slices.homePageSlice.selectors.rewards)
+
+  const dispatch = reactRedux.useDispatch()
+
   const refRing = React.useRef(null)
   const refSlots = React.useRef([])
 
@@ -431,6 +439,7 @@ const SpinningV2 = ({ onEnd }) => {
           setTimeout(() => onEnd(), 1000)
         }
       })
+      dispatch(slices.routeBlockSlice.actions.setRouteBlock(true))
     }
 
     // Run animation sequence
@@ -541,13 +550,18 @@ const SpinsV2 = () => {
   )
   const onClickUseToSpin = React.useCallback(() => {
     dispatch(slices.homePageSlice.thunks.triggerUseKeyToSpin())
+
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
   }, [])
   const onSpinningEnd = React.useCallback(() => {
+    dispatch(slices.routeBlockSlice.actions.setRouteBlock(false))
     dispatch(slices.homePageSlice.thunks.setPhase({phase: 'end'}))
   }, [])
   const onClickClaim = React.useCallback(() => {
     dispatch(slices.homePageSlice.thunks.applyUseKeyToSpinEndVals())
     dispatch(slices.homePageSlice.thunks.setPhase({phase: 'landing'}))
+
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
   }, [])
   const phaseComponentMap = {
     landing: <SpinsV2BotLanding onClickUseToSpin={onClickUseToSpin}/>,

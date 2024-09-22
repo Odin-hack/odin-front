@@ -21,7 +21,7 @@ export const Home = ({ opacity = 1, width, height }) => (
         d="M21 18V15H18V12H15V15H12V18H9V21H12H15H18H21H24V18H21Z"
         fill="white"
       />
-      <path d="M6 24H3V27V30H6V33H9H12V30V27V24H9V21H6V24Z" fill="white"/>
+      <path d="M6 24H3V27V30H6V33H9H12V30V27V24H9V21H6V24Z" fill="white" />
       <path
         d="M27 21H24V24H21V27V30V33H24H27V30H30V27V24H27V21Z"
         fill="white"
@@ -29,7 +29,7 @@ export const Home = ({ opacity = 1, width, height }) => (
     </g>
     <defs>
       <clipPath id="clip0_10_29">
-        <rect width="33" height="33" fill="white"/>
+        <rect width="33" height="33" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -56,12 +56,12 @@ export const Leaderboard = ({ opacity = 1, width, height }) => (
         d="M15 15H12V18V21V24V27V30V33H15H18H21V30V27V24V21V18V15H18H15Z"
         fill="white"
       />
-      <path d="M3 21H0V24V27V30V33H3H6H9V30V27V24V21H6H3Z" fill="white"/>
-      <path d="M30 24H27H24V27V30V33H27H30H33V30V27V24H30Z" fill="white"/>
+      <path d="M3 21H0V24V27V30V33H3H6H9V30V27V24V21H6H3Z" fill="white" />
+      <path d="M30 24H27H24V27V30V33H27H30H33V30V27V24H30Z" fill="white" />
     </g>
     <defs>
       <clipPath id="clip0_10_34">
-        <rect width="33" height="33" fill="white"/>
+        <rect width="33" height="33" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -80,17 +80,17 @@ export const Tasks = ({ opacity = 1, width, height }) => (
     }}
   >
     <g clipPath="url(#clip0_10_39)" style={{ opacity }}>
-      <path d="M0 0V3V6H3H6V3V0H3H0Z" fill="white"/>
+      <path d="M0 0V3V6H3H6V3V0H3H0Z" fill="white" />
       <path
         d="M27 0H24H21H18H15H12H9V3V6H12H15H18H21H24H27H30V3V0H27Z"
         fill="white"
       />
-      <path d="M0 9V12V15H3H6V12V9H3H0Z" fill="white"/>
+      <path d="M0 9V12V15H3H6V12V9H3H0Z" fill="white" />
       <path
         d="M24 9H21H18H15H12H9V12V15H12H15H18H21H24H27H30V12V9H27H24Z"
         fill="white"
       />
-      <path d="M0 18V21V24H3H6V21V18H3H0Z" fill="white"/>
+      <path d="M0 18V21V24H3H6V21V18H3H0Z" fill="white" />
       <path
         d="M24 18H21H18H15H12H9V21V24H12H15H18H21H24H27H30V21V18H27H24Z"
         fill="white"
@@ -98,7 +98,7 @@ export const Tasks = ({ opacity = 1, width, height }) => (
     </g>
     <defs>
       <clipPath id="clip0_10_39">
-        <rect width="30" height="24" fill="white"/>
+        <rect width="30" height="24" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -128,7 +128,7 @@ export const Friends = ({ opacity = 1, width, height }) => (
     </g>
     <defs>
       <clipPath id="clip0_10_46">
-        <rect width="33" height="33" fill="white"/>
+        <rect width="33" height="33" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -179,7 +179,7 @@ export const Polygon = ({ addShadow, width, height, className, grey }) => (
         width="26"
         height="27"
       >
-        <rect width="26" height="27" fill="#D9D9D9"/>
+        <rect width="26" height="27" fill="#D9D9D9" />
       </mask>
       <g mask="url(#mask0_14_8)">
         <path
@@ -208,7 +208,7 @@ export const Clock = () => (
       width="17"
       height="17"
     >
-      <rect width="17" height="17" fill="#D9D9D9"/>
+      <rect width="17" height="17" fill="#D9D9D9" />
     </mask>
     <g mask="url(#mask0_29_46)">
       <path
@@ -236,10 +236,10 @@ export const Dots = () => (
       width="16"
       height="16"
     >
-      <rect width="16" height="16" fill="#D9D9D9"/>
+      <rect width="16" height="16" fill="#D9D9D9" />
     </mask>
     <g mask="url(#mask0_29_42)">
-      <circle cx="8" cy="8" r="7.5" stroke="#5E5E5E"/>
+      <circle cx="8" cy="8" r="7.5" stroke="#5E5E5E" />
       <path
         d="M4.13281 9.12305C3.57031 9.12305 3.13086 8.68359 3.13086 8.12109C3.13086 7.55859 3.57031 7.11914 4.13281 7.11914C4.69531 7.11914 5.13477 7.55859 5.13477 8.12109C5.13477 8.68359 4.69531 9.12305 4.13281 9.12305ZM8 9.12305C7.4375 9.12305 6.99805 8.68359 6.99805 8.12109C6.99805 7.55859 7.4375 7.11914 8 7.11914C8.5625 7.11914 9.00195 7.55859 9.00195 8.12109C9.00195 8.68359 8.5625 9.12305 8 9.12305ZM11.8672 9.12305C11.3047 9.12305 10.8652 8.68359 10.8652 8.12109C10.8652 7.55859 11.3047 7.11914 11.8672 7.11914C12.4297 7.11914 12.8691 7.55859 12.8691 8.12109C12.8691 8.68359 12.4297 9.12305 11.8672 9.12305Z"
         fill="#5E5E5E"
@@ -543,7 +543,7 @@ export const Gift = ({ width, height, className, grey }) => (
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white"/>
+        <path d="M512 0H0V512H512V0Z" fill="white" />
       </mask>
       <g mask="url(#mask0_77_410)">
         <path
@@ -908,9 +908,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="205.137"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#B8700D"/>
-        <stop offset="0.32" stopColor="#C0830F"/>
-        <stop offset="1" stopColor="#C89510"/>
+        <stop stopColor="#B8700D" />
+        <stop offset="0.32" stopColor="#C0830F" />
+        <stop offset="1" stopColor="#C89510" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_77_410"
@@ -920,9 +920,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="432.714"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#6C2304"/>
-        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#6C2304" stopOpacity="0"/>
+        <stop stopColor="#6C2304" />
+        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#6C2304" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint2_linear_77_410"
@@ -932,9 +932,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="267.503"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#DB9818"/>
-        <stop offset="0.38" stopColor="#DFA019"/>
-        <stop offset="1" stopColor="#E4A91A"/>
+        <stop stopColor="#DB9818" />
+        <stop offset="0.38" stopColor="#DFA019" />
+        <stop offset="1" stopColor="#E4A91A" />
       </linearGradient>
       <linearGradient
         id="paint3_linear_77_410"
@@ -944,9 +944,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="428.112"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#6C2304"/>
-        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#6C2304" stopOpacity="0"/>
+        <stop stopColor="#6C2304" />
+        <stop offset="0.38" stopColor="#6C2304" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#6C2304" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint4_linear_77_410"
@@ -956,9 +956,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="147.209"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#B8700D"/>
-        <stop offset="0.32" stopColor="#C0830F"/>
-        <stop offset="1" stopColor="#C89510"/>
+        <stop stopColor="#B8700D" />
+        <stop offset="0.32" stopColor="#C0830F" />
+        <stop offset="1" stopColor="#C89510" />
       </linearGradient>
       <linearGradient
         id="paint5_linear_77_410"
@@ -968,9 +968,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="229.433"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#DB9818"/>
-        <stop offset="0.38" stopColor="#DFA019"/>
-        <stop offset="1" stopColor="#E4A91A"/>
+        <stop stopColor="#DB9818" />
+        <stop offset="0.38" stopColor="#DFA019" />
+        <stop offset="1" stopColor="#E4A91A" />
       </linearGradient>
       <linearGradient
         id="paint6_linear_77_410"
@@ -980,9 +980,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="229.433"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#DB9818"/>
-        <stop offset="0.38" stopColor="#DFA019"/>
-        <stop offset="1" stopColor="#E4A91A"/>
+        <stop stopColor="#DB9818" />
+        <stop offset="0.38" stopColor="#DFA019" />
+        <stop offset="1" stopColor="#E4A91A" />
       </linearGradient>
       <radialGradient
         id="paint7_radial_77_410"
@@ -992,9 +992,9 @@ export const Gift = ({ width, height, className, grey }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(133.905 189.809) scale(109.828 109.828)"
       >
-        <stop stopColor="#FEFF20"/>
-        <stop offset="0.63" stopColor="#FEFF20" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#FEFF20" stopOpacity="0"/>
+        <stop stopColor="#FEFF20" />
+        <stop offset="0.63" stopColor="#FEFF20" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#FEFF20" stopOpacity="0" />
       </radialGradient>
       <linearGradient
         id="paint8_linear_77_410"
@@ -1004,9 +1004,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="202.891"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C89510"/>
-        <stop offset="0.61" stopColor="#D29314"/>
-        <stop offset="1" stopColor="#DB9118"/>
+        <stop stopColor="#C89510" />
+        <stop offset="0.61" stopColor="#D29314" />
+        <stop offset="1" stopColor="#DB9118" />
       </linearGradient>
       <radialGradient
         id="paint9_radial_77_410"
@@ -1016,9 +1016,9 @@ export const Gift = ({ width, height, className, grey }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(227.905 202.803) scale(27.077 27.077)"
       >
-        <stop stopColor="#F7F85A"/>
-        <stop offset="0.71" stopColor="#F7F85A" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#F7F85A" stopOpacity="0"/>
+        <stop stopColor="#F7F85A" />
+        <stop offset="0.71" stopColor="#F7F85A" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#F7F85A" stopOpacity="0" />
       </radialGradient>
       <radialGradient
         id="paint10_radial_77_410"
@@ -1028,9 +1028,9 @@ export const Gift = ({ width, height, className, grey }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(237.905 191.463) scale(37.033 37.033)"
       >
-        <stop stopColor="#F7310B"/>
-        <stop offset="0.67" stopColor="#F7310B" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#F7310B" stopOpacity="0"/>
+        <stop stopColor="#F7310B" />
+        <stop offset="0.67" stopColor="#F7310B" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#F7310B" stopOpacity="0" />
       </radialGradient>
       <radialGradient
         id="paint11_radial_77_410"
@@ -1040,9 +1040,9 @@ export const Gift = ({ width, height, className, grey }) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(292.905 148.809) scale(115.748 115.748)"
       >
-        <stop stopColor="#652F06"/>
-        <stop offset="0.74" stopColor="#652F06" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#652F06" stopOpacity="0"/>
+        <stop stopColor="#652F06" />
+        <stop offset="0.74" stopColor="#652F06" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#652F06" stopOpacity="0" />
       </radialGradient>
       <linearGradient
         id="paint12_linear_77_410"
@@ -1052,9 +1052,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="203.726"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#A21512"/>
-        <stop offset="0.64" stopColor="#BA1717"/>
-        <stop offset="1" stopColor="#D31A1D"/>
+        <stop stopColor="#A21512" />
+        <stop offset="0.64" stopColor="#BA1717" />
+        <stop offset="1" stopColor="#D31A1D" />
       </linearGradient>
       <linearGradient
         id="paint13_linear_77_410"
@@ -1064,9 +1064,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="165.209"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#491212"/>
-        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#491212" stopOpacity="0"/>
+        <stop stopColor="#491212" />
+        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#491212" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint14_linear_77_410"
@@ -1076,11 +1076,11 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="396.197"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625"/>
-        <stop offset="0.25" stopColor="#E53D3D"/>
-        <stop offset="0.4" stopColor="#F55455"/>
-        <stop offset="0.52" stopColor="#E53D3D"/>
-        <stop offset="1" stopColor="#D62625"/>
+        <stop stopColor="#D62625" />
+        <stop offset="0.25" stopColor="#E53D3D" />
+        <stop offset="0.4" stopColor="#F55455" />
+        <stop offset="0.52" stopColor="#E53D3D" />
+        <stop offset="1" stopColor="#D62625" />
       </linearGradient>
       <linearGradient
         id="paint15_linear_77_410"
@@ -1090,9 +1090,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="194.714"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#491212"/>
-        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#491212" stopOpacity="0"/>
+        <stop stopColor="#491212" />
+        <stop offset="0.56" stopColor="#491212" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#491212" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint16_linear_77_410"
@@ -1102,9 +1102,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="147.804"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#491212"/>
-        <stop offset="0.78" stopColor="#491212" stopOpacity="0.6"/>
-        <stop offset="1" stopColor="#491212" stopOpacity="0.2"/>
+        <stop stopColor="#491212" />
+        <stop offset="0.78" stopColor="#491212" stopOpacity="0.6" />
+        <stop offset="1" stopColor="#491212" stopOpacity="0.2" />
       </linearGradient>
       <linearGradient
         id="paint17_linear_77_410"
@@ -1114,9 +1114,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="164.198"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#390A07"/>
-        <stop offset="0.58" stopColor="#781E19"/>
-        <stop offset="1" stopColor="#B7322B"/>
+        <stop stopColor="#390A07" />
+        <stop offset="0.58" stopColor="#781E19" />
+        <stop offset="1" stopColor="#B7322B" />
       </linearGradient>
       <linearGradient
         id="paint18_linear_77_410"
@@ -1126,9 +1126,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="77.6211"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.23" stopColor="#D62625"/>
-        <stop offset="0.38" stopColor="#E53D3D"/>
-        <stop offset="1" stopColor="#F55455"/>
+        <stop offset="0.23" stopColor="#D62625" />
+        <stop offset="0.38" stopColor="#E53D3D" />
+        <stop offset="1" stopColor="#F55455" />
       </linearGradient>
       <linearGradient
         id="paint19_linear_77_410"
@@ -1138,9 +1138,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="124.898"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625"/>
-        <stop offset="0.39" stopColor="#D62625" stopOpacity="0.5"/>
-        <stop offset="0.8" stopColor="#D62625" stopOpacity="0"/>
+        <stop stopColor="#D62625" />
+        <stop offset="0.39" stopColor="#D62625" stopOpacity="0.5" />
+        <stop offset="0.8" stopColor="#D62625" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint20_linear_77_410"
@@ -1150,9 +1150,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="147.844"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73"/>
-        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
+        <stop stopColor="#F97F73" />
+        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint21_linear_77_410"
@@ -1162,9 +1162,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="95.95"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625"/>
-        <stop offset="0.59" stopColor="#E53D3D"/>
-        <stop offset="0.8" stopColor="#F55455"/>
+        <stop stopColor="#D62625" />
+        <stop offset="0.59" stopColor="#E53D3D" />
+        <stop offset="0.8" stopColor="#F55455" />
       </linearGradient>
       <linearGradient
         id="paint22_linear_77_410"
@@ -1174,9 +1174,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="135.962"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73"/>
-        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
+        <stop stopColor="#F97F73" />
+        <stop offset="0.56" stopColor="#F97F73" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint23_linear_77_410"
@@ -1186,9 +1186,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="157.976"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#390A07"/>
-        <stop offset="0.43" stopColor="#390A07" stopOpacity="0.8"/>
-        <stop offset="1" stopColor="#390A07" stopOpacity="0.6"/>
+        <stop stopColor="#390A07" />
+        <stop offset="0.43" stopColor="#390A07" stopOpacity="0.8" />
+        <stop offset="1" stopColor="#390A07" stopOpacity="0.6" />
       </linearGradient>
       <linearGradient
         id="paint24_linear_77_410"
@@ -1198,9 +1198,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="83.35"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73"/>
-        <stop offset="0.26" stopColor="#F97F73" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
+        <stop stopColor="#F97F73" />
+        <stop offset="0.26" stopColor="#F97F73" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint25_linear_77_410"
@@ -1210,9 +1210,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="105.821"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D62625"/>
-        <stop offset="0.29" stopColor="#E53D3D"/>
-        <stop offset="1" stopColor="#F55455"/>
+        <stop stopColor="#D62625" />
+        <stop offset="0.29" stopColor="#E53D3D" />
+        <stop offset="1" stopColor="#F55455" />
       </linearGradient>
       <linearGradient
         id="paint26_linear_77_410"
@@ -1222,9 +1222,9 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="143.879"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#99130F" stopOpacity="0"/>
-        <stop offset="0.56" stopColor="#99130F" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#99130F"/>
+        <stop stopColor="#99130F" stopOpacity="0" />
+        <stop offset="0.56" stopColor="#99130F" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#99130F" />
       </linearGradient>
       <linearGradient
         id="paint27_linear_77_410"
@@ -1234,12 +1234,12 @@ export const Gift = ({ width, height, className, grey }) => (
         y2="135.327"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#F97F73"/>
-        <stop offset="0.63" stopColor="#F97F73" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#F97F73" stopOpacity="0"/>
+        <stop stopColor="#F97F73" />
+        <stop offset="0.63" stopColor="#F97F73" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#F97F73" stopOpacity="0" />
       </linearGradient>
       <clipPath id="clip0_77_410">
-        <rect width="512" height="512" fill="white"/>
+        <rect width="512" height="512" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -1269,7 +1269,7 @@ export const Key = ({ width, height, className, grey }) => (
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white"/>
+        <path d="M512 0H0V512H512V0Z" fill="white" />
       </mask>
       <g mask="url(#mask0_78_546)">
         <path
@@ -1451,11 +1451,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="376.589"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFF100"/>
-        <stop offset="0.28" stopColor="#F3D50F"/>
-        <stop offset="0.55" stopColor="#E6B91E"/>
-        <stop offset="0.77" stopColor="#D1A120"/>
-        <stop offset="1" stopColor="#BC8A23"/>
+        <stop stopColor="#FFF100" />
+        <stop offset="0.28" stopColor="#F3D50F" />
+        <stop offset="0.55" stopColor="#E6B91E" />
+        <stop offset="0.77" stopColor="#D1A120" />
+        <stop offset="1" stopColor="#BC8A23" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_78_546"
@@ -1465,11 +1465,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="354.317"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401"/>
-        <stop offset="0.2" stopColor="#A26905"/>
-        <stop offset="0.4" stopColor="#7C4D09"/>
-        <stop offset="0.7" stopColor="#BB9321"/>
-        <stop offset="1" stopColor="#FADA39"/>
+        <stop stopColor="#C88401" />
+        <stop offset="0.2" stopColor="#A26905" />
+        <stop offset="0.4" stopColor="#7C4D09" />
+        <stop offset="0.7" stopColor="#BB9321" />
+        <stop offset="1" stopColor="#FADA39" />
       </linearGradient>
       <linearGradient
         id="paint2_linear_78_546"
@@ -1479,9 +1479,9 @@ export const Key = ({ width, height, className, grey }) => (
         y2="347.2"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04"/>
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
+        <stop stopColor="#5D2D04" />
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint3_linear_78_546"
@@ -1491,9 +1491,9 @@ export const Key = ({ width, height, className, grey }) => (
         y2="257.457"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.27" stopColor="#5D2D04" stopOpacity="0"/>
-        <stop offset="0.63" stopColor="#5D2D04" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#5D2D04"/>
+        <stop offset="0.27" stopColor="#5D2D04" stopOpacity="0" />
+        <stop offset="0.63" stopColor="#5D2D04" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#5D2D04" />
       </linearGradient>
       <linearGradient
         id="paint4_linear_78_546"
@@ -1503,9 +1503,9 @@ export const Key = ({ width, height, className, grey }) => (
         y2="295.241"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04" stopOpacity="0"/>
-        <stop offset="0.5" stopColor="#5D2D04" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#5D2D04"/>
+        <stop stopColor="#5D2D04" stopOpacity="0" />
+        <stop offset="0.5" stopColor="#5D2D04" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#5D2D04" />
       </linearGradient>
       <linearGradient
         id="paint5_linear_78_546"
@@ -1515,11 +1515,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="363.373"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401"/>
-        <stop offset="0.28" stopColor="#A26905"/>
-        <stop offset="0.4" stopColor="#7C4D09"/>
-        <stop offset="0.52" stopColor="#BD8E19"/>
-        <stop offset="1" stopColor="#FFCF29"/>
+        <stop stopColor="#C88401" />
+        <stop offset="0.28" stopColor="#A26905" />
+        <stop offset="0.4" stopColor="#7C4D09" />
+        <stop offset="0.52" stopColor="#BD8E19" />
+        <stop offset="1" stopColor="#FFCF29" />
       </linearGradient>
       <linearGradient
         id="paint6_linear_78_546"
@@ -1529,9 +1529,9 @@ export const Key = ({ width, height, className, grey }) => (
         y2="348.752"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04"/>
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
+        <stop stopColor="#5D2D04" />
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint7_linear_78_546"
@@ -1541,11 +1541,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="414.251"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401"/>
-        <stop offset="0.28" stopColor="#A26905"/>
-        <stop offset="0.4" stopColor="#7C4D09"/>
-        <stop offset="0.52" stopColor="#BD8E19"/>
-        <stop offset="1" stopColor="#FFCF29"/>
+        <stop stopColor="#C88401" />
+        <stop offset="0.28" stopColor="#A26905" />
+        <stop offset="0.4" stopColor="#7C4D09" />
+        <stop offset="0.52" stopColor="#BD8E19" />
+        <stop offset="1" stopColor="#FFCF29" />
       </linearGradient>
       <linearGradient
         id="paint8_linear_78_546"
@@ -1555,9 +1555,9 @@ export const Key = ({ width, height, className, grey }) => (
         y2="398.454"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04"/>
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
+        <stop stopColor="#5D2D04" />
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint9_linear_78_546"
@@ -1567,11 +1567,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="458.078"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#C88401"/>
-        <stop offset="0.28" stopColor="#A26905"/>
-        <stop offset="0.4" stopColor="#7C4D09"/>
-        <stop offset="0.52" stopColor="#BD8E19"/>
-        <stop offset="1" stopColor="#FFCF29"/>
+        <stop stopColor="#C88401" />
+        <stop offset="0.28" stopColor="#A26905" />
+        <stop offset="0.4" stopColor="#7C4D09" />
+        <stop offset="0.52" stopColor="#BD8E19" />
+        <stop offset="1" stopColor="#FFCF29" />
       </linearGradient>
       <linearGradient
         id="paint10_linear_78_546"
@@ -1581,9 +1581,9 @@ export const Key = ({ width, height, className, grey }) => (
         y2="443.339"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#5D2D04"/>
-        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5"/>
-        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0"/>
+        <stop stopColor="#5D2D04" />
+        <stop offset="0.36" stopColor="#5D2D04" stopOpacity="0.5" />
+        <stop offset="0.72" stopColor="#5D2D04" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint11_linear_78_546"
@@ -1593,9 +1593,9 @@ export const Key = ({ width, height, className, grey }) => (
         y2="285.616"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#9F3E01"/>
-        <stop offset="0.5" stopColor="#8E4601" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#7C4F00" stopOpacity="0"/>
+        <stop stopColor="#9F3E01" />
+        <stop offset="0.5" stopColor="#8E4601" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#7C4F00" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint12_linear_78_546"
@@ -1605,11 +1605,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="375.773"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFF100"/>
-        <stop offset="0.28" stopColor="#F3D50F"/>
-        <stop offset="0.55" stopColor="#E6B91E"/>
-        <stop offset="0.77" stopColor="#D1A120"/>
-        <stop offset="1" stopColor="#BC8A23"/>
+        <stop stopColor="#FFF100" />
+        <stop offset="0.28" stopColor="#F3D50F" />
+        <stop offset="0.55" stopColor="#E6B91E" />
+        <stop offset="0.77" stopColor="#D1A120" />
+        <stop offset="1" stopColor="#BC8A23" />
       </linearGradient>
       <linearGradient
         id="paint13_linear_78_546"
@@ -1619,11 +1619,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="100.702"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FEFF5C"/>
-        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7"/>
-        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4"/>
-        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7"/>
-        <stop offset="1" stopColor="#E7B216"/>
+        <stop stopColor="#FEFF5C" />
+        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7" />
+        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4" />
+        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7" />
+        <stop offset="1" stopColor="#E7B216" />
       </linearGradient>
       <linearGradient
         id="paint14_linear_78_546"
@@ -1633,11 +1633,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="292.612"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#E6AE13"/>
-        <stop offset="0.28" stopColor="#D89D17"/>
-        <stop offset="0.55" stopColor="#CA8B1B"/>
-        <stop offset="0.77" stopColor="#9C6813"/>
-        <stop offset="1" stopColor="#6E440B"/>
+        <stop stopColor="#E6AE13" />
+        <stop offset="0.28" stopColor="#D89D17" />
+        <stop offset="0.55" stopColor="#CA8B1B" />
+        <stop offset="0.77" stopColor="#9C6813" />
+        <stop offset="1" stopColor="#6E440B" />
       </linearGradient>
       <linearGradient
         id="paint15_linear_78_546"
@@ -1647,11 +1647,11 @@ export const Key = ({ width, height, className, grey }) => (
         y2="271.932"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FEFF5C"/>
-        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7"/>
-        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4"/>
-        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7"/>
-        <stop offset="1" stopColor="#E7B216"/>
+        <stop stopColor="#FEFF5C" />
+        <stop offset="0.2" stopColor="#F9E83C" stopOpacity="0.7" />
+        <stop offset="0.4" stopColor="#F5D11C" stopOpacity="0.4" />
+        <stop offset="0.7" stopColor="#EEC219" stopOpacity="0.7" />
+        <stop offset="1" stopColor="#E7B216" />
       </linearGradient>
       <linearGradient
         id="paint16_linear_78_546"
@@ -1661,12 +1661,12 @@ export const Key = ({ width, height, className, grey }) => (
         y2="184.042"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFFF68"/>
-        <stop offset="0.5" stopColor="#FEF344" stopOpacity="0.5"/>
-        <stop offset="1" stopColor="#FEE620" stopOpacity="0"/>
+        <stop stopColor="#FFFF68" />
+        <stop offset="0.5" stopColor="#FEF344" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#FEE620" stopOpacity="0" />
       </linearGradient>
       <clipPath id="clip0_78_546">
-        <rect width="512" height="512" fill="white"/>
+        <rect width="512" height="512" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -1711,8 +1711,8 @@ export const Telegram = ({ width, height, className, withoutBackground }) => (
         y2="28.1719"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#37AEE2"/>
-        <stop offset="1" stopColor="#1E96C8"/>
+        <stop stopColor="#37AEE2" />
+        <stop offset="1" stopColor="#1E96C8" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_84_578"
@@ -1722,14 +1722,14 @@ export const Telegram = ({ width, height, className, withoutBackground }) => (
         y2="25.9279"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#EFF7FC"/>
-        <stop offset="1" stopColor="white"/>
+        <stop stopColor="#EFF7FC" />
+        <stop offset="1" stopColor="white" />
       </linearGradient>
     </defs>
   </svg>
 )
 
-export const FaceScary = ({width, height}) => (
+export const FaceScary = ({ width, height }) => (
   <svg
     width="512"
     height="512"
@@ -1737,21 +1737,21 @@ export const FaceScary = ({width, height}) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      ...(width ? {width: `${width}px`} : {}),
-      ...(height ? {height: `${height}px`} : {}),
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
     }}
   >
     <g clipPath="url(#clip0_110_22)">
       <mask
         id="mask0_110_22"
-        style={{maskType: 'luminance'}}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
         width="512"
         height="512"
       >
-        <path d="M512 0H0V512H512V0Z" fill="white"/>
+        <path d="M512 0H0V512H512V0Z" fill="white" />
       </mask>
       <g mask="url(#mask0_110_22)">
         <path
@@ -1855,9 +1855,9 @@ export const FaceScary = ({width, height}) => (
         y2="444.576"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FDCF18"/>
-        <stop offset="0.47" stopColor="#F5AB0C"/>
-        <stop offset="0.93" stopColor="#ED8700"/>
+        <stop stopColor="#FDCF18" />
+        <stop offset="0.47" stopColor="#F5AB0C" />
+        <stop offset="0.93" stopColor="#ED8700" />
       </linearGradient>
       <radialGradient
         id="paint1_radial_110_22"
@@ -1867,14 +1867,14 @@ export const FaceScary = ({width, height}) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="translate(249.961 93.4479) scale(342.856 342.856)"
       >
-        <stop offset="0.07" stopColor="#FEFEE2"/>
-        <stop offset="0.28" stopColor="#FDEE8C"/>
-        <stop offset="0.49" stopColor="#FCDE36"/>
-        <stop offset="0.82" stopColor="#F5B820"/>
-        <stop offset="1" stopColor="#EE910A"/>
+        <stop offset="0.07" stopColor="#FEFEE2" />
+        <stop offset="0.28" stopColor="#FDEE8C" />
+        <stop offset="0.49" stopColor="#FCDE36" />
+        <stop offset="0.82" stopColor="#F5B820" />
+        <stop offset="1" stopColor="#EE910A" />
       </radialGradient>
       <clipPath id="clip0_110_22">
-        <rect width="512" height="512" fill="white"/>
+        <rect width="512" height="512" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -1901,7 +1901,7 @@ export const Person = ({ width, height }) => (
   </svg>
 )
 
-export const Ton = ({ width, height}) => (
+export const Ton = ({ width, height }) => (
   <svg
     width="32"
     height="32"
@@ -1913,16 +1913,16 @@ export const Ton = ({ width, height}) => (
       ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <circle cx="16" cy="16" r="11" fill="white"/>
+    <circle cx="16" cy="16" r="11" fill="white" />
     <path fillRule="evenodd" clipRule="evenodd"
       d="M30 16C30 23.732 23.732 30 16 30C8.26801 30 2 23.732 2 16C2 8.26801 8.26801 2 16 2C23.732 2 30 8.26801 30 16ZM12.8895 9.70108C13.2767 9.30725 13.2713 8.67411 12.8775 8.28692C12.4836 7.89972 11.8505 7.9051 11.4633 8.29892L8.28692 11.5297C7.90436 11.9188 7.90436 12.5427 8.28692 12.9318L11.4633 16.1626C11.8505 16.5564 12.4836 16.5618 12.8775 16.1746C13.2713 15.7874 13.2767 15.1543 12.8895 14.7605L11.3855 13.2308L18 13.2308C18.5523 13.2308 19 12.7831 19 12.2308C19 11.6785 18.5523 11.2308 18 11.2308H11.3855L12.8895 9.70108ZM20.5367 15.8374C20.1495 15.4436 19.5164 15.4382 19.1225 15.8254C18.7287 16.2126 18.7233 16.8457 19.1105 17.2395L20.6145 18.7692L14 18.7692C13.4477 18.7692 13 19.2169 13 19.7692C13 20.3215 13.4477 20.7692 14 20.7692L20.6145 20.7692L19.1105 22.2989C18.7233 22.6927 18.7287 23.3259 19.1225 23.7131C19.5164 24.1003 20.1495 24.0949 20.5367 23.7011L23.7131 20.4703C24.0956 20.0812 24.0956 19.4573 23.7131 19.0682L20.5367 15.8374Z"
-      fill="#717171"/>
+      fill="#717171" />
     <path fillRule="evenodd" clipRule="evenodd"
       d="M30 16C30 23.732 23.732 30 16 30C8.26801 30 2 23.732 2 16C2 8.26801 8.26801 2 16 2C23.732 2 30 8.26801 30 16Z"
-      fill="#282828"/>
+      fill="#282828" />
     <path
       d="M15.9527 23L21.8998 12.6802C22.4719 11.6873 21.7553 10.4473 20.6094 10.4473H15.9527M15.9527 23V10.4473M15.9527 23L10.0057 12.6802C9.43357 11.6873 10.1502 10.4473 11.2961 10.4473H15.9527"
-      stroke="#A2A2A2" strokeWidth="1.70207" strokeLinejoin="round"/>
+      stroke="#A2A2A2" strokeWidth="1.70207" strokeLinejoin="round" />
   </svg>
 )
 
@@ -1938,7 +1938,7 @@ export const Arrows = ({ width, height }) => (
       ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <circle cx="16" cy="16" r="11" fill="#A2A2A2"/>
+    <circle cx="16" cy="16" r="11" fill="#A2A2A2" />
     <path fillRule="evenodd" clipRule="evenodd"
       d="M30 16C30 23.732 23.732 30 16 30C8.26801 30 2 23.732 2 16C2 8.26801 8.26801 2 16 2C23.732 2 30 8.26801 30 16ZM12.8895 9.70108C13.2767 9.30725 13.2713 8.67411 12.8775 8.28692C12.4836 7.89972 11.8505 7.9051 11.4633 8.29892L8.28692 11.5297C7.90436 11.9188 7.90436 12.5427 8.28692 12.9318L11.4633 16.1626C11.8505 16.5564 12.4836 16.5618 12.8775 16.1746C13.2713 15.7874 13.2767 15.1543 12.8895 14.7605L11.3855 13.2308L18 13.2308C18.5523 13.2308 19 12.7831 19 12.2308C19 11.6785 18.5523 11.2308 18 11.2308H11.3855L12.8895 9.70108ZM20.5367 15.8374C20.1495 15.4436 19.5164 15.4382 19.1225 15.8254C18.7287 16.2126 18.7233 16.8457 19.1105 17.2395L20.6145 18.7692L14 18.7692C13.4477 18.7692 13 19.2169 13 19.7692C13 20.3215 13.4477 20.7692 14 20.7692L20.6145 20.7692L19.1105 22.2989C18.7233 22.6927 18.7287 23.3259 19.1225 23.7131C19.5164 24.1003 20.1495 24.0949 20.5367 23.7011L23.7131 20.4703C24.0956 20.0812 24.0956 19.4573 23.7131 19.0682L20.5367 15.8374Z"
       fill="#282828"
@@ -1956,10 +1956,10 @@ export const Wallet = ({ width, height, color = '#fff' }) => (
   >
     <path
       d="M14.3 11.6999H10.6C9.59995 11.6999 8.69995 10.8999 8.69995 9.7999V7.8999C8.69995 6.8999 9.49995 5.9999 10.6 5.9999H14.3C14.5 5.9999 14.6 5.9999 14.7 6.0999V5.9999C14.6 5.4999 14.5 4.9999 14.1 4.5999L14 4.4999C13.6 4.0999 13.1 3.9999 12.6 3.8999C12.1 3.7999 10.2 3.7999 9.39995 3.7999H8.89995C8.59995 3.7999 8.49995 3.7999 8.39995 3.7999C8.19995 3.7999 7.99995 3.6999 7.79995 3.5999C7.79995 3.4999 7.69995 3.4999 7.49995 3.2999C7.29995 2.9999 7.09995 2.8999 6.99995 2.7999C6.69995 2.5999 6.29995 2.3999 5.89995 2.3999C5.69995 2.3999 5.49995 2.3999 5.29995 2.3999H4.89995C4.29995 2.3999 3.79995 2.3999 3.39995 2.3999C2.99995 2.3999 2.59995 2.4999 2.29995 2.6999C1.99995 2.8999 1.79995 3.0999 1.59995 3.3999C1.39995 3.7999 1.29995 4.0999 1.19995 4.5999C1.19995 4.9999 1.19995 5.4999 1.19995 6.0999V9.9999C1.19995 10.7999 1.19995 11.4999 1.29995 12.0999C1.39995 12.6999 1.49995 13.1999 1.89995 13.5999C2.29995 13.9999 2.79995 14.1999 3.39995 14.1999C3.89995 14.2999 4.59995 14.2999 5.49995 14.2999H9.39995C10.2 14.2999 12.2 14.2999 12.7 14.1999C13.3 14.0999 13.8 13.9999 14.2 13.5999C14.6 13.1999 14.8 12.6999 14.8 12.0999C14.8 11.9999 14.8 11.7999 14.8 11.6999C14.6 11.6999 14.5 11.6999 14.3 11.6999Z"
-      fill={color}/>
+      fill={color} />
     <path
       d="M14.3 7.30005H10.6C10.3 7.30005 10 7.60005 10 7.90005V9.80005C10 10.1 10.3 10.4 10.6 10.4H14.3C14.6 10.4 14.9 10.1 14.9 9.80005V7.90005C14.9 7.60005 14.7 7.30005 14.3 7.30005ZM11.5 9.80005C11 9.80005 10.6 9.40005 10.6 8.90005C10.6 8.40005 11 8.00005 11.5 8.00005C12 8.00005 12.4 8.40005 12.4 8.90005C12.4 9.40005 12 9.80005 11.5 9.80005Z"
-      fill={color}/>
+      fill={color} />
   </svg>
 )
 
@@ -1971,7 +1971,19 @@ export const Chevron = ({ width, height, color = '#fff' }) => (
       ...(height ? { height: `${height}px` } : {}),
     }}
   >
-    <path d="M7 3.00024L4.5 5.50024L2 3.00024" stroke={color} strokeWidth={9/width*2} strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M7 3.00024L4.5 5.50024L2 3.00024" stroke={color} strokeWidth={9 / width * 2} strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const Check = ({ width, height, color = '#fff' }) => (
+  <svg
+    width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style={{
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+    }}
+  >
+    <path fillRule="evenodd" clipRule="evenodd" d="M7.94194 0.227806C8.20229 0.531547 8.20229 1.02401 7.94194 1.32775L3.27528 6.77219C3.01493 7.07593 2.59282 7.07593 2.33247 6.77219L0.332469 4.43886C0.0721196 4.13512 0.0721196 3.64266 0.332469 3.33892C0.592819 3.03518 1.01493 3.03518 1.27528 3.33892L2.80387 5.12228L6.99914 0.227806C7.25949 -0.0759353 7.6816 -0.0759353 7.94194 0.227806Z" fill={color} />
   </svg>
 )
 
@@ -1986,15 +1998,41 @@ export const Close = ({ width, height }) => (
     <g clipPath="url(#clip0_655_18207)">
       <path
         d="M14 28.5C21.6589 28.5 28 22.1451 28 14.5C28 6.84117 21.6451 0.5 13.9863 0.5C6.34117 0.5 0 6.84117 0 14.5C0 22.1451 6.35489 28.5 14 28.5Z"
-        fill="#282828"/>
+        fill="#282828" />
       <path opacity="0.5"
         d="M9.17282 20.5C8.51489 20.5 8 19.9702 8 19.3115C8 18.9964 8.11441 18.6957 8.34326 18.4808L12.3051 14.5L8.34326 10.5334C8.11441 10.3043 8 10.0179 8 9.70286C8 9.02982 8.51489 8.52864 9.17282 8.52864C9.50178 8.52864 9.75923 8.64319 9.98807 8.85799L13.9785 12.8389L17.9976 8.84367C18.2407 8.60024 18.4982 8.5 18.8128 8.5C19.4707 8.5 20 9.01551 20 9.67422C20 10.0036 19.8998 10.2613 19.6423 10.5191L15.6663 14.5L19.6281 18.4666C19.8713 18.6814 19.9856 18.982 19.9856 19.3115C19.9856 19.9702 19.4565 20.5 18.7842 20.5C18.4553 20.5 18.1549 20.3855 17.9403 20.1563L13.9785 16.1754L10.031 20.1563C9.80214 20.3855 9.50178 20.5 9.17282 20.5Z"
-        fill="#999999"/>
+        fill="#999999" />
     </g>
     <defs>
       <clipPath id="clip0_655_18207">
-        <rect width="28" height="28" fill="white" transform="translate(0 0.5)"/>
+        <rect width="28" height="28" fill="white" transform="translate(0 0.5)" />
       </clipPath>
     </defs>
   </svg>
 )
+
+export const Frog = ({ width, height }) => (
+  <svg width="56" height="39" viewBox="0 0 56 39" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style={{
+      ...(width ? { width: `${width}px` } : {}),
+      ...(height ? { height: `${height}px` } : {}),
+    }}>
+    <g clipPath="url(#clip0_1_1078)">
+      <path d="M15.2727 0L10.1818 0V4.875H15.2727V0Z" fill="#5E5E5E" />
+      <path d="M45.8182 0L40.7273 0V4.875H45.8182V0Z" fill="#5E5E5E" />
+      <path
+        d="M45.8182 14.625V9.75H40.7273V4.875H35.6364V9.75H20.3636V4.875L15.2727 4.875V9.75H10.1818V14.625H5.09091V19.5H0L0 34.125H5.09091V24.375H10.1818V34.125H15.2727V29.25H40.7273V34.125H45.8182V24.375H50.9091V34.125H56V19.5H50.9091V14.625H45.8182ZM40.7273 14.625V19.5H35.6364V14.625H40.7273ZM20.3636 14.625V19.5H15.2727V14.625H20.3636Z"
+        fill="#5E5E5E" />
+      <path d="M5.09091 9.75H0L0 14.625H5.09091V9.75Z" fill="#5E5E5E" />
+      <path d="M56 9.75H50.9091V14.625H56V9.75Z" fill="#5E5E5E" />
+      <path d="M25.4545 34.125H15.2727V39H25.4545V34.125Z" fill="#5E5E5E" />
+      <path d="M40.7273 34.125H30.5455V39H40.7273V34.125Z" fill="#5E5E5E" />
+    </g>
+    <defs>
+      <clipPath id="clip0_1_1078">
+        <rect width="56" height="39" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+)
+

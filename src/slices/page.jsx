@@ -106,8 +106,7 @@ export const pageSlice = reduxjsToolkit.createSlice({
       })
       .addCase(initialize.rejected, (state) => {
         state.status = constants.status.failed
-        state.failMessage =
-                    'Please reload app<br />there is no user info on start'
+        state.failMessage = 'Reload the HAX revival app'
       })
     builder.addCase(showGlobalLoading.fulfilled, state => {
       state.renderGlobalLoading = true

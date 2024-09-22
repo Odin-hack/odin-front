@@ -1,4 +1,5 @@
 import React from 'react'
+import WebApp from '@twa-dev/sdk'
 import classnames from 'classnames'
 import Modal from 'react-modal'
 
@@ -74,9 +75,15 @@ export const LoadingOnLoad = ({failMessage = null}) => {
     renderButton = true
   } else if (reqFailed) {
     messageTitle = 'We are under load'
-    messageSubtitle = 'Visit community chat for support'
+    messageSubtitle = 'Reload the HAX revival app'
     renderButton = true
   }
+  const onClickFollowButton = () => {
+    const link = `https://t.me/HAXcommunity`
+
+    WebApp.openTelegramLink(link)
+  }
+
   return (
     <div className={classnames('_f _fCC', styles.loader__container)}>
       <div
@@ -94,10 +101,11 @@ export const LoadingOnLoad = ({failMessage = null}) => {
           <div className={classnames('_w100', styles.loader__info)}>
             <button
               className={classnames('_f _fCC', styles.loader__info__button)}
+              onClick={onClickFollowButton}
             >
               <components.svg.Telegram width={32} height={32} />
               <p className={classnames('_d7001821', styles.loader__info__text)}>
-                Check chat
+                Follow our community
               </p>
             </button>
           </div>

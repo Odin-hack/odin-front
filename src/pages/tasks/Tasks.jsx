@@ -59,6 +59,8 @@ const Card = ({
     } else if (status === 'claim') {
       dispatch(slices.tasksSlice.thunks.setStatusToPending({taskId}))
       dispatch(slices.tasksSlice.thunks.triggerClaim({taskId}))
+
+      if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
       return
     }
     let callbackSyntheticPending = () => {

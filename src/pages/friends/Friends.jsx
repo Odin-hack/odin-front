@@ -10,6 +10,7 @@ import * as constants from '@/constants'
 import * as hooks from '@/hooks'
 
 import styles from './Friends.module.sass'
+import gsap from 'gsap'
 import { useThrottledFn } from '@/hooks'
 
 const Claim = () => {
@@ -27,6 +28,8 @@ const Claim = () => {
   const [showConfetti, setShowConfetti] = React.useState(false)
   const onClickClaim = React.useCallback(() => {
     dispatch(slices.friendsSlice.thunks.triggerClaim())
+    if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
+
     setShowConfetti(true)
   }, [dispatch])
 
@@ -91,22 +94,266 @@ const Claim = () => {
   )
 }
 
+const ReferralStats = ({amount = 1000000 }) => {
+  const formatNumber = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  }
+
+  return (
+    <div className={styles.referral_stats}>
+      <components.svg.Frog
+        width={ 56 }
+        height={ 39 }
+      />
+
+      <div className={styles.referral_stats_wrapper}>
+        <p>
+          Total HAXers:
+        </p>
+
+        <p>
+          { formatNumber(amount) }
+        </p>
+      </div>
+    </div>
+  )
+}
+
+const ReferralScale = ({percents = 0, spinRewards = 0}) => {
+  const milestones = [
+    { users: "1M", rewards: "50%", percent: 20 },
+    { users: "2M", rewards: "40%", percent: 40 },
+    { users: "3M", rewards: "30%", percent: 60 },
+    { users: "4M", rewards: "20%", percent: 80 },
+    { users: "5M", rewards: "10%", percent: 100 },
+  ];
+
+  const updatedMilestones = milestones.map((milestone) => {
+    return {
+      ...milestone,
+      active: percents >= milestone.percent,
+      rewardActive: spinRewards && milestone.rewards.includes(String(spinRewards * 100)),
+    }
+  })
+
+  return (
+    <div className={styles.scale}>
+      <div className={styles.scale_fields}>
+        <p>Users:</p>
+        <p>Rewards:</p>
+      </div>
+
+      <div className={styles.scale__milestone__checkpoint__line_container}>
+        <div className={styles.scale__milestone__checkpoint__line} />
+        <div
+          className={styles.scale__milestone__checkpoint__line_active}
+          style={{ width: `${percents}%` }}
+        />
+      </div>
+
+      {updatedMilestones.map((milestone, index) => (
+        <div
+          key={index}
+          className={classnames(styles.scale__milestone, {
+            [styles.scale__milestone__milestone_active]: milestone.active,
+          })}
+        >
+          <div className={styles.scale__milestone__steps}>
+            <div className={styles.scale__milestone__users}>
+              {milestone.users}
+            </div>
+
+            <div className={styles.scale__milestone__checkpoint}>
+              <div
+                className={classnames(styles.scale__milestone__checkpoint__circle, {
+                  [styles.scale__milestone__checkpoint__circle_active]: milestone.active,
+                })}
+              >
+                {milestone.active && (
+                  <components.svg.Check width={10} height={10} color="#282828" />
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className={classnames(
+            styles.scale__milestone__rewards,
+            {
+              [styles.scale__milestone__rewards_active]: milestone.rewardActive
+            }
+          )}>
+            {milestone.rewards}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const ReferralDropdown = ({stats}) => {
+  const maxAmount = 5000000
+
+  const [isOpen, setIsOpen] = React.useState(true)
+  const [percents, setPercents] = React.useState(0)
+  const contentRef = React.useRef(null)
+
+  const calculatedPercents = React.useMemo(() => (stats?.usersCount / maxAmount) * 100, [stats?.usersCount])
+
+  const toggleDropdown = () => setIsOpen((prev) => !prev)
+
+  const onClickReadMore = () => {
+    const link = 'https://telegra.ph/Referral-event-from-HAX-Community-with-increased-rewards-for-inviting-friends-09-11'
+
+    WebApp.openLink(link)
+  }
+
+  React.useEffect(() => {
+    const content = contentRef.current
+
+    gsap.killTweensOf(content)
+
+    if (isOpen) {
+      gsap.set(content, { height: 'auto', display: 'block' })
+      const fullHeight = content.scrollHeight + 'px'
+
+      gsap.fromTo(
+        content,
+        { height: 0 },
+        {
+          height: fullHeight,
+          duration: 0.5,
+          ease: 'power2.out',
+          clearProps: 'height',
+          onStart: () => setPercents(calculatedPercents),
+          onComplete: () => content.style.height = 'auto',
+        }
+      )
+    } else {
+      gsap.to(content, {
+        height: 0,
+        duration: 0.5,
+        ease: 'power2.in',
+        onStart: () => setPercents(0),
+        onComplete: () => content.style.display = 'none',
+      })
+    }
+  }, [isOpen])
+
+  return (
+    <div className="_w7003238">
+      <div className={styles.referral_dropdown__box}>
+        <div onClick={toggleDropdown} className={classnames("_f", styles.referral_dropdown_content)}>
+          <img
+            src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/Animals%20and%20Nature/High%20Voltage.webp"
+            alt="High Voltage"
+            width="46"
+            height="46"
+          />
+          <div>
+            <p className="_w7002428">Get Up to 50% Referral Rewards!</p>
+            <p className="_g4001520">
+              Hurry to claim increased bonuses in the HAX limited referral event
+              by inviting friends!
+            </p>
+            <p onClick={onClickReadMore} className={classnames('_y4001520', styles.referral_dropdown_readMore)}>􀅴 Read more</p>
+          </div>
+          <div
+            className={classnames(styles.referral_dropdown__chevron, {
+              [styles.referral_dropdown__chevron_active]: isOpen,
+            })}
+            style={{ height: 'fit-content' }}
+          >
+            <components.svg.Chevron width={24} height={24} color="#AAAAAA" />
+          </div>
+        </div>
+
+        <div
+          ref={contentRef}
+          style={{ height: 0, overflow: 'hidden', display: 'none' }}
+        >
+          <ReferralScale
+            percents={percents}
+            spinRewards={ isOpen && stats?.spinRewards }
+          />
+
+          <ReferralStats
+            amount={ stats?.usersCount }
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const ReferralsInfoBlock = ({ stats }) => {
+  if (stats.version === 1) {
+    return (
+      <>
+        <h2
+          className="_ta_center _w7003238"
+          style={{marginTop: '42px'}}
+        >
+          Invite Friends
+        </h2>
+
+        <p
+          className="_ta_center _g4001722"
+          style={{margin: '4px auto 0'}}
+        >
+          Get 10%
+          { ' ' }
+
+          <span className="_y7001722">
+            <components.svg.Polygon
+              width={15}
+              height={15}
+            />
+
+            <span
+              style={{display: 'inline-block', width: '2px'}}
+            />
+              HAX
+          </span>
+
+          { ' ' }
+
+          from referrals
+          <br/>
+          wallet connections
+          <br/>
+          +5% from their spins and quest earnings
+        </p>
+      </>
+    )
+  }
+
+  return (
+    <ReferralDropdown
+      stats={ stats }
+    />
+  )
+}
+
 const Card = ({title, pxl, drawBottomLine, photoUrl, defaultPhoto}) => (
   <div className={styles.card__box}>
     <div className={classnames('_f _fCC')}>
-      <div className={styles.card__circle}>
+      <div
+        className={styles.card__circle}
+        style={{backgroundColor: lib.getAvatarColor(title)}}
+      >
         {defaultPhoto ? (
           <p className="_abs_mid _fCC _w4001821" style={{zIndex: 1}}>
             {title.at(0) ?? ''}
           </p>
-        ) : null}
-        <img src={photoUrl} className={styles.card__circle} />
+        ) : (
+          <img src={photoUrl} className={styles.card__circle} alt="user"/>
+        )}
       </div>
-      <p className="_w100 _w4001722 _one_line_ellipsis">{title}</p>
-      <span style={{width: '10px'}} />
+      <h4 className="_w100 _w4001722 _one_line_ellipsis">{title}</h4>
+      <span style={{width: '10px'}}/>
       <div className="_fCC _status_block">
-        <components.svg.Polygon width={12} height={12} />
-        <span style={{width: '4px'}} />
+        <components.svg.Polygon width={12} height={12}/>
+        <span style={{width: '4px'}}/>
         <p className="_w7001316 _nowrap">{lib.formatPxlInt(pxl)}</p>
       </div>
     </div>
@@ -167,6 +414,10 @@ export const Friends = () => {
   }, [dispatch])
 
   React.useEffect(() => {
+    dispatch(slices.friendsSlice.thunks.fetchFriends())
+  }, [dispatch])
+
+  React.useEffect(() => {
     if (friends.status === constants.status.success) {
       dispatch(slices.pageSlice.thunks.hideGlobalLoading())
     } else {
@@ -180,7 +431,7 @@ export const Friends = () => {
 
   const onClickInviteFriendsButton = () => {
     const linkRef = friends.friendsData.link
-    const link = `https://t.me/share/url?url=${linkRef}`
+    const link = `https://t.me/share/url?url=${linkRef}&text=Are you really deep in the crypto, or just flexin? 👾`
     WebApp.openTelegramLink(link)
   }
   return (
@@ -201,24 +452,7 @@ export const Friends = () => {
         >
           <Claim />
           <div className="container _w100">
-            <h2 className="_ta_center _w7003238" style={{marginTop: '42px'}}>
-              Invite Friends
-            </h2>
-            <p className="_ta_center _g4001722" style={{margin: '4px auto 0'}}>
-              Get 10%
-              <span> </span>
-              <span className="_y7001722">
-                <components.svg.Polygon width={15} height={15} />
-                <span style={{display: 'inline-block', width: '2px'}}></span>
-                HAX
-              </span>
-              <span> </span>
-              from referrals
-              <br />
-              wallet connections
-              <br />
-              +5% from their spins and quest earnings
-            </p>
+            <ReferralsInfoBlock stats={friends?.friendsStats}/>
             <p className="_w7001621" style={{padding: '44px 16px 12px'}}>
               You have {friends.friendsData.friendsCount} friend
               {friends.friendsData.friendsCount === 1 ? '' : 's'}
