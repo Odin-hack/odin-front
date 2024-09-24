@@ -286,7 +286,7 @@ const ReferralDropdown = ({stats}) => {
 }
 
 const ReferralsInfoBlock = ({ stats }) => {
-  if (stats.version === 1) {
+  if (stats?.version === 1) {
     return (
       <>
         <h2
