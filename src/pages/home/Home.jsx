@@ -6,7 +6,6 @@ import * as reactCircularProgressbar from 'react-circular-progressbar'
 import Modal from 'react-modal'
 import * as tonConnect from '@tonconnect/ui-react'
 import {Carousel} from 'react-responsive-carousel'
-import Marquee from 'react-fast-marquee'
 import gsap from 'gsap'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 
@@ -717,101 +716,6 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
   )
 }
 
-const MarqueeFreeDurov = () => {
-  const TelegramIcon = () => (
-    <svg
-      style={{margin: '0 12px'}}
-      width="20"
-      height="24"
-      viewBox="0 0 20 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M7.33582 19.3097C6.89821 19.3097 6.97676 19.0996 6.81967 18.5811L5.54053 13.313L13.4847 7.12012L14.416 7.42836L13.6418 10.0624L7.33582 19.3097Z"
-        fill="#C8DAEA"/>
-      <path
-        d="M7.33594 19.3099C7.67255 19.3099 7.81842 19.1137 8.00917 18.8896C8.30091 18.5393 12.0486 13.9857 12.0486 13.9857L9.74836 13.2852L7.61645 14.9665L7.33594 19.1698V19.3099Z"
-        fill="#A9C9DD"/>
-      <path
-        d="M7.56033 15.0229L12.9911 20.0248C13.6082 20.4451 14.057 20.235 14.2141 19.3102L16.4246 6.308C16.649 5.1731 16.0767 4.66871 15.482 5.00497L2.51108 11.2539C1.62466 11.7022 1.63588 12.3187 2.35399 12.5849L5.6865 13.888L13.395 7.82119C13.7541 7.54097 14.0907 7.69509 13.8214 8.00333L7.56033 15.0229Z"
-        fill="url(#paint0_linear_1114_5285)"/>
-      <defs>
-        <linearGradient id="paint0_linear_1114_5285" x1="10.8133" y1="12.1303" x2="14.5933" y2="16.9738"
-          gradientUnits="userSpaceOnUse">
-          <stop stopColor="#EFF7FC"/>
-          <stop offset="1" stopColor="white"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  )
-
-  const DogIcon = () => (
-    <svg
-      style={{margin: '0 14px'}}
-      width="16"
-      height="17"
-      viewBox="0 0 16 17"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g clipPath="url(#clip0_1069_5293)">
-        <path
-          d="M10.5234 9.7138V8.9043H9.71391V9.7138H8.9044V8.9043H8.0949H7.28539H6.47588V9.7138H5.66638V8.9043H4.85687V9.7138H4.04736V10.5233H4.85687V11.3328V12.1423H5.66638V11.3328H6.47588H7.28539H8.0949H8.9044H9.71391V12.1423H10.5234V11.3328V10.5233H11.3329V9.7138H10.5234Z"
-          fill="white"/>
-        <path d="M3.23828 12.1425H4.04779V11.3329V10.5234H3.23828V11.3329V12.1425Z" fill="white"/>
-        <path d="M11.3335 11.3329V12.1425H12.143V11.3329V10.5234H11.3335V11.3329Z" fill="white"/>
-        <path d="M12.1429 13.7617H11.3334V14.5712H10.5239V15.3807H11.3334H12.1429H12.9524V14.5712H12.1429V13.7617Z"
-          fill="white"/>
-        <path d="M12.9521 12.9531H12.1426V13.7626H12.9521V12.9531Z" fill="white"/>
-        <path d="M8.90479 15.3809V16.1904H9.71429H10.5238V15.3809H9.71429H8.90479Z" fill="white"/>
-        <path d="M7.28558 16.1904H6.47607V16.9999H7.28558H8.09509H8.90459V16.1904H8.09509H7.28558Z" fill="white"/>
-        <path d="M3.23822 12.9531H2.42871V13.7626H3.23822V12.9531Z" fill="white"/>
-        <path d="M4.04772 14.5712V13.7617H3.23822V14.5712H2.42871V15.3807H3.23822H4.04772H4.85723V14.5712H4.04772Z"
-          fill="white"/>
-        <path d="M5.66644 15.3809H4.85693V16.1904H5.66644H6.47595V15.3809H5.66644Z" fill="white"/>
-        <path
-          d="M14.5711 9.71408V8.90457V8.09507V7.28556H13.7616V6.47605V5.66655V4.85704H12.9521V4.04753V3.23803H12.1426V2.42852H11.3331V1.61901H10.5236V0.809507H9.71408H8.90457V0H8.09507H7.28556H6.47605V0.809507H5.66655H4.85704V1.61901H4.04753V2.42852H3.23803V3.23803H2.42852V4.04753V4.85704H1.61901V5.66655V6.47605V7.28556H0.809507V8.09507V8.90457V9.71408H0V10.5236V11.3331V12.1426V12.9521H0.809507V13.7616V14.5711H1.61901H2.42852V13.7616H1.61901V12.9521H2.42852V12.1426V11.3331V10.5236H3.23803V9.71408V8.90457H4.04753V8.09507H4.85704V7.28556H5.66655H6.47605V8.09507H7.28556H8.09507H8.90457V7.28556H9.71408H10.5236V8.09507H11.3331V8.90457H12.1426V9.71408V10.5236H12.9521V11.3331V12.1426V12.9521H13.7616V13.7616H12.9521V14.5711H13.7616H14.5711V13.7616V12.9521H15.3806V12.1426V11.3331V10.5236V9.71408H14.5711Z"
-          fill="white"/>
-        <path d="M6.47601 12.9521H7.28552V12.1426H6.47601H5.6665V12.9521H6.47601Z" fill="white"/>
-        <path d="M8.09521 12.1426V12.9521H8.90472H9.71423V12.1426H8.90472H8.09521Z" fill="white"/>
-      </g>
-      <defs>
-        <clipPath id="clip0_1069_5293">
-          <rect width="15.3806" height="16.9996" fill="white"/>
-        </clipPath>
-      </defs>
-    </svg>
-  )
-
-  return (
-    <Marquee
-      autoFill={true}
-      speed={30}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 9999999,
-        background: 'linear-gradient(to right, #0074B0, #2CA3DF, #0074B0)',
-        userSelect: 'none',
-      }}
-    >
-      <div className="_fCC">
-        <TelegramIcon/>
-        <span className="_w4001316">#HAXCENSOR</span>
-        <DogIcon/>
-        <span className="_w4001316">#RESISTANCE</span>
-        <TelegramIcon/>
-        <span className="_w4001316">PRIVACY IS NOT A CRIME</span>
-        <DogIcon/>
-        <span className="_w4001316">#FREEDUROV</span>
-      </div>
-    </Marquee>
-  )
-}
-
 export const Home = () => {
   const dispatch = reactRedux.useDispatch()
   const user = reactRedux.useSelector(slices.userSlice.selectors.user)
@@ -864,7 +768,6 @@ export const Home = () => {
   return (
     <components.container.Page>
       <components.container.BodyScroll>
-        <MarqueeFreeDurov/>
         <div
           className="_fCC _fCol"
           style={{ height: '100%', paddingBottom: '130px' }}
