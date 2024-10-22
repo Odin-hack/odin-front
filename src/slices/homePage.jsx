@@ -153,14 +153,14 @@ export const homePageSlice = reduxjsToolkit.createSlice({
   extraReducers(builder) {
     builder
       .addCase(verifyAddressExists.pending, (state) => {
-        state.isCheckingAddress = true;
+        state.isCheckingAddressExists = true;
       })
       .addCase(verifyAddressExists.fulfilled, (state, { payload: { isAddressExists } }) => {
-        state.isCheckingAddress = false;
+        state.isCheckingAddressExists = false;
         state.isAddressExists = isAddressExists;
       })
       .addCase(verifyAddressExists.rejected, (state) => {
-        state.isCheckingAddress = false;
+        state.isCheckingAddressExists = false;
         state.isAddressExists = null;
       })
     builder
