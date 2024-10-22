@@ -131,6 +131,9 @@ export const fetchGetHaxUsersUserid = async ({userId, jwtToken, fullName, friend
         }).unknown(true),
       )
       .required(),
+    dailyRewards: Joi.object({
+      multiplier: Joi.string().required().min(1),
+    }).optional(),
     timers: Joi.array()
       .items(
         Joi.object({

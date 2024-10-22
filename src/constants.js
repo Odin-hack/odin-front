@@ -11,4 +11,5 @@ export const routes = [
   {path: '/leaderboard'},
   {path: '/tasks'},
   {path: '/friends'},
+  {path: '/events'},
 ]
