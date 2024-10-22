@@ -28,6 +28,30 @@ const initialize = reduxjsToolkit.createAsyncThunk(
     }
   },
 )
+
+export const verifyAddressExists = reduxjsToolkit.createAsyncThunk(
+  'home/verifyAddressExists',
+  async ({ address, network }, o) => {
+    const state = o.getState()
+    const userId = state.page.userId
+    const jwtToken = state.page.jwtToken
+
+    const {isAddressExists} = await ports.fetchGetHaxCheckAddressExists({
+      userId,
+      jwtToken,
+      address,
+    })
+
+    if (!isAddressExists) {
+      await o.dispatch(
+        registerWallet({address, network})
+      )
+    }
+
+    return {isAddressExists}
+  }
+)
+
 const registerWallet = reduxjsToolkit.createAsyncThunk(
   'home/registerWallet',
   async ({address, network}, o) => {
@@ -127,6 +151,18 @@ export const homePageSlice = reduxjsToolkit.createSlice({
     ignoreOnboardingModalInCurrentRun: false,
   },
   extraReducers(builder) {
+    builder
+      .addCase(verifyAddressExists.pending, (state) => {
+        state.isCheckingAddress = true;
+      })
+      .addCase(verifyAddressExists.fulfilled, (state, { payload: { isAddressExists } }) => {
+        state.isCheckingAddress = false;
+        state.isAddressExists = isAddressExists;
+      })
+      .addCase(verifyAddressExists.rejected, (state) => {
+        state.isCheckingAddress = false;
+        state.isAddressExists = null;
+      })
     builder
       .addCase(registerWallet.pending, (state) => {
         state.isSpinnerOpen = true
@@ -231,6 +267,7 @@ homePageSlice.selectors = {
 homePageSlice.thunks = {
   setPhase,
   initialize,
+  verifyAddressExists,
   registerWallet,
   triggerClaim,
   triggerUseKeyToSpin,
