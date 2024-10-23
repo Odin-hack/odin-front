@@ -406,8 +406,8 @@ const DailyMultiplier = () => {
 }
 
 const SpinsV2BotLanding = ({
-                             onClickUseToSpin
-                           }) => {
+  onClickUseToSpin
+}) => {
   const amountKeys = reactRedux.useSelector(
     slices.userSlice.selectors.amountKeys,
   )
@@ -431,7 +431,7 @@ const SpinsV2BotLanding = ({
       <div
         className="_f _fC _w100"
         style={{ justifyContent: 'flex-end' }
-      }>
+        }>
         <img
           src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-active.svg'}
           alt="Gift Box"
