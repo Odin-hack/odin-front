@@ -1,4 +1,3 @@
-import React from "react";
 import * as components from "@/components/index.js";
 import styles from "@/pages/events/Events.module.sass";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
