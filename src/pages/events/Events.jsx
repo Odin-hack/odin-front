@@ -9,23 +9,23 @@ import * as reactRedux from "react-redux";
 
 const UserStats = ({ users }) => (
   <div className={styles.referral_stats_fields}>
-    <div className={styles.referral_stats_fields_users}>
+    <p className="_dark5002166" style={{ lineHeight: '42px' }}>
       Users:
-    </div>
+    </p>
 
     <div className={styles.referral_stats_fields_stat}>
       { users.toLocaleString() }
     </div>
 
     <div className={styles.referral_stats_fields_goal}>
-      1M
+      <p className="_dark7003265">1M</p>
 
       <div className={styles.referral_stats_fields_goal__checkpoint}>
         <div className={styles.referral_stats_fields_goal__checkpoint__circle}>
           <components.svg.Check
-            width={20}
-            height={20}
-            color="#000000"
+            width={18}
+            height={18}
+            color="#282828"
           />
         </div>
       </div>
@@ -43,15 +43,15 @@ const ProgressLine = ({ progress }) => (
 );
 
 const PrizePool = ({ amount }) => (
-  <div className={styles.referral_stats_prize_pool}>
-    <div className={styles.referral_stats_prize_pool_title}>
+  <div className={classNames('_f _fCC _fCol', styles.referral_stats_prize_pool)}>
+    <div className={classNames('_f _fC', styles.referral_stats_prize_pool_title)}>
       Prize Pool
+
+      <span>$TON</span>
     </div>
 
     <div className={styles.referral_stats_prize_pool_amount}>
       { amount.toLocaleString() }
-
-      <span>$TON</span>
     </div>
   </div>
 );
@@ -66,7 +66,9 @@ const ReferralRewards = () => (
         stroke={'#fff'}
       />
 
-      10 $TON
+      <span className="_w4001722">
+        10 $TON
+      </span>
     </p>
 
     <components.svg.CurveArrow
@@ -80,7 +82,7 @@ const ReferralRewards = () => (
         height={18}
       />
 
-      100 Winners
+      <span className="_w4001722">100 Winners</span>
     </p>
   </div>
 );
@@ -114,8 +116,8 @@ const TasksProgress = ({tasksCount = 4, completedTasksCount = 2}) => {
        <CircularProgressbar
          value={percents}
          styles={buildStyles({
-           pathColor: `#BCFF2F`,
-           trailColor: '#1A270F',
+           pathColor: `#007AFF`,
+           trailColor: '#033367',
          })}
          strokeWidth={10}
          className={styles.referral_event_tasks__progress__box_icon}
@@ -177,15 +179,16 @@ const ReferralEvent = ({ participants= 1346 }) => {
 
       <div className={classNames('_f _fCC', styles.referral_event__participants)}>
         <p className={styles.referral_event__participants_label}>
-          Participants:
+          Total Participants:
         </p>
 
-        <p className={classNames('_f _fCC', styles.referral_event__participants_value)}>
+        <p className={classNames('_f _fCC _g7001838', styles.referral_event__participants_value)}>
           {participants.toLocaleString()}
 
           <components.svg.Frog
             width={26}
             height={18}
+            color={'#999999'}
           />
         </p>
       </div>
@@ -198,19 +201,19 @@ const Terms = () => {
     <div className={styles.referral_event_terms}>
       <h5>Terms and conditions</h5>
 
-      <p>
+      <p className='_g4001318'>
         During the limited referral event, HAX will reward the most active users.
       </p>
 
       <br/>
 
-      <p>
+      <p className='_g4001318'>
         When we reach 1 million users, a 1000 TON prize pool will be split among 100 winners — 10 TON each.
       </p>
 
       <br/>
 
-      <p>
+      <p className='_g4001318'>
         With every new million users, the prize pool will grow. Invite friends and complete tasks to join the giveaway!
       </p>
     </div>

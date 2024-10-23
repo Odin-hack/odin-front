@@ -2065,22 +2065,22 @@ export const Close = ({ width, height }) => (
   </svg>
 )
 
-export const Frog = ({ width, height }) => (
+export const Frog = ({ width, height, color="#5E5E5E" }) => (
   <svg width="56" height="39" viewBox="0 0 56 39" fill="none" xmlns="http://www.w3.org/2000/svg"
     style={{
       ...(width ? { width: `${width}px` } : {}),
       ...(height ? { height: `${height}px` } : {}),
     }}>
     <g clipPath="url(#clip0_1_1078)">
-      <path d="M15.2727 0L10.1818 0V4.875H15.2727V0Z" fill="#5E5E5E" />
-      <path d="M45.8182 0L40.7273 0V4.875H45.8182V0Z" fill="#5E5E5E" />
+      <path d="M15.2727 0L10.1818 0V4.875H15.2727V0Z" fill={color} />
+      <path d="M45.8182 0L40.7273 0V4.875H45.8182V0Z" fill={color} />
       <path
         d="M45.8182 14.625V9.75H40.7273V4.875H35.6364V9.75H20.3636V4.875L15.2727 4.875V9.75H10.1818V14.625H5.09091V19.5H0L0 34.125H5.09091V24.375H10.1818V34.125H15.2727V29.25H40.7273V34.125H45.8182V24.375H50.9091V34.125H56V19.5H50.9091V14.625H45.8182ZM40.7273 14.625V19.5H35.6364V14.625H40.7273ZM20.3636 14.625V19.5H15.2727V14.625H20.3636Z"
-        fill="#5E5E5E" />
-      <path d="M5.09091 9.75H0L0 14.625H5.09091V9.75Z" fill="#5E5E5E" />
-      <path d="M56 9.75H50.9091V14.625H56V9.75Z" fill="#5E5E5E" />
-      <path d="M25.4545 34.125H15.2727V39H25.4545V34.125Z" fill="#5E5E5E" />
-      <path d="M40.7273 34.125H30.5455V39H40.7273V34.125Z" fill="#5E5E5E" />
+        fill={color} />
+      <path d="M5.09091 9.75H0L0 14.625H5.09091V9.75Z" fill={color} />
+      <path d="M56 9.75H50.9091V14.625H56V9.75Z" fill={color} />
+      <path d="M25.4545 34.125H15.2727V39H25.4545V34.125Z" fill={color} />
+      <path d="M40.7273 34.125H30.5455V39H40.7273V34.125Z" fill={color} />
     </g>
     <defs>
       <clipPath id="clip0_1_1078">
