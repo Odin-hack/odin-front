@@ -154,6 +154,24 @@ export const fetchGetHaxUsersUserid = async ({userId, jwtToken, fullName, friend
 }
 
 /**
+ * GET users/:userId/wallet/check?address=address
+ */
+export const fetchGetHaxCheckAddressExists = async ({ userId, jwtToken, address }) => {
+  const path = `/users/${userId}/wallet/check?address=${address}`
+
+  const schema = Joi.boolean().required();
+
+  const { data: isAddressExists } = await fetchAndAssert({
+    method: 'get',
+    path,
+    jwtToken,
+    schema,
+  })
+
+  return { isAddressExists }
+}
+
+/**
  * POST /users/:userId
  */
 export const fetchPostHaxUsersUserid = async ({userId, jwtToken, p}) => {
