@@ -134,6 +134,33 @@ export const Friends = ({ opacity = 1, width, height }) => (
   </svg>
 )
 
+export const Events = ({ opacity = 1, width, height }) => (
+  <svg
+    width="22"
+    height="21"
+    viewBox="0 0 22 21"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{
+      ...(width ? {width: `${width}px`} : {}),
+      ...(height ? {height: `${height}px`} : {}),
+    }}
+  >
+    <g style={{opacity}}>
+      <path d="M3.20039 0.000976562V1.5009V3.00081H10.7H18.1996V1.5009V0.000976562H10.7H3.20039Z" fill="white"/>
+      <path d="M6.20023 15V16.5V18H7.70023H9.20023V16.5V15H7.70023H6.20023Z" fill="white"/>
+      <path d="M3.20039 9V11.9998V14.9997H4.70031H6.20023V11.9998V9H4.70031H3.20039Z" fill="white"/>
+      <path d="M0.200722 2.00098V5.50079V9.0006H1.70064H3.20056V5.50079V2.00098H1.70064H0.200722Z" fill="white"/>
+      <path d="M12.1999 15V16.5V18H13.6999H15.1999V16.5V15H13.6999H12.1999Z" fill="white"/>
+      <path d="M15.1997 9V11.9998V14.9997H16.6997H18.1996V11.9998V9H16.6997H15.1997Z" fill="white"/>
+      <path d="M18.1996 6.00098V7.50098V9.00098H19.6996H21.1996V7.50098V6.00098H19.6996H18.1996Z" fill="white"/>
+      <path d="M18.1996 3.00098V4.50098V6.00098H19.6996H21.1996V4.50098V3.00098H19.6996H18.1996Z" fill="white"/>
+      <path d="M9.20007 3.00098V12.0005V21H10.7H12.1999V12.0005V3.00098H10.7H9.20007Z" fill="white"/>
+    </g>
+  </svg>
+
+)
+
 export const Polygon = ({ addShadow, width, height, className, grey }) => (
   <span
     style={{
