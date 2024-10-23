@@ -1,4 +1,3 @@
-import React from "react";
 import * as components from "@/components/index.js";
 import styles from "@/pages/events/Events.module.sass";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
@@ -111,54 +110,54 @@ const TasksProgress = ({tasksCount = 4, completedTasksCount = 2}) => {
   const percents = (completedTasksCount / tasksCount) * 100
 
   return (
-   <div className={styles.referral_event_tasks__progress}>
-     <div className={styles.referral_event_tasks__progress__box}>
-       <CircularProgressbar
-         value={percents}
-         styles={buildStyles({
-           pathColor: `#007AFF`,
-           trailColor: '#033367',
-         })}
-         strokeWidth={10}
-         className={styles.referral_event_tasks__progress__box_icon}
-       />
+    <div className={styles.referral_event_tasks__progress}>
+      <div className={styles.referral_event_tasks__progress__box}>
+        <CircularProgressbar
+          value={percents}
+          styles={buildStyles({
+            pathColor: `#007AFF`,
+            trailColor: '#033367',
+          })}
+          strokeWidth={10}
+          className={styles.referral_event_tasks__progress__box_icon}
+        />
 
-       {
-         percents === 100 &&
+        {
+          percents === 100 &&
            <components.svg.Check
              width={10}
              height={10}
              color="#BCFF2F"
            />
-       }
-     </div>
+        }
+      </div>
 
-     <div className={classNames('_fC', '_fCol', styles.referral_event_tasks__progress__content)}>
-       <h5 className={styles.referral_event_tasks__progress_title}>
+      <div className={classNames('_fC', '_fCol', styles.referral_event_tasks__progress__content)}>
+        <h5 className={styles.referral_event_tasks__progress_title}>
          Your progress
-         <span>
-           {completedTasksCount}/{tasksCount}
-         </span>
-       </h5>
+          <span>
+            {completedTasksCount}/{tasksCount}
+          </span>
+        </h5>
 
-       {
-         percents === 100 ?
-           <p
-             className="_g4001316 _ta_start"
-           >
+        {
+          percents === 100 ?
+            <p
+              className="_g4001316 _ta_start"
+            >
              You have joined the event successfully.
-             <br/>
+              <br/>
              Invite friends to find out the results faster.
-           </p>
-         :
-           <p
-             className="_g4001316 _ta_start"
-           >
+            </p>
+            :
+            <p
+              className="_g4001316 _ta_start"
+            >
              Complete all tasks to join the event
-           </p>
-     }
-     </div>
-   </div>
+            </p>
+        }
+      </div>
+    </div>
   )
 }
 
