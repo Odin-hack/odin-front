@@ -442,11 +442,7 @@ const SpinsV2BotLanding = ({
       </div>
 
       <button className={classesButton} onClick={onClick}>
-                Use
-        <span style={{width: '3px'}}/>
-        <components.svg.Key width={21} height={21}/>
-        <span style={{width: '3px'}}/>
-                to spin
+        HACK!
       </button>
     </div>
   )
@@ -461,7 +457,7 @@ const SpinningV2 = ({ onEnd }) => {
   const END_ROTATION = START_ROTATION - 360 * 6.5 // 6 full rotations + half of ring
 
   const nextSpinReward = reactRedux.useSelector(slices.homePageSlice.selectors.nextSpingReward)
-  const rewards = reactRedux.useSelector(slices.homePageSlice.selectors.rewards)
+  const rewards = reactRedux.useSelector(slices.homePageSlice.selectors.spinRewards)
 
   const dispatch = reactRedux.useDispatch()
 

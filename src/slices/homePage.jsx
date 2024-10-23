@@ -73,10 +73,10 @@ const triggerUseKeyToSpin = reduxjsToolkit.createAsyncThunk(
   async (_, o) => {
     const userId = o.getState().page.userId
     const jwtToken = o.getState().page.jwtToken
-    const {accounts, nextSpingReward} = await lib.race(
+    const {accounts, nextSpingReward, spinRewards} = await lib.race(
       ports.fetchPostHaxGameSpin({userId, jwtToken}),
     )
-    return {accounts, nextSpingReward}
+    return {accounts, nextSpingReward, spinRewards}
   },
 )
 const applyUseKeyToSpinEndVals = reduxjsToolkit.createAsyncThunk(
@@ -169,11 +169,12 @@ export const homePageSlice = reduxjsToolkit.createSlice({
       })
       .addCase(
         triggerUseKeyToSpin.fulfilled,
-        (state, {payload: {accounts, nextSpingReward}}) => {
+        (state, {payload: {accounts, nextSpingReward, spinRewards}}) => {
           state.isSpinnerOpen = false
           state.phase = 'spinning'
           state.spinEndAccountsUpdates = accounts
           state.nextSpingReward = nextSpingReward
+          state.spinRewards = spinRewards
         },
       )
       .addCase(triggerUseKeyToSpin.rejected, (state) => {
@@ -226,6 +227,7 @@ homePageSlice.selectors = {
   phase: state => state.homePage.phase,
   isSpinnerOpen: state => state.homePage.isSpinnerOpen,
   nextSpingReward: state => state.homePage.nextSpingReward,
+  spinRewards: state => state.homePage.spinRewards,
   rewards: state => state.homePage.gameRewardsData,
 }
 homePageSlice.thunks = {

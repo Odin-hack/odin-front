@@ -55,6 +55,17 @@ export const fetchPostHaxGameSpin = async ({userId, jwtToken}) => {
     })
       .required()
       .unknown(true),
+    rewards: Joi.array()
+      .items(
+        Joi.object({
+          id: Joi.string().required(),
+          rewardType: Joi.string().required().min(1),
+          originalAmount: Joi.number().integer().required().min(0),
+          amount: Joi.number().integer().required().min(0),
+          multiplier: Joi.number().integer().required().min(1),
+        }).unknown(true),
+      )
+      .required(),
     reward: Joi.object({
       rewardType: Joi.string().required().min(1),
       amount: Joi.number().integer().required().min(0),
@@ -75,8 +86,11 @@ export const fetchPostHaxGameSpin = async ({userId, jwtToken}) => {
     (acc, {accountType, balance}) => ({...acc, [accountType]: balance}),
     {},
   )
+
+  const spinRewards = data.rewards
+
   const nextSpingReward = data.reward
-  return {accounts, nextSpingReward}
+  return {accounts, nextSpingReward, spinRewards}
 }
 
 /**

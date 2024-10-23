@@ -26,7 +26,7 @@ const routePathComponent = {
   '/leaderboard': <pages.Leaderboard/>,
   '/tasks': <pages.Tasks/>,
   '/friends': <pages.Friends/>,
-  '/events': <pages.Events />
+  // '/events': <pages.Events />
 }
 
 /**
