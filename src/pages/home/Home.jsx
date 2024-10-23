@@ -17,6 +17,7 @@ import * as hooks from '@/hooks'
 
 import styles from './Home.module.sass'
 import { shuffle } from '@/lib'
+import classNames from "classnames";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -361,7 +362,60 @@ const SpinsV2Header = () => {
   )
 }
 
-const SpinsV2BotLanding = ({onClickUseToSpin}) => {
+const ModalMultiplierInfo = ({ isOpen, onClose }) => {
+  return (
+    <components.CenteredModal
+      title="Daily multiplier"
+      isOpen={isOpen}
+      onRequestClose={onClose}
+    >
+      <div className="_g4001416">
+        The daily multiplier increases the number of coins received
+        from spins by multiplying them by the corresponding coefficient.
+      </div>
+    </components.CenteredModal>
+  )
+}
+
+const DailyMultiplier = () => {
+  const [isOpen, setOpen] = React.useState(false)
+
+  const dailyRewardsMultiplier = reactRedux.useSelector(
+    slices.userSlice.selectors.dailyRewardsMultiplier,
+  )
+
+  return (
+    <div className={classNames("_f _fCol", styles.daily_multiplier)}>
+      <p className={styles.daily_multiplier_title}>
+        Daily
+
+        <br/>
+
+        multiplier
+      </p>
+
+      <button
+        className={styles.daily_multiplier_buttonInfo}
+        onClick={() => setOpen(true)}
+      >
+        <components.svg.Info width={18} height={18}/>
+      </button>
+
+      <p className={styles.daily_multiplier_amount}>
+        x{dailyRewardsMultiplier}
+      </p>
+
+      <ModalMultiplierInfo
+        isOpen={isOpen}
+        onClose={() => setOpen(false)}
+      />
+    </div>
+  )
+}
+
+const SpinsV2BotLanding = ({
+                             onClickUseToSpin
+                           }) => {
   const amountKeys = reactRedux.useSelector(
     slices.userSlice.selectors.amountKeys,
   )
@@ -382,17 +436,21 @@ const SpinsV2BotLanding = ({onClickUseToSpin}) => {
   }, [amountKeys])
   return (
     <div className="_f _fCC _fCol _w100">
-      <img
-        src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-active.svg'}
-        alt="Gift Box"
-        width={104} height={106}
-      />
+      <div
+        className="_f _fC _w100"
+        style={{ justifyContent: 'flex-end' }
+      }>
+        <img
+          src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-active.svg'}
+          alt="Gift Box"
+          width={104} height={106}
+        />
+
+        <DailyMultiplier />
+      </div>
+
       <button className={classesButton} onClick={onClick}>
-                Use
-        <span style={{width: '3px'}}/>
-        <components.svg.Key width={21} height={21}/>
-        <span style={{width: '3px'}}/>
-                to spin
+        HACK!
       </button>
     </div>
   )
@@ -407,7 +465,7 @@ const SpinningV2 = ({ onEnd }) => {
   const END_ROTATION = START_ROTATION - 360 * 6.5 // 6 full rotations + half of ring
 
   const nextSpinReward = reactRedux.useSelector(slices.homePageSlice.selectors.nextSpingReward)
-  const rewards = reactRedux.useSelector(slices.homePageSlice.selectors.rewards)
+  const rewards = reactRedux.useSelector(slices.homePageSlice.selectors.spinRewards)
 
   const dispatch = reactRedux.useDispatch()
 
