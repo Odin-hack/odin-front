@@ -24,6 +24,14 @@ const Header = () => {
   const address = tonConnect.useTonAddress(true);
   const formattedWallet = `${address.slice(0, 4)}...${address.slice(-4)}`;
 
+  const dispatch = reactRedux.useDispatch();
+
+  React.useEffect(() => {
+    if (address) {
+      dispatch(slices.homePageSlice.thunks.verifyAddressExists({address, network: 'ton'}))
+    }
+  }, [address, dispatch]);
+
   const amountToken = reactRedux.useSelector(
     slices.userSlice.selectors.amountToken,
   )
