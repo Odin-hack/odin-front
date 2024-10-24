@@ -561,7 +561,7 @@ const SpinningV2 = ({ onEnd }) => {
     )
   }, [rewards])
 
-  const slotsComponentsList = tRewards.map(({ rewardType, amount }, i) => (
+  const slotsComponentsList = tRewards.map(({ rewardType, originalAmount }, i) => (
     <div
       className="_f _fCC"
       key={i.toString()}
@@ -576,7 +576,7 @@ const SpinningV2 = ({ onEnd }) => {
     >
       {rewardTypeIconMap[rewardType]}
       <p style={{ marginLeft: '10px' }} className={classnames('_w7002025', i === ACTIVE_SLOT ? 'active' : 'regular')}>
-        {i === ACTIVE_SLOT ? nextSpinReward.amount : amount}
+        {i === ACTIVE_SLOT ? nextSpinReward.originalAmount : originalAmount}
       </p>
     </div>
   ))
