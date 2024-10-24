@@ -106,7 +106,7 @@ userSlice.selectors = {
       ?.expireAt ?? null,
   onboardedModalShowed: state =>
     state.user?.userData?.onboardedModalShow ?? true,
-  dailyRewardsMultiplier:
-    state => state.user.userData.dailyRewards?.multiplier ?? 1,
+  dailyRewardsMultiplier: state =>
+    state.user.userData.dailyRewards?.multiplier ?? 1,
 }
 userSlice.thunks = {syncWithServer, updateUser, setStatusToUpdate}
