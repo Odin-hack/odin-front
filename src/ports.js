@@ -68,6 +68,8 @@ export const fetchPostHaxGameSpin = async ({userId, jwtToken}) => {
       .required(),
     reward: Joi.object({
       rewardType: Joi.string().required().min(1),
+      originalAmount: Joi.number().integer().required().min(0),
+      multiplier: Joi.number().integer().required().min(1),
       amount: Joi.number().integer().required().min(0),
     })
       .required()

@@ -377,12 +377,25 @@ const ModalMultiplierInfo = ({ isOpen, onClose }) => {
   )
 }
 
-const DailyMultiplier = () => {
-  const [isOpen, setOpen] = React.useState(false)
+const MultiplierBadge = ({ multiplier = 1, colored = true }) => {
+  return (
+    <div className={
+      classNames("_f _fCC",
+        styles.multiplier_badge,
+        colored && styles.multiplier_badge_colored
+      )
+    }>
+      <p className="_dark7002014" style={{ color: !colored && '#282828' || '' }}>x</p>
 
-  const dailyRewardsMultiplier = reactRedux.useSelector(
-    slices.userSlice.selectors.dailyRewardsMultiplier,
+      <span className="_f _fCC _y7002226">
+        {multiplier}
+      </span>
+    </div>
   )
+}
+
+const DailyMultiplier = ({ multiplier }) => {
+  const [isOpen, setOpen] = React.useState(false)
 
   return (
     <div className={classNames("_f _fCol", styles.daily_multiplier)}>
@@ -401,9 +414,16 @@ const DailyMultiplier = () => {
         <components.svg.Info width={18} height={18}/>
       </button>
 
-      <p className={styles.daily_multiplier_amount}>
-        x{dailyRewardsMultiplier}
-      </p>
+      <div className='_f _fCB'>
+        <p className='_g4001320'>
+          Reward
+        </p>
+
+        <MultiplierBadge
+          multiplier={multiplier}
+          colored={false}
+        />
+      </div>
 
       <ModalMultiplierInfo
         isOpen={isOpen}
@@ -419,6 +439,10 @@ const SpinsV2BotLanding = ({
   const amountKeys = reactRedux.useSelector(
     slices.userSlice.selectors.amountKeys,
   )
+  const dailyRewardsMultiplier = reactRedux.useSelector(
+    slices.userSlice.selectors.dailyRewardsMultiplier,
+  )
+
   const classesButton = classnames(
     '_op95 _f _fCC _w100',
     styles.spins_v2__bot_landing__button,
@@ -446,7 +470,9 @@ const SpinsV2BotLanding = ({
           width={104} height={106}
         />
 
-        <DailyMultiplier />
+        <DailyMultiplier
+          multiplier={dailyRewardsMultiplier}
+        />
       </div>
 
       <button className={classesButton} onClick={onClick}>
@@ -590,20 +616,43 @@ const SpinningV2End = ({ onClickClaim }) => {
     styles.spins_v2__bot_end__box,
   )
   return (
-    <div className={classesBox}>
-      <div style={{position: 'absolute', top: '-30px'}}>
-        <components.animations.EmojiBoomstick style={{width: '86px', height: '86px'}}/>
+    <>
+      <div className={styles.spins_v2__bot_end__box_overlay}></div>
+      <div className={classesBox}>
+
+        <div className="_f _fCol" style={{gap: '10px', zIndex: 1}}>
+          <h4 className="_g4001722">Your Daily Multiplier</h4>
+
+          <div className='_f _fCC'>
+            <p className={classNames('_w5002225', styles.spins_v2__bot_end_originalAmount)}>
+              {lib.formatPxlInt(nextSpingReward.originalAmount)}
+            </p>
+
+            <MultiplierBadge
+              multiplier={nextSpingReward.multiplier}
+            />
+          </div>
+        </div>
+
+        <div className={styles.spins_v2__bot_end_divider}/>
+
+        <div className="_w100 _f _fCC _fCol">
+          <h4 className="_g4001722">Your Total reward</h4>
+
+          <p className="_w7005226" style={{margin: '16px 0'}}>
+            <components.svg.Polygon width={30} height={32}/>
+
+            <span> </span>
+
+            {lib.formatPxlInt(nextSpingReward.amount)}
+          </p>
+
+          <button className={classesButton} onClick={onClickClaim}>
+          Claim
+          </button>
+        </div>
       </div>
-      <h4 className="_g4001722">Your reward</h4>
-      <p className="_w7003825" style={{margin: '8px 0 40px'}}>
-        <components.svg.Polygon width={30} height={32}/>
-        <span> </span>
-        {lib.formatPxlInt(nextSpingReward.amount)}
-      </p>
-      <button className={classesButton} onClick={onClickClaim}>
-        Claim
-      </button>
-    </div>
+    </>
   )
 }
 
@@ -641,6 +690,20 @@ const SpinsV2 = () => {
         <div className={classnames('_f _fCC _fCol', styles.spins_v2__box)}>
           <SpinsV2Header/>
           <div className={styles.spins_v2__divider}/>
+
+          {
+            phase === 'end' &&
+            <>
+              <div style={{position: 'absolute', top: '-60px', left: 0, zIndex: '11'}}>
+                <components.animations.EmojiBoomstick style={{width: '86px', height: '86px'}}/>
+              </div>
+
+              <div style={{position: 'absolute', top: '-60px', right: 0, transform: 'rotateY(180deg)', zIndex: '11'}}>
+                <components.animations.EmojiBoomstick style={{width: '86px', height: '86px'}}/>
+              </div>
+            </>
+          }
+
           {phaseComponent}
         </div>
       </div>

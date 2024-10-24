@@ -16,14 +16,21 @@ const syncWithServer = reduxjsToolkit.createAsyncThunk(
     return ports.fetchGetHaxUsersUserid({userId, jwtToken, fullName, friendId})
   },
 )
-const updateUser = reduxjsToolkit.createAsyncThunk(
+
+export const updateUser = reduxjsToolkit.createAsyncThunk(
   'user/updateUser',
-  ({account = null, timer = null, userData = null}) => ({
-    account,
-    timer,
-    userData,
-  }),
-)
+  async ({ account = null, timer = null, userData = null }, o) => {
+    const state = o.getState()
+    const dailyRewards = state.user.userData.dailyRewards
+
+    return {
+      account,
+      timer,
+      userData,
+      dailyRewards,
+    };
+  }
+);
 const setStatusToUpdate = reduxjsToolkit.createAsyncThunk(
   'user/setStatusToUpdate',
   () => {
