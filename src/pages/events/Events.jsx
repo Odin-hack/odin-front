@@ -174,8 +174,13 @@ const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
 
 const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
   const tasksCount = tasks.length;
-  const tasksCompleted = tasks.filter(task => ['complete', 'claim']?.includes(task.status)).length
-  const allTasksCompleted = !tasksCount || tasks.every(task => task.status === ['complete', 'claim']?.includes('complete'));
+
+  const { tasksCompleted, areAllTasksComplete } = React.useMemo(() => {
+    const completed = tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
+    const allCompleted = !tasksCount || tasks.every(task => ['complete', 'claim'].includes(task.status));
+
+    return { tasksCompleted: completed, areAllTasksComplete: allCompleted };
+  }, [tasks, tasksCount]);
 
   const renderCard = (item, drawBottomLine) => (
     <PromoTaskCard
@@ -212,7 +217,7 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
         <TasksProgress tasksCount={tasksCount} completedTasksCount={tasksCompleted} />
       </div>
 
-      {!allTasksCompleted && (
+      {!areAllTasksComplete && (
         <div style={{ padding: '0 24px' }}>
           {tasks.map((task, index) => renderCard(task, index === tasks.length - 1))}
         </div>
