@@ -17,7 +17,7 @@ export const Tabs = () => {
       },
       '/tasks': {component: components.svg.Tasks, text: 'Tasks'},
       '/friends': {component: components.svg.Friends, text: 'Friends'},
-      // '/events': {component: components.svg.Events, text: 'Events'},
+      '/events': {component: components.svg.Events, text: 'Events'},
     }),
     [],
   )
