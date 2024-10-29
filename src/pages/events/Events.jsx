@@ -233,8 +233,6 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
   );
 };
 
-
-
 const Terms = () => {
   return (
     <div className={styles.referral_event_terms}>

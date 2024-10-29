@@ -7,6 +7,7 @@ import Modal from 'react-modal'
 import * as tonConnect from '@tonconnect/ui-react'
 import {Carousel} from 'react-responsive-carousel'
 import gsap from 'gsap'
+import * as reactRouterDom from "react-router-dom";
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 
 import * as components from '@/components'
@@ -845,6 +846,29 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
   )
 }
 
+const EventBadge = () => {
+  return (
+    <reactRouterDom.NavLink to={'/events'} className={classNames('_f _fCC', styles.eventBadge)}>
+      <components.svg.Ton
+        width={18}
+        height={18}
+        fill={'#0097EA'}
+        stroke={'#fff'}
+      />
+
+      <p className='_b7001722'>
+        1000 $TON PROMO
+      </p>
+
+      <components.svg.ArrowV2
+        width={18}
+        height={18}
+        stroke={'#0097EA'}
+      />
+    </reactRouterDom.NavLink>
+  )
+}
+
 export const Home = () => {
   const dispatch = reactRedux.useDispatch()
   const user = reactRedux.useSelector(slices.userSlice.selectors.user)
@@ -901,6 +925,7 @@ export const Home = () => {
           className="_fCC _fCol"
           style={{ height: '100%', paddingBottom: '130px' }}
         >
+          <EventBadge/>
           <Header/>
           <SpinsV2/>
         </div>
