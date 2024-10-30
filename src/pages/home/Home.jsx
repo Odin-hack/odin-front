@@ -19,7 +19,7 @@ import * as hooks from '@/hooks'
 import styles from './Home.module.sass'
 import { shuffle } from '@/lib'
 import classNames from "classnames";
-import {EmojiPumpkin} from "@/components/animations/index.jsx";
+
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
