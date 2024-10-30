@@ -466,7 +466,7 @@ const SpinsV2BotLanding = ({
         style={{ justifyContent: 'flex-end' }
         }>
         <img
-          src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-active.svg'}
+          src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-halloween.svg'}
           alt="Gift Box"
           width={104} height={106}
         />
@@ -924,8 +924,29 @@ export const Home = () => {
       <components.container.BodyScroll>
         <div
           className="_fCC _fCol"
-          style={{ height: '100%', paddingBottom: '130px' }}
+          style={{height: '100%', paddingBottom: '130px'}}
         >
+          <img
+            className={classNames(styles.web, styles.web__leftTop)}
+            src={'/assets/bg-web-left-top.svg'}
+            alt="Gift Box"
+            width={151} height={151}
+          />
+
+          <img
+            className={classNames(styles.web, styles.web__center)}
+            src={'/assets/bg-web-big.svg'}
+            alt="Gift Box"
+            width={828} height={749}
+          />
+
+          <img
+            className={classNames(styles.web, styles.web__rightBottom)}
+            src={'/assets/bg-web-right-bottom.svg'}
+            alt="Gift Box"
+            width={204} height={135}
+          />
+
           <EventBadge/>
           <Header/>
           <SpinsV2/>
