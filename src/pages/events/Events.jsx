@@ -8,6 +8,7 @@ import React from "react";
 import * as reactRouterDom from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import classnames from "classnames";
+import * as tonConnect from "@tonconnect/ui-react";
 
 const UserStats = ({ users, progress }) => {
   const color = progress === 100 ? '#BCFF2F' : '#282828'
@@ -182,6 +183,28 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
     return { tasksCompleted: completed, areAllTasksComplete: allCompleted };
   }, [tasks, tasksCount]);
 
+  const [isWalletModalOpen, setIsWalletModalOpen] = React.useState(false)
+  const [tonConnectUI] = tonConnect.useTonConnectUI();
+  const address = tonConnect.useTonAddress(true);
+  const formattedWallet = `${address.slice(0, 4)}...${address.slice(-4)}`;
+
+
+  const onWalletClick = async () => {
+    try {
+      await navigator.clipboard.writeText(address)
+      components.toast.showText('Wallet address copied to clipboard')
+    } catch (err) {
+      console.error(err)
+      components.toast.showText('Error on connect TON wallet')
+    }
+  }
+
+  const openWalletModal = () => {
+    if (address) return setIsWalletModalOpen(true)
+
+    tonConnectUI.openModal()
+  }
+
   const renderCard = (item, drawBottomLine) => (
     <PromoTaskCard
       key={item.id}
@@ -200,6 +223,7 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
       storyText={item.data?.storyText}
       syntheticThresholdMillis={item.syntheticThresholdMillis ?? 0}
       drawBottomLine={drawBottomLine}
+      openWalletModal={openWalletModal}
     />
   );
 
@@ -237,6 +261,19 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
           <components.svg.Frog width={26} height={18} color={'#999999'} />
         </p>
       </div>
+
+      <p style={{ color: 'white' }}>{ isWalletModalOpen }</p>
+
+      {address && (
+        <>
+          <ModalWallet
+            formattedWallet={formattedWallet}
+            isOpen={isWalletModalOpen}
+            onClose={() => setIsWalletModalOpen(false)}
+            onWalletClick={onWalletClick}
+          />
+        </>
+      )}
     </div>
   );
 };
@@ -281,6 +318,47 @@ const IconStatusBox = ({children}) => (
   </div>
 )
 
+const ModalWallet = ({
+  formattedWallet,
+  isOpen,
+  onClose,
+  onWalletClick,
+}) => {
+  return (
+    <components.CenteredModal
+      title="Wallet"
+      isOpen={isOpen}
+      onRequestClose={onClose}
+    >
+      <div className="_fCC" style={{margin: '30px auto', cursor: 'pointer'}} onClick={onWalletClick}>
+        <div style={{margin: '0 15px 3px 0'}}>
+          <components.svg.Wallet
+            width={38}
+            height={38}
+            color="rgba(153,153,153,.2"
+          />
+        </div>
+        <div>
+          <div className="_w5001816">{formattedWallet}</div>
+          <div style={{height: '2px'}}/>
+          <div className="_g4001416">Connected TON wallet</div>
+        </div>
+      </div>
+      <div style={{height: '10px'}}/>
+      <button
+        className={classnames(
+          '_w4001722',
+          styles.modal_wallet__button,
+          styles.modal_wallet__button__white,
+        )}
+        onClick={onClose}
+      >
+        Close
+      </button>
+    </components.CenteredModal>
+  )
+}
+
 const PromoTaskCard = ({
   taskId,
   title,
@@ -296,6 +374,7 @@ const PromoTaskCard = ({
   storyText,
   syntheticThresholdMillis,
   drawBottomLine,
+  openWalletModal
 }) => {
   const dispatch = reactRedux.useDispatch();
   const navigate = reactRouterDom.useNavigate();
@@ -328,7 +407,6 @@ const PromoTaskCard = ({
       callbackCta = () => WebApp.openLink(url);
       break;
     case 'spin':
-    case 'connect_wallet':
       callbackCta = () => navigate('/home');
       break;
     case 'share_story':
@@ -341,6 +419,10 @@ const PromoTaskCard = ({
     case 'invite_friends':
       callbackCta = () => WebApp.openTelegramLink(`https://t.me/share/url?url=${refUrl}`);
       break;
+    case 'connect_wallet':
+      openWalletModal();
+      break
+
     default: {
       throw new Error(`unknown type=${type}`);
     }
