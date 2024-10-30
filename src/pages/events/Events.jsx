@@ -8,6 +8,8 @@ import React from "react";
 import * as reactRouterDom from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import classnames from "classnames";
+import * as tonConnect from "@tonconnect/ui-react";
+import gsap from "gsap";
 
 const UserStats = ({ users, progress }) => {
   const color = progress === 100 ? '#BCFF2F' : '#282828'
@@ -119,11 +121,16 @@ const ReferralStats = ({ users = 0 }) => {
   );
 };
 
-const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
+const TasksProgress = ({
+  tasksCount = 0,
+  completedTasksCount = 0,
+  isOpen,
+  onClick
+}) => {
   const progress = tasksCount > 0 ? (completedTasksCount / tasksCount) * 100 : 100;
 
   return (
-    <div className={styles.referral_event_tasks__progress}>
+    <div className={styles.referral_event_tasks__progress} onClick={onClick}>
       <div className={styles.referral_event_tasks__progress__box}>
         <CircularProgressbar
           value={progress}
@@ -136,7 +143,7 @@ const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
         />
 
         {progress === 100 && (
-          <components.svg.Check width={10} height={10} color="#017AFF" />
+          <components.svg.Check width={10} height={10} color="#017AFF"/>
         )}
       </div>
 
@@ -151,7 +158,7 @@ const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
         {progress === 100 ? (
           <p className="_g4001316 _ta_start">
             You have joined the event successfully.
-            <br />
+            <br/>
             <span>
               <reactRouterDom.NavLink
                 to={'/friends'}
@@ -167,20 +174,84 @@ const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
           </p>
         )}
       </div>
+
+      <div
+        className={classnames(styles.referral_event_tasks__progress_chevron, {
+          [styles.referral_event_tasks__progress_chevron_active]: isOpen,
+        })}
+        style={{height: 'fit-content'}}
+      >
+        <components.svg.Chevron width={24} height={24} color="#AAAAAA"/>
+      </div>
     </div>
   );
 };
 
 
-const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
+const ReferralEvent = ({tasks = [], participants = 1346}) => {
   const tasksCount = tasks.length;
 
-  const { tasksCompleted, areAllTasksComplete } = React.useMemo(() => {
-    const completed = tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
-    const allCompleted = !tasksCount || tasks.every(task => ['complete', 'claim'].includes(task.status));
+  const tasksCompleted = React.useMemo(() => {
+    return tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
+  }, [tasks]);
 
-    return { tasksCompleted: completed, areAllTasksComplete: allCompleted };
-  }, [tasks, tasksCount]);
+  const [isWalletModalOpen, setIsWalletModalOpen] = React.useState(false)
+  const [tonConnectUI] = tonConnect.useTonConnectUI();
+  const address = tonConnect.useTonAddress(true);
+  const formattedWallet = `${address.slice(0, 4)}...${address.slice(-4)}`;
+
+
+  const onWalletClick = async () => {
+    try {
+      await navigator.clipboard.writeText(address)
+      components.toast.showText('Wallet address copied to clipboard')
+    } catch (err) {
+      console.error(err)
+      components.toast.showText('Error on connect TON wallet')
+    }
+  }
+
+  const openWalletModal = () => {
+    if (address) return setIsWalletModalOpen(true)
+
+    tonConnectUI.openModal()
+  }
+
+  const [isOpen, setIsOpen] = React.useState(true)
+  const contentRef = React.useRef(null)
+
+
+  React.useEffect(() => {
+    const content = contentRef.current
+
+    gsap.killTweensOf(content)
+
+    if (isOpen) {
+      gsap.set(content, { height: 'auto', display: 'flex' })
+      const fullHeight = content.scrollHeight + 'px'
+
+      gsap.fromTo(
+        content,
+        { height: 0 },
+        {
+          height: fullHeight,
+          duration: 0.5,
+          ease: 'power2.out',
+          clearProps: 'height',
+          onComplete: () => content.style.height = 'auto',
+        }
+      )
+    } else {
+      gsap.to(content, {
+        height: 0,
+        duration: 0.5,
+        ease: 'power2.in',
+        onComplete: () => content.style.display = 'none',
+      })
+    }
+  }, [isOpen])
+
+  const toggleDropdown = () => setIsOpen((prev) => !prev)
 
   const renderCard = (item, drawBottomLine) => (
     <PromoTaskCard
@@ -200,12 +271,13 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
       storyText={item.data?.storyText}
       syntheticThresholdMillis={item.syntheticThresholdMillis ?? 0}
       drawBottomLine={drawBottomLine}
+      openWalletModal={openWalletModal}
     />
   );
 
   return (
     <div className={styles.referral_event}>
-      <h4 className="_w7003238 _ta_center">Referral event</h4>
+      <h4 className="_w7003238 _ta_center">HAX Promo Event</h4>
 
       <p className="_g4001722 _ta_center" style={{ marginTop: '6px' }}>
         Complete all the tasks below
@@ -214,14 +286,25 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
       </p>
 
       <div className={styles.referral_event_tasks}>
-        <TasksProgress tasksCount={tasksCount} completedTasksCount={tasksCompleted} />
+        <TasksProgress
+          tasksCount={tasksCount}
+          completedTasksCount={tasksCompleted}
+          isOpen={isOpen}
+          onClick={toggleDropdown}
+        />
+
+        <div
+          className={styles.referral_event_tasks_wrapper}
+          ref={contentRef}
+          style={{ height: 0, overflow: 'hidden', display: 'none' }}
+        >
+          {
+            tasks.map((task, index) =>
+              renderCard(task, index === tasks.length - 1))
+          }
+        </div>
       </div>
 
-      {!areAllTasksComplete && (
-        <div style={{ padding: '0 24px' }}>
-          {tasks.map((task, index) => renderCard(task, index === tasks.length - 1))}
-        </div>
-      )}
 
       <div className={classNames('_f _fCC', styles.referral_event__participants)}>
         <p className={styles.referral_event__participants_label}>
@@ -234,6 +317,19 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
           <components.svg.Frog width={26} height={18} color={'#999999'} />
         </p>
       </div>
+
+      <p style={{ color: 'white' }}>{ isWalletModalOpen }</p>
+
+      {address && (
+        <>
+          <ModalWallet
+            formattedWallet={formattedWallet}
+            isOpen={isWalletModalOpen}
+            onClose={() => setIsWalletModalOpen(false)}
+            onWalletClick={onWalletClick}
+          />
+        </>
+      )}
     </div>
   );
 };
@@ -278,6 +374,47 @@ const IconStatusBox = ({children}) => (
   </div>
 )
 
+const ModalWallet = ({
+  formattedWallet,
+  isOpen,
+  onClose,
+  onWalletClick,
+}) => {
+  return (
+    <components.CenteredModal
+      title="Wallet"
+      isOpen={isOpen}
+      onRequestClose={onClose}
+    >
+      <div className="_fCC" style={{margin: '30px auto', cursor: 'pointer'}} onClick={onWalletClick}>
+        <div style={{margin: '0 15px 3px 0'}}>
+          <components.svg.Wallet
+            width={38}
+            height={38}
+            color="rgba(153,153,153,.2"
+          />
+        </div>
+        <div>
+          <div className="_w5001816">{formattedWallet}</div>
+          <div style={{height: '2px'}}/>
+          <div className="_g4001416">Connected TON wallet</div>
+        </div>
+      </div>
+      <div style={{height: '10px'}}/>
+      <button
+        className={classnames(
+          '_w4001722',
+          styles.modal_wallet__button,
+          styles.modal_wallet__button__white,
+        )}
+        onClick={onClose}
+      >
+        Close
+      </button>
+    </components.CenteredModal>
+  )
+}
+
 const PromoTaskCard = ({
   taskId,
   title,
@@ -293,6 +430,7 @@ const PromoTaskCard = ({
   storyText,
   syntheticThresholdMillis,
   drawBottomLine,
+  openWalletModal
 }) => {
   const dispatch = reactRedux.useDispatch();
   const navigate = reactRouterDom.useNavigate();
@@ -325,7 +463,6 @@ const PromoTaskCard = ({
       callbackCta = () => WebApp.openLink(url);
       break;
     case 'spin':
-    case 'connect_wallet':
       callbackCta = () => navigate('/home');
       break;
     case 'share_story':
@@ -338,6 +475,10 @@ const PromoTaskCard = ({
     case 'invite_friends':
       callbackCta = () => WebApp.openTelegramLink(`https://t.me/share/url?url=${refUrl}`);
       break;
+    case 'connect_wallet':
+      openWalletModal();
+      break
+
     default: {
       throw new Error(`unknown type=${type}`);
     }
@@ -388,7 +529,7 @@ const PromoTaskCard = ({
   };
 
   return (
-    <button className={classnames('_w100', styles.card__box)} onClick={onClickAction}>
+    <button className={classnames('_w100', styles.card__box)} onClick={onClickAction} style={{ padding: '0 12px' }}>
       <div className="_fCC _w100">
         <div className={classnames('_fCC', styles.card__icon__box)}>
           {iconUrl && <img src={iconUrl} className={styles.card__icon} alt="Task Icon" />}
