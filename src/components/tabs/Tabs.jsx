@@ -24,7 +24,7 @@ export const Tabs = () => {
       '/friends': {component: components.svg.Friends, text: 'Friends'},
       '/events': {
         component: components.svg.Events,
-        text: '1000$TON',
+        text: 'Promo',
         badge: pendingPromoTasks.length || null
       },
     }),

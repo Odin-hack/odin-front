@@ -9,7 +9,7 @@ export const status = {
 export const routes = [
   {path: '/home'},
   {path: '/leaderboard'},
+  {path: '/events'},
   {path: '/tasks'},
   {path: '/friends'},
-  {path: '/events'},
 ]
