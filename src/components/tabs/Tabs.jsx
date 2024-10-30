@@ -7,18 +7,11 @@ import * as components from '@/components'
 
 import styles from './Tabs.module.sass'
 import * as reactRedux from "react-redux";
-import * as slices from "@/slices/index.js";
 
 export const Tabs = () => {
-  const dispatch = reactRedux.useDispatch();
-
   const promoTasks = reactRedux.useSelector(state => state.events?.promoTasks || []);
-  const pendingPromoTasks = React.useMemo(() =>
-    promoTasks.filter((task) => ['complete', 'claim'].includes(task.status)), [promoTasks]);
-
-  React.useEffect(() => {
-    dispatch(slices.eventsSlice.thunks.syncWithServer());
-  }, [dispatch]);
+  const pendingPromoTasks=
+    promoTasks.filter((task) => !['complete', 'claim'].includes(task.status))
 
   const routePathInfo = React.useMemo(
     () => ({
@@ -35,7 +28,7 @@ export const Tabs = () => {
         badge: pendingPromoTasks.length || null
       },
     }),
-    [],
+    [pendingPromoTasks.length],
   )
 
   const Badge = ({ value }) => {

@@ -892,6 +892,7 @@ export const Home = () => {
 
   React.useEffect(() => {
     dispatch(slices.homePageSlice.thunks.initialize())
+    dispatch(slices.eventsSlice.thunks.syncWithServer());
   }, [dispatch])
 
   const [tonConnectUI] = tonConnect.useTonConnectUI()
