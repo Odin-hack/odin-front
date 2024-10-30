@@ -7,11 +7,13 @@ import emojiComp1 from './data/emoji-comp-1.json'
 import emojiComp2 from './data/emoji-comp-2.json'
 import emojiComp3 from './data/emoji-comp-3.json'
 import emojiBoomstick from './data/emoji-boomstick.json'
+import emojiPumpkin from './data/emoji-pumpkin.json'
 import confetti from './data/confetti.json'
 import React from 'react'
 
 export const HaxIdle = ({ style }) => <Lottie animationData={haxIdle} loop={true} style={style} />
 export const HaxSleeping = ({ style }) => <Lottie animationData={haxSleeping} loop={true} style={style} />
+export const EmojiPumpkin = ({ style }) => <Lottie animationData={emojiPumpkin} loop={true} style={style} />
 export const EmojiCryingFace = ({ style }) => <Lottie animationData={emojiCryingFace} loop={true} style={style} />
 export const EmojiTrophy = ({ style }) => <Lottie animationData={emojiTrophy} loop={true} style={style} />
 export const EmojiComp1 = ({ style }) => <Lottie animationData={emojiComp1} loop={true} style={style} />
