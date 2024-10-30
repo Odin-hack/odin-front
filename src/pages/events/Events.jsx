@@ -127,7 +127,7 @@ const TasksProgress = ({
   isOpen,
   onClick
 }) => {
-  const progress = tasksCount > 0 ? (completedTasksCount / tasksCount) * 100 : 100;
+  const progress = tasksCount > 0 ? (completedTasksCount / tasksCount) * 100 : 0;
 
   return (
     <div className={styles.referral_event_tasks__progress} onClick={onClick}>
@@ -151,7 +151,7 @@ const TasksProgress = ({
         <h5 className={styles.referral_event_tasks__progress_title}>
           Your progress
           <span>
-            {completedTasksCount || '-'} / {tasksCount || '-'}
+            { tasksCount ? `${completedTasksCount} / ${tasksCount}` : '- / -' }
           </span>
         </h5>
 
