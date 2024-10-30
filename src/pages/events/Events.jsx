@@ -279,7 +279,7 @@ const ReferralEvent = ({tasks = [], participants}) => {
     <div className={styles.referral_event}>
       <h4 className="_w7003238 _ta_center">HAX Promo Event</h4>
 
-      <p className="_g4001722 _ta_center" style={{ marginTop: '6px' }}>
+      <p className="_g4001722 _ta_center" style={{ margin: '12px 0 8px 0' }}>
         Complete all the tasks below
         <br />
         to grab the prize
