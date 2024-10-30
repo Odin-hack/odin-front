@@ -188,7 +188,7 @@ const TasksProgress = ({
 };
 
 
-const ReferralEvent = ({tasks = [], participants = 1346}) => {
+const ReferralEvent = ({tasks = [], participants}) => {
   const tasksCount = tasks.length;
 
   const tasksCompleted = React.useMemo(() => {
@@ -312,7 +312,7 @@ const ReferralEvent = ({tasks = [], participants = 1346}) => {
         </p>
 
         <p className={classNames('_f _fCC _g7001838', styles.referral_event__participants_value)}>
-          {participants.toLocaleString()}
+          {participants?.toLocaleString() || 'calculating'}
 
           <components.svg.Frog width={26} height={18} color={'#999999'} />
         </p>
