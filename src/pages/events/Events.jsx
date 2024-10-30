@@ -9,6 +9,7 @@ import * as reactRouterDom from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import classnames from "classnames";
 import * as tonConnect from "@tonconnect/ui-react";
+import gsap from "gsap";
 
 const UserStats = ({ users, progress }) => {
   const color = progress === 100 ? '#BCFF2F' : '#282828'
@@ -120,11 +121,16 @@ const ReferralStats = ({ users = 0 }) => {
   );
 };
 
-const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
+const TasksProgress = ({
+  tasksCount = 0,
+  completedTasksCount = 0,
+  isOpen,
+  onClick
+}) => {
   const progress = tasksCount > 0 ? (completedTasksCount / tasksCount) * 100 : 100;
 
   return (
-    <div className={styles.referral_event_tasks__progress}>
+    <div className={styles.referral_event_tasks__progress} onClick={onClick}>
       <div className={styles.referral_event_tasks__progress__box}>
         <CircularProgressbar
           value={progress}
@@ -137,7 +143,7 @@ const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
         />
 
         {progress === 100 && (
-          <components.svg.Check width={10} height={10} color="#017AFF" />
+          <components.svg.Check width={10} height={10} color="#017AFF"/>
         )}
       </div>
 
@@ -152,7 +158,7 @@ const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
         {progress === 100 ? (
           <p className="_g4001316 _ta_start">
             You have joined the event successfully.
-            <br />
+            <br/>
             <span>
               <reactRouterDom.NavLink
                 to={'/friends'}
@@ -168,20 +174,26 @@ const TasksProgress = ({ tasksCount = 0, completedTasksCount = 0 }) => {
           </p>
         )}
       </div>
+
+      <div
+        className={classnames(styles.referral_event_tasks__progress_chevron, {
+          [styles.referral_event_tasks__progress_chevron_active]: isOpen,
+        })}
+        style={{height: 'fit-content'}}
+      >
+        <components.svg.Chevron width={24} height={24} color="#AAAAAA"/>
+      </div>
     </div>
   );
 };
 
 
-const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
+const ReferralEvent = ({tasks = [], participants = 1346}) => {
   const tasksCount = tasks.length;
 
-  const { tasksCompleted, areAllTasksComplete } = React.useMemo(() => {
-    const completed = tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
-    const allCompleted = !tasksCount || tasks.every(task => ['complete', 'claim'].includes(task.status));
-
-    return { tasksCompleted: completed, areAllTasksComplete: allCompleted };
-  }, [tasks, tasksCount]);
+  const tasksCompleted = React.useMemo(() => {
+    return tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
+  }, [tasks]);
 
   const [isWalletModalOpen, setIsWalletModalOpen] = React.useState(false)
   const [tonConnectUI] = tonConnect.useTonConnectUI();
@@ -204,6 +216,42 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
 
     tonConnectUI.openModal()
   }
+
+  const [isOpen, setIsOpen] = React.useState(true)
+  const contentRef = React.useRef(null)
+
+
+  React.useEffect(() => {
+    const content = contentRef.current
+
+    gsap.killTweensOf(content)
+
+    if (isOpen) {
+      gsap.set(content, { height: 'auto', display: 'flex' })
+      const fullHeight = content.scrollHeight + 'px'
+
+      gsap.fromTo(
+        content,
+        { height: 0 },
+        {
+          height: fullHeight,
+          duration: 0.5,
+          ease: 'power2.out',
+          clearProps: 'height',
+          onComplete: () => content.style.height = 'auto',
+        }
+      )
+    } else {
+      gsap.to(content, {
+        height: 0,
+        duration: 0.5,
+        ease: 'power2.in',
+        onComplete: () => content.style.display = 'none',
+      })
+    }
+  }, [isOpen])
+
+  const toggleDropdown = () => setIsOpen((prev) => !prev)
 
   const renderCard = (item, drawBottomLine) => (
     <PromoTaskCard
@@ -241,14 +289,22 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
         <TasksProgress
           tasksCount={tasksCount}
           completedTasksCount={tasksCompleted}
+          isOpen={isOpen}
+          onClick={toggleDropdown}
         />
+
+        <div
+          className={styles.referral_event_tasks_wrapper}
+          ref={contentRef}
+          style={{ height: 0, overflow: 'hidden', display: 'none' }}
+        >
+          {
+            tasks.map((task, index) =>
+              renderCard(task, index === tasks.length - 1))
+          }
+        </div>
       </div>
 
-      {!areAllTasksComplete && (
-        <div style={{ padding: '0 24px' }}>
-          {tasks.map((task, index) => renderCard(task, index === tasks.length - 1))}
-        </div>
-      )}
 
       <div className={classNames('_f _fCC', styles.referral_event__participants)}>
         <p className={styles.referral_event__participants_label}>
@@ -473,7 +529,7 @@ const PromoTaskCard = ({
   };
 
   return (
-    <button className={classnames('_w100', styles.card__box)} onClick={onClickAction}>
+    <button className={classnames('_w100', styles.card__box)} onClick={onClickAction} style={{ padding: '0 12px' }}>
       <div className="_fCC _w100">
         <div className={classnames('_fCC', styles.card__icon__box)}>
           {iconUrl && <img src={iconUrl} className={styles.card__icon} alt="Task Icon" />}
