@@ -151,7 +151,7 @@ const TasksProgress = ({
         <h5 className={styles.referral_event_tasks__progress_title}>
           Your progress
           <span>
-            {completedTasksCount || '-'} / {tasksCount || '-'}
+            { tasksCount ? `${completedTasksCount} / ${tasksCount}` : '- / -' }
           </span>
         </h5>
 
