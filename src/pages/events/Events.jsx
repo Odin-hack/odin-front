@@ -205,7 +205,7 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
 
   return (
     <div className={styles.referral_event}>
-      <h4 className="_w7003238 _ta_center">Referral event</h4>
+      <h4 className="_w7003238 _ta_center">HAX Promo Event</h4>
 
       <p className="_g4001722 _ta_center" style={{ marginTop: '6px' }}>
         Complete all the tasks below
@@ -214,7 +214,10 @@ const ReferralEvent = ({ tasks = [], participants = 1346 }) => {
       </p>
 
       <div className={styles.referral_event_tasks}>
-        <TasksProgress tasksCount={tasksCount} completedTasksCount={tasksCompleted} />
+        <TasksProgress
+          tasksCount={tasksCount}
+          completedTasksCount={tasksCompleted}
+        />
       </div>
 
       {!areAllTasksComplete && (
