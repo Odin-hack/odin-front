@@ -40,6 +40,17 @@ const triggerPendingAction = reduxjsToolkit.createAsyncThunk(
     }
   },
 )
+const triggerClaim = reduxjsToolkit.createAsyncThunk(
+  'events/triggerClaim',
+  async ({taskId}, o) => {
+    const state = o.getState()
+    const userId = state.page.userId
+    const jwtToken = state.page.jwtToken
+    await ports.fetchPostHaxClaimTasks({userId, taskId, jwtToken})
+    o.dispatch(syncWithServer())
+    o.dispatch(slices.userSlice.thunks.syncWithServer())
+  },
+)
 const addSyntheticThreshold = reduxjsToolkit.createAsyncThunk(
   'events/addSyntheticThreshold',
   ({taskId}) => ({taskId}),
@@ -76,6 +87,16 @@ export const eventsSlice = reduxjsToolkit.createSlice({
       },
     )
     builder
+      .addCase(triggerClaim.pending, state => {
+        state.loading = true
+      })
+      .addCase(triggerClaim.fulfilled, state => {
+        state.loading = false
+      })
+      .addCase(triggerClaim.rejected, state => {
+        state.loading = false
+      })
+    builder
       .addCase(triggerPendingAction.pending, (state, action) => {
         const {
           meta: {
@@ -109,12 +130,11 @@ export const eventsSlice = reduxjsToolkit.createSlice({
     })
   },
 })
-eventsSlice.selectors = {
-  promoTasks: state => state.promoTasks,
-}
+eventsSlice.selectors = {events: state => state.events}
 eventsSlice.thunks = {
   syncWithServer,
   setStatusToPending,
+  triggerClaim,
   triggerPendingAction,
   addSyntheticThreshold,
   cleanSyntheticThreshold,
