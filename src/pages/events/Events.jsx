@@ -353,7 +353,7 @@ const ReferralEvent = ({tasks = [], participants}) => {
         </p>
 
         <p className={classNames('_f _fCC _g7001838', styles.referral_event__participants_value)}>
-          {participants?.toLocaleString() || 'calculating'}
+          {participants?.toLocaleString() || '< 10k>'}
 
           <components.svg.Frog width={26} height={18} color={'#999999'} />
         </p>
