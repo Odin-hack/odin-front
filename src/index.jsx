@@ -26,7 +26,7 @@ const routePathComponent = {
   '/leaderboard': <pages.Leaderboard/>,
   '/tasks': <pages.Tasks/>,
   '/friends': <pages.Friends/>,
-  // '/events': <pages.Events />
+  '/events': <pages.Events />
 }
 
 /**
@@ -104,6 +104,7 @@ const store = reduxjsToolkit.configureStore({
     page: slices.pageSlice.reducer,
     friends: slices.friendsSlice.reducer,
     tasks: slices.tasksSlice.reducer,
+    events: slices.eventsSlice.reducer,
     routeBlock: slices.routeBlockSlice.reducer,
   },
 })

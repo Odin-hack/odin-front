@@ -8,7 +8,7 @@
     width: 100%
     font-family: 'Roboto', sans-serif
     flex-direction: column
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 5%, rgba(63, 111, 164, 0.2) 100%)
+    background: linear-gradient(180deg, #000000 15%, rgba(63, 111, 164, 0.2) 100%)
 
   &_stats
     position: relative
@@ -47,7 +47,6 @@
       transition: width 0.3s ease
       border-radius: 5px
       background: linear-gradient(90deg, #000000 0%, #BCFF2F 70%, #BCFF2F 100%)
-
 
   &_fields
     display: flex
@@ -137,7 +136,7 @@
     box-shadow: 0 5px 24px 0 #00000059
     color: #fff
     margin-bottom: 55px
-    margin-top: -12px
+    margin-top: -6px
     gap: 16px
     font-family: "SF Pro", sans-serif
     font-size: 17px
@@ -152,19 +151,43 @@
       gap: 6px
 
 .referral_event
-  margin-top: 24px
-  margin-bottom: 12px
+  margin-top: 40px
+  margin-bottom: 24px
 
   &_tasks
+    display: flex
+    flex-direction: column
+    gap: 12px
     padding: 12px
 
+    &_wrapper
+      display: flex
+      flex-direction: column
+      gap: 16px
+
     &__progress
+      position: relative
       background-color: #1A1A1A
       padding: 12px 16px
       border-radius: 12px
       display: flex
       gap: 16px
       align-items: center
+
+      &_friendsLink
+        color: #BCFF2F
+
+      &_chevron
+        position: absolute
+        right: 8px
+        top: 8px
+        margin-left: auto
+        transition: transform 0.3s ease
+        transform: rotate(180deg)
+
+        &_active
+          transform: rotate(0deg)
+
 
       &_title
         display: flex
@@ -213,7 +236,7 @@
   &__participants
     font-family: "SF Pro", sans-serif
     color: #5E5E5E
-    margin: 12px
+    margin: 16px 12px 12px
     border: 1px solid #282828
     gap: 12px
     border-radius: 12px
@@ -247,3 +270,38 @@
       letter-spacing: -0.4px
       text-align: left
       color: #A6A6A6
+.card
+  &__box
+    border-radius: 12px
+
+  &__icon
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+    &__box
+      min-width: 40px
+      width: 40px
+      height: 40px
+      margin-right: 16px
+      background: #000
+      border-radius: 8px
+      overflow: hidden
+
+.modal_wallet
+  &__box
+    background: #000
+    border-radius: 10px
+    padding: 20px
+
+  &__button
+    display: block
+    width: 100%
+    height: 50px
+    border-radius: 10px
+    text-align: center
+    cursor: pointer
+
+    &__white
+      background: #fff
+      color: #000 !important

@@ -390,6 +390,51 @@ export const fetchPostHaxClaimFriends = async ({userId, jwtToken}) => {
 }
 
 /**
+ * GET /tasks/:userId/promo
+ */
+export const fetchGetPromoEventsTasks = async ({userId, jwtToken}) => {
+  const path = `/tasks/${userId}/promo`
+
+  const schema = Joi.array()
+    .items(
+      Joi.object({
+        id: Joi.string().required().min(1),
+        data: Joi.object({
+          url: Joi.string(),
+          count: Joi.number(),
+          progress: Joi.number(),
+        })
+          .required()
+          .unknown(true),
+        description: Joi.string().required().min(1),
+        position: Joi.number().integer().required().min(0),
+        reward: Joi.object({
+          type: Joi.string().required().min(1),
+          amount: Joi.number().integer().required().min(0),
+        })
+          .required()
+          .unknown(true),
+        status: Joi.string().required().min(1),
+        type: Joi.string().required().min(1),
+        shouldBePinned: Joi.boolean().required(),
+      }).unknown(true),
+    )
+    .required()
+
+  const { data: tasksData } = await fetchAndAssert({
+    path,
+    method: 'get',
+    schema,
+    jwtToken
+  })
+
+  return {
+    tasksData
+  }
+}
+
+
+/**
  * GET /tasks/:userId
  */
 export const fetchGetHaxTasksUserid = async ({userId, jwtToken}) => {

@@ -373,12 +373,11 @@ export const Arrow = ({ width, height, className }) => (
   </svg>
 )
 
-export const ArrowV2 = ({ width, height }) => (
+export const ArrowV2 = ({ width, height, stroke }) => (
   <svg
     width="16"
     height="16"
     viewBox="0 0 16 16"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{
       ...(width ? { width: `${width}px` } : {}),
@@ -387,7 +386,7 @@ export const ArrowV2 = ({ width, height }) => (
   >
     <path
       d="M6 3L11 8L6 13"
-      stroke="#707579"
+      stroke={stroke || '#707579'}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

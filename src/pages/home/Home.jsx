@@ -7,6 +7,7 @@ import Modal from 'react-modal'
 import * as tonConnect from '@tonconnect/ui-react'
 import {Carousel} from 'react-responsive-carousel'
 import gsap from 'gsap'
+import * as reactRouterDom from "react-router-dom";
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 
 import * as components from '@/components'
@@ -18,6 +19,7 @@ import * as hooks from '@/hooks'
 import styles from './Home.module.sass'
 import { shuffle } from '@/lib'
 import classNames from "classnames";
+
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -465,7 +467,7 @@ const SpinsV2BotLanding = ({
         style={{ justifyContent: 'flex-end' }
         }>
         <img
-          src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-active.svg'}
+          src={amountKeys === 0 ? '/assets/gift-box-gray.svg' : '/assets/gift-box-halloween.svg'}
           alt="Gift Box"
           width={104} height={106}
         />
@@ -477,6 +479,7 @@ const SpinsV2BotLanding = ({
 
       <button className={classesButton} onClick={onClick}>
         HACK!
+        <components.animations.EmojiPumpkin style={{width: '24px', height: '24px', marginTop: '-4px'}}/>
       </button>
     </div>
   )
@@ -845,6 +848,29 @@ const ModalOnboardingContent = ({onClickGotIt}) => {
   )
 }
 
+const EventBadge = () => {
+  return (
+    <reactRouterDom.NavLink to={'/events'} className={classNames('_f _fCC', styles.eventBadge)}>
+      <components.svg.Ton
+        width={18}
+        height={18}
+        fill={'#0097EA'}
+        stroke={'#fff'}
+      />
+
+      <p className='_b7001722'>
+        1000 $TON PROMO
+      </p>
+
+      <components.svg.ArrowV2
+        width={18}
+        height={18}
+        stroke={'#0097EA'}
+      />
+    </reactRouterDom.NavLink>
+  )
+}
+
 export const Home = () => {
   const dispatch = reactRedux.useDispatch()
   const user = reactRedux.useSelector(slices.userSlice.selectors.user)
@@ -868,6 +894,7 @@ export const Home = () => {
 
   React.useEffect(() => {
     dispatch(slices.homePageSlice.thunks.initialize())
+    dispatch(slices.eventsSlice.thunks.syncWithServer());
   }, [dispatch])
 
   const [tonConnectUI] = tonConnect.useTonConnectUI()
@@ -899,8 +926,30 @@ export const Home = () => {
       <components.container.BodyScroll>
         <div
           className="_fCC _fCol"
-          style={{ height: '100%', paddingBottom: '130px' }}
+          style={{height: '100%', paddingBottom: '130px'}}
         >
+          <img
+            className={classNames(styles.web, styles.web__leftTop)}
+            src={'/assets/bg-web-left-top.svg'}
+            alt="Gift Box"
+            width={151} height={151}
+          />
+
+          <img
+            className={classNames(styles.web, styles.web__center)}
+            src={'/assets/bg-web-big.svg'}
+            alt="Gift Box"
+            width={828} height={749}
+          />
+
+          <img
+            className={classNames(styles.web, styles.web__rightBottom)}
+            src={'/assets/bg-web-right-bottom.svg'}
+            alt="Gift Box"
+            width={204} height={135}
+          />
+
+          <EventBadge/>
           <Header/>
           <SpinsV2/>
         </div>
