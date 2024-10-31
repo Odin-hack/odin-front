@@ -191,6 +191,7 @@ const TasksProgress = ({
 
 const ReferralEvent = ({tasks = [], participants}) => {
   const tasksCount = tasks.length;
+  const friends = reactRedux.useSelector(slices.friendsSlice.selectors.friends)
 
   const tasksCompleted = React.useMemo(() => {
     return tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
@@ -265,7 +266,7 @@ const ReferralEvent = ({tasks = [], participants}) => {
       type={item.type}
       url={item.data?.url}
       iconUrl={item.iconUrl}
-      refUrl={item.refUrl}
+      refUrl={friends?.friendsData?.link}
       actionUrl={item.data?.actionUrl}
       data={item.data}
       storyMediaUrl={item.data?.storyMediaUrl}
@@ -275,6 +276,29 @@ const ReferralEvent = ({tasks = [], participants}) => {
       openWalletModal={openWalletModal}
     />
   );
+
+  const fSortByPos = (a, b) => a.position - b.position
+  const tasksPinnedCompleted = []
+  const tasksPinnedNonCompleted = []
+  const tasksNonPinnedCompleted = []
+  const tasksNonPinnedNonCompleted = []
+
+
+  for (const task of tasks) {
+    if (task.shouldBePinned) {
+      if (task.status === 'complete' || task.status === 'claim') {
+        tasksPinnedCompleted.push(task)
+      } else {
+        tasksPinnedNonCompleted.push(task)
+      }
+    } else {
+      if (task.status === 'complete' || task.status === 'claim') {
+        tasksNonPinnedCompleted.push(task)
+      } else {
+        tasksNonPinnedNonCompleted.push(task)
+      }
+    }
+  }
 
   return (
     <div className={styles.referral_event}>
@@ -299,10 +323,26 @@ const ReferralEvent = ({tasks = [], participants}) => {
           ref={contentRef}
           style={{ height: 0, overflow: 'hidden', display: 'none' }}
         >
-          {
-            tasks.map((task, index) =>
-              renderCard(task, index === tasks.length - 1))
-          }
+          {tasksPinnedNonCompleted
+            .sort(fSortByPos)
+            .map((x, i) =>
+              renderCard(x, i !== tasksPinnedNonCompleted.length - 1),
+            )}
+          {tasksPinnedCompleted
+            .sort(fSortByPos)
+            .map((x, i) =>
+              renderCard(x, i !== tasksPinnedCompleted.length - 1),
+            )}
+          {tasksNonPinnedNonCompleted
+            .sort(fSortByPos)
+            .map((x, i) =>
+              renderCard(x, i !== tasksNonPinnedNonCompleted.length - 1),
+            )}
+          {tasksNonPinnedCompleted
+            .sort(fSortByPos)
+            .map((x, i) =>
+              renderCard(x, i !== tasksNonPinnedCompleted.length - 1),
+            )}
         </div>
       </div>
 
@@ -580,6 +620,7 @@ export const Events = () => {
 
   React.useEffect(() => {
     if (friends.status === constants.status.idle) {
+      dispatch(slices.friendsSlice.thunks.syncWithServer());
       dispatch(slices.friendsSlice.thunks.fetchFriends());
     }
 
@@ -587,7 +628,7 @@ export const Events = () => {
 
     const intervalId = setInterval(() => {
       dispatch(slices.eventsSlice.thunks.syncWithServer());
-    }, 5000);
+    }, 15000);
 
     return () => {
       clearInterval(intervalId);
