@@ -191,6 +191,7 @@ const TasksProgress = ({
 
 const ReferralEvent = ({tasks = [], participants}) => {
   const tasksCount = tasks.length;
+  const friends = reactRedux.useSelector(slices.friendsSlice.selectors.friends)
 
   const tasksCompleted = React.useMemo(() => {
     return tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
@@ -265,7 +266,7 @@ const ReferralEvent = ({tasks = [], participants}) => {
       type={item.type}
       url={item.data?.url}
       iconUrl={item.iconUrl}
-      refUrl={item.refUrl}
+      refUrl={friends?.friendsData?.link}
       actionUrl={item.data?.actionUrl}
       data={item.data}
       storyMediaUrl={item.data?.storyMediaUrl}
@@ -619,6 +620,7 @@ export const Events = () => {
 
   React.useEffect(() => {
     if (friends.status === constants.status.idle) {
+      dispatch(slices.friendsSlice.thunks.syncWithServer());
       dispatch(slices.friendsSlice.thunks.fetchFriends());
     }
 
