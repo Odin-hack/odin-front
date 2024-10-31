@@ -10,6 +10,7 @@ import WebApp from "@twa-dev/sdk";
 import classnames from "classnames";
 import * as tonConnect from "@tonconnect/ui-react";
 import gsap from "gsap";
+import * as constants from '@/constants'
 
 const UserStats = ({ users, progress }) => {
   const color = progress === 100 ? '#BCFF2F' : '#282828'
@@ -439,6 +440,13 @@ const PromoTaskCard = ({
     if (status === 'started' && actionUrl) {
       const params = { taskId, actionUrl, promo: true };
       dispatch(slices.eventsSlice.thunks.triggerPendingAction(params));
+    } else if (status === 'claim') {
+      dispatch(slices.eventsSlice.thunks.setStatusToPending({taskId}))
+      dispatch(slices.eventsSlice.thunks.triggerClaim({taskId}))
+
+      if (WebApp?.HapticFeedback) WebApp.HapticFeedback.impactOccurred('heavy')
+
+      return
     }
 
     let callbackSyntheticPending = () => {};
@@ -565,14 +573,35 @@ export const Events = () => {
   const dispatch = reactRedux.useDispatch();
 
   const promoTasks = reactRedux.useSelector(state => state.events?.promoTasks || []);
-  const friends = reactRedux.useSelector(slices.friendsSlice.selectors.friends)
-  const users = friends?.friendsStats?.usersCount
+  const friends = reactRedux.useSelector(slices.friendsSlice.selectors.friends);
+  const events = reactRedux.useSelector(slices.eventsSlice.selectors.events);
+
+  const users = friends?.friendsStats?.usersCount;
 
   React.useEffect(() => {
-    dispatch(slices.pageSlice.thunks.hideGlobalLoading());
+    if (friends.status === constants.status.idle) {
+      dispatch(slices.friendsSlice.thunks.fetchFriends());
+    }
+
     dispatch(slices.eventsSlice.thunks.syncWithServer());
-    dispatch(slices.friendsSlice.thunks.fetchFriends())
-  }, [dispatch]);
+
+    const intervalId = setInterval(() => {
+      dispatch(slices.eventsSlice.thunks.syncWithServer());
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId);
+      dispatch(slices.eventsSlice.thunks.cleanSyntheticThreshold());
+    };
+  }, [dispatch, friends.status]);
+
+  React.useEffect(() => {
+    if (events.status === constants.status.success) {
+      dispatch(slices.pageSlice.thunks.hideGlobalLoading());
+    } else {
+      dispatch(slices.pageSlice.thunks.showGlobalLoading());
+    }
+  }, [dispatch, events.status]);
 
   return (
     <components.container.Page>
