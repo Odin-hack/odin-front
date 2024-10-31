@@ -8,7 +8,6 @@ import React from "react";
 import * as reactRouterDom from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import classnames from "classnames";
-import * as tonConnect from "@tonconnect/ui-react";
 import gsap from "gsap";
 import * as constants from '@/constants'
 
