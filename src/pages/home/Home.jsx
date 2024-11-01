@@ -926,7 +926,7 @@ export const Home = () => {
       <components.container.BodyScroll>
         <div
           className="_fCC _fCol"
-          style={{height: '100%', paddingBottom: '130px'}}
+          style={{ paddingBottom: '110px', marginTop: '20px'}}
         >
           <img
             className={classNames(styles.web, styles.web__leftTop)}
@@ -950,6 +950,7 @@ export const Home = () => {
           />
 
           <EventBadge/>
+
           <Header/>
           <SpinsV2/>
         </div>
