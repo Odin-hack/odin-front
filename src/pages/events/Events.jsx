@@ -122,12 +122,12 @@ const ReferralStats = ({ users = 0 }) => {
 };
 
 const TasksProgress = ({
+  progress = 0,
   tasksCount = 0,
   completedTasksCount = 0,
   isOpen,
   onClick
 }) => {
-  const progress = tasksCount > 0 ? (completedTasksCount / tasksCount) * 100 : 0;
 
   return (
     <div className={styles.referral_event_tasks__progress} onClick={onClick}>
@@ -196,7 +196,9 @@ const ReferralEvent = ({tasks = [], participants}) => {
     return tasks.filter(task => ['complete', 'claim'].includes(task.status)).length;
   }, [tasks]);
 
-  const [isOpen, setIsOpen] = React.useState(true)
+  const progress = tasksCount > 0 ? (tasksCompleted / tasksCount) * 100 : 0;
+
+  const [isOpen, setIsOpen] = React.useState(progress !== 100)
   const contentRef = React.useRef(null)
 
 
@@ -288,6 +290,7 @@ const ReferralEvent = ({tasks = [], participants}) => {
 
       <div className={styles.referral_event_tasks}>
         <TasksProgress
+          progress={progress}
           tasksCount={tasksCount}
           completedTasksCount={tasksCompleted}
           isOpen={isOpen}
