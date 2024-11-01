@@ -444,10 +444,7 @@ export const Friends = () => {
           className="_f _fCol"
           style={{
             paddingBottom: '180px',
-            minHeight: '100%',
-            ...(friends.friendsData.friends.length === 0
-              ? {height: '100%'}
-              : {}),
+            minHeight: '100%'
           }}
         >
           <Claim />
