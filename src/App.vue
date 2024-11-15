@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import WebApp from '@twa-dev/sdk';
 
 const title = ref('Hello World');
+
+onMounted(() => {
+  WebApp.expand();
+});
 </script>
 
 <template>
   <header
-    class="class"
-    @click="title = 'hello'"
+    @click="WebApp.sendData({ message: 'Hello World' })"
   >
     {{ title }}
   </header>
