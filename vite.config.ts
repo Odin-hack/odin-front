@@ -10,12 +10,17 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  server: {
-    port: 3000,
-  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  server: {
+    port: 3000,
+    open: false,
+  },
+  build: {
+    minify: 'esbuild',
+    sourcemap: false,
   },
 });
