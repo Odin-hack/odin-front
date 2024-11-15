@@ -1,0 +1,51 @@
+@import "reset.css";
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+  color: var(--color-primary-black);
+}
+
+#app {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+img {
+  user-select: none;
+}
+
+picture > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+// scrollbar
+::-webkit-scrollbar {
+  width: 0;
+}
+::-webkit-scrollbar-track {
+  background: rgba(#ccc, 0);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(#ccc, 0);
+}

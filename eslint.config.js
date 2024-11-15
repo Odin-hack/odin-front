@@ -1,40 +1,45 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import pluginVue from 'eslint-plugin-vue';
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import vueTsEslintConfig from '@vue/eslint-config-typescript';
 
 export default [
-  { ignores: ['dist'] },
   {
-    files: ['**/*.{js,jsx}'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
-    },
-    settings: { react: { version: '18.3' } },
-    plugins: {
-      react,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-    },
+    name: 'app/files-to-lint',
+    files: ['**/*.{ts,mts,tsx,vue}'],
+  },
+
+  {
+    name: 'app/files-to-ignore',
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+  },
+
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...pluginVue.configs['flat/recommended'],
+  ...vueTsEslintConfig(),
+  {
     rules: {
-      ...js.configs.recommended.rules,
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
-      'react/jsx-no-target-blank': 'off',
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
+      'quotes': ['error', 'single'],
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: 'import', next: '*' },
+        { blankLine: 'any', prev: 'import', next: 'import' },
       ],
-      'react/prop-types': 'off',
-      'indent': ['error', 2],
+      'brace-style': ['error', '1tbs', { allowSingleLine: true }],
+      'space-before-blocks': ['error', 'always'],
+      'keyword-spacing': ['error', { before: true, after: true }],
+      'comma-dangle': ['error', 'always-multiline'],
+      'semi': ['error', 'always'],
+      'object-curly-spacing': ['error', 'always'],
+      'vue/multi-word-component-names': 0,
+      'no-irregular-whitespace': 0,
+      '@stylistic/max-statements-per-line': 0,
+      '@typescript-eslint/no-explicit-any': 0,
+      'vue/no-v-html': 0,
+      'vue/no-multiple-template-root': 0,
+      'no-constant-binary-expression': 0,
+      '@typescript-eslint/no-unused-expressions': 0,
     },
   },
-]
+];
