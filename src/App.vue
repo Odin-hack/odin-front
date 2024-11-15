@@ -11,9 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <header
-    @click="WebApp.sendData({ message: 'Hello World' })"
-  >
+  <header>
     {{ title }}
   </header>
 
