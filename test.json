@@ -1,0 +1,243 @@
+{
+  "alreadyInApp": false,
+  "appData": {
+    "initialMining": {
+      "miners": 9035,
+      "lastBlocks": [
+        {
+          "reward": 644000000000,
+          "myReward": 0,
+          "solver": 390418717,
+          "index": 201210,
+          "hash": "000000029c6dd2291eefde20ddbfdf1b5c1268bf2962dc80f16a9f6b12ffc411",
+          "timestamp": 1731723327138,
+          "solverName": "Коля"
+        },
+        {
+          "timestamp": 1731723325728,
+          "reward": 644000000000,
+          "solver": 5908930007,
+          "index": 201209,
+          "solverName": "Control_",
+          "hash": "0000000470323f3d99ea5c31a1c509bd67d7624fe4d2e57784250596143714e2",
+          "myReward": 0
+        },
+        {
+          "myReward": 0,
+          "timestamp": 1731723323873,
+          "solver": 455443253,
+          "hash": "000000049a05984aa81fd6a374ef2be427b487171ac52f2aec2c44ec666eb796",
+          "index": 201208,
+          "solverName": "Sergei",
+          "reward": 644000000000
+        },
+        {
+          "reward": 644000000000,
+          "index": 201207,
+          "timestamp": 1731723320392,
+          "hash": "0000000661bf4840cc13da1ac70a9aface55f11ee81c9144fea0bbe7427001ae",
+          "myReward": 0,
+          "solverName": "Maxim",
+          "solver": 239969622
+        },
+        {
+          "hash": "00000005274c2a391a03929e5e78074c65eabb08751face59be71be664bb301a",
+          "reward": 644000000000,
+          "solver": 1673097670,
+          "timestamp": 1731723316857,
+          "index": 201206,
+          "solverName": "🎅",
+          "myReward": 0
+        },
+        {
+          "myReward": 0,
+          "index": 201205,
+          "solver": 6861825444,
+          "hash": "000000051cfb80218061c02b14376940869456c63a98a33942af43ae846c400a",
+          "solverName": "Bob 2 🐾",
+          "timestamp": 1731723311148,
+          "reward": 644000000000
+        },
+        {
+          "solver": 5466767906,
+          "reward": 644000000000,
+          "hash": "00000004fa3718d24c84238742fd6f295106c321afdd8b38b4896405ca86edf8",
+          "myReward": 0,
+          "index": 201204,
+          "timestamp": 1731723300991,
+          "solverName": "."
+        },
+        {
+          "myReward": 0,
+          "reward": 644000000000,
+          "index": 201203,
+          "hash": "00000000bf79c9206df6553b5bf6d99b3a819ebd774a77732ca49b1bea0c7608",
+          "solver": 148083276,
+          "timestamp": 1731723295741,
+          "solverName": "fortuna"
+        },
+        {
+          "timestamp": 1731723293475,
+          "myReward": 0,
+          "reward": 644000000000,
+          "index": 201202,
+          "solver": 1724666570,
+          "hash": "000000031bcdc56ef14a1a6d135089fba53c7d945f92bd6ae7127b49c81a80a5",
+          "solverName": "А"
+        },
+        {
+          "index": 201201,
+          "solverName": "tony",
+          "hash": "000000044f7019dbcdd6ac684d1f271d9e5647af8d4eb3f14c1d9ea27e1d9b14",
+          "solver": 297496903,
+          "reward": 644000000000,
+          "myReward": 0,
+          "timestamp": 1731723291473
+        },
+        {
+          "hash": "00000005f4cc7df438f11379efdf9f9d958c7bf192798e1c9ea11fc45c5624b5",
+          "solver": 869557596,
+          "index": 201200,
+          "solverName": "K",
+          "myReward": 0,
+          "reward": 644000000000,
+          "timestamp": 1731723284242
+        },
+        {
+          "reward": 644000000000,
+          "solver": 1049806048,
+          "index": 201199,
+          "solverName": "Nak",
+          "timestamp": 1731723261763,
+          "hash": "0000000466940a0d0d3844850d8787e98583358c665531990796494ce2840441",
+          "myReward": 0
+        },
+        {
+          "myReward": 0,
+          "solverName": "Дмитрий🪨",
+          "index": 201198,
+          "timestamp": 1731723251278,
+          "hash": "0000000468bee105d5dc7a2f77984b9f0cca092584ca09b8f22f641e99e45c64",
+          "solver": 606945777,
+          "reward": 644000000000
+        },
+        {
+          "hash": "00000006da644405879af61bcb2b629b37dfda6fa9a02a09f6db6688280615a2",
+          "solver": 1584975146,
+          "timestamp": 1731723242255,
+          "solverName": "X",
+          "reward": 644000000000,
+          "myReward": 0,
+          "index": 201197
+        },
+        {
+          "solverName": "Leonholds | DOUBLETOP",
+          "hash": "000000031d6fcb40ef2ac7c82b46d2f768431f727b77a5687fdee80f225f75b2",
+          "solver": 535436403,
+          "timestamp": 1731723232237,
+          "index": 201196,
+          "myReward": 0,
+          "reward": 644000000000
+        },
+        {
+          "reward": 644000000000,
+          "solver": 697529232,
+          "hash": "0000000447d4b4f4220f5c08dd27981662d15a3b2fa8b18db97e6f65cdb3ba1a",
+          "timestamp": 1731723226608,
+          "solverName": "dumjiks",
+          "myReward": 0,
+          "index": 201195
+        },
+        {
+          "hash": "00000005e984062e1973b5a0ea513cd6185f04d44abfcd90e945b36e32b92a26",
+          "solver": 7112045887,
+          "index": 201194,
+          "solverName": "MT ▪️🐾",
+          "myReward": 0,
+          "reward": 644000000000,
+          "timestamp": 1731723220203
+        },
+        {
+          "timestamp": 1731723213253,
+          "reward": 644000000000,
+          "myReward": 0,
+          "hash": "00000005c7d37958d62e5b95a48b1e8a2c16656f81a78a4a7f6cc2f223f8fb14",
+          "solverName": "Artem",
+          "solver": 66627314,
+          "index": 201193
+        },
+        {
+          "reward": 644000000000,
+          "myReward": 0,
+          "solverName": "А",
+          "solver": 1724666570,
+          "hash": "0000000762d4499c782d9d1f776b91cbfc580fc8c252e5ebf8d1be7d404fbd48",
+          "timestamp": 1731723206521,
+          "index": 201192
+        },
+        {
+          "index": 201191,
+          "solverName": "Имя",
+          "hash": "0000000183d55b35adcc5d70368493fe64710d550bda214487e0c98d124e8ad1",
+          "myReward": 0,
+          "solver": 222909426,
+          "reward": 644000000000,
+          "timestamp": 1731723203860
+        },
+        {
+          "solver": 452491131,
+          "timestamp": 1731723201637,
+          "myReward": 0,
+          "solverName": "ㅤㅤㅤㅤㅤ",
+          "index": 201190,
+          "reward": 644000000000,
+          "hash": "0000000300dbed4a7b3f7f20cf7588d57d4ca95880bc691a6acf1c09d6a4d5ec"
+        }
+      ],
+      "config": {
+        "nextBlockEnergy": 1406,
+        "previousBlock": {
+          "miner": 390418717,
+          "hash": "000000029c6dd2291eefde20ddbfdf1b5c1268bf2962dc80f16a9f6b12ffc411",
+          "timestamp": 1731723327138,
+          "nonce": 19015885,
+          "index": 201210,
+          "previousHash": "0000000470323f3d99ea5c31a1c509bd67d7624fe4d2e57784250596143714e2",
+          "data": "",
+          "mainFactor": 772674754,
+          "shareFactor": 80000,
+          "reward": 644000000000
+        },
+        "mainFactor": 772674754,
+        "shareFactor": 80000,
+        "nextBlockReward": 644000000000
+      }
+    },
+    "user": {
+      "lastName": "",
+      "maxEnergy": 2000,
+      "completedTasks": [],
+      "blocks": 0,
+      "energyLevel": 1,
+      "energy": 7500,
+      "id": 469092429,
+      "firstName": "Лука",
+      "balance": 0,
+      "languageCode": "ru",
+      "username": "lukatsag",
+      "lastEnergyClaim": 1731714122368,
+      "powerMode": false
+    },
+    "blockchainStats": {
+      "totalHolders": 24776,
+      "miningStarted": 1730183167224,
+      "totalSupply": 1000000000000000000,
+      "totalBlocks": 1000000,
+      "totalMined": 114426002000000000,
+      "blocksMined": 201151
+    }
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzE4OTYxMzcuODEwMjEwNSwiaWQiOjQ2OTA5MjQyOSwic3ViIjoiYXV0aCJ9.PdQXuq27TH8xM5tWmSxF1xEMjGqtMRXEPV4kJJFIkq4",
+  "restricted": false,
+  "version": "1"
+}

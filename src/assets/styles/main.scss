@@ -1,4 +1,8 @@
-@import "reset.css";
+@import "mixins/typography";
+@import "./reset.css";
+@import "./fonts";
+@import "./colors";
+
 
 * {
   -webkit-tap-highlight-color: transparent;
@@ -8,7 +12,10 @@
 html, body {
   overflow: hidden;
   height: 100%;
-  color: var(--color-primary-black);
+  background-color: var(--color-dark);
+  color: var(--color-primary-white);
+  font-family: "SF Pro Display", sans-serif;
+  font-weight:300;
 }
 
 #app {
@@ -48,4 +55,17 @@ input[type=number] {
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(#ccc, 0);
+}
+
+.SectionTitle {
+  margin-top: 30px;
+  margin-bottom: 16px;
+  color: var(--color-grey-light);
+}
+
+.FixedButton--bottom {
+  position: fixed;
+  bottom: 100px;
+  width: calc(100% - 32px);
+  left: 16px;
 }

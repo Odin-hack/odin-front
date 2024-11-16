@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import WebApp from '@twa-dev/sdk';
-
-const title = ref('Hello World');
+import Navigation from '@/components/Navigation.vue';
 
 onMounted(() => {
   WebApp.expand();
@@ -11,12 +10,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
-    {{ title }}
-  </header>
+  <div class="RouterLayout">
+    <RouterView />
 
-  <RouterView />
+    <Navigation />
+  </div>
 </template>
 
 <style scoped lang="scss">
+.RouterLayout {
+  padding: 16px;
+  height: 100dvh;
+}
 </style>
