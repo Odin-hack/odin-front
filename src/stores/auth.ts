@@ -4,6 +4,8 @@ import { defineStore } from 'pinia';
 import { useApi } from '@/composables/useApi';
 import { useLocalStorage } from '@/composables/useLocaleStorage';
 
+import { useLoaderStore } from '@/stores/loader';
+
 import type { IAuthResponse, IUser } from '@/types/auth';
 
 
@@ -13,8 +15,11 @@ export const useAuthStore = defineStore('authStore', () => {
   const user = ref<IUser | null>(null);
   const blockchainStats = ref<IUser | null>(null);
 
+  const loadingStore = useLoaderStore();
 
   const authUser = async () => {
+    loadingStore.setLoading(true);
+
     const { data, error } = await useApi<IAuthResponse>('POST', '/v1/api/auth', {
       body: {
         initData,
@@ -27,6 +32,8 @@ export const useAuthStore = defineStore('authStore', () => {
 
     user.value = data?.appData?.user;
     blockchainStats.value = data?.appData?.blockchainStats;
+
+    loadingStore.setLoading(false);
   };
 
   return {

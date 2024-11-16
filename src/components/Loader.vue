@@ -1,15 +1,5 @@
-<script setup lang="ts">
-import { useLocalStorage } from '@/composables/useLocaleStorage';
-
-const loading = useLocalStorage('pageLoading');
-
-</script>
-
 <template>
-  <div class="Loader">
-    {{ loading }}
-    <div class="spinner" />
-  </div>
+  <div class="Loader" />
 </template>
 
 <style scoped lang="scss">
@@ -24,15 +14,16 @@ const loading = useLocalStorage('pageLoading');
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.spinner {
-  border: 6px solid var(--color-grey-medium);
-  border-top: 6px solid var(--color-primary-white);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 1.5s linear infinite;
+  &:before {
+    content: '';
+    border: 6px solid var(--color-grey-medium);
+    border-top: 6px solid var(--color-primary-white);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    animation: spin 1.5s linear infinite;
+  }
 }
 
 @keyframes spin {
