@@ -23,7 +23,7 @@ import { ButtonThemeEnum } from '@/types/enums/button.enum';
 
     <div class="UpgradeCard__content">
       <p>Energy amount</p>
-      <span>Максимально доступный объем энергии</span>
+      <span>Maximum available energy capacity</span>
     </div>
 
     <div class="UpgradeCard__footer">
