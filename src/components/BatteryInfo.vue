@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { computed, type PropType } from 'vue';
+
+import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
+
+import type { IUser } from '@/types/auth';
+
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 import IconSigmaColored from '@/components/Icon/sigmaColored.vue';
 import Progress from '@/components/UI/Progress.vue';
-import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
-import { computed, type PropType } from 'vue';
-import type { IUser } from '@/types/auth';
+
 
 const props = defineProps({
   user: {

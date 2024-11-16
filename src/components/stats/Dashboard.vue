@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import Progress from '@/components/UI/Progress.vue';
 import { computed, type PropType } from 'vue';
+
 import type { IBlockchainStats } from '@/types/auth';
+
 import { formatNumberWithSpaces, formatTimestamp, getPercents } from '@/utils/formatters';
+
+import Progress from '@/components/UI/Progress.vue';
+
 
 const props = defineProps({
   blockchainStats: {
