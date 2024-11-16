@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
 import { StatusEnum } from '@/types/enums/status.enum';
@@ -11,14 +14,20 @@ import EarnedBlock from '@/components/EarnedBlock.vue';
 import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
-import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
+
+const { user } = storeToRefs(authStore);
 
 const isDrawerVisible = ref(false);
 </script>
 
 <template>
   <div class="MiningPage">
-    <BatteryInfo />
+    <BatteryInfo
+      :user
+    />
 
     <div class="MiningPage__info">
       <InfoBlocks title="INFORMATION">

@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
+
+
 import StatsDashboard from '@/components/stats/Dashboard.vue';
 import StatsUserRow from '@/components/stats/UserRow.vue';
+
+const authStore = useAuthStore();
+
+const { blockchainStats } = storeToRefs(authStore);
 
 const mockData = [
   {
@@ -38,7 +46,9 @@ const mockData = [
         Stats
       </h1>
 
-      <StatsDashboard />
+      <StatsDashboard
+        :blockchain-stats
+      />
 
       <StatsUserRow
         name="Nickname"

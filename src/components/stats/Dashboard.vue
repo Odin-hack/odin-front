@@ -1,24 +1,42 @@
 <script setup lang="ts">
 import Progress from '@/components/UI/Progress.vue';
+import { computed, type PropType } from 'vue';
+import type { IBlockchainStats } from '@/types/auth';
+import { formatNumberWithSpaces, formatTimestamp, getPercents } from '@/utils/formatters';
 
-const data = [
+const props = defineProps({
+  blockchainStats: {
+    type: Object as PropType<IBlockchainStats>,
+    required: true,
+  },
+});
+
+const minedPercents = computed(() =>
+  getPercents(props.blockchainStats?.blocksMined, props.blockchainStats?.totalMined),
+);
+
+const blocksMined = computed(() => formatNumberWithSpaces(props.blockchainStats?.blocksMined));
+const totalBlocks = computed(() => formatNumberWithSpaces(props.blockchainStats?.totalBlocks));
+const totalSupply = computed(() => formatNumberWithSpaces(props.blockchainStats?.totalBlocks));
+
+const data = computed(() =>[
   {
     label: 'Total emission',
-    value: '69 420 420 420',
+    value: totalSupply.value,
   },
   {
     label: 'Blocks created',
-    value: '1 123 542 / 69 696 969',
+    value: `${ blocksMined.value } / ${ totalBlocks.value}`,
   },
   {
     label: 'Total holders',
-    value: '21 435',
+    value: props.blockchainStats?.totalHolders,
   },
   {
     label: 'Mining started',
-    value: '17 Nov 2024',
+    value: formatTimestamp(props.blockchainStats?.miningStarted),
   },
-];
+]);
 </script>
 
 <template>
@@ -28,7 +46,7 @@ const data = [
     </h3>
 
     <Progress
-      :percents="13"
+      :percents="minedPercents"
       show-percents
     />
 
@@ -43,7 +61,7 @@ const data = [
         </p>
 
         <span>
-          {{ item.value }}
+          {{ item.value || 0 }}
         </span>
       </div>
     </div>

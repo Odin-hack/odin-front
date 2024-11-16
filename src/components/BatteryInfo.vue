@@ -2,7 +2,18 @@
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 import IconSigmaColored from '@/components/Icon/sigmaColored.vue';
 import Progress from '@/components/UI/Progress.vue';
-import { formatNumberWithSpaces } from '@/utils/numberFormatters';
+import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
+import { computed, type PropType } from 'vue';
+import type { IUser } from '@/types/auth';
+
+const props = defineProps({
+  user: {
+    type: Object as PropType<IUser>,
+    required: true,
+  },
+});
+
+const energyPercents = computed(() => getPercents(props.user?.energy, props.user?.maxEnergy));
 </script>
 
 <template>
@@ -22,7 +33,7 @@ import { formatNumberWithSpaces } from '@/utils/numberFormatters';
           </p>
 
           <div class="BatteryInfo__content__balance__amount">
-            <p>{{ formatNumberWithSpaces(4250135) }}</p>
+            <p>{{ formatNumberWithSpaces(user?.balance || 0) }}</p>
             <IconSigmaColored size="16" />
           </div>
         </div>
@@ -33,7 +44,7 @@ import { formatNumberWithSpaces } from '@/utils/numberFormatters';
           </p>
 
           <div class="BatteryInfo__content__energy__amount">
-            <p>150 / 200</p>
+            <p>{{ user?.energy || 0 }} / {{ user?.maxEnergy || 0 }}</p>
 
             <IconBlizzard
               size="16"
@@ -43,7 +54,7 @@ import { formatNumberWithSpaces } from '@/utils/numberFormatters';
         </div>
 
         <Progress
-          :percents="43"
+          :percents="energyPercents"
         />
       </div>
     </div>

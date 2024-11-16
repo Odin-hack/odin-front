@@ -1,10 +1,16 @@
+export const getPercents = (value: number, max: number) => (value / max) * 100 || 0;
+
 export const formatNumberWithSpaces = (number: number) => {
+  if (!number) return 0;
+
   const formatter = new Intl.NumberFormat('fr-FR').format(number);
 
   return formatter.replace(/\u202F/g, ' ');
 };
 
 export const formatNumberWithSpacesAndSuffix = (num: number, digits: number) => {
+  if (!num) return 0;
+
   const lookup = [
     { value: 1, symbol: '' },
     { value: 1e3, symbol: 'k' },
@@ -21,4 +27,18 @@ export const formatNumberWithSpacesAndSuffix = (num: number, digits: number) => 
   return item
     ? (num / item.value).toFixed(digits).replace(regexp, '').concat(item.symbol)
     : '0';
+};
+
+export const formatTimestamp = (timestamp: number) => {
+  if (!timestamp) return '...';
+
+  const date = new Date(timestamp);
+
+  const formatter = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+
+  return formatter.format(date);
 };
