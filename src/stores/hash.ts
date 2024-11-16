@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export const useWorkerStore = defineStore('workerStore', () => {
+export const useHashStore = defineStore('hashStore', () => {
   const worker = ref(null);
   const isWorkerActive = ref(false);
   const isTurboMode = ref(false);
