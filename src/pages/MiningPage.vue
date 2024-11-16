@@ -4,7 +4,7 @@ import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
 import { StatusEnum } from '@/types/enums/status.enum';
 
 import Button from '@/components/UI/Button.vue';
-import InfoBlocks from '@/components/Section/Mining/InfoBlocks.vue';
+import InfoBlocks from '@/components/mining/InfoBlocks.vue';
 import InfoBlock from '@/components/UI/InfoBlock.vue';
 import BatteryInfo from '@/components/BatteryInfo.vue';
 import EarnedBlock from '@/components/EarnedBlock.vue';

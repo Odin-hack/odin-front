@@ -1,9 +1,10 @@
 <script setup lang="ts">
-interface IInfoBlocksProps {
-  title: string
-}
-
-defineProps<IInfoBlocksProps>();
+defineProps({
+  title: {
+    type: String,
+    default: null,
+  },
+});
 </script>
 
 <template>
