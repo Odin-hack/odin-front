@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
+
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 
 import BatteryInfo from '@/components/BatteryInfo.vue';
@@ -7,11 +10,16 @@ import Button from '@/components/UI/Button.vue';
 import UpgradeCard from '@/components/UpgradeCard.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
+
+
+const { user } = storeToRefs(useAuthStore());
 </script>
 
 <template>
   <div class="UpgradePage">
-    <BatteryInfo />
+    <BatteryInfo
+      :user
+    />
 
     <div class="UpgradePage__upgrades">
       <h3 class="SectionTitle">
@@ -19,8 +27,6 @@ import IconBlizzard from '@/components/Icon/blizzard.vue';
       </h3>
 
       <div class="UpgradePage__upgrades__wrapper">
-        <UpgradeCard />
-        <UpgradeCard />
         <UpgradeCard />
       </div>
     </div>
@@ -31,8 +37,9 @@ import IconBlizzard from '@/components/Icon/blizzard.vue';
       </h3>
 
       <div class="UpgradePage__upgrades__wrapper">
-        <Badge />
-        <Badge />
+        <Badge
+          :switch-active="user?.powerMode"
+        />
       </div>
     </div>
 

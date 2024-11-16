@@ -3,7 +3,7 @@ defineProps({
   disabled: Boolean,
 });
 
-const isActiveLocal = defineModel('modalValue', {
+const isActiveLocal = defineModel('modelValue', {
   type: Boolean,
   default: false,
 });
