@@ -11,7 +11,6 @@ const props = defineProps({
   },
   loading: Boolean,
   disabled: Boolean,
-  secondary: Boolean,
 });
 
 const theme = computed(() => {

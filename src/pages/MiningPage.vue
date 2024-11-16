@@ -8,8 +8,12 @@ import InfoBlocks from '@/components/mining/InfoBlocks.vue';
 import InfoBlock from '@/components/UI/InfoBlock.vue';
 import BatteryInfo from '@/components/BatteryInfo.vue';
 import EarnedBlock from '@/components/EarnedBlock.vue';
+import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
+import { ref } from 'vue';
+
+const isDrawerVisible = ref(false);
 </script>
 
 <template>
@@ -46,6 +50,7 @@ import IconPlay from '@/components/Icon/play.vue';
         <EarnedBlock
           v-for="n in 29"
           :key="n"
+          @click="isDrawerVisible = true"
         />
       </div>
     </div>
@@ -62,6 +67,8 @@ import IconPlay from '@/components/Icon/play.vue';
       </Button>
     </div>
   </div>
+
+  <MiningBlockDrawer v-model:visible="isDrawerVisible" />
 </template>
 
 <style scoped lang="scss">
