@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
+
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 
 import BatteryInfo from '@/components/BatteryInfo.vue';
@@ -8,12 +11,8 @@ import UpgradeCard from '@/components/UpgradeCard.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 
-import { useAuthStore } from '@/stores/auth';
-import { storeToRefs } from 'pinia';
 
-const authStore = useAuthStore();
-
-const { user } = storeToRefs(authStore);
+const { user } = storeToRefs(useAuthStore());
 </script>
 
 <template>

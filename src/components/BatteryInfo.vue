@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
+
+import type { PropType } from 'vue';
+import type { IUser } from '@/types/auth';
 
 import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
-
-import type { IUser } from '@/types/auth';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 import IconSigmaColored from '@/components/Icon/sigmaColored.vue';

@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
+import { useAuthStore } from '@/stores/auth';
+
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
 import { StatusEnum } from '@/types/enums/status.enum';
@@ -14,11 +16,9 @@ import EarnedBlock from '@/components/EarnedBlock.vue';
 import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
-import { useAuthStore } from '@/stores/auth';
 
-const authStore = useAuthStore();
 
-const { user } = storeToRefs(authStore);
+const { user } = storeToRefs(useAuthStore());
 
 const isDrawerVisible = ref(false);
 </script>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed, type PropType, ref } from 'vue';
+import { computed, ref } from 'vue';
+
+import type { PropType } from 'vue';
 
 import { BadgeTypeEnum } from '@/types/enums/badge.enum';
 import { ColorsEnum } from '@/types/enums/colors.enum';
@@ -8,16 +10,14 @@ import Switch from '@/components/UI/Switch.vue';
 
 import IconSun from '@/components/Icon/sun.vue';
 
+
 const props = defineProps({
   type: {
     type: String as PropType<BadgeTypeEnum>,
     default: BadgeTypeEnum.ACTIVE,
   },
 
-  switchActive: {
-    type: Boolean,
-    default: false,
-  },
+  switchActive: Boolean,
 });
 
 const content = computed(() => {

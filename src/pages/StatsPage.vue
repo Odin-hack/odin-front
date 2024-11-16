@@ -6,9 +6,7 @@ import { storeToRefs } from 'pinia';
 import StatsDashboard from '@/components/stats/Dashboard.vue';
 import StatsUserRow from '@/components/stats/UserRow.vue';
 
-const authStore = useAuthStore();
-
-const { blockchainStats } = storeToRefs(authStore);
+const { blockchainStats } = storeToRefs(useAuthStore());
 
 const mockData = [
   {
