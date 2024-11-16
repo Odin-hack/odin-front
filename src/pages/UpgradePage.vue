@@ -10,27 +10,27 @@ import IconBlizzard from '@/components/Icon/blizzard.vue';
 </script>
 
 <template>
-  <div class="UpgradeView">
+  <div class="UpgradePage">
     <BatteryInfo />
 
-    <div class="UpgradeView__upgrades">
+    <div class="UpgradePage__upgrades">
       <h3 class="SectionTitle">
         UPGRADES
       </h3>
 
-      <div class="UpgradeView__upgrades__wrapper">
+      <div class="UpgradePage__upgrades__wrapper">
         <UpgradeCard />
         <UpgradeCard />
         <UpgradeCard />
       </div>
     </div>
 
-    <div class="UpgradeView__upgrades">
+    <div class="UpgradePage__upgrades">
       <h3 class="SectionTitle">
         UPGRADES
       </h3>
 
-      <div class="UpgradeView__upgrades__wrapper">
+      <div class="UpgradePage__upgrades__wrapper">
         <Badge />
         <Badge />
       </div>
@@ -56,7 +56,7 @@ import IconBlizzard from '@/components/Icon/blizzard.vue';
 </template>
 
 <style scoped lang="scss">
-.UpgradeView {
+.UpgradePage {
   padding-bottom: 24dvh;
 
   &__upgrades {

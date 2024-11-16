@@ -43,16 +43,16 @@ const contents = [
 </script>
 
 <template>
-  <div class="FaqView">
-    <h1 class="FaqView__header">
+  <div class="FaqPage">
+    <h1 class="FaqPage__header">
       How does it works?
     </h1>
 
-    <div class="FaqView__wrapper">
+    <div class="FaqPage__wrapper">
       <div
         v-for="(content, index) in contents"
         :key="index"
-        class="FaqView__wrapper__block"
+        class="FaqPage__wrapper__block"
       >
         <h3>{{ content.title }}</h3>
 
@@ -63,7 +63,7 @@ const contents = [
 </template>
 
 <style scoped lang="scss">
-.FaqView {
+.FaqPage {
   padding: 16px;
 
   &__header {

@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { ColorsEnum } from '@/types/enums/colors.enum';
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 
-interface IProgressProps {
-  showPercents?: boolean,
-  backgroundColor?: ColorsEnum,
-  progressColor?: ColorsEnum,
-  percents?: number
-}
-
-const props = withDefaults(defineProps<IProgressProps>(), {
-  showPercents: false,
-  backgroundColor: ColorsEnum.DARK,
-  progressColor: ColorsEnum.PRIMARY_BLUE,
-  percents: 0,
+const props = defineProps({
+  backgroundColor: {
+    type: String as PropType<ColorsEnum>,
+    default: ColorsEnum.DARK,
+  },
+  progressColor: {
+    type: String as PropType<ColorsEnum>,
+    default: ColorsEnum.PRIMARY_BLUE,
+  },
+  percents: {
+    type: Number,
+    default: 0,
+  },
+  showPercents: Boolean,
 });
 
 const formattedPercents = computed(() => `${ props.percents }%`);

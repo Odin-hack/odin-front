@@ -1,20 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { ColorsEnum } from '@/types/enums/colors.enum';
 
-interface IButtonProps {
-  disabled?: boolean,
-  secondary?: boolean,
-  theme?: ButtonThemeEnum
-  loading?: boolean
-}
-
-const props = withDefaults(defineProps<IButtonProps>(), {
-  disabled: false,
-  secondary: false,
-  theme: ButtonThemeEnum.DISABLED,
-  loading: false,
+const props = defineProps({
+  theme: {
+    type: String as PropType<ButtonThemeEnum>,
+    default: ButtonThemeEnum.DISABLED,
+  },
+  loading: Boolean,
+  disabled: Boolean,
+  secondary: Boolean,
 });
 
 const theme = computed(() => {

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import MiningView from '@/pages/MiningView.vue';
-import FaqView from '@/pages/FaqView.vue';
-import UpgradeView from '@/pages/UpgradeView.vue';
-import StatsView from '@/pages/StatsView.vue';
+import MiningPage from '@/pages/MiningPage.vue';
+import FaqPage from '@/pages/FaqPage.vue';
+import UpgradePage from '@/pages/UpgradePage.vue';
+import StatsPage from '@/pages/StatsPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,22 +10,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'mining',
-      component: MiningView,
+      component: MiningPage,
     },
     {
       path: '/faq',
       name: 'faq',
-      component: FaqView,
+      component: FaqPage,
     },
     {
       path: '/upgrades',
       name: 'upgrade',
-      component: UpgradeView,
+      component: UpgradePage,
     },
     {
       path: '/stats',
       name: 'stats',
-      component: StatsView,
+      component: StatsPage,
     },
   ],
 });

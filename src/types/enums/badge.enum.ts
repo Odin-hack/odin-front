@@ -1,5 +1,5 @@
 export enum BadgeTypeEnum {
-  ACTIVE = 'active',
-  DISABLED = 'disabled',
-  UNAVAILABLE = 'unavailable'
+  ACTIVE = 'ACTIVE',
+  DISABLED = 'DISABLED',
+  UNAVAILABLE = 'UNAVAILABLE',
 }

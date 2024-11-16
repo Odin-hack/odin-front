@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { markRaw, ref } from 'vue';
 
 import IconMining from '@/components/Icon/mining.vue';
 import IconUpgrades from '@/components/Icon/upgrades.vue';
@@ -9,22 +9,22 @@ import IconFaq from '@/components/Icon/faq.vue';
 const tabs = ref([
   {
     path: '/',
-    icon: IconMining,
+    icon: markRaw(IconMining),
     name: 'Mining',
   },
   {
     path: '/upgrades',
-    icon: IconUpgrades,
+    icon: markRaw(IconUpgrades),
     name: 'Upgrades',
   },
   {
     path: '/stats',
-    icon: IconUsers,
+    icon: markRaw(IconUsers),
     name: 'Stats',
   },
   {
     path: '/faq',
-    icon: IconFaq,
+    icon: markRaw(IconFaq),
     name: 'FAQ',
   },
 ]);

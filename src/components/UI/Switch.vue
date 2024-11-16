@@ -1,10 +1,6 @@
 <script setup lang="ts">
-interface ISwitchProps {
-  disabled?: boolean
-}
-
-withDefaults(defineProps<ISwitchProps>(), {
-  disabled: false,
+defineProps({
+  disabled: Boolean,
 });
 
 const isActiveLocal = defineModel('modalValue', {

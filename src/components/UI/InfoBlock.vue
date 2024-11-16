@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import { StatusEnum } from '@/types/enums/status.enum';
 import Status from '@/components/UI/Status.vue';
 import { ColorsEnum } from '@/types/enums/colors.enum';
@@ -13,14 +14,15 @@ import IconLock from '@/components/Icon/lock.vue';
 import IconPiece from '@/components/Icon/piece.vue';
 import IconHash from '@/components/Icon/hash.vue';
 
-interface IBadgeProps {
-  type?: InfoBlockTypeEnum,
-  value?: string | number | StatusEnum
-}
-
-const props = withDefaults(defineProps<IBadgeProps>(), {
-  type: InfoBlockTypeEnum.STATUS,
-  value: 0,
+const props = defineProps({
+  type: {
+    type: String as PropType<InfoBlockTypeEnum>,
+    default: InfoBlockTypeEnum.STATUS,
+  },
+  value: {
+    type: [String, Number] as PropType<string | number>,
+    default: 0,
+  },
 });
 
 const content = computed(() => {
@@ -89,10 +91,7 @@ const borderColor = computed(() => {
         {{ content.label }}
       </p>
 
-      <Status
-        v-if="type === InfoBlockTypeEnum.STATUS"
-        :value
-      />
+      <Status v-if="type === InfoBlockTypeEnum.STATUS" />
 
       <p v-else>
         {{ value }}

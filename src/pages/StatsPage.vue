@@ -3,8 +3,8 @@ import GeneralStatsCard from '@/components/GeneralStatsCard.vue';
 </script>
 
 <template>
-  <div class="StatsView">
-    <div class="StatsView__general">
+  <div class="StatsPage">
+    <div class="StatsPage__general">
       <h3 class="SectionTitle">
         Stats
       </h3>
@@ -15,7 +15,7 @@ import GeneralStatsCard from '@/components/GeneralStatsCard.vue';
 </template>
 
 <style scoped lang="scss">
-.StatsView {
+.StatsPage {
   padding-bottom: 24dvh;
 
   .SectionTitle {

@@ -1,21 +1,16 @@
 <script setup lang="ts">
-interface IIconProps {
-  size?: number | string,
-  width?: number | string,
-  height?: number | string,
-}
-
-withDefaults(defineProps<IIconProps>(), {
-  size: 20,
-  width: 0,
-  height: 0,
+defineProps({
+  size: {
+    type: [Number, String],
+    default: 20,
+  },
 });
 </script>
 
 <template>
   <svg
-    :width="width || size"
-    :height="height || size"
+    :width="size"
+    :height="size"
     viewBox="0 0 24 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

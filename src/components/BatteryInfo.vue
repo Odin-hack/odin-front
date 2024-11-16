@@ -43,7 +43,7 @@ import { formatNumberWithSpaces } from '@/utils/numberFormatters';
         </div>
 
         <Progress
-          percents="43"
+          :percents="43"
         />
       </div>
     </div>

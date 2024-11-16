@@ -1,12 +1,12 @@
 export enum ButtonSizeEnum  {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  BIG = 'big',
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
+  BIG = 'BIG',
 }
 
 export enum ButtonThemeEnum {
-  DISABLED = 'disabled',
-  PRIMARY = 'primary',
-  WARNING = 'warning',
-  SECONDARY = 'secondary',
+  DISABLED = 'DISABLED',
+  PRIMARY = 'PRIMARY',
+  WARNING = 'WARNING',
+  SECONDARY = 'SECONDARY',
 }

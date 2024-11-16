@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, type PropType } from 'vue';
 
 import { BadgeTypeEnum } from '@/types/enums/badge.enum';
 import { ColorsEnum } from '@/types/enums/colors.enum';
@@ -8,12 +8,11 @@ import Switch from '@/components/UI/Switch.vue';
 
 import IconSun from '@/components/Icon/sun.vue';
 
-interface IBadgeProps {
-  type: BadgeTypeEnum
-}
-
-const props = withDefaults(defineProps<IBadgeProps>(), {
-  type: BadgeTypeEnum.ACTIVE,
+const props = defineProps({
+  type: {
+    type: String as PropType<BadgeTypeEnum>,
+    default: BadgeTypeEnum.ACTIVE,
+  },
 });
 
 const content = computed(() => {

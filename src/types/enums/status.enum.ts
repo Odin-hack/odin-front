@@ -1,5 +1,5 @@
 export enum StatusEnum {
-  BATTERY_LOW = 'battery_low',
-  AWAITING = 'awaiting',
-  MINING = 'mining'
+  BATTERY_LOW = 'BATTERY_LOW',
+  AWAITING = 'AWAITING',
+  MINING = 'MINING',
 }

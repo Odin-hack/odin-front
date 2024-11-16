@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import { StatusEnum } from '@/types/enums/status.enum';
 import { ColorsEnum } from '@/types/enums/colors.enum';
 
-interface IStatusProps {
-  value: StatusEnum
-}
-
-const props = withDefaults(defineProps<IStatusProps>(), {
-  value: StatusEnum.BATTERY_LOW,
+const props = defineProps({
+  value: {
+    type: String as PropType<StatusEnum>,
+    default: StatusEnum.BATTERY_LOW,
+  },
 });
 
 const status = computed(() => {
