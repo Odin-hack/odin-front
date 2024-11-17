@@ -30,7 +30,7 @@ const userInfo = computed(() => userStaff || user);
 const isDrawerVisible = ref(false);
 
 const miningContentButton = computed(() => {
-  if (user?.powerMode || userStaff?.powerMode) {
+  if (user.value?.powerMode || userStaff.value?.powerMode) {
     return {
       buttonTheme: ButtonThemeEnum.PRIMARY,
       buttonIcon: IconPlay,

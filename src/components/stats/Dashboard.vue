@@ -11,7 +11,7 @@ import Progress from '@/components/UI/Progress.vue';
 
 const props = defineProps({
   blockchainStats: {
-    type: Object as PropType<IBlockchainStats>,
+    type: Object as PropType<IBlockchainStats | null>,
     required: true,
   },
 });

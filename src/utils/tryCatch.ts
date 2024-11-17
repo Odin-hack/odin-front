@@ -1,18 +1,29 @@
-interface ExtendedError extends Error {
-  statusCode?: number;
+interface IError {
+  message: string;
+  error: string;
+  statusCode: number;
+  correlationId: string;
 }
 
-export const tryCatch = async <T, E = ExtendedError>(
-  target: Promise<T> | (() => T) | (() => Promise<T>),
-): Promise<{ data: T | undefined; error: E | undefined }> => {
-  let data, error;
+export const tryCatch = async <T>(
+  target: Promise<Response>,
+): Promise<{ data: T | null; error: IError | undefined }> => {
+  let data: T | null = null;
+  let error: IError | undefined = undefined;
 
   try {
-    const result = await (target instanceof Promise ? target : target().json());
+    const result = await target;
 
-    data = await result.json();
+    if (!result.ok) {
+      error = await result.json();
+
+      return { data: null, error };
+    }
+
+    data = await result.json() as T;
+
   } catch (_error) {
-    error = _error as E;
+    error = _error as IError;
   }
 
   return { data, error };
