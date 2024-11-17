@@ -9,15 +9,15 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
   const hashCash = ref<IHashCash['payload'] | null>(null);
 
   socket.io.on('user.userStuff', (data: IUserStaff) => {
-    userStaff.value = data?.payload;
+    userStaff.value = data?.payload || null;
   });
 
   socket.io.on('user.userBlock', (data: IUserBlock) => {
-    userBlock.value = data?.payload;
+    userBlock.value = data?.payload || null;
   });
 
   socket.io.on('hashcash', (data: IHashCash) => {
-    hashCash.value = data?.payload;
+    hashCash.value = data?.payload || null;
   });
 
   return {
