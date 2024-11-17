@@ -22,7 +22,7 @@ import { useSocketDataStore } from '@/stores/socket-data';
 const { user } = storeToRefs(useAuthStore());
 const { userStaff } = storeToRefs(useSocketDataStore());
 
-const userInfo = computed(() => userStaff);
+const userInfo = computed(() => userStaff || user);
 
 const isDrawerVisible = ref(false);
 </script>
