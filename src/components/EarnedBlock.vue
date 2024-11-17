@@ -20,9 +20,9 @@ defineProps({
 
       <div
         class="EarnedBlock__tag"
-        :class="info?.reward && 'EarnedBlock__tag--colored'"
+        :class="info?.myReward && 'EarnedBlock__tag--colored'"
       >
-        {{ info?.reward ? `+ ${ info?.reward }` : 0 }} 𝚺
+        {{ info?.myReward ? `+ ${ info?.myReward }` : 0 }} 𝚺
       </div>
     </div>
 
