@@ -13,6 +13,13 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     userStaff.value = data;
   });
 
+  socket.io.on('user.userBlock', (data: IUserBlock) => {
+    userBlock.value = data;
+  });
+
+  socket.io.on('hashcash', (data: IHashCash) => {
+    hashCash.value = data;
+  });
 
   return {
     userStaff,
