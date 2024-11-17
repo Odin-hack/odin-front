@@ -1,6 +1,6 @@
-export const getPercents = (value: number, max: number) => (value / max) * 100 || 0;
+export const getPercents = (value: number = 0, max: number = 0) => (value / max) * 100 || 0;
 
-export const formatNumberWithSpaces = (number: number) => {
+export const formatNumberWithSpaces = (number: number = 0) => {
   if (!number) return 0;
 
   const formatter = new Intl.NumberFormat('fr-FR').format(number);
@@ -29,7 +29,7 @@ export const formatNumberWithSpacesAndSuffix = (num: number, digits: number) => 
     : '0';
 };
 
-export const formatTimestamp = (timestamp: number) => {
+export const formatTimestamp = (timestamp?: number) => {
   if (!timestamp) return '...';
 
   const date = new Date(timestamp);

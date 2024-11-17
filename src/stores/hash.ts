@@ -2,15 +2,17 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useHashStore = defineStore('hashStore', () => {
-  const worker = ref(null);
+  const worker = ref<Worker | null>(null);
   const isWorkerActive = ref(false);
   const isTurboMode = ref(false);
-  const outputMessages = ref([]);
-  const taskData = ref(null);
+  const outputMessages = ref<string[]>([]);
+  const taskData = ref<object | null>(null);
   const currentRange = ref({ startNonce: 0, endNonce: 0 });
 
+
+  // TODO FIX TYPES
   const initializeWorker = () => {
-    if (worker.value) return;
+    if (!worker.value) return;
 
     worker.value = new Worker(new URL('../workers/worker.js', import.meta.url));
 
@@ -35,18 +37,18 @@ export const useHashStore = defineStore('hashStore', () => {
     };
   };
 
-  const startProcessing = (task) => {
+  const startProcessing = (task: object) => {
     if (!worker.value) {
       initializeWorker();
     }
 
     taskData.value = task;
-    worker.value.postMessage(JSON.stringify(task));
+    worker.value?.postMessage(JSON.stringify(task));
     isWorkerActive.value = true;
     addMessage('Задача отправлена воркеру.');
   };
 
-  const toggleTurboMode = (turbo) => {
+  const toggleTurboMode = (turbo: boolean) => {
     if (!worker.value) return;
 
     worker.value.postMessage(JSON.stringify({ turboMode: turbo }));
@@ -62,12 +64,12 @@ export const useHashStore = defineStore('hashStore', () => {
     };
 
     currentRange.value = newRange;
-    worker.value.postMessage(JSON.stringify(newRange));
+    worker.value?.postMessage(JSON.stringify(newRange));
 
     addMessage(`Назначен диапазон: ${newRange.startNonce} - ${newRange.endNonce}`);
   };
 
-  const handleResult = (result) => {
+  const handleResult = (result: { state: string, hash: string, nonce: string }) => {
     if (result.state === 'valid') {
       addMessage(`Найден валидный хэш: ${result.hash} с nonce: ${result.nonce}`);
       return stopWorker();
@@ -81,14 +83,14 @@ export const useHashStore = defineStore('hashStore', () => {
   const stopWorker = () => {
     if (!worker.value) return;
 
-    worker.value.terminate();
+    worker.value?.terminate();
     worker.value = null;
     isWorkerActive.value = false;
 
     addMessage('Воркер остановлен.');
   };
 
-  const addMessage = (msg) => outputMessages.value.push(msg);
+  const addMessage = (msg: string) => outputMessages.value.push(msg);
   const clearMessages = () => outputMessages.value = [];
 
   return {

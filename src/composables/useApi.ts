@@ -9,15 +9,10 @@ interface ApiResponse<T> {
   error: any | null;
 }
 
-interface RequestOptions extends RequestInit {
-  baseURL?: string;
-}
-
-const defaultParams = (): RequestOptions => {
+const defaultParams = (): RequestInit => {
   const token = useLocalStorage('token');
 
   return {
-    baseURL: useRuntimeConfig().appUrlServer,
     headers: {
       'Content-Type': 'application/json',
       ...(token.value && { Authorization: `Bearer ${token.value}` }),
@@ -33,22 +28,24 @@ const onError = async <T>(error: any): Promise<ApiResponse<T>> => {
   return { data: null, error };
 };
 
+type RequestOptions<TBody = any> = RequestInit & (TBody extends object ? { body: TBody } : { body?: never });
+
 export const useApi = async <T>(
   method: TMethod,
   endpoint: string,
-  options: RequestOptions = {},
+  options?: RequestOptions,
 ): Promise<ApiResponse<T>> => {
   const defaultOptions = defaultParams();
-  const mergedOptions: RequestOptions = {
+  const mergedOptions: RequestInit = {
     ...defaultOptions,
     ...options,
     method,
-    ...(options.body ? { body: JSON.stringify(options.body) } : {}),
+    ...(options?.body ? { body: JSON.stringify(options?.body) } : {}),
   };
 
-  const url = `${mergedOptions.baseURL}${endpoint}`;
+  const url = `${useRuntimeConfig().appUrlServer}${endpoint}`;
 
-  const { data, error } = await tryCatch(fetch<T>(url, mergedOptions));
+  const { data, error } = await tryCatch<T>(fetch(url, mergedOptions));
 
   if (error) {
     return onError<T>(error);

@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+
 import WebApp from '@twa-dev/sdk';
 
 import { useAuthStore } from '@/stores/auth';
+import { useInvoiceStore } from '@/stores/invoice';
+import { useSocketDataStore } from '@/stores/socket-data';
+import { useTasksStore } from '@/stores/tasks';
 import { storeToRefs } from 'pinia';
 
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
@@ -12,12 +17,10 @@ import Button from '@/components/UI/Button.vue';
 import UpgradeCard from '@/components/UpgradeCard.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
-import { onMounted, ref } from 'vue';
-import { useInvoiceStore } from '@/stores/invoice';
-import { useTasksStore } from '@/stores/tasks';
 
 
 const { user } = storeToRefs(useAuthStore());
+const { userStaff } = storeToRefs(useSocketDataStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
 
@@ -35,6 +38,8 @@ const changeSwitchActiveHandler = async (value: boolean) => {
   });
 };
 
+const userInfo = computed(() => userStaff || user);
+
 onMounted(async () => {
   await useTasksStore().fetchTasks();
 });
@@ -43,7 +48,7 @@ onMounted(async () => {
 <template>
   <div class="UpgradePage">
     <BatteryInfo
-      :user
+      :user-info
     />
 
     <div class="UpgradePage__upgrades">
