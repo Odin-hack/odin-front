@@ -65,6 +65,7 @@ const miningContentButton = computed(() => {
 
         <InfoBlock
           :type="InfoBlockTypeEnum.ONLINE"
+          :value="hashCash?.miners"
         />
       </InfoBlocks>
     </div>
