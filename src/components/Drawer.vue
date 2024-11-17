@@ -122,7 +122,7 @@ defineExpose({
 
   --transition: .4s ease;
   --header-height: 56px;
-  --content-max-height: 60vh;
+  --content-max-height: 70vh;
 
   position: fixed;
   top: 0;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import type { PropType } from 'vue';
 
@@ -18,7 +18,10 @@ const props = defineProps({
   },
 
   switchActive: Boolean,
+  isInvoice: Boolean,
 });
+
+const emit = defineEmits(['update:switchActive']);
 
 const content = computed(() => {
   return {
@@ -44,6 +47,16 @@ const content = computed(() => {
 });
 
 const isSwitchActive = ref(props.switchActive);
+
+const switchChangeHandler = (value: boolean) => {
+  if (props.isInvoice) return emit('update:switchActive', value);
+
+  isSwitchActive.value = value;
+};
+
+watch(() => props.switchActive, (value) => {
+  isSwitchActive.value = value;
+});
 </script>
 
 <template>
@@ -68,7 +81,8 @@ const isSwitchActive = ref(props.switchActive);
 
     <div class="Badge__switch">
       <Switch
-        v-model="isSwitchActive"
+        :model-value="isSwitchActive"
+        @update:model-value="switchChangeHandler($event)"
       />
     </div>
   </div>

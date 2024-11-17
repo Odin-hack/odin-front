@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import WebApp from '@twa-dev/sdk';
+
 import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
 
@@ -10,9 +12,27 @@ import Button from '@/components/UI/Button.vue';
 import UpgradeCard from '@/components/UpgradeCard.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
+import { ref } from 'vue';
+import { useInvoiceStore } from '@/stores/invoice';
 
 
 const { user } = storeToRefs(useAuthStore());
+const { invoice } = storeToRefs(useInvoiceStore());
+const { setInvoice } = useInvoiceStore();
+
+const isSwitchActive = ref(user.value?.powerMode);
+
+const changeSwitchActiveHandler = async (value: boolean) => {
+  await setInvoice();
+
+  if (invoice.value?.link) {
+    WebApp.openInvoice(invoice.value.link);
+  }
+
+  WebApp.onEvent('invoiceClosed', (event) => {
+    if (event.status === 'paid') isSwitchActive.value = value;
+  });
+};
 </script>
 
 <template>
@@ -38,7 +58,9 @@ const { user } = storeToRefs(useAuthStore());
 
       <div class="UpgradePage__upgrades__wrapper">
         <Badge
-          :switch-active="user?.powerMode"
+          is-invoice
+          :switch-active="isSwitchActive"
+          @update:switch-active="changeSwitchActiveHandler"
         />
       </div>
     </div>
