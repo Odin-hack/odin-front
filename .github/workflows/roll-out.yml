@@ -31,6 +31,13 @@ jobs:
         registry: ${{ vars.DOCKER_REGISTRY }}
         username: ${{ secrets.DO_TOKEN }}
         password: ${{ secrets.DO_TOKEN }}
+    - name: Copy env file
+      run: |
+        if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          cp .env.prod .env
+        elif [[ "${{ github.ref }}" == "refs/heads/stage" ]]; then
+          cp .env.stage .env
+        fi
     - name: Building docker image
       run: |
         docker build --no-cache \
