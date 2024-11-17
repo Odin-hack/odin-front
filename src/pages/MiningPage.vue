@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { useAuthStore } from '@/stores/auth';
+import { useSocketDataStore } from '@/stores/socket-data';
 
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
@@ -16,15 +17,29 @@ import EarnedBlock from '@/components/EarnedBlock.vue';
 import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
-import { useSocketDataStore } from '@/stores/socket-data';
+import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
 
 const { user } = storeToRefs(useAuthStore());
-const { userStaff } = storeToRefs(useSocketDataStore());
+const { userStaff, hashCash } = storeToRefs(useSocketDataStore());
 
 const userInfo = computed(() => userStaff || user);
 
 const isDrawerVisible = ref(false);
+
+const miningContentButton = computed(() => {
+  if (user?.powerMode || userStaff?.powerMode) {
+    return {
+      buttonTheme: ButtonThemeEnum.PRIMARY,
+      buttonIcon: IconPlay,
+    };
+  }
+
+  return {
+    buttonTheme: ButtonThemeEnum.DISABLED,
+    buttonIcon: IconBatteryCrossed,
+  };
+});
 </script>
 
 <template>
@@ -35,10 +50,22 @@ const isDrawerVisible = ref(false);
 
     <div class="MiningPage__info">
       <InfoBlocks title="INFORMATION">
-        <InfoBlock :type="InfoBlockTypeEnum.BLOCK" />
-        <InfoBlock :type="InfoBlockTypeEnum.DIFFICULTY" />
-        <InfoBlock :type="InfoBlockTypeEnum.REWARD" />
-        <InfoBlock :type="InfoBlockTypeEnum.ONLINE" />
+        <InfoBlock
+          :type="InfoBlockTypeEnum.BLOCK"
+          :value="user?.blocks || userStaff?.blocks"
+        />
+
+        <InfoBlock
+          :type="InfoBlockTypeEnum.DIFFICULTY"
+        />
+
+        <InfoBlock
+          :type="InfoBlockTypeEnum.REWARD"
+        />
+
+        <InfoBlock
+          :type="InfoBlockTypeEnum.ONLINE"
+        />
       </InfoBlocks>
     </div>
 
@@ -61,8 +88,9 @@ const isDrawerVisible = ref(false);
 
       <div class="MiningPage__earned__wrapper">
         <EarnedBlock
-          v-for="n in 29"
-          :key="n"
+          v-for="item in hashCash?.lastBlocks"
+          :key="item.index"
+          :info="item"
           @click="isDrawerVisible = true"
         />
       </div>
@@ -70,10 +98,12 @@ const isDrawerVisible = ref(false);
 
     <div class="FixedButton--bottom">
       <Button
-        :theme="ButtonThemeEnum.PRIMARY"
+        :theme="miningContentButton.buttonTheme"
       >
         <template #icon>
-          <IconPlay size="18" />
+          <component
+            :is="miningContentButton.buttonIcon"
+          />
         </template>
 
         Start Mining

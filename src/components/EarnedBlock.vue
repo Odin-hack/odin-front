@@ -1,5 +1,13 @@
 <script setup lang="ts">
-const earned = 2.312;
+import type { PropType } from 'vue';
+import type { IHashLastBlock } from '@/types/socket-data.interface';
+
+defineProps({
+  info: {
+    type: Object as PropType<IHashLastBlock| null>,
+    required: true,
+  },
+});
 </script>
 
 <template>
@@ -7,19 +15,19 @@ const earned = 2.312;
     <div class="EarnedBlock__header">
       <p>
         Block
-        <span>#1543324</span>
+        <span>#{{ info?.hash }}</span>
       </p>
 
       <div
         class="EarnedBlock__tag"
-        :class="earned && 'EarnedBlock__tag--colored'"
+        :class="info?.reward && 'EarnedBlock__tag--colored'"
       >
-        {{ earned ? `+ ${ earned }` : 0 }} 𝚺
+        {{ info?.reward ? `+ ${ info?.reward }` : 0 }} 𝚺
       </div>
     </div>
 
     <p class="EarnedBlock__earnedBy">
-      ⤷ Created by <span>Dmitry</span> in 11:42
+      ⤷ Created by <span>{{ info?.solverName }}</span> in 11:42
     </p>
   </div>
 </template>
