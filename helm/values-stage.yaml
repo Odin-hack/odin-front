@@ -101,4 +101,4 @@ affinity: {}
 
 envFrom:
   - configMapRef:
-      name: stage-tma-front-configmap
+      name: stage-sigma-front-configmap
