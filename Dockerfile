@@ -2,8 +2,8 @@
 FROM node:18-alpine as build
 WORKDIR /app
 
-# Копирование package.json и package-lock.json
-COPY package.json package-lock.json ./
+# Копирование package.json и yarn.lock
+COPY package.json yarn.lock ./
 
 # Установка зависимостей
 RUN npm install

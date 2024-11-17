@@ -1,6 +1,8 @@
 import { io } from 'socket.io-client';
 import { useRuntimeConfig } from '@/composables/useRuntimeConfig';
 
+//:TODO: expand socket event types
+
 const socket = io(useRuntimeConfig().socketUrl, {
   transports: ['websocket'],
   path: '/mining',
