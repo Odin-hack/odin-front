@@ -12,8 +12,9 @@ import Button from '@/components/UI/Button.vue';
 import UpgradeCard from '@/components/UpgradeCard.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useInvoiceStore } from '@/stores/invoice';
+import { useTasksStore } from '@/stores/tasks';
 
 
 const { user } = storeToRefs(useAuthStore());
@@ -33,6 +34,10 @@ const changeSwitchActiveHandler = async (value: boolean) => {
     if (event.status === 'paid') isSwitchActive.value = value;
   });
 };
+
+onMounted(async () => {
+  await useTasksStore().fetchTasks();
+});
 </script>
 
 <template>
