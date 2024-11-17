@@ -6,7 +6,7 @@ type CamelCase<S extends string> =
     ? `${Lowercase<Head>}${Capitalize<CamelCase<Tail>>}`
     : Lowercase<S>;
 
-interface ImportMetaEnv {
+interface ImportMetaEnvLocal extends ImportMetaEnv {
   VITE_GENERATE_SOURCEMAP: boolean;
   VITE_APP_URL_SERVER: string;
   VITE_APP_URL_UI: string;
@@ -17,7 +17,7 @@ interface ImportMetaEnv {
 }
 
 type ExtractRuntimeConfig = {
-  [K in keyof ImportMetaEnv as CamelCase<StripPrefix<K & string>>]: ImportMetaEnv[K];
+  [K in keyof ImportMetaEnvLocal as CamelCase<StripPrefix<K & string>>]: ImportMetaEnvLocal[K];
 };
 
 export const useRuntimeConfig = (): ExtractRuntimeConfig => {

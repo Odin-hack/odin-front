@@ -27,6 +27,16 @@ export interface IUserBlock {
   event: string;
 }
 
+export interface IHashLastBlock {
+  index: number;
+  myReward: number;
+  hash: string;
+  timestamp: number;
+  reward: number;
+  solver: number;
+  solverName: string;
+}
+
 export interface IHashCash {
   info: {
     online: number;
@@ -51,15 +61,7 @@ export interface IHashCash {
       shareFactor: number;
     };
     miners: number;
-    lastBlocks: {
-      index: number;
-      myReward: number;
-      hash: string;
-      timestamp: number;
-      reward: number;
-      solver: number;
-      solverName: string;
-    }[];
+    lastBlocks: IHashLastBlock[];
   };
   event: string;
 }
