@@ -19,6 +19,8 @@ import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 import IconPlay from '@/components/Icon/play.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
+import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
+
 
 const { user } = storeToRefs(useAuthStore());
 const { userStaff, hashCash } = storeToRefs(useSocketDataStore());
@@ -40,6 +42,13 @@ const miningContentButton = computed(() => {
     buttonIcon: IconBatteryCrossed,
   };
 });
+
+const difficulty = computed(() => {
+  const shareFactor = hashCash.value?.config?.shareFactor || 0;
+  const mainFactor = hashCash.value?.config?.mainFactor || 0;
+
+  return formatNumberWithSpacesAndSuffix( shareFactor / mainFactor, 1);
+});
 </script>
 
 <template>
@@ -57,6 +66,7 @@ const miningContentButton = computed(() => {
 
         <InfoBlock
           :type="InfoBlockTypeEnum.DIFFICULTY"
+          :value="difficulty"
         />
 
         <InfoBlock
