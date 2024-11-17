@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { useAuthStore } from '@/stores/auth';
@@ -16,9 +16,13 @@ import EarnedBlock from '@/components/EarnedBlock.vue';
 import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
+import { useSocketDataStore } from '@/stores/socket-data';
 
 
 const { user } = storeToRefs(useAuthStore());
+const { userStaff } = storeToRefs(useSocketDataStore());
+
+const userInfo = computed(() => userStaff);
 
 const isDrawerVisible = ref(false);
 </script>
@@ -26,7 +30,7 @@ const isDrawerVisible = ref(false);
 <template>
   <div class="MiningPage">
     <BatteryInfo
-      :user
+      :user-info
     />
 
     <div class="MiningPage__info">

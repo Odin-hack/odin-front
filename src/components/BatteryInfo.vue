@@ -3,6 +3,7 @@ import { computed } from 'vue';
 
 import type { PropType } from 'vue';
 import type { IUser } from '@/types/auth';
+import type { IUserStaff } from '@/types/socket-data.interface';
 
 import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
 
@@ -12,13 +13,15 @@ import Progress from '@/components/UI/Progress.vue';
 
 
 const props = defineProps({
-  user: {
-    type: Object as PropType<IUser>,
+  userInfo: {
+    type: Object as PropType<IUser | IUserStaff['payload'] | null>,
     required: true,
   },
 });
 
-const energyPercents = computed(() => getPercents(props.user?.energy, props.user?.maxEnergy));
+const energyPercents = computed(() =>
+  getPercents(props.userInfo?.energy || 0, props.userInfo?.maxEnergy || 0),
+);
 </script>
 
 <template>
@@ -38,7 +41,7 @@ const energyPercents = computed(() => getPercents(props.user?.energy, props.user
           </p>
 
           <div class="BatteryInfo__content__balance__amount">
-            <p>{{ formatNumberWithSpaces(user?.balance || 0) }}</p>
+            <p>{{ formatNumberWithSpaces(userInfo?.balance || 0) }}</p>
             <IconSigmaColored size="16" />
           </div>
         </div>
@@ -49,7 +52,7 @@ const energyPercents = computed(() => getPercents(props.user?.energy, props.user
           </p>
 
           <div class="BatteryInfo__content__energy__amount">
-            <p>{{ user?.energy || 0 }} / {{ user?.maxEnergy || 0 }}</p>
+            <p>{{ userInfo?.energy || 0 }} / {{ userInfo?.maxEnergy || 0 }}</p>
 
             <IconBlizzard
               size="16"
