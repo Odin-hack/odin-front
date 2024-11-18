@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 
 import { useAuthStore } from '@/stores/auth';
 import { useSocketDataStore } from '@/stores/socket-data';
+import { useInvoiceStore } from '@/stores/invoice';
 
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
@@ -21,9 +22,13 @@ import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
 import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
 
+import WebApp from '@twa-dev/sdk';
+
 
 const { user } = storeToRefs(useAuthStore());
 const { userStaff, hashCash } = storeToRefs(useSocketDataStore());
+const { invoice } = storeToRefs(useInvoiceStore());
+const { setInvoice } = useInvoiceStore();
 
 const userInfo = computed(() => userStaff || user);
 
@@ -49,6 +54,18 @@ const difficulty = computed(() => {
 
   return formatNumberWithSpacesAndSuffix( shareFactor / mainFactor, 1);
 });
+
+const openMiningInvoice = async () => {
+  await setInvoice();
+
+  if (invoice.value?.link) {
+    WebApp.openInvoice(invoice.value.link);
+  }
+
+  WebApp.onEvent('invoiceClosed', (event) => {
+    if (event.status === 'paid') console.log('paid');
+  });
+};
 </script>
 
 <template>
@@ -110,6 +127,7 @@ const difficulty = computed(() => {
     <div class="FixedButton--bottom">
       <Button
         :theme="miningContentButton.buttonTheme"
+        @click="openMiningInvoice"
       >
         <template #icon>
           <component
