@@ -60,6 +60,7 @@ const tabs = ref([
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  z-index: 100;
 
   &__tab {
     display: flex;

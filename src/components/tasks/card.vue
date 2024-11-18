@@ -144,7 +144,6 @@ const handleActionClick = () => {
 
   &__actions {
     position: relative;
-    z-index: 100;
   }
 }
 </style>

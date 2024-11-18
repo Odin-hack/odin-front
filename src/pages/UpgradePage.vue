@@ -9,7 +9,10 @@ import { useSocketDataStore } from '@/stores/socket-data';
 import { useTasksStore } from '@/stores/tasks';
 import { storeToRefs } from 'pinia';
 
+import type { ITask } from '@/types/tasks';
+
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
+import { TaskTypeEnum } from '@/types/enums/task.enum';
 
 import BatteryInfo from '@/components/BatteryInfo.vue';
 import Badge from '@/components/UI/Badge.vue';
@@ -18,6 +21,7 @@ import UpgradeCard from '@/components/UpgradeCard.vue';
 import TasksWrapper from '@/components/tasks/wrapper.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
+
 
 const { user } = storeToRefs(useAuthStore());
 const { userStaff } = storeToRefs(useSocketDataStore());
@@ -48,6 +52,13 @@ const userInfo = computed(() => userStaff || user);
 onMounted(async () => {
   await tasksStore.fetchTasks();
 });
+
+const friendInvite = computed(() =>
+  tasks.value?.find((task: ITask) =>
+    task.type?.toUpperCase() === TaskTypeEnum.INVITE,
+));
+
+const inviteFriend = () => WebApp?.openTelegramLink('https://t.me/share/url?url=');
 </script>
 
 <template>
@@ -84,14 +95,18 @@ onMounted(async () => {
       :tasks
     />
 
-    <div class="FixedButton--bottom">
+    <div
+      v-if="friendInvite"
+      class="FixedButton--bottom"
+    >
       <Button
         :theme="ButtonThemeEnum.PRIMARY"
+        @click="inviteFriend"
       >
         Invite Friend
 
         <template #badge>
-          <p>+ 100</p>
+          <p>+ {{ friendInvite?.awardAmount }}</p>
 
           <IconBlizzard
             width="8"
