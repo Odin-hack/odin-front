@@ -11,6 +11,8 @@ const props = defineProps({
   },
   loading: Boolean,
   disabled: Boolean,
+  rounded: Boolean,
+  small: Boolean,
 });
 
 const theme = computed(() => {
@@ -44,6 +46,8 @@ const theme = computed(() => {
 });
 
 const isDisabled = computed(() => props.disabled || props.loading);
+const borderRadius = computed(() => props.rounded ? '20px' : '10px');
+const paddings = computed(() => props.small ? '8px 12px' : '14px');
 </script>
 
 <template>
@@ -79,8 +83,8 @@ const isDisabled = computed(() => props.disabled || props.loading);
   justify-content: center;
   align-items: center;
   gap: 10px;
-  border-radius: 10px;
-  padding: 14px;
+  border-radius: v-bind(borderRadius);
+  padding: v-bind(paddings);
   width: 100%;
   background-color: v-bind('theme.background');
   color: v-bind('theme.color');

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import SigmaColored from '@/components/Icon/sigmaColored.vue';
 import { getAvatarColor } from '@/utils/getAvatarColor';
+
 import UserPlace from '@/components/animations/UserPlace.vue';
+import UITag from '@/components/UI/Tag.vue';
+
 
 defineProps({
   name: {
@@ -49,13 +51,9 @@ defineProps({
         {{ name.length > 12 ? `${name.slice(0, 12)}...` : name }}
       </p>
 
-      <div class="StatsUserRow__amount-wrapper">
-        <SigmaColored size="16" />
-
-        <p class="StatsUserRow__amount">
-          {{ amount }}
-        </p>
-      </div>
+      <UITag
+        :amount
+      />
     </div>
 
     <UserPlace

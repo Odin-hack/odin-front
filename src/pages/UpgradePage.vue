@@ -15,14 +15,19 @@ import BatteryInfo from '@/components/BatteryInfo.vue';
 import Badge from '@/components/UI/Badge.vue';
 import Button from '@/components/UI/Button.vue';
 import UpgradeCard from '@/components/UpgradeCard.vue';
+import TasksWrapper from '@/components/tasks/wrapper.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
-
 
 const { user } = storeToRefs(useAuthStore());
 const { userStaff } = storeToRefs(useSocketDataStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
+
+const tasksStore = useTasksStore();
+
+const { tasks } = storeToRefs(tasksStore);
+
 
 const isSwitchActive = ref(user.value?.powerMode);
 
@@ -41,7 +46,7 @@ const changeSwitchActiveHandler = async (value: boolean) => {
 const userInfo = computed(() => userStaff || user);
 
 onMounted(async () => {
-  await useTasksStore().fetchTasks();
+  await tasksStore.fetchTasks();
 });
 </script>
 
@@ -74,6 +79,10 @@ onMounted(async () => {
         />
       </div>
     </div>
+
+    <TasksWrapper
+      :tasks
+    />
 
     <div class="FixedButton--bottom">
       <Button

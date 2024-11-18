@@ -1,12 +1,12 @@
-type TActions = 'join' | 'forward' | 'check' | 'copy' | 'invite'
+import { TaskActionEnum, TaskAwardTypeEnum, TaskStatusEnum, TaskTypeEnum } from '@/types/enums/task.enum';
 
 export interface ITask {
-  actions: TActions[];
+  actions: TaskActionEnum[]
   awardAmount: number;
-  awardType: string;
+  awardType: TaskAwardTypeEnum;
   id: number;
   info: string;
-  status: string;
-  title: string;
-  type: string;
+  status: TaskStatusEnum;
+  title: TaskTypeEnum;
+  type: TaskTypeEnum;
 }

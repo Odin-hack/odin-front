@@ -80,7 +80,7 @@ const data = computed(() =>[
   border-radius: 16px;
 
   .SectionTitle {
-    margin: 0 0 8px;
+    padding: 0 0 8px;
   }
 
   &__stats {

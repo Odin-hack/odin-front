@@ -7,6 +7,7 @@ export enum ColorsEnum {
   PRIMARY_GREEN = 'var(--color-primary-green)',
 
   SECONDARY_GREEN = 'var(--color-secondary-green)',
+  SECONDARY_DARK_GREEN = 'var(--color-secondary-green-darken)',
   SECONDARY_YELLOW = 'var(--color-secondary-yellow)',
   SECONDARY_RED = 'var(--color-secondary-red)',
   SECONDARY_GREY = 'var(--color-grey-secondary)',
