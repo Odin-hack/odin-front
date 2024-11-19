@@ -14,8 +14,6 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     shareFactor: bigint
   } | null>(null);
 
-  const isMiningStarted = ref(false);
-
   socket.on('user.userStuff', (data: IUserStaff) => {
     userStaff.value = data?.payload || null;
   });
@@ -51,6 +49,5 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     userBlock,
     hashCash,
     miningData,
-    isMiningStarted,
   };
 });

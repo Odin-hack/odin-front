@@ -27,7 +27,8 @@ import { useHashStore } from '@/stores/hash';
 
 
 const { user } = storeToRefs(useAuthStore());
-const { userStaff, hashCash, isMiningStarted } = storeToRefs(useSocketDataStore());
+const { userStaff, hashCash } = storeToRefs(useSocketDataStore());
+const { isMiningStarted } = storeToRefs(useHashStore());
 // const { invoice } = storeToRefs(useInvoiceStore());
 // const { setInvoice } = useInvoiceStore();
 
@@ -58,10 +59,10 @@ const difficulty = computed(() => {
   return formatNumberWithSpacesAndSuffix( shareFactor / mainFactor, 1);
 });
 
-const openMiningInvoice = () => {
-  if (!isMiningStarted.value) useHashStore().startMining({});
+const toggleMining = () => {
+  isMiningStarted.value = !isMiningStarted.value;
 
-  isMiningStarted.value = true;
+  if (isMiningStarted.value) useHashStore().startMining({});
 };
 </script>
 
@@ -124,7 +125,7 @@ const openMiningInvoice = () => {
     <div class="FixedButton--bottom">
       <Button
         :theme="miningContentButton.buttonTheme"
-        @click="openMiningInvoice"
+        @click="toggleMining"
       >
         <template #icon>
           <component

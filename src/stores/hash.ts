@@ -1,10 +1,19 @@
 import socket from '@/api/socket';
 import { defineStore, storeToRefs } from 'pinia';
 import { useSocketDataStore } from '@/stores/socket-data';
+import { ref } from 'vue';
 
 export const useHashStore = defineStore('hashStore', () => {
-
   const { miningData } = storeToRefs(useSocketDataStore());
+  const isMiningStarted = ref(false);
+
+  let hashesProcessed = 0;
+  let lastMeasurement = Date.now();
+  let baselineHashRate = null;
+  let needsCooldown = false;
+  const MEASURE_INTERVAL = 2000;
+  const COOLDOWN_TIME = 1000;
+  const HASH_THRESHOLD = 0.7;
 
   const calculateHash = async (
     index: number,
@@ -30,7 +39,6 @@ export const useHashStore = defineStore('hashStore', () => {
     const value = BigInt(`0x${hash}`);
     if (value < mainFactor) return 'valid';
     if (value < shareFactor) return 'share';
-
     return 'notValid';
   };
 
@@ -41,11 +49,38 @@ export const useHashStore = defineStore('hashStore', () => {
     return { startNonce, endNonce };
   };
 
+  const checkThermal = (isTurboMode: boolean) => {
+    if (isTurboMode) return;
+
+    hashesProcessed++;
+    const now = Date.now();
+
+    if (now - lastMeasurement >= MEASURE_INTERVAL) {
+      const currentHashRate = (hashesProcessed * 1000) / (now - lastMeasurement);
+
+      if (!baselineHashRate) {
+        baselineHashRate = currentHashRate;
+      } else {
+        const performanceRatio = currentHashRate / baselineHashRate;
+        needsCooldown = performanceRatio < HASH_THRESHOLD;
+      }
+
+      hashesProcessed = 0;
+      lastMeasurement = now;
+    }
+
+    if (needsCooldown) {
+      setTimeout(() => {
+        needsCooldown = false;
+      }, COOLDOWN_TIME);
+    }
+  };
 
   const startMining = async ({
-   data = '',
-   minerId = 'telegramUserId',
- }) => {
+     data = '',
+     minerId = 'telegramUserId',
+     isTurboMode = false,
+  }) => {
     const maxNonce = 1_000_000_000;
     const rangeSize = 1_000_000;
 
@@ -60,7 +95,9 @@ export const useHashStore = defineStore('hashStore', () => {
       while (nonce <= endNonce) {
         const timestamp = Date.now();
 
-        if (!miningData.value) return;
+        if (!miningData.value || !isMiningStarted.value) return;
+
+        checkThermal(isTurboMode);
 
         const hash = await calculateHash(
           miningData.value?.index,
@@ -98,6 +135,10 @@ export const useHashStore = defineStore('hashStore', () => {
         }
 
         nonce++;
+
+        if (needsCooldown) {
+          await new Promise(resolve => setTimeout(resolve, COOLDOWN_TIME));
+        }
       }
 
       console.log('Current nonce range exhausted, generating new range...');
@@ -119,5 +160,6 @@ export const useHashStore = defineStore('hashStore', () => {
 
   return {
     startMining,
+    isMiningStarted,
   };
 });
