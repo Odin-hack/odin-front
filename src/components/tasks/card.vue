@@ -7,6 +7,7 @@ import UITag from '@/components/UI/Tag.vue';
 import Button from '@/components/UI/Button.vue';
 import Spinner from '@/components/UI/Spinner.vue';
 import Drawer from '@/components/Drawer.vue';
+import IconCheck from '@/components/Icon/Check.vue';
 
 import { TaskActionEnum, TaskStatusEnum, TaskTypeEnum } from '@/types/enums/task.enum';
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
@@ -109,6 +110,10 @@ const handleActionClick = () => {
       </Button>
 
       <Spinner v-if="isCheckedProgress" />
+
+      <IconCheck
+        v-if="task.status.toUpperCase() === TaskStatusEnum.COMPLETED"
+      />
     </div>
 
     <Drawer v-model:visible="visible">

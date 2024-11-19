@@ -19,7 +19,7 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
   const energy = ref<IEnergy['payload'] | null>(null);
   const rewardsData = ref<IRewardData['payload'][]>([]);
   const statistics = ref<IStatistics['payload'] | null>(null);
-
+  const onlineMiners = ref(0);
   const totalRewards = ref(0);
 
   socket.auth = {
@@ -40,6 +40,10 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
 
   socket.on('mining.stopped', (data) => {
     console.log(data);
+  });
+
+  socket.on('online_users_count', (data) => {
+    onlineMiners.value = data;
   });
 
   socket.on('statistics.update', (data: IStatistics) => {
@@ -83,5 +87,6 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     rewardsData,
     statistics,
     totalRewards,
+    onlineMiners,
   };
 });

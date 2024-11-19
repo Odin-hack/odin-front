@@ -30,7 +30,7 @@ import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
 
 
 const { user, alreadyInApp, blockchainStats } = storeToRefs(useAuthStore());
-const { hashCash, energy, statistics, rewardsData, totalRewards } = storeToRefs(useSocketDataStore());
+const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners } = storeToRefs(useSocketDataStore());
 const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
@@ -152,7 +152,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
 
         <InfoBlock
           :type="InfoBlockTypeEnum.ONLINE"
-          :value="hashCash?.miners"
+          :value="formatNumberWithSpacesAndSuffix(onlineMiners, 1)"
         />
       </InfoBlocks>
     </div>
