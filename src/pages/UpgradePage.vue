@@ -67,15 +67,15 @@ const inviteFriend = () => WebApp?.openTelegramLink('https://t.me/share/url?url=
       :user-info
     />
 
-    <div class="UpgradePage__upgrades">
-      <h3 class="SectionTitle">
-        UPGRADES
-      </h3>
+    <!--    <div class="UpgradePage__upgrades">-->
+    <!--      <h3 class="SectionTitle">-->
+    <!--        UPGRADES-->
+    <!--      </h3>-->
 
-      <div class="UpgradePage__upgrades__wrapper">
-        <UpgradeCard />
-      </div>
-    </div>
+    <!--      <div class="UpgradePage__upgrades__wrapper">-->
+    <!--        <UpgradeCard />-->
+    <!--      </div>-->
+    <!--    </div>-->
 
     <div class="UpgradePage__upgrades">
       <h3 class="SectionTitle">
