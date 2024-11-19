@@ -29,11 +29,13 @@ onMounted(async () => {
 
 <template>
   <div class="RouterLayout">
-    <RouterView />
-
     <Loader v-if="isLoader" />
 
-    <Navigation />
+    <template v-else>
+      <RouterView />
+
+      <Navigation />
+    </template>
   </div>
 </template>
 

@@ -15,6 +15,7 @@ const defaultParams = (): RequestInit => {
   return {
     headers: {
       'Content-Type': 'application/json',
+      'x-forwarded-for': 'test',
       ...(token.value && { Authorization: `Bearer ${token.value}` }),
     },
   };

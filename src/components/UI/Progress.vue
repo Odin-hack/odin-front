@@ -40,6 +40,7 @@ const formattedPercents = computed(() => `${ props.percents }%`);
   border-radius: 4px;
   background-color: v-bind(backgroundColor);
   overflow: hidden;
+  transition: width 0.3s ease;
 
   &__wrapper {
     display: flex;
@@ -51,7 +52,6 @@ const formattedPercents = computed(() => `${ props.percents }%`);
     }
   }
 
-
   &:before {
     content: '';
     position: absolute;
@@ -59,6 +59,20 @@ const formattedPercents = computed(() => `${ props.percents }%`);
     top: 0;
     background-color: v-bind(progressColor);
     width: v-bind(formattedPercents);
+    transition: width 0.3s ease;
+    border-radius: 4px;
+    height: 100%;
+    z-index: 10;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: white;
+    width: v-bind(formattedPercents);
+    transition: width 0.3s ease 0.3s;
     border-radius: 4px;
     height: 100%;
   }

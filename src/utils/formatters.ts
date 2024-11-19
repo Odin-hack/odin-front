@@ -29,16 +29,28 @@ export const formatNumberWithSpacesAndSuffix = (num: number, digits: number) => 
     : '0';
 };
 
-export const formatTimestamp = (timestamp?: number) => {
+export const formatTimestamp = (timestamp?: number, params?: {
+  onlyTime: boolean,
+} ) => {
   if (!timestamp) return '...';
 
   const date = new Date(timestamp);
 
-  const formatter = new Intl.DateTimeFormat('en-GB', {
+  if (params?.onlyTime) {
+    const timeFormatter = new Intl.DateTimeFormat('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
+    return timeFormatter.format(date);
+  }
+
+  const dateFormatter = new Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
   });
 
-  return formatter.format(date);
+  return dateFormatter.format(date);
 };
