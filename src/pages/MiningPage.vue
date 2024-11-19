@@ -21,18 +21,18 @@ import IconPlay from '@/components/Icon/play.vue';
 import IconPause from '@/components/Icon/pause.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
-import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
-
 // import WebApp from '@twa-dev/sdk';
 import { useHashStore } from '@/stores/hash';
 import type { IHashLastBlock } from '@/types/socket-data.interface';
+import { useInvoiceStore } from '@/stores/invoice';
+import WebApp from '@twa-dev/sdk';
 
 
 const { user, alreadyInApp, blockchainStats } = storeToRefs(useAuthStore());
 const { hashCash, energy, statistics, rewardsData, totalRewards } = storeToRefs(useSocketDataStore());
 const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
-// const { invoice } = storeToRefs(useInvoiceStore());
-// const { setInvoice } = useInvoiceStore();
+const { invoice } = storeToRefs(useInvoiceStore());
+const { setInvoice } = useInvoiceStore();
 
 const isMiningEnabled = ref(true);
 
@@ -80,20 +80,27 @@ watch(energy, (val) => {
   alreadyInApp.value && (isMiningEnabled.value = true);
 }, { immediate: true });
 
-const difficulty = computed(() => {
-  const shareFactor = hashCash.value?.config?.shareFactor || 0;
-  const mainFactor = hashCash.value?.config?.mainFactor || 0;
-
-  return formatNumberWithSpacesAndSuffix( shareFactor / mainFactor, 1);
-});
-
 const lastBlock = computed(() => hashCash.value?.lastBlock);
 
 setInterval(() => {
   socket.emit('mining.get_energy');
 }, 10000);
 
+const openInvoiceModal = async () => {
+  await setInvoice();
+
+  if (invoice.value?.link) {
+    WebApp.openInvoice(invoice.value.link);
+  }
+
+  WebApp.onEvent('invoiceClosed', (event) => {
+    if (event.status === 'paid') console.log('paid');
+  });
+};
+
 const toggleMining = () => {
+  if (!alreadyInApp.value) return openInvoiceModal();
+
   isMiningStarted.value = !isMiningStarted.value;
 
   if (isMiningStarted.value) {
