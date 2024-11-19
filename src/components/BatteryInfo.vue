@@ -46,7 +46,7 @@ const intervalId = ref<number | null>(null);
 const startInterval = () => {
   intervalId.value = setInterval(() => {
     if (energyLeft.value && energyLeft.value > 0 && props.user) {
-      energyLeft.value = Math.max(energyLeft.value -= props.energy?.energyConsumed || props.user?.energy?.consumptionRate, 0);
+      energyLeft.value = Math.max(energyLeft.value -= props.user?.energy?.consumptionRate, 0);
       storedEnergyLeft.value = energyLeft.value;
     }
   }, 1000);
@@ -74,7 +74,11 @@ const energyPercents = computed(() =>
     getPercents(energyLeft.value, props.user?.info?.maxEnergy || 0),
 );
 
-const balance = computed(()=> formatNumberWithSpaces(props.user?.info?.balance / 1000000 || 0));
+const balance = computed(() => {
+  const userBalance = props.user?.info?.balance ? BigInt(props.user?.info?.balance) : BigInt(0);
+  const formattedBalance = userBalance / BigInt(1000000);
+  return formatNumberWithSpaces(Number(formattedBalance) || 0);
+});
 
 onBeforeUnmount(() => {
   stopInterval();

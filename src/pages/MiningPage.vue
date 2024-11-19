@@ -26,6 +26,7 @@ import { useHashStore } from '@/stores/hash';
 import type { IHashLastBlock } from '@/types/socket-data.interface';
 import { useInvoiceStore } from '@/stores/invoice';
 import WebApp from '@twa-dev/sdk';
+import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
 
 
 const { user, alreadyInApp, blockchainStats } = storeToRefs(useAuthStore());
@@ -146,7 +147,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
 
         <InfoBlock
           :type="InfoBlockTypeEnum.REWARD"
-          :value="statistics?.totalMined || blockchainStats?.totalMined"
+          :value="formatNumberWithSpacesAndSuffix(statistics?.totalMined || blockchainStats?.totalMined || 0, 1)"
         />
 
         <InfoBlock

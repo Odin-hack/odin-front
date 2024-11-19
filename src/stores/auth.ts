@@ -34,7 +34,9 @@ export const useAuthStore = defineStore('authStore', () => {
 
   const addBalance = (val: number) => {
     if (user.value?.info?.balance) {
-      user.value.info.balance = (Number(user.value.info.balance) + val).toString();
+      user.value.info.balance = (
+        BigInt(user.value.info.balance) + BigInt(val)
+      ).toString();
     }
   };
   const authUser = async () => {
@@ -52,7 +54,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
     if (data?.token) useLocalStorage('token').value = data?.token;
 
-    alreadyInApp.value = data?.alreadyInApp || false;
+    alreadyInApp.value = data?.alreadyInApp || true;
     user.value =  data?.appData && { info: data?.appData?.user, energy: data?.appData?.energy } || null;
     blockchainStats.value = data?.appData?.blockchainStats || null;
 
