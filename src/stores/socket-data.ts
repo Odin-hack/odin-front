@@ -3,8 +3,9 @@ import socket from '@/api/socket';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-import type { IEnergy, IHashCash, IRewardData } from '@/types/socket-data.interface';
+import type { IEnergy, IHashCash, IRewardData, IStatistics } from '@/types/socket-data.interface';
 import { useLocalStorage } from '@/composables/useLocaleStorage';
+import { useAuthStore } from '@/stores/auth';
 
 
 export const useSocketDataStore = defineStore('socketDataStore', () => {
@@ -17,6 +18,9 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
   }[]>([]);
   const energy = ref<IEnergy['payload'] | null>(null);
   const rewardsData = ref<IRewardData['payload'][]>([]);
+  const statistics = ref<IStatistics['payload'] | null>(null);
+
+  const totalRewards = ref(0);
 
   socket.auth = {
     token: useLocalStorage('token').value,
@@ -38,6 +42,10 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     console.log(data);
   });
 
+  socket.on('statistics.update', (data: IStatistics) => {
+    statistics.value = data.payload;
+  });
+
   socket.on('disconnect', () => socket.disconnect());
 
   const setMiningData = (data: IHashCash['payload']) => {
@@ -51,6 +59,9 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
 
   socket.on('blockchain.reward', (data: IRewardData) => {
     rewardsData.value.push(data.payload);
+    totalRewards.value += data?.payload?.reward;
+
+    useAuthStore().addBalance(data?.payload?.reward);
   });
 
   socket.on('blockchain.get', (data: IHashCash) => {
@@ -70,5 +81,7 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     miningData,
     energy,
     rewardsData,
+    statistics,
+    totalRewards,
   };
 });

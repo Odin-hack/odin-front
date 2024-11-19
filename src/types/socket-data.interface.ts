@@ -1,3 +1,16 @@
+export interface IStatistics {
+  event: string;
+  payload: {
+    totalBlocks: number;
+    blocksMined: number;
+    miningStarted: string;
+    totalSupply: number;
+    totalMined: number;
+    totalHolders: number;
+  };
+}
+
+
 export interface IHashLastBlock {
   solverName: number;
   blockReward: number;

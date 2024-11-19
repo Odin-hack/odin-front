@@ -74,6 +74,8 @@ const energyPercents = computed(() =>
     getPercents(energyLeft.value, props.user?.info?.maxEnergy || 0),
 );
 
+const balance = computed(()=> formatNumberWithSpaces(props.user?.info?.balance / 1000000 || 0));
+
 onBeforeUnmount(() => {
   stopInterval();
 });
@@ -96,7 +98,7 @@ onBeforeUnmount(() => {
           </p>
 
           <div class="BatteryInfo__content__balance__amount">
-            <p>{{ formatNumberWithSpaces(user?.info?.balance / 1000000 || 0) }}</p>
+            <p>{{ balance }}</p>
             <IconSigmaColored size="16" />
           </div>
         </div>

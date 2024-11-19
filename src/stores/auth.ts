@@ -32,6 +32,11 @@ export const useAuthStore = defineStore('authStore', () => {
 
   const loadingStore = useLoaderStore();
 
+  const addBalance = (val: number) => {
+    if (user.value?.info?.balance) {
+      user.value.info.balance = (Number(user.value.info.balance) + val).toString();
+    }
+  };
   const authUser = async () => {
     loadingStore.setLoading(true);
 
@@ -56,6 +61,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
   return {
     authUser,
+    addBalance,
     user,
     blockchainStats,
     alreadyInApp,

@@ -28,9 +28,9 @@ import { useHashStore } from '@/stores/hash';
 import type { IHashLastBlock } from '@/types/socket-data.interface';
 
 
-const { user, alreadyInApp } = storeToRefs(useAuthStore());
-const { hashCash, energy } = storeToRefs(useSocketDataStore());
-const { isMiningStarted } = storeToRefs(useHashStore());
+const { user, alreadyInApp, blockchainStats } = storeToRefs(useAuthStore());
+const { hashCash, energy, statistics, rewardsData, totalRewards } = storeToRefs(useSocketDataStore());
+const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 // const { invoice } = storeToRefs(useInvoiceStore());
 // const { setInvoice } = useInvoiceStore();
 
@@ -71,7 +71,7 @@ const miningContent = computed(() => {
 });
 
 watch(energy, (val) => {
-  if ((user.value?.info?.energy < 10 || val?.energy < 100) && isMiningEnabled.value) {
+  if ((user.value?.info?.energy <= 0 || val?.energy <= 0) && isMiningEnabled.value) {
     isMiningEnabled.value = false;
     isMiningStarted.value && stopMining();
     return;
@@ -129,16 +129,17 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
       <InfoBlocks title="INFORMATION">
         <InfoBlock
           :type="InfoBlockTypeEnum.BLOCK"
-          :value="user?.blocks"
+          :value="statistics?.blocksMined || blockchainStats?.blocksMined"
         />
 
         <InfoBlock
-          :type="InfoBlockTypeEnum.DIFFICULTY"
-          :value="difficulty"
+          :type="InfoBlockTypeEnum.HOLDERS"
+          :value="statistics?.totalHolders || blockchainStats?.totalHolders"
         />
 
         <InfoBlock
           :type="InfoBlockTypeEnum.REWARD"
+          :value="statistics?.totalMined || blockchainStats?.totalMined"
         />
 
         <InfoBlock
@@ -154,9 +155,18 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
           :type="InfoBlockTypeEnum.STATUS"
           :value="miningContent.status"
         />
-        <InfoBlock :type="InfoBlockTypeEnum.SHARES" />
-        <InfoBlock :type="InfoBlockTypeEnum.HASHES" />
-        <InfoBlock :type="InfoBlockTypeEnum.EARNINGS" />
+        <InfoBlock
+          :type="InfoBlockTypeEnum.SHARES"
+          :value="totalShares"
+        />
+        <InfoBlock
+          :type="InfoBlockTypeEnum.HASHES"
+          :value="totalHashes"
+        />
+        <InfoBlock
+          :type="InfoBlockTypeEnum.EARNINGS"
+          :value="(totalRewards / 1000000)"
+        />
       </InfoBlocks>
 
       <Button

@@ -8,6 +8,9 @@ export const useHashStore = defineStore('hashStore', () => {
   const { miningData } = storeToRefs(useSocketDataStore());
   const isMiningStarted = ref(false);
 
+  const totalShares = ref(0);
+  const totalHashes = ref(0);
+
   let hashesProcessed = 0;
   let lastMeasurement = Date.now();
   let baselineHashRate = null;
@@ -117,6 +120,7 @@ export const useHashStore = defineStore('hashStore', () => {
 
         if (result === 'valid') {
           console.log(`Valid block found: ${hash}`);
+          totalShares.value += 1;
           socket.emit('blockchain.submit_hash', {
             hash,
             nonce: nonce,
@@ -126,6 +130,7 @@ export const useHashStore = defineStore('hashStore', () => {
           console.log('Valid block submitted, continuing mining...');
         } else if (result === 'share') {
           console.log(`Share found: ${hash}`);
+          totalHashes.value += 1;
           socket.emit('blockchain.submit_hash', {
             hash,
             nonce: nonce,
@@ -162,5 +167,7 @@ export const useHashStore = defineStore('hashStore', () => {
   return {
     startMining,
     isMiningStarted,
+    totalShares,
+    totalHashes,
   };
 });
