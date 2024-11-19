@@ -91,7 +91,10 @@ const borderColor = computed(() => {
         {{ content.label }}
       </p>
 
-      <Status v-if="type === InfoBlockTypeEnum.STATUS" />
+      <Status
+        v-if="type === InfoBlockTypeEnum.STATUS"
+        :value
+      />
 
       <p v-else>
         {{ value }}
