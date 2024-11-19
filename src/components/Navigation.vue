@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { markRaw, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 import IconMining from '@/components/Icon/mining.vue';
 import IconUpgrades from '@/components/Icon/upgrades.vue';
@@ -18,7 +19,7 @@ const tabs = ref([
     name: 'Upgrades',
   },
   {
-    path: '/stats',
+    path: null,
     icon: markRaw(IconUsers),
     name: 'Stats',
   },
@@ -32,7 +33,8 @@ const tabs = ref([
 
 <template>
   <div class="Navigation">
-    <RouterLink
+    <component
+      :is="tab.path ? RouterLink : 'div'"
       v-for="tab in tabs"
       :key="tab.path"
       class="Navigation__tab"
@@ -46,7 +48,7 @@ const tabs = ref([
       <p>
         {{ tab.name }}
       </p>
-    </RouterLink>
+    </component>
   </div>
 </template>
 
