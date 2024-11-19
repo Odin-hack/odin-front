@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import socket from '@/api/socket';
 
 import { useAuthStore } from '@/stores/auth';
 import { useSocketDataStore } from '@/stores/socket-data';
-import { useInvoiceStore } from '@/stores/invoice';
 
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
@@ -27,21 +27,20 @@ import { useHashStore } from '@/stores/hash';
 
 
 const { user } = storeToRefs(useAuthStore());
-const { userStaff, hashCash } = storeToRefs(useSocketDataStore());
+const { hashCash, energy } = storeToRefs(useSocketDataStore());
 const { isMiningStarted } = storeToRefs(useHashStore());
 // const { invoice } = storeToRefs(useInvoiceStore());
 // const { setInvoice } = useInvoiceStore();
 
-const userInfo = computed(() => userStaff || user);
-
 const isDrawerVisible = ref(false);
 
-const miningContentButton = computed(() => {
+const miningContent = computed(() => {
   if (isMiningStarted.value) {
     return {
       buttonTheme: ButtonThemeEnum.WARNING,
       text: 'Stop mining',
       buttonIcon: IconPause,
+      status: StatusEnum.MINING,
     };
   }
 
@@ -49,6 +48,7 @@ const miningContentButton = computed(() => {
     buttonTheme: ButtonThemeEnum.PRIMARY,
     text: 'Start mining',
     buttonIcon: IconPlay,
+    status: StatusEnum.AWAITING,
   };
 });
 
@@ -59,24 +59,37 @@ const difficulty = computed(() => {
   return formatNumberWithSpacesAndSuffix( shareFactor / mainFactor, 1);
 });
 
+const lastBlock = computed(() => hashCash.value?.lastBlock);
+
+setInterval(() => {
+  socket.emit('mining.get_energy');
+}, 10000);
+
 const toggleMining = () => {
   isMiningStarted.value = !isMiningStarted.value;
 
-  if (isMiningStarted.value) useHashStore().startMining({});
+  if (isMiningStarted.value) {
+    socket.emit('mining.start');
+    return useHashStore().startMining({});
+  }
+
+  socket.emit('mining.stop');
 };
 </script>
 
 <template>
   <div class="MiningPage">
     <BatteryInfo
-      :user-info
+      :user
+      :energy
+      :is-mining-started
     />
 
     <div class="MiningPage__info">
       <InfoBlocks title="INFORMATION">
         <InfoBlock
           :type="InfoBlockTypeEnum.BLOCK"
-          :value="user?.blocks || userStaff?.blocks"
+          :value="user?.blocks"
         />
 
         <InfoBlock
@@ -99,7 +112,7 @@ const toggleMining = () => {
       <InfoBlocks title="MINING">
         <InfoBlock
           :type="InfoBlockTypeEnum.STATUS"
-          :value="StatusEnum.AWAITING"
+          :value="miningContent.status"
         />
         <InfoBlock :type="InfoBlockTypeEnum.SHARES" />
         <InfoBlock :type="InfoBlockTypeEnum.HASHES" />
@@ -114,7 +127,7 @@ const toggleMining = () => {
 
       <div class="MiningPage__earned__wrapper">
         <EarnedBlock
-          v-for="item in hashCash?.lastBlocks"
+          v-for="item in lastBlock"
           :key="item.index"
           :info="item"
           @click="isDrawerVisible = true"
@@ -124,21 +137,23 @@ const toggleMining = () => {
 
     <div class="FixedButton--bottom">
       <Button
-        :theme="miningContentButton.buttonTheme"
+        :theme="miningContent.buttonTheme"
         @click="toggleMining"
       >
         <template #icon>
           <component
-            :is="miningContentButton.buttonIcon"
+            :is="miningContent.buttonIcon"
           />
         </template>
 
-        {{ miningContentButton.text }}
+        {{ miningContent.text }}
       </Button>
     </div>
   </div>
 
-  <MiningBlockDrawer v-model:visible="isDrawerVisible" />
+  <MiningBlockDrawer
+    v-model:visible="isDrawerVisible"
+  />
 </template>
 
 <style scoped lang="scss">

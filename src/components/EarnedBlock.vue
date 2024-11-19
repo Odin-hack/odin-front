@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import type { IHashLastBlock } from '@/types/socket-data.interface';
+import { formatTimestamp } from '../utils/formatters';
 
 defineProps({
   info: {
@@ -15,7 +16,7 @@ defineProps({
     <div class="EarnedBlock__header">
       <p>
         Block
-        <span>#{{ info?.hash }}</span>
+        <span>#{{ info?.hash?.slice(-6) }}</span>
       </p>
 
       <div
@@ -27,7 +28,7 @@ defineProps({
     </div>
 
     <p class="EarnedBlock__earnedBy">
-      ⤷ Created by <span>{{ info?.solverName }}</span> in 11:42
+      ⤷ Created by <span>{{ info?.solverName }}</span> in {{ formatTimestamp(Number(info?.timestamp), { onlyTime: true }) }}
     </p>
   </div>
 </template>

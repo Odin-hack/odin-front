@@ -1,4 +1,5 @@
 import socket from '@/api/socket';
+
 import { defineStore, storeToRefs } from 'pinia';
 import { useSocketDataStore } from '@/stores/socket-data';
 import { ref } from 'vue';
@@ -122,9 +123,9 @@ export const useHashStore = defineStore('hashStore', () => {
             blockIndex: miningData.value?.index,
             timestamp,
           });
-
           console.log('Valid block submitted, continuing mining...');
         } else if (result === 'share') {
+          console.log(`Share found: ${hash}`);
           socket.emit('blockchain.submit_hash', {
             hash,
             nonce: nonce,

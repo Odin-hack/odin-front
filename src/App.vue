@@ -12,7 +12,8 @@ import WebApp from '@twa-dev/sdk';
 
 import Navigation from '@/components/Navigation.vue';
 import Loader from '@/components/Loader.vue';
-
+import { useLocalStorage } from '@/composables/useLocaleStorage';
+import socket from '@/api/socket';
 
 const { isLoader } = storeToRefs(useLoaderStore());
 
@@ -22,6 +23,10 @@ onMounted(async () => {
   WebApp.expand();
 
   await useAuthStore().authUser();
+
+  socket.auth = { token: useLocalStorage('token').value };
+
+  socket.connect();
 
   setScrollEl(document.querySelector('#app') as HTMLElement || undefined);
 });

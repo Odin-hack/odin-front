@@ -5,8 +5,9 @@ import WebApp from '@twa-dev/sdk';
 
 import { useAuthStore } from '@/stores/auth';
 import { useInvoiceStore } from '@/stores/invoice';
-import { useSocketDataStore } from '@/stores/socket-data';
 import { useTasksStore } from '@/stores/tasks';
+import { useHashStore } from '@/stores/hash';
+import { useSocketDataStore } from '@/stores/socket-data';
 import { storeToRefs } from 'pinia';
 
 import type { ITask } from '@/types/tasks';
@@ -17,16 +18,16 @@ import { TaskTypeEnum } from '@/types/enums/task.enum';
 import BatteryInfo from '@/components/BatteryInfo.vue';
 import Badge from '@/components/UI/Badge.vue';
 import Button from '@/components/UI/Button.vue';
-import UpgradeCard from '@/components/UpgradeCard.vue';
 import TasksWrapper from '@/components/tasks/wrapper.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 
 
 const { user } = storeToRefs(useAuthStore());
-const { userStaff } = storeToRefs(useSocketDataStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
+const { isMiningStarted } = storeToRefs(useHashStore());
+const { energy } = storeToRefs(useSocketDataStore());
 
 const tasksStore = useTasksStore();
 
@@ -47,8 +48,6 @@ const changeSwitchActiveHandler = async (value: boolean) => {
   });
 };
 
-const userInfo = computed(() => userStaff || user);
-
 onMounted(async () => {
   await tasksStore.fetchTasks();
 });
@@ -64,7 +63,9 @@ const inviteFriend = () => WebApp?.openTelegramLink('https://t.me/share/url?url=
 <template>
   <div class="UpgradePage">
     <BatteryInfo
-      :user-info
+      :user
+      :energy
+      :is-mining-started
     />
 
     <!--    <div class="UpgradePage__upgrades">-->

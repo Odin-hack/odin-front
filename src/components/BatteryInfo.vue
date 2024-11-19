@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 
 import type { PropType } from 'vue';
-import type { IUser } from '@/types/auth';
-import type { IUserStaff } from '@/types/socket-data.interface';
+import type { IUser, IUserInfoEnergy } from '@/types/auth';
+import type { IEnergy } from '@/types/socket-data.interface';
 
 import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
 
@@ -11,17 +11,72 @@ import IconBlizzard from '@/components/Icon/blizzard.vue';
 import IconSigmaColored from '@/components/Icon/sigmaColored.vue';
 import Progress from '@/components/UI/Progress.vue';
 
+import { useLocalStorage } from '@/composables/useLocaleStorage';
 
 const props = defineProps({
-  userInfo: {
-    type: Object as PropType<IUser | IUserStaff['payload'] | null>,
+  energy: {
+    type: Object as PropType<IEnergy['payload']>,
     required: true,
+  },
+  user: {
+    type: Object as PropType<{
+      info: IUser,
+      energy: IUserInfoEnergy
+    } | null>,
+    required: true,
+  },
+  isMiningStarted: {
+    type: Boolean,
+    default: false,
   },
 });
 
-const energyPercents = computed(() =>
-  getPercents(props.userInfo?.energy || 0, props.userInfo?.maxEnergy || 0),
+const storedEnergyLeft = useLocalStorage(
+  'energyLeft',
+  {
+    defaultValue: 0,
+    parse: true,
+  },
 );
+
+const energyLeft = ref(storedEnergyLeft.value);
+
+const intervalId = ref<number | null>(null);
+
+const startInterval = () => {
+  intervalId.value = setInterval(() => {
+    if (energyLeft.value && energyLeft.value > 0 && props.user) {
+      energyLeft.value = Math.max(energyLeft.value -= props.energy?.energyConsumed || props.user?.energy?.consumptionRate, 0);
+      storedEnergyLeft.value = energyLeft.value;
+    }
+  }, 1000);
+};
+
+const stopInterval = () => {
+  if (intervalId.value) {
+    clearInterval(intervalId.value);
+    intervalId.value = null;
+  }
+};
+
+watch(() => props.isMiningStarted, (newVal) => {
+  newVal ? startInterval() : stopInterval();
+}, { immediate: true });
+
+watch(() => props.energy, (newVal) => {
+  if (newVal?.energy) {
+    energyLeft.value = newVal.energy;
+    storedEnergyLeft.value = newVal.energy;
+  }
+});
+
+const energyPercents = computed(() =>
+    getPercents(energyLeft.value, props.user?.info?.maxEnergy || 0),
+);
+
+onBeforeUnmount(() => {
+  stopInterval();
+});
 </script>
 
 <template>
@@ -41,7 +96,7 @@ const energyPercents = computed(() =>
           </p>
 
           <div class="BatteryInfo__content__balance__amount">
-            <p>{{ formatNumberWithSpaces(userInfo?.balance || 0) }}</p>
+            <p>{{ formatNumberWithSpaces(user?.info?.balance / 1000000 || 0) }}</p>
             <IconSigmaColored size="16" />
           </div>
         </div>
@@ -52,7 +107,7 @@ const energyPercents = computed(() =>
           </p>
 
           <div class="BatteryInfo__content__energy__amount">
-            <p>{{ userInfo?.energy || 0 }} / {{ userInfo?.maxEnergy || 0 }}</p>
+            <p>{{ energyLeft?.toFixed(0) || 0 }} / {{ user?.info?.maxEnergy || 0 }}</p>
 
             <IconBlizzard
               size="16"

@@ -1,32 +1,3 @@
-export interface IUserStaff {
-  payload: {
-    maxEnergy: number;
-    tasks: number[];
-    lastEnergyClaim: number;
-    powerMode: boolean;
-    energy: number;
-    balance: number;
-    userId: number;
-    energyLevel: number;
-    blocks: number;
-  };
-  event: string;
-  info: {
-    online: number;
-  };
-}
-
-export interface IUserBlock {
-  payload: {
-    energy: number;
-    balance: number;
-  };
-  info: {
-    online: number;
-  };
-  event: string;
-}
-
 export interface IHashLastBlock {
   index: number;
   myReward: number;
@@ -37,6 +8,12 @@ export interface IHashLastBlock {
   solverName: string;
 }
 
+export interface IEnergy {
+  payload: {
+    energy: number
+    energyConsumed: number
+  }
+}
 export interface IHashCash {
   info: {
     online: number;
@@ -61,7 +38,7 @@ export interface IHashCash {
       shareFactor: number;
     };
     miners: number;
-    lastBlocks: IHashLastBlock[];
+    lastBlock: IHashLastBlock[];
   };
   event: string;
 }
