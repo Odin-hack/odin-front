@@ -1,108 +1,123 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import socket from '@/api/socket';
+import { defineStore, storeToRefs } from 'pinia';
+import { useSocketDataStore } from '@/stores/socket-data';
 
 export const useHashStore = defineStore('hashStore', () => {
-  const worker = ref<Worker | null>(null);
-  const isWorkerActive = ref(false);
-  const isTurboMode = ref(false);
-  const outputMessages = ref<string[]>([]);
-  const taskData = ref<object | null>(null);
-  const currentRange = ref({ startNonce: 0, endNonce: 0 });
+
+  const { miningData } = storeToRefs(useSocketDataStore());
+
+  const calculateHash = async (
+    index: number,
+    previousHash: string,
+    data: string,
+    nonce: number,
+    timestamp: number,
+    minerId: string,
+  ) => {
+    const input = `${index}-${previousHash}-${data}-${nonce}-${timestamp}-${minerId}`;
+    const encoder = new TextEncoder();
+    const dataBuffer = encoder.encode(input);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+  };
+
+  const isValidBlock = (
+    hash: string,
+    mainFactor: bigint,
+    shareFactor: bigint,
+  ) => {
+    const value = BigInt(`0x${hash}`);
+    if (value < mainFactor) return 'valid';
+    if (value < shareFactor) return 'share';
+
+    return 'notValid';
+  };
+
+  const getRandomNonceRange = (maxNonce: number, rangeSize: number) => {
+    const startNonce = Math.floor(Math.random() * (maxNonce - rangeSize));
+    const endNonce = startNonce + rangeSize - 1;
+
+    return { startNonce, endNonce };
+  };
 
 
-  // TODO FIX TYPES
-  const initializeWorker = () => {
-    if (!worker.value) return;
+  const startMining = async ({
+   data = '',
+   minerId = 'telegramUserId',
+ }) => {
+    const maxNonce = 1_000_000_000;
+    const rangeSize = 1_000_000;
 
-    worker.value = new Worker(new URL('../workers/worker.js', import.meta.url));
+    let { startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize);
 
-    worker.value.onmessage = (event) => {
-      const data = event.data;
+    let nonce = startNonce;
 
-      if (data === 'requestRange') return requestNonceRange();
+    const startTime = Date.now();
+    let shares = 0;
 
-      if (typeof data === 'string') return addMessage(data);
+    const mineBlock = async () => {
+      while (nonce <= endNonce) {
+        const timestamp = Date.now();
 
-      try {
-        const result = JSON.parse(data);
-        handleResult(result);
-      } catch (error) {
-        console.error('Ошибка при парсинге данных воркера:', error);
+        if (!miningData.value) return;
+
+        const hash = await calculateHash(
+          miningData.value?.index,
+          miningData.value?.previousHash,
+          data,
+          nonce,
+          timestamp,
+          minerId,
+        );
+
+        const result = isValidBlock(
+          hash,
+          miningData.value?.mainFactor,
+          miningData.value?.shareFactor,
+        );
+
+        if (result === 'valid') {
+          console.log(`Valid block found: ${hash}`);
+          socket.emit('blockchain.submit_hash', {
+            hash,
+            nonce: nonce,
+            blockIndex: miningData.value?.index,
+            timestamp,
+          });
+
+          console.log('Valid block submitted, continuing mining...');
+        } else if (result === 'share') {
+          socket.emit('blockchain.submit_hash', {
+            hash,
+            nonce: nonce,
+            blockIndex: miningData.value?.index,
+            timestamp,
+          });
+          shares++;
+        }
+
+        nonce++;
       }
+
+      console.log('Current nonce range exhausted, generating new range...');
+
+      ({ startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize));
+
+      nonce = startNonce;
+
+      await mineBlock();
     };
 
-    worker.value.onerror = (error) => {
-      addMessage(`Ошибка воркера: ${error.message}`);
-      console.error('Ошибка в Web Worker:', error);
-    };
+    await mineBlock();
+
+    const endTime = Date.now();
+    console.log(
+      `Block not found. Spent time: ${(endTime - startTime) / 1000} s. Shares: ${shares}`,
+    );
   };
-
-  const startProcessing = (task: object) => {
-    if (!worker.value) {
-      initializeWorker();
-    }
-
-    taskData.value = task;
-    worker.value?.postMessage(JSON.stringify(task));
-    isWorkerActive.value = true;
-    addMessage('Задача отправлена воркеру.');
-  };
-
-  const toggleTurboMode = (turbo: boolean) => {
-    if (!worker.value) return;
-
-    worker.value.postMessage(JSON.stringify({ turboMode: turbo }));
-    isTurboMode.value = turbo;
-    addMessage(`Turbo Mode ${turbo ? 'включен' : 'выключен'}.`);
-  };
-
-  const requestNonceRange = () => {
-    const rangeSize = 1000000;
-    const newRange = {
-      startNonce: currentRange.value.endNonce,
-      endNonce: currentRange.value.endNonce + rangeSize,
-    };
-
-    currentRange.value = newRange;
-    worker.value?.postMessage(JSON.stringify(newRange));
-
-    addMessage(`Назначен диапазон: ${newRange.startNonce} - ${newRange.endNonce}`);
-  };
-
-  const handleResult = (result: { state: string, hash: string, nonce: string }) => {
-    if (result.state === 'valid') {
-      addMessage(`Найден валидный хэш: ${result.hash} с nonce: ${result.nonce}`);
-      return stopWorker();
-    }
-
-    if (result.state === 'share') {
-      return addMessage(`Найден share хэш: ${result.hash} с nonce: ${result.nonce}`);
-    }
-  };
-
-  const stopWorker = () => {
-    if (!worker.value) return;
-
-    worker.value?.terminate();
-    worker.value = null;
-    isWorkerActive.value = false;
-
-    addMessage('Воркер остановлен.');
-  };
-
-  const addMessage = (msg: string) => outputMessages.value.push(msg);
-  const clearMessages = () => outputMessages.value = [];
 
   return {
-    worker,
-    isWorkerActive,
-    isTurboMode,
-    outputMessages,
-    taskData,
-    currentRange,
-    startProcessing,
-    toggleTurboMode,
-    stopWorker,
-    clearMessages,
+    startMining,
   };
 });

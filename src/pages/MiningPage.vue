@@ -18,33 +18,36 @@ import EarnedBlock from '@/components/EarnedBlock.vue';
 import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
-import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
+import IconPause from '@/components/Icon/pause.vue';
 
 import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
 
-import WebApp from '@twa-dev/sdk';
+// import WebApp from '@twa-dev/sdk';
+import { useHashStore } from '@/stores/hash';
 
 
 const { user } = storeToRefs(useAuthStore());
-const { userStaff, hashCash } = storeToRefs(useSocketDataStore());
-const { invoice } = storeToRefs(useInvoiceStore());
-const { setInvoice } = useInvoiceStore();
+const { userStaff, hashCash, isMiningStarted } = storeToRefs(useSocketDataStore());
+// const { invoice } = storeToRefs(useInvoiceStore());
+// const { setInvoice } = useInvoiceStore();
 
 const userInfo = computed(() => userStaff || user);
 
 const isDrawerVisible = ref(false);
 
 const miningContentButton = computed(() => {
-  if (user.value?.powerMode || userStaff.value?.powerMode) {
+  if (isMiningStarted.value) {
     return {
-      buttonTheme: ButtonThemeEnum.PRIMARY,
-      buttonIcon: IconPlay,
+      buttonTheme: ButtonThemeEnum.WARNING,
+      text: 'Stop mining',
+      buttonIcon: IconPause,
     };
   }
 
   return {
-    buttonTheme: ButtonThemeEnum.DISABLED,
-    buttonIcon: IconBatteryCrossed,
+    buttonTheme: ButtonThemeEnum.PRIMARY,
+    text: 'Start mining',
+    buttonIcon: IconPlay,
   };
 });
 
@@ -55,16 +58,10 @@ const difficulty = computed(() => {
   return formatNumberWithSpacesAndSuffix( shareFactor / mainFactor, 1);
 });
 
-const openMiningInvoice = async () => {
-  await setInvoice();
+const openMiningInvoice = () => {
+  if (!isMiningStarted.value) useHashStore().startMining({});
 
-  if (invoice.value?.link) {
-    WebApp.openInvoice(invoice.value.link);
-  }
-
-  WebApp.onEvent('invoiceClosed', (event) => {
-    if (event.status === 'paid') console.log('paid');
-  });
+  isMiningStarted.value = true;
 };
 </script>
 
@@ -135,7 +132,7 @@ const openMiningInvoice = async () => {
           />
         </template>
 
-        Start Mining
+        {{ miningContentButton.text }}
       </Button>
     </div>
   </div>

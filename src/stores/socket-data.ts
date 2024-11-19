@@ -7,22 +7,50 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
   const userStaff = ref<IUserStaff['payload'] | null>(null);
   const userBlock = ref<IUserBlock['payload'] | null>(null);
   const hashCash = ref<IHashCash['payload'] | null>(null);
+  const miningData  = ref<{
+    index: number,
+    previousHash: string
+    mainFactor: bigint
+    shareFactor: bigint
+  } | null>(null);
 
-  socket.io.on('user.userStuff', (data: IUserStaff) => {
+  const isMiningStarted = ref(false);
+
+  socket.on('user.userStuff', (data: IUserStaff) => {
     userStaff.value = data?.payload || null;
   });
 
-  socket.io.on('user.userBlock', (data: IUserBlock) => {
+  socket.on('user.userBlock', (data: IUserBlock) => {
     userBlock.value = data?.payload || null;
   });
 
-  socket.io.on('hashcash', (data: IHashCash) => {
+  socket.on('hashcash', (data: IHashCash) => {
     hashCash.value = data?.payload || null;
+  });
+
+  socket.on('blockchain.get', (data) => {
+    miningData.value = {
+      index: data.payload.config.previousBlock.index + 1,
+      previousHash: data.payload.config.previousBlock.hash,
+      mainFactor: BigInt(data.payload.config.mainFactor),
+      shareFactor: BigInt(data.payload.config.shareFactor),
+    };
+  });
+
+  socket.on('blockchain.new_block', (data) => {
+    miningData.value = {
+      index: data.payload.config.previousBlock.index + 1,
+      previousHash: data.payload.config.previousBlock.hash,
+      mainFactor: BigInt(data.payload.config.mainFactor),
+      shareFactor: BigInt(data.payload.config.shareFactor),
+    };
   });
 
   return {
     userStaff,
     userBlock,
     hashCash,
+    miningData,
+    isMiningStarted,
   };
 });
