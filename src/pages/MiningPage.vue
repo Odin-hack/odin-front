@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import socket from '@/api/socket';
 
@@ -19,27 +19,44 @@ import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
 import IconPause from '@/components/Icon/pause.vue';
+import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
 import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
 
 // import WebApp from '@twa-dev/sdk';
 import { useHashStore } from '@/stores/hash';
+import type { IHashLastBlock } from '@/types/socket-data.interface';
 
 
-const { user } = storeToRefs(useAuthStore());
+const { user, alreadyInApp } = storeToRefs(useAuthStore());
 const { hashCash, energy } = storeToRefs(useSocketDataStore());
 const { isMiningStarted } = storeToRefs(useHashStore());
 // const { invoice } = storeToRefs(useInvoiceStore());
 // const { setInvoice } = useInvoiceStore();
 
+const isMiningEnabled = ref(true);
+
+if (!alreadyInApp.value) isMiningEnabled.value = false;
+
 const isDrawerVisible = ref(false);
 
 const miningContent = computed(() => {
+  if (!isMiningEnabled.value) {
+    return {
+      buttonTheme: ButtonThemeEnum.DISABLED,
+      text: 'Start mining',
+      buttonDisabled: true,
+      buttonIcon: IconBatteryCrossed,
+      status: StatusEnum.BATTERY_LOW,
+    };
+  }
+
   if (isMiningStarted.value) {
     return {
       buttonTheme: ButtonThemeEnum.WARNING,
       text: 'Stop mining',
       buttonIcon: IconPause,
+      buttonDisabled: false,
       status: StatusEnum.MINING,
     };
   }
@@ -48,9 +65,20 @@ const miningContent = computed(() => {
     buttonTheme: ButtonThemeEnum.PRIMARY,
     text: 'Start mining',
     buttonIcon: IconPlay,
+    buttonDisabled: false,
     status: StatusEnum.AWAITING,
   };
 });
+
+watch(energy, (val) => {
+  if ((user.value?.info?.energy < 10 || val?.energy < 100) && isMiningEnabled.value) {
+    isMiningEnabled.value = false;
+    isMiningStarted.value && stopMining();
+    return;
+  }
+
+  alreadyInApp.value && (isMiningEnabled.value = true);
+}, { immediate: true });
 
 const difficulty = computed(() => {
   const shareFactor = hashCash.value?.config?.shareFactor || 0;
@@ -74,6 +102,18 @@ const toggleMining = () => {
   }
 
   socket.emit('mining.stop');
+};
+
+const stopMining = () => {
+  isMiningStarted.value = false;
+  socket.emit('mining.stop');
+};
+
+const drawerData = ref<IHashLastBlock | null>(null);
+
+const showMiningBlockDrawer = (item: IHashLastBlock) => {
+  drawerData.value = item;
+  isDrawerVisible.value = true;
 };
 </script>
 
@@ -118,6 +158,21 @@ const toggleMining = () => {
         <InfoBlock :type="InfoBlockTypeEnum.HASHES" />
         <InfoBlock :type="InfoBlockTypeEnum.EARNINGS" />
       </InfoBlocks>
+
+      <Button
+        :theme="miningContent.buttonTheme"
+        style="margin-top: 24px"
+        :disabled="miningContent.buttonDisabled"
+        @click="toggleMining"
+      >
+        <template #icon>
+          <component
+            :is="miningContent.buttonIcon"
+          />
+        </template>
+
+        {{ miningContent.text }}
+      </Button>
     </div>
 
     <div class="MiningPage__earned">
@@ -130,29 +185,16 @@ const toggleMining = () => {
           v-for="item in lastBlock"
           :key="item.index"
           :info="item"
-          @click="isDrawerVisible = true"
+          :rewards-data
+          @click="showMiningBlockDrawer(item)"
         />
       </div>
-    </div>
-
-    <div class="FixedButton--bottom">
-      <Button
-        :theme="miningContent.buttonTheme"
-        @click="toggleMining"
-      >
-        <template #icon>
-          <component
-            :is="miningContent.buttonIcon"
-          />
-        </template>
-
-        {{ miningContent.text }}
-      </Button>
     </div>
   </div>
 
   <MiningBlockDrawer
     v-model:visible="isDrawerVisible"
+    :data="drawerData"
   />
 </template>
 
@@ -161,7 +203,7 @@ const toggleMining = () => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-bottom: 24dvh;
+  padding-bottom: 18dvh;
 
   &__earned {
     &__wrapper {

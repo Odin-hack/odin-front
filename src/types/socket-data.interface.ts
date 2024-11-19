@@ -1,11 +1,11 @@
 export interface IHashLastBlock {
-  index: number;
-  myReward: number;
+  solverName: number;
+  blockReward: number;
+  rewards: any[];
   hash: string;
   timestamp: number;
-  reward: number;
   solver: number;
-  solverName: string;
+  index: number;
 }
 
 export interface IEnergy {
@@ -14,6 +14,15 @@ export interface IEnergy {
     energyConsumed: number
   }
 }
+
+export interface IRewardData {
+  event: 'string',
+  payload: {
+    index: number
+    reward: number
+  }
+}
+
 export interface IHashCash {
   info: {
     online: number;
@@ -22,19 +31,17 @@ export interface IHashCash {
     config: {
       nextBlockReward: number;
       previousBlock: {
-        index: number;
-        data: string;
-        timestamp: number;
-        reward: number;
-        hash: string;
-        mainFactor: number;
-        shareFactor: number;
         nonce: number;
-        miner: number;
+        index: number;
+        hash: string;
         previousHash: string;
+        mainFactor: string;
+        shareFactor: string;
+        timestamp: number;
+        miner: number;
+        reward: number;
       };
       mainFactor: number;
-      nextBlockEnergy: number;
       shareFactor: number;
     };
     miners: number;

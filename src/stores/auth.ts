@@ -25,6 +25,9 @@ export const useAuthStore = defineStore('authStore', () => {
     info: IUser,
     energy: IUserInfoEnergy
   } | null>(null);
+
+  const alreadyInApp = ref(false);
+
   const blockchainStats = ref<IBlockchainStats | null>(null);
 
   const loadingStore = useLoaderStore();
@@ -44,6 +47,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
     if (data?.token) useLocalStorage('token').value = data?.token;
 
+    alreadyInApp.value = data?.alreadyInApp || false;
     user.value =  data?.appData && { info: data?.appData?.user, energy: data?.appData?.energy } || null;
     blockchainStats.value = data?.appData?.blockchainStats || null;
 
@@ -54,5 +58,6 @@ export const useAuthStore = defineStore('authStore', () => {
     authUser,
     user,
     blockchainStats,
+    alreadyInApp,
   };
 });
