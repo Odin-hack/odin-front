@@ -1,43 +1,36 @@
 <script setup lang="ts">
 const contents = [
   {
-    title: 'Title 1',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Earn Tokens Through Mining',
+    text: 'Simply tap “Start Mining” and wait for the process to begin.\n\nIf you\'re new, we recommend focusing on mining first and exploring the technical documentation later.',
   },
-
   {
-    title: 'Title 2',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Your Goal is Simple',
+    text: 'Your task is to find a valid hash for the current block during mining and earn rewards for it.\n70% of the block reward goes to the miner who discovers the correct hash, while 30% is shared among other participants.\n\nNote: The miner reward gradually decreases by 10% every 100,000 blocks until it reaches a fixed 10%.',
   },
-
   {
-    title: 'Title 3',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Mining Mechanism',
+    text: 'Imagine mining cryptocurrency directly from your phone. What would Satoshi think if he saw our project?!\n\nMining operates on the same principles as Bitcoin, using a similar algorithm.\nHowever, our mechanism is accessible through Telegram MiniApps, allowing you to mine both on mobile devices and desktop computers.',
   },
-
   {
-    title: 'Title 4',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Early Miner Rewards',
+    text: 'The more people start mining, the harder it becomes to earn tokens, and vice versa.\nBeing an early adopter is always more beneficial: you have a greater chance of earning maximum rewards for solved blocks while the competition is still low.',
   },
-
   {
-    title: 'Title 5',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Limited Mining',
+    text: 'Once all tokens are mined, they will be distributed on-chain among the miners.\nThe total mining period lasts approximately 2 to 3 months, followed by an AirDrop and token listing on both DEX and CEX platforms.',
   },
-
   {
-    title: 'Title 6',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Token Distribution',
+    text: 'Our project features a unique mining mechanism that works seamlessly on mobile devices and desktops. This innovative approach targets users who appreciate the mining process itself.\n\nMining is just the first step in our technological roadmap. We are committed to rewarding all users who actively mine blocks and contribute to the platform\'s development. Up to 20% of SIGMA’s revenue earned through Telegram Stars will be allocated to further development and marketing, while the rest will directly support the token, user rewards, and its listing. The crypto community will be the driving force in the new bull cycle!',
   },
-
   {
-    title: 'Title 7',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Device Performance',
+    text: 'Since your device performs real computations, it may heat up only in maximum Nitro mode.\nFor the rest of the time, you can mine worry-free without overheating concerns.',
   },
-
   {
-    title: 'Title 8',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cumque, dignissimos ducimus eligendi expedita neque perspiciatis repellat. Ab aspernatur atque excepturi ipsam libero natus nesciunt nihil quibusdam quidem sunt. Asperiores consequatur consequuntur deleniti doloremque esse expedita itaque, libero necessitatibus, nihil nulla repudiandae rerum sequi ut voluptates voluptatum. Amet, autem commodi consectetur fugit incidunt ipsa iste quod suscipit tempora unde? Eveniet iure laborum optio totam. Alias amet aspernatur ea exercitationem facere harum in, ipsa magnam placeat quaerat. Accusamus alias autem consequuntur debitis ea eius excepturi maxime, mollitia quibusdam, repellat saepe sapiente sint tempora ut, vel velit vitae voluptatibus. Excepturi, temporibus!',
+    title: 'Limitations',
+    text: 'All tokens mined using bots will not be confiscated but burned, increasing their value for honest users by the time of the AirDrop.',
   },
 ];
 </script>
@@ -67,7 +60,6 @@ const contents = [
   padding: 16px;
 
   &__header {
-    padding-bottom: 12px;
     margin-bottom: 40px;
   }
 
