@@ -36,11 +36,9 @@ onMounted(async () => {
   <div class="RouterLayout">
     <Loader v-if="isLoader" />
 
-    <template v-else>
-      <RouterView />
+    <RouterView />
 
-      <Navigation />
-    </template>
+    <Navigation />
   </div>
 </template>
 
