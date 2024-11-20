@@ -8,6 +8,8 @@ import Button from '@/components/UI/Button.vue';
 import Spinner from '@/components/UI/Spinner.vue';
 import Drawer from '@/components/Drawer.vue';
 import IconCheck from '@/components/Icon/Check.vue';
+import IconTelegram from '@/components/Icon/Telegram.vue';
+import IconInvite from '@/components/Icon/Invite.vue';
 
 import { TaskActionEnum, TaskStatusEnum, TaskTypeEnum } from '@/types/enums/task.enum';
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
@@ -24,8 +26,8 @@ const props = defineProps({
 
 const image = computed(() => {
   return {
-    [TaskActionEnum.JOIN]: 'telegram',
-    [TaskActionEnum.INVITE]: 'invite',
+    [TaskActionEnum.JOIN]: IconTelegram,
+    [TaskActionEnum.INVITE]: IconInvite,
   }[props.task?.type.toUpperCase()];
 });
 
@@ -75,11 +77,11 @@ const handleActionClick = () => {
           class="task__image-box"
         />
 
-        <img
+        <component
+          :is="image"
           v-else
-          :src="`src/public/img/tasks/${ image }.svg`"
-          :alt="image"
-        >
+          size="40"
+        />
       </div>
 
       <div class="task__content">
