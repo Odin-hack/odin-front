@@ -114,7 +114,7 @@ const handleActionClick = () => {
         Check
       </Button>
 
-      <Spinner v-if="isCheckedProgress" />
+      <Spinner v-if="isCheckedProgress && task.status.toUpperCase() !== TaskStatusEnum.COMPLETED" />
 
       <IconCheck
         v-if="task.status.toUpperCase() === TaskStatusEnum.COMPLETED"
