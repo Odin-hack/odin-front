@@ -48,15 +48,7 @@ input[type=number] {
 }
 
 // scrollbar
-::-webkit-scrollbar {
-  width: 0;
-}
-::-webkit-scrollbar-track {
-  background: rgba(#ccc, 0);
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(#ccc, 0);
-}
+::-webkit-scrollbar { display: none; }
 
 .SectionTitle {
   padding: 24px 16px 16px 16px;
