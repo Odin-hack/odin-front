@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useUserEnergyStore } from '@/stores/energy';
 
 import type { PropType } from 'vue';
