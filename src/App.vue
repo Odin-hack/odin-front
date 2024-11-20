@@ -21,6 +21,8 @@ const { setScrollEl } = useScrollEl();
 
 onMounted(async () => {
   WebApp.expand();
+  WebApp.disableVerticalSwipes();
+  WebApp.enableClosingConfirmation();
 
   await useAuthStore().authUser();
 
