@@ -10,13 +10,13 @@ import Drawer from '@/components/Drawer.vue';
 import IconCheck from '@/components/Icon/Check.vue';
 import IconTelegram from '@/components/Icon/Telegram.vue';
 import IconInvite from '@/components/Icon/Invite.vue';
+import IconChevronRight from '@/components/Icon/ChevronRight.vue';
 
 import { TaskActionEnum, TaskStatusEnum, TaskTypeEnum } from '@/types/enums/task.enum';
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 
 import WebApp from '@twa-dev/sdk';
 import { useAuthStore } from '@/stores/auth';
-
 
 
 const props = defineProps({
@@ -43,11 +43,16 @@ const { user } = useAuthStore();
 const handleTaskEvent = (action: TaskActionEnum) => {
   visible.value = false;
 
+
   const type = props.task?.type.toUpperCase();
-  const actionLower = action.toUpperCase();
+  const actionUpper = action.toUpperCase();
+
+  if (actionUpper === TaskActionEnum.CHECK) {
+    return handleActionClick();
+  }
 
   if (type === TaskTypeEnum.INVITE) {
-    if (actionLower === TaskActionEnum.COPY) {
+    if (actionUpper === TaskActionEnum.COPY) {
       return navigator.clipboard.writeText(user?.info?.refLink || '');
     }
 
@@ -72,10 +77,10 @@ const handleActionClick = () => {
 <template>
   <div
     class="task"
+    @click="openTaskModal"
   >
     <div
       class="task__wrapper"
-      @click="openTaskModal"
     >
       <div class="task__image">
         <div
@@ -107,17 +112,13 @@ const handleActionClick = () => {
     </div>
 
     <div class="task__actions">
-      <Button
-        v-if="task.status.toUpperCase() !== TaskStatusEnum.COMPLETED && !isCheckedProgress && task.actions?.includes(TaskActionEnum.CHECK?.toLowerCase())"
-        :theme="ButtonThemeEnum.PRIMARY"
-        small
-        rounded
-        @click="handleActionClick"
-      >
-        Check
-      </Button>
+      <IconChevronRight
+        v-if="!isCheckedProgress && task.status.toUpperCase() !== TaskStatusEnum.COMPLETED"
+      />
 
-      <Spinner v-if="isCheckedProgress && task.status.toUpperCase() !== TaskStatusEnum.COMPLETED" />
+      <Spinner
+        v-if="isCheckedProgress && task.status.toUpperCase() !== TaskStatusEnum.COMPLETED"
+      />
 
       <IconCheck
         v-if="task.status.toUpperCase() === TaskStatusEnum.COMPLETED"
@@ -137,7 +138,7 @@ const handleActionClick = () => {
 
           <div class="task__drawer-actions">
             <Button
-              v-for="(action, index) in task.actions.filter((action) => action !== 'check')"
+              v-for="(action, index) in task.actions"
               :key="action"
               :theme="index === 0 ? ButtonThemeEnum.PRIMARY : ButtonThemeEnum.SECONDARY"
               @click="handleTaskEvent(action)"

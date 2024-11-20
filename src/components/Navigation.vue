@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 
 import IconMining from '@/components/Icon/mining.vue';
 import IconUpgrades from '@/components/Icon/upgrades.vue';
-import IconUsers from '@/components/Icon/users.vue';
+// import IconUsers from '@/components/Icon/users.vue';
 import IconFaq from '@/components/Icon/faq.vue';
 
 const tabs = ref([
@@ -18,11 +18,11 @@ const tabs = ref([
     icon: markRaw(IconUpgrades),
     name: 'Upgrades',
   },
-  {
-    path: null,
-    icon: markRaw(IconUsers),
-    name: 'Stats',
-  },
+  // {
+  //   path: '/stats',
+  //   icon: markRaw(IconUsers),
+  //   name: 'Stats',
+  // },
   {
     path: '/faq',
     icon: markRaw(IconFaq),
@@ -61,7 +61,7 @@ const tabs = ref([
   background-color: var(--color-surface-dark);
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   z-index: 200;
 
   &__tab {
