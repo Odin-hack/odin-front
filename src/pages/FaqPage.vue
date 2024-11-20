@@ -83,13 +83,14 @@ const contents = [
     &__block {
       h3 {
         position: sticky;
-        top: 0;
+        top: -2px;
         padding-bottom: 12px;
         background-color: var(--color-dark);
       }
 
       p {
         color: var(--color-grey-light);
+        font-weight: 300;
       }
     }
   }

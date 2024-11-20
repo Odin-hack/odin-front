@@ -18,6 +18,7 @@ import WebApp from '@twa-dev/sdk';
 import { useAuthStore } from '@/stores/auth';
 
 
+
 const props = defineProps({
   task: {
     type: Object as PropType<ITask>,
@@ -55,7 +56,7 @@ const handleTaskEvent = (action: TaskActionEnum) => {
 
   if (type === TaskTypeEnum.JOIN) {
     const url = props.task?.data?.find((item) => item.key === type.toLowerCase())?.value;
-    
+
     return WebApp?.openTelegramLink(url || '');
   }
 };
@@ -204,6 +205,7 @@ const handleActionClick = () => {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
+      font-weight: 300;
     }
   }
 
