@@ -69,17 +69,6 @@ const blockData = computed(() =>{
             </p>
           </div>
         </div>
-
-        <Button
-          class="BlockDrawer__share"
-          :theme="ButtonThemeEnum.SECONDARY"
-        >
-          <template #icon>
-            <IconForward size="18" />
-          </template>
-
-          Share
-        </Button>
       </div>
     </template>
   </Drawer>
@@ -131,11 +120,6 @@ const blockData = computed(() =>{
         }
       }
     }
-  }
-
-  &__share {
-    margin-top: 10px;
-    margin-bottom: 20px;
   }
 }
 </style>
