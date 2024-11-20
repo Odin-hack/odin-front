@@ -28,9 +28,10 @@ import { useInvoiceStore } from '@/stores/invoice';
 import WebApp from '@twa-dev/sdk';
 import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
 import Drawer from '@/components/Drawer.vue';
+import { useTurboModeStore } from '@/stores/turbo-mode';
 
 
-const { user, alreadyInApp, blockchainStats } = storeToRefs(useAuthStore());
+const { user, blockchainStats } = storeToRefs(useAuthStore());
 const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners } = storeToRefs(useSocketDataStore());
 const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
@@ -40,7 +41,7 @@ const isMiningEnabled = ref(true);
 const isEnergy = ref(true);
 const isInvoiceModal = ref(false);
 
-if (!alreadyInApp.value) isMiningEnabled.value = false;
+if (!user.value?.info.allowMining) isMiningEnabled.value = false;
 
 const isDrawerVisible = ref(false);
 
@@ -91,7 +92,7 @@ watch(energy, (val) => {
     return;
   }
 
-  alreadyInApp.value && (isMiningEnabled.value = true);
+  user.value?.info.allowMining && (isMiningEnabled.value = true);
 }, { immediate: true });
 
 const lastBlock = computed(() => hashCash.value?.lastBlock);
@@ -101,7 +102,7 @@ setInterval(() => {
 }, 10000);
 
 const openInvoiceModal = async () => {
-  await setInvoice();
+  await setInvoice('00000000-0000-0000-0000-000000000001');
 
   if (invoice.value?.link) {
     WebApp.openInvoice(invoice.value.link);
@@ -113,13 +114,16 @@ const openInvoiceModal = async () => {
 };
 
 const toggleMining = () => {
-  if (!alreadyInApp.value) return isInvoiceModal.value = true;
+  if (!user.value?.info.allowMining) return isInvoiceModal.value = true;
 
   isMiningStarted.value = !isMiningStarted.value;
 
   if (isMiningStarted.value) {
     socket.emit('mining.start');
-    return useHashStore().startMining({});
+    return useHashStore().startMining({
+      minerId: user.value?.info.id,
+      isTurboMode: useTurboModeStore().isTurboModeActive,
+    });
   }
 
   socket.emit('mining.stop');

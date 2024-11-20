@@ -19,6 +19,8 @@ export interface IUser {
   firstName: string;
   maxEnergy: number;
   powerMode: boolean;
+  allowMining: boolean;
+  id: string;
 }
 
 export interface IAppData {
@@ -30,6 +32,5 @@ export interface IAppData {
 export interface IAuthResponse {
   token: string;
   version: string;
-  alreadyInApp: boolean;
   appData: IAppData;
 }

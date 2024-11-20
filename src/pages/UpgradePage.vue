@@ -21,9 +21,12 @@ import Button from '@/components/UI/Button.vue';
 import TasksWrapper from '@/components/tasks/wrapper.vue';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
+import Drawer from '@/components/Drawer.vue';
+import { useTurboModeStore } from '@/stores/turbo-mode';
 
 
 const { user } = storeToRefs(useAuthStore());
+const { isTurboModeActive } = storeToRefs(useTurboModeStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
 const { isMiningStarted } = storeToRefs(useHashStore());
@@ -34,17 +37,26 @@ const tasksStore = useTasksStore();
 const { tasks } = storeToRefs(tasksStore);
 
 
-const isSwitchActive = ref(user.value?.powerMode);
+const isInvoiceModal = ref(false);
 
-const changeSwitchActiveHandler = async (value: boolean) => {
-  await setInvoice();
+const switcherChangeHandler = (value: boolean) => {
+  if (!user.value?.info.powerMode) {
+    isInvoiceModal.value = true;
+    return;
+  }
+
+  isTurboModeActive.value = value;
+};
+
+const openInvoiceModal = async (value: boolean) => {
+  await setInvoice('00000000-0000-0000-0000-000000000000');
 
   if (invoice.value?.link) {
     WebApp.openInvoice(invoice.value.link);
   }
 
   WebApp.onEvent('invoiceClosed', (event) => {
-    if (event.status === 'paid') isSwitchActive.value = value;
+    if (event.status === 'paid') isTurboModeActive.value = value;
   });
 };
 
@@ -86,8 +98,8 @@ const inviteFriend = () => WebApp?.openTelegramLink('https://t.me/share/url?url=
       <div class="UpgradePage__upgrades__wrapper">
         <Badge
           is-invoice
-          :switch-active="isSwitchActive"
-          @update:switch-active="changeSwitchActiveHandler"
+          :switch-active="isTurboModeActive"
+          @update:switch-active="switcherChangeHandler($event)"
         />
       </div>
     </div>
@@ -116,6 +128,30 @@ const inviteFriend = () => WebApp?.openTelegramLink('https://t.me/share/url?url=
         </template>
       </Button>
     </div>
+
+    <Drawer v-model:visible="isInvoiceModal">
+      <template #title>
+        Paid feature
+      </template>
+
+      <template #content>
+        <div
+          style="padding: 20px 16px 40px 16px"
+        >
+          <p>
+            To access the power mode, you need to pay
+          </p>
+
+          <Button
+            :theme="ButtonThemeEnum.PRIMARY"
+            style="margin-top: 24px;"
+            @click="openInvoiceModal"
+          >
+            Pay
+          </Button>
+        </div>
+      </template>
+    </Drawer>
   </div>
 </template>
 
