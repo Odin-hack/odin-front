@@ -112,7 +112,7 @@ const borderColor = computed(() => {
   padding: 12px 16px;
   border-radius: 16px;
   border: 1px solid v-bind(borderColor);
-  width: 175px;
+  width: 100%;
 
   &__icon {
     color: var(--color-grey-secondary);
