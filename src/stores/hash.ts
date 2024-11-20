@@ -14,7 +14,11 @@ export const useHashStore = defineStore('hashStore', () => {
 
   let hashesProcessed = 0;
   let lastMeasurement = Date.now();
-  let baselineHashRate = null;
+
+  const baselineHashRate = ref<number | null>(null); //
+  const currentHashRate = ref<number | null>(null); //
+  const performanceRatio = ref<number | null>(null);
+
   let needsCooldown = false;
   const MEASURE_INTERVAL = 2000;
   const COOLDOWN_TIME = 1000;
@@ -61,13 +65,13 @@ export const useHashStore = defineStore('hashStore', () => {
     const now = Date.now();
 
     if (now - lastMeasurement >= MEASURE_INTERVAL) {
-      const currentHashRate = (hashesProcessed * 1000) / (now - lastMeasurement);
+      currentHashRate.value = (hashesProcessed * 1000) / (now - lastMeasurement);
 
-      if (!baselineHashRate) {
-        baselineHashRate = currentHashRate;
+      if (!baselineHashRate.value) {
+        baselineHashRate.value = currentHashRate.value;
       } else {
-        const performanceRatio = currentHashRate / baselineHashRate;
-        needsCooldown = performanceRatio < HASH_THRESHOLD;
+        performanceRatio.value = currentHashRate.value / baselineHashRate.value;
+        needsCooldown = performanceRatio.value < HASH_THRESHOLD;
       }
 
       hashesProcessed = 0;
@@ -177,5 +181,8 @@ export const useHashStore = defineStore('hashStore', () => {
     isMiningStarted,
     totalShares,
     totalHashes,
+    baselineHashRate,
+    currentHashRate,
+    performanceRatio,
   };
 });
