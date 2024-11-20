@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import Drawer from '@/components/Drawer.vue';
 import MiningBlockHash from '@/components/mining/BlockHash.vue';
-import IconForward from '@/components/Icon/Forward.vue';
-import Button from '@/components/UI/Button.vue';
-import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { computed, type PropType } from 'vue';
 import type { IHashLastBlock } from '@/types/socket-data.interface';
 import { formatTimestamp } from '@/utils/formatters';
