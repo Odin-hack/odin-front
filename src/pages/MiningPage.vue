@@ -229,7 +229,11 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
         LAST BLOCKS
       </h3>
 
-      <div class="MiningPage__earned__wrapper">
+      <TransitionGroup
+        name="list"
+        tag="div"
+        class="MiningPage__earned__wrapper"
+      >
         <EarnedBlock
           v-for="item in lastBlock"
           :key="item.index"
@@ -237,7 +241,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
           :rewards-data
           @click="showMiningBlockDrawer(item)"
         />
-      </div>
+      </TransitionGroup>
     </div>
   </div>
 
@@ -286,6 +290,15 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
       padding: 0 24px;
     }
   }
+}
 
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
