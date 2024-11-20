@@ -21,6 +21,7 @@ export interface IUser {
   powerMode: boolean;
   allowMining: boolean;
   online: number;
+  refLink: string
   id: string;
 }
 

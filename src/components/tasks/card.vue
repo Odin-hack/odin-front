@@ -15,6 +15,7 @@ import { TaskActionEnum, TaskStatusEnum, TaskTypeEnum } from '@/types/enums/task
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 
 import WebApp from '@twa-dev/sdk';
+import { useAuthStore } from '@/stores/auth';
 
 
 const props = defineProps({
@@ -36,6 +37,8 @@ const visible = ref(false);
 
 const openTaskModal = () => visible.value = true;
 
+const { user } = useAuthStore();
+
 const handleTaskEvent = (action: TaskActionEnum) => {
   visible.value = true;
 
@@ -44,10 +47,10 @@ const handleTaskEvent = (action: TaskActionEnum) => {
 
   if (type === TaskTypeEnum.INVITE) {
     if (actionLower === TaskActionEnum.COPY) {
-      return navigator.clipboard.writeText('https://t.me/share/url?url=');
+      return navigator.clipboard.writeText(`https://t.me/share/url?url=${ user?.info?.refLink }`);
     }
 
-    return WebApp?.openTelegramLink('https://t.me/share/url?url=');
+    return WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user?.info?.refLink }`);
   }
 
   if (type === TaskTypeEnum.JOIN) {
@@ -102,7 +105,7 @@ const handleActionClick = () => {
 
     <div class="task__actions">
       <Button
-        v-if="task.status.toUpperCase() !== TaskStatusEnum.COMPLETED && !isCheckedProgress"
+        v-if="task.status.toUpperCase() !== TaskStatusEnum.COMPLETED && !isCheckedProgress && task.actions?.includes(TaskActionEnum.CHECK?.toLowerCase())"
         :theme="ButtonThemeEnum.PRIMARY"
         small
         rounded
