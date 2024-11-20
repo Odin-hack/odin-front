@@ -36,6 +36,8 @@ const { isMiningStarted, totalShares, totalHashes, baselineHashRate,
   currentHashRate,
   performanceRatio } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
+const { isTurboModeActive } = storeToRefs(useTurboModeStore());
+
 const { setInvoice } = useInvoiceStore();
 
 const isMiningEnabled = ref(true);
@@ -59,7 +61,7 @@ const miningContent = computed(() => {
 
   if (!isMiningEnabled.value) {
     return {
-      buttonTheme: user.value?.info.allowMining ? ButtonThemeEnum.PRIMARY : ButtonThemeEnum.DISABLED,
+      buttonTheme: ButtonThemeEnum.PRIMARY,
       text: 'Start mining',
       buttonDisabled: false,
       buttonIcon: IconBatteryCrossed,
@@ -125,10 +127,12 @@ const toggleMining = () => {
     socket.emit('mining.start');
     return useHashStore().startMining({
       minerId: user.value?.info.id,
-      isTurboMode: useTurboModeStore().isTurboModeActive,
+      isTurboMode: isTurboModeActive.value,
     });
   }
 
+
+  isTurboModeActive.value && (isTurboModeActive.value = false);
   socket.emit('mining.stop');
 };
 
