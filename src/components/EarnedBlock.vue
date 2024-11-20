@@ -27,7 +27,7 @@ const myReward = computed(() => {
         <span>#{{ info?.index }}</span>
       </p>
 
-      <p>Your reward</p>
+      <span>Your reward</span>
 
       <div
         class="EarnedBlock__tag"

@@ -15,8 +15,18 @@ export const useTasksStore = defineStore('tasksStore', () => {
     if (data?.length) tasks.value = data;
   };
 
+  const checkTasks = async (id: number) => {
+    const { data, error } = await useApi<ITask>('GET', `/v1/api/tasks/check?taskId=${ id }`);
+
+    if (error) return;
+
+    console.log(data);
+    // if (data?.length) tasks.value = data;
+  };
+
   return {
     fetchTasks,
+    checkTasks,
     tasks,
   };
 });

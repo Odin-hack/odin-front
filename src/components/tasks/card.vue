@@ -17,6 +17,7 @@ import { ButtonThemeEnum } from '@/types/enums/button.enum';
 
 import WebApp from '@twa-dev/sdk';
 import { useAuthStore } from '@/stores/auth';
+import { useTasksStore } from '@/stores/tasks';
 
 
 const props = defineProps({
@@ -66,8 +67,10 @@ const handleTaskEvent = (action: TaskActionEnum) => {
   }
 };
 
-const handleActionClick = () => {
+const handleActionClick = async () => {
   isCheckedProgress.value = true;
+
+  await useTasksStore().checkTasks(props.task?.id);
 
   setTimeout(() => isCheckedProgress.value = false, 15000);
 };
