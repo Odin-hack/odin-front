@@ -3,9 +3,11 @@ import { defineStore } from 'pinia';
 import { useApi } from '@/composables/useApi';
 
 import type { ITask } from '@/types/tasks';
+import { useAuthStore } from '@/stores/auth';
 
 export const useTasksStore = defineStore('tasksStore', () => {
   const tasks = ref<ITask[]>([]);
+
 
   const fetchTasks = async () => {
     const { data, error } = await useApi<ITask[]>('GET', '/v1/api/tasks');
@@ -26,6 +28,8 @@ export const useTasksStore = defineStore('tasksStore', () => {
       if (taskIndex !== -1) {
         tasks.value[taskIndex] = data;
       }
+
+      useAuthStore().addMaxEnergy(data.awardAmount);
     }
   };
 

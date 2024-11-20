@@ -67,6 +67,8 @@ const handleTaskEvent = (action: TaskActionEnum) => {
   }
 };
 
+const isCompleted = computed(() => props.task.status.toUpperCase() === TaskStatusEnum.COMPLETED);
+
 const handleActionClick = async () => {
   isCheckedProgress.value = true;
 
@@ -80,7 +82,7 @@ const handleActionClick = async () => {
 <template>
   <div
     class="task"
-    @click="openTaskModal"
+    @click="!isCompleted && openTaskModal()"
   >
     <div
       class="task__wrapper"
@@ -116,15 +118,15 @@ const handleActionClick = async () => {
 
     <div class="task__actions">
       <IconChevronRight
-        v-if="!isCheckedProgress && task.status.toUpperCase() !== TaskStatusEnum.COMPLETED"
+        v-if="!isCheckedProgress && !isCompleted"
       />
 
       <Spinner
-        v-if="isCheckedProgress && task.status.toUpperCase() !== TaskStatusEnum.COMPLETED"
+        v-if="isCheckedProgress && !isCompleted"
       />
 
       <IconCheck
-        v-if="task.status.toUpperCase() === TaskStatusEnum.COMPLETED"
+        v-if="isCompleted"
       />
     </div>
 
@@ -163,6 +165,7 @@ const handleActionClick = async () => {
   padding: 12px 0;
   position: relative;
   width: 100%;
+  cursor: pointer;
 
   &__drawer {
     &-info {
@@ -177,7 +180,6 @@ const handleActionClick = async () => {
   }
 
   &__wrapper {
-    cursor: pointer;
     display: flex;
     gap: 16px;
     align-items: center;
