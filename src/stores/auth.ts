@@ -11,6 +11,7 @@ import { useLoaderStore } from '@/stores/loader';
 
 import type { IAuthResponse, IBlockchainStats, IUserInfoEnergy, IUser } from '@/types/auth';
 import type { IUpdateUser } from '@/types/socket-data.interface';
+import { useUserEnergyStore } from '@/stores/energy';
 
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -71,6 +72,7 @@ export const useAuthStore = defineStore('authStore', () => {
     if (data?.token) useLocalStorage('token').value = data?.token;
 
     user.value =  data?.appData && { info: { ...data?.appData?.user, refLink: data?.appData?.refLink }, energy: data?.appData?.energy } || null;
+    useUserEnergyStore().setEnergy(data?.appData?.user?.energy || 0);
     blockchainStats.value = data?.appData?.blockchainStats || null;
 
     loadingStore.setLoading(false);

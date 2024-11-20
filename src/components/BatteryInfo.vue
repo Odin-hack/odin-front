@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, watch } from 'vue';
+import { useUserEnergyStore } from '@/stores/energy';
 
 import type { PropType } from 'vue';
 import type { IUser, IUserInfoEnergy } from '@/types/auth';
@@ -10,8 +11,7 @@ import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 import IconSigmaColored from '@/components/Icon/sigmaColored.vue';
 import Progress from '@/components/UI/Progress.vue';
-
-import { useLocalStorage } from '@/composables/useLocaleStorage';
+import { storeToRefs } from 'pinia';
 
 const props = defineProps({
   energy: {
@@ -31,57 +31,24 @@ const props = defineProps({
   },
 });
 
-const storedEnergyLeft = useLocalStorage(
-  'energyLeft',
-  {
-    defaultValue: 0,
-    parse: true,
-  },
-);
+const userEnergyStore = useUserEnergyStore();
 
-const energyLeft = ref(storedEnergyLeft.value);
-
-const intervalId = ref<number | null>(null);
-
-const startInterval = () => {
-  intervalId.value = setInterval(() => {
-    if (energyLeft.value && energyLeft.value > 0 && props.user) {
-      energyLeft.value = Math.max(energyLeft.value -= props.user?.energy?.consumptionRate, 0);
-      storedEnergyLeft.value = energyLeft.value;
-    }
-  }, 1000);
-};
-
-const stopInterval = () => {
-  if (intervalId.value) {
-    clearInterval(intervalId.value);
-    intervalId.value = null;
-  }
-};
-
-watch(() => props.isMiningStarted, (newVal) => {
-  newVal ? startInterval() : stopInterval();
-}, { immediate: true });
+const { energyLeft } = storeToRefs(useUserEnergyStore());
 
 watch(() => props.energy, (newVal) => {
   if (newVal?.energy) {
-    energyLeft.value = newVal.energy;
-    storedEnergyLeft.value = newVal.energy;
+    userEnergyStore.setEnergy(newVal.energy);
   }
 });
 
 const energyPercents = computed(() =>
-    getPercents(energyLeft.value, props.user?.info?.maxEnergy || 0),
+  getPercents(energyLeft.value, props.user?.info?.maxEnergy || 0),
 );
 
 const balance = computed(() => {
   const userBalance = props.user?.info?.balance ? BigInt(props.user?.info?.balance) : BigInt(0);
   const formattedBalance = userBalance / BigInt(1000000);
   return formatNumberWithSpaces(Number(formattedBalance) || 0);
-});
-
-onBeforeUnmount(() => {
-  stopInterval();
 });
 </script>
 

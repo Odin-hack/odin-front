@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import WebApp from '@twa-dev/sdk';
 import socket from '@/api/socket';
@@ -30,6 +30,7 @@ import IconPause from '@/components/Icon/pause.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
 import type { IHashLastBlock } from '@/types/socket-data.interface';
+import { useUserEnergyStore } from '@/stores/energy';
 
 
 const { user, blockchainStats } = storeToRefs(useAuthStore());
@@ -39,6 +40,8 @@ const { invoice } = storeToRefs(useInvoiceStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
 
 const { setInvoice } = useInvoiceStore();
+
+const userEnergyStore = useUserEnergyStore();
 
 const isMiningEnabled = ref(true);
 const isEnergy = ref(true);
@@ -125,14 +128,17 @@ const toggleMining = () => {
 
   if (isMiningStarted.value) {
     socket.emit('mining.start');
+    user?.value?.info?.energy &&
+      userEnergyStore.startInterval(user?.value?.energy || null);
+
     return useHashStore().startMining({
       minerId: user.value?.info.id,
-      isTurboMode: isTurboModeActive.value,
     });
   }
 
 
   isTurboModeActive.value && (isTurboModeActive.value = false);
+  userEnergyStore.stopInterval();
   socket.emit('mining.stop');
 };
 
