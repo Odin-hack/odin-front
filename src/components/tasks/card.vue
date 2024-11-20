@@ -48,10 +48,10 @@ const handleTaskEvent = (action: TaskActionEnum) => {
 
   if (type === TaskTypeEnum.INVITE) {
     if (actionLower === TaskActionEnum.COPY) {
-      return navigator.clipboard.writeText(`https://t.me/share/url?url=${ user?.info?.refLink }`);
+      return navigator.clipboard.writeText(user?.info?.refLink || '');
     }
 
-    return WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user?.info?.refLink }`);
+    return WebApp?.openTelegramLink(user?.info?.refLink || '');
   }
 
   if (type === TaskTypeEnum.JOIN) {
