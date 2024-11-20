@@ -57,11 +57,11 @@ const miningContent = computed(() => {
 
   if (!isMiningEnabled.value) {
     return {
-      buttonTheme: ButtonThemeEnum.DISABLED,
+      buttonTheme: user.value?.info.allowMining ? ButtonThemeEnum.PRIMARY : ButtonThemeEnum.DISABLED,
       text: 'Start mining',
       buttonDisabled: false,
       buttonIcon: IconBatteryCrossed,
-      status: StatusEnum.BATTERY_LOW,
+      status: StatusEnum.AWAITING,
     };
   }
 
