@@ -21,14 +21,15 @@ export interface IUser {
   powerMode: boolean;
   allowMining: boolean;
   online: number;
-  refLink: string
   id: string;
+  refLink?: string
 }
 
 export interface IAppData {
   blockchainStats: IBlockchainStats;
   user: IUser;
   energy: IUserInfoEnergy
+  refLink: string
 }
 
 export interface IAuthResponse {

@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
     if (data?.token) useLocalStorage('token').value = data?.token;
 
-    user.value =  data?.appData && { info: data?.appData?.user, energy: data?.appData?.energy } || null;
+    user.value =  data?.appData && { info: { ...data?.appData?.user, refLink: data?.appData?.refLink }, energy: data?.appData?.energy } || null;
     blockchainStats.value = data?.appData?.blockchainStats || null;
 
     loadingStore.setLoading(false);

@@ -9,4 +9,8 @@ export interface ITask {
   status: TaskStatusEnum;
   title: TaskTypeEnum;
   type: TaskTypeEnum;
+  data: {
+    key: TaskActionEnum,
+    value: string
+  }[]
 }

@@ -54,7 +54,9 @@ const handleTaskEvent = (action: TaskActionEnum) => {
   }
 
   if (type === TaskTypeEnum.JOIN) {
-    return WebApp?.openTelegramLink('https://t.me/HAXcommunity');
+    const url = props.task?.data?.find((item) => item.key === type.toLowerCase())?.value;
+    
+    return WebApp?.openTelegramLink(url || '');
   }
 };
 
