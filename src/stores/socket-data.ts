@@ -1,28 +1,92 @@
 import socket from '@/api/socket';
+
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { IHashCash, IUserBlock, IUserStaff } from '@/types/socket-data.interface';
+
+import type { IEnergy, IHashCash, IRewardData, IStatistics } from '@/types/socket-data.interface';
+import { useLocalStorage } from '@/composables/useLocaleStorage';
+import { useAuthStore } from '@/stores/auth';
+
 
 export const useSocketDataStore = defineStore('socketDataStore', () => {
-  const userStaff = ref<IUserStaff['payload'] | null>(null);
-  const userBlock = ref<IUserBlock['payload'] | null>(null);
   const hashCash = ref<IHashCash['payload'] | null>(null);
+  const miningData  = ref<{
+    index: number,
+    previousHash: string
+    mainFactor: bigint
+    shareFactor: bigint
+  }[]>([]);
+  const energy = ref<IEnergy['payload'] | null>(null);
+  const rewardsData = ref<IRewardData['payload'][]>([]);
+  const statistics = ref<IStatistics['payload'] | null>(null);
+  const onlineMiners = ref(0);
+  const totalRewards = ref(0);
 
-  socket.io.on('user.userStuff', (data: IUserStaff) => {
-    userStaff.value = data?.payload || null;
+  socket.auth = {
+    token: useLocalStorage('token').value,
+  };
+
+  socket.on('mining.not_enough_energy', (data) => {
+    console.log(data);
   });
 
-  socket.io.on('user.userBlock', (data: IUserBlock) => {
-    userBlock.value = data?.payload || null;
+  socket.on('mining.energy_left', (data) => {
+    energy.value = data.payload;
   });
 
-  socket.io.on('hashcash', (data: IHashCash) => {
-    hashCash.value = data?.payload || null;
+  socket.on('mining.started', (data) => {
+    energy.value = data.payload;
+  });
+
+  socket.on('mining.stopped', (data) => {
+    console.log(data);
+  });
+
+  socket.on('online_users_count', (data) => {
+    onlineMiners.value = data;
+  });
+
+  socket.on('statistics.update', (data: IStatistics) => {
+    statistics.value = data.payload;
+  });
+
+  socket.on('disconnect', () => socket.disconnect());
+
+  const setMiningData = (data: IHashCash['payload']) => {
+    miningData.value = {
+      index: data.config.previousBlock.index + 1,
+      previousHash: data.config.previousBlock.hash,
+      mainFactor: BigInt(data.config.mainFactor),
+      shareFactor: BigInt(data.config.shareFactor),
+    };
+  };
+
+  socket.on('blockchain.reward', (data: IRewardData) => {
+    rewardsData.value.push(data.payload);
+    totalRewards.value += data?.payload?.reward;
+
+    useAuthStore().addBalance(data?.payload?.reward);
+  });
+
+  socket.on('blockchain.get', (data: IHashCash) => {
+    hashCash.value = data.payload;
+
+    setMiningData(data?.payload);
+  });
+
+  socket.on('blockchain.new_block', (data) => {
+    hashCash.value?.lastBlock?.unshift(data.payload?.lastBlock);
+
+    setMiningData(data?.payload);
   });
 
   return {
-    userStaff,
-    userBlock,
     hashCash,
+    miningData,
+    energy,
+    rewardsData,
+    statistics,
+    totalRewards,
+    onlineMiners,
   };
 });

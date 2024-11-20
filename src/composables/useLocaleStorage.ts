@@ -1,11 +1,11 @@
 import { computed, ref } from 'vue';
 
 export const useLocalStorage = <T>(name: string, options?: {
-  defaultName?: string | undefined
+  defaultValue?: string | undefined | number
   parse?: boolean
 }) => {
   const storageValue =
-    ref<string | undefined>(localStorage.getItem(name) || options?.defaultName);
+    ref<string | undefined | number>(localStorage.getItem(name) || options?.defaultValue);
 
   return computed({
     get: () => {

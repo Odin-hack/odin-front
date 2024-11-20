@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import type { PropType } from 'vue';
-import type { IHashLastBlock } from '@/types/socket-data.interface';
+import { computed, type PropType } from 'vue';
+import type { IHashLastBlock, IRewardData } from '@/types/socket-data.interface';
+import { formatTimestamp } from '@/utils/formatters';
 
-defineProps({
+const props = defineProps({
   info: {
     type: Object as PropType<IHashLastBlock| null>,
     required: true,
   },
+  rewardsData: {
+    type: Array as PropType<IRewardData['payload'][]>,
+    required: true,
+  },
+});
+
+const myReward = computed(() => {
+  return props.rewardsData?.find((reward) => reward.index === props.info?.index);
 });
 </script>
 
@@ -15,19 +24,19 @@ defineProps({
     <div class="EarnedBlock__header">
       <p>
         Block
-        <span>#{{ info?.hash }}</span>
+        <span>#{{ info?.index }}</span>
       </p>
 
       <div
         class="EarnedBlock__tag"
-        :class="info?.myReward && 'EarnedBlock__tag--colored'"
+        :class="myReward && 'EarnedBlock__tag--colored'"
       >
-        {{ info?.myReward ? `+ ${ info?.myReward }` : 0 }} 𝚺
+        {{ myReward ? `+ ${ myReward?.reward / 1000000 }` : 0 }} 𝚺
       </div>
     </div>
 
     <p class="EarnedBlock__earnedBy">
-      ⤷ Created by <span>{{ info?.solverName }}</span> in 11:42
+      ⤷ Created by <span>{{ info?.solverName }}</span> in {{ formatTimestamp(Number(info?.timestamp), { onlyTime: true }) }}
     </p>
   </div>
 </template>

@@ -4,58 +4,59 @@ import MiningBlockHash from '@/components/mining/BlockHash.vue';
 import IconForward from '@/components/Icon/Forward.vue';
 import Button from '@/components/UI/Button.vue';
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
+import { computed, type PropType } from 'vue';
+import type { IHashLastBlock } from '@/types/socket-data.interface';
+import { formatTimestamp } from '@/utils/formatters';
 
 const visible = defineModel('visible', {
   type: Boolean,
   default: false,
 });
 
-const blockDataMock = {
-  hash: '2z3xcv4a2fg353c4ccx6c4xc56zcxbvc3423sdf4215cgdfd45345sad00',
-  info: [
-    {
-      label: 'Miner',
-      value: 'Dmitry',
-    },
-    {
-      label: 'Miner reward',
-      value: '1234',
-    },
-    {
-      label: 'Total miners',
-      value: '12',
-    },
-    {
-      label: 'Share Rewards',
-      value: '3145',
-    },
-    {
-      label: 'My reward',
-      value: '0',
-    },
-    {
-      label: 'Date',
-      value: '12.11.2024',
-    },
-  ],
-};
+const props = defineProps({
+  data: {
+    type: Object as PropType<IHashLastBlock>,
+    required: true,
+  },
+});
+
+const blockData = computed(() =>{
+  return {
+    index: props.data?.index,
+    hash: props.data?.hash,
+    info: [
+      {
+        label: 'Miner',
+        value: props.data?.solverName,
+      },
+      {
+        label: 'Block reward',
+        value: props.data?.blockReward / 1000000,
+      },
+      {
+        label: 'Date',
+        value: formatTimestamp(Number(props.data?.timestamp)),
+      },
+    ],
+  };
+});
 </script>
 
 <template>
   <Drawer v-model:visible="visible">
     <template #title>
       <p class="BlockDrawer__drawer-title">
-        Block <span>#1231523345</span>
+        Block <span>#{{ blockData?.index }}</span>
       </p>
     </template>
 
     <template #content>
       <div class="BlockDrawer__content">
-        <MiningBlockHash hash="2z3xcv4a2fg353c4ccx6c4xc56zcxbvc3423sdf4215cgdfd45345sad00" />
+        <MiningBlockHash :hash="blockData?.hash" />
 
         <div class="BlockDrawer__data">
           <div
-            v-for="item in blockDataMock.info"
+            v-for="item in blockData?.info"
             :key="item.label"
             class="BlockDrawer__data-row"
           >

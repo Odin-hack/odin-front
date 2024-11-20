@@ -32,15 +32,15 @@ const content = computed(() => {
       icon: IconGamepad,
     },
     [InfoBlockTypeEnum.BLOCK]: {
-      label: 'Block',
+      label: 'Blocks',
       icon: IconBlocks,
     },
-    [InfoBlockTypeEnum.DIFFICULTY]: {
-      label: 'Difficulty',
+    [InfoBlockTypeEnum.HOLDERS]: {
+      label: 'Holders',
       icon: IconLock,
     },
     [InfoBlockTypeEnum.REWARD]: {
-      label: 'Reward',
+      label: 'Rewards',
       icon: IconSigma,
     },
     [InfoBlockTypeEnum.SHARES]: {
@@ -91,7 +91,10 @@ const borderColor = computed(() => {
         {{ content.label }}
       </p>
 
-      <Status v-if="type === InfoBlockTypeEnum.STATUS" />
+      <Status
+        v-if="type === InfoBlockTypeEnum.STATUS"
+        :value="value"
+      />
 
       <p v-else>
         {{ value }}

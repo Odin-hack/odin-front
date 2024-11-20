@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import type { PropType } from 'vue';
 import { computed, ref } from 'vue';
-
-import type { PropType }  from 'vue';
 import type { ITask } from '@/types/tasks';
 
 import UITag from '@/components/UI/Tag.vue';
 import Button from '@/components/UI/Button.vue';
 import Spinner from '@/components/UI/Spinner.vue';
+import Drawer from '@/components/Drawer.vue';
+import IconCheck from '@/components/Icon/Check.vue';
 
 import { TaskActionEnum, TaskStatusEnum, TaskTypeEnum } from '@/types/enums/task.enum';
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
+
 import WebApp from '@twa-dev/sdk';
 
 
@@ -28,18 +30,33 @@ const image = computed(() => {
 });
 
 const isCheckedProgress = ref(false);
+const visible = ref(false);
 
+const openTaskModal = () => visible.value = true;
 
-const handleTaskEvent = () => {
+const handleTaskEvent = (action: TaskActionEnum) => {
+  visible.value = true;
+
   const type = props.task?.type.toUpperCase();
+  const actionLower = action.toUpperCase();
 
-  if ([TaskTypeEnum.INVITE, TaskTypeEnum.JOIN].includes(type)) {
-    return WebApp?.openTelegramLink(type === TaskTypeEnum.INVITE ? 'https://t.me/share/url?url=' : 'https://t.me/HAXcommunity');
+  if (type === TaskTypeEnum.INVITE) {
+    if (actionLower === TaskActionEnum.COPY) {
+      return navigator.clipboard.writeText('https://t.me/share/url?url=');
+    }
+
+    return WebApp?.openTelegramLink('https://t.me/share/url?url=');
+  }
+
+  if (type === TaskTypeEnum.JOIN) {
+    return WebApp?.openTelegramLink('https://t.me/HAXcommunity');
   }
 };
 
 const handleActionClick = () => {
   isCheckedProgress.value = true;
+
+  setTimeout(() => isCheckedProgress.value = false, 15000);
 };
 </script>
 
@@ -50,7 +67,7 @@ const handleActionClick = () => {
   >
     <div
       class="task__wrapper"
-      @click="handleTaskEvent"
+      @click="openTaskModal"
     >
       <div class="task__image">
         <div
@@ -93,7 +110,36 @@ const handleActionClick = () => {
       </Button>
 
       <Spinner v-if="isCheckedProgress" />
+
+      <IconCheck
+        v-if="task.status.toUpperCase() === TaskStatusEnum.COMPLETED"
+      />
     </div>
+
+    <Drawer v-model:visible="visible">
+      <template #title>
+        <p class="task__drawer-title">
+          {{ task.title }}
+        </p>
+      </template>
+
+      <template #content>
+        <div class="task__drawer-info">
+          <p>{{ task.info }}</p>
+
+          <div class="task__drawer-actions">
+            <Button
+              v-for="(action, index) in task.actions.filter((action) => action !== 'check')"
+              :key="action"
+              :theme="index === 0 ? ButtonThemeEnum.PRIMARY : ButtonThemeEnum.SECONDARY"
+              @click="handleTaskEvent(action)"
+            >
+              {{ action.toUpperCase() }}
+            </Button>
+          </div>
+        </div>
+      </template>
+    </Drawer>
   </div>
 </template>
 
@@ -105,6 +151,18 @@ const handleActionClick = () => {
   padding: 12px 0;
   position: relative;
   width: 100%;
+
+  &__drawer {
+    &-info {
+      padding: 16px 16px 24px 16px;
+    }
+
+    &-actions {
+      display: flex;
+      gap: 16px;
+      padding: 24px 0 12px 0;
+    }
+  }
 
   &__wrapper {
     cursor: pointer;

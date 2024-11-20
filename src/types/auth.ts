@@ -1,3 +1,8 @@
+export interface IUserInfoEnergy {
+  recoveryRate: number,
+  consumptionRate: number
+}
+
 export interface IBlockchainStats {
   totalBlocks: number;
   blocksMined: number;
@@ -19,6 +24,7 @@ export interface IUser {
 export interface IAppData {
   blockchainStats: IBlockchainStats;
   user: IUser;
+  energy: IUserInfoEnergy
 }
 
 export interface IAuthResponse {

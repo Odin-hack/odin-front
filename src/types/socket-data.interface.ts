@@ -1,40 +1,39 @@
-export interface IUserStaff {
-  payload: {
-    maxEnergy: number;
-    tasks: number[];
-    lastEnergyClaim: number;
-    powerMode: boolean;
-    energy: number;
-    balance: number;
-    userId: number;
-    energyLevel: number;
-    blocks: number;
-  };
+export interface IStatistics {
   event: string;
-  info: {
-    online: number;
+  payload: {
+    totalBlocks: number;
+    blocksMined: number;
+    miningStarted: string;
+    totalSupply: number;
+    totalMined: number;
+    totalHolders: number;
   };
 }
 
-export interface IUserBlock {
-  payload: {
-    energy: number;
-    balance: number;
-  };
-  info: {
-    online: number;
-  };
-  event: string;
-}
 
 export interface IHashLastBlock {
-  index: number;
-  myReward: number;
+  solverName: number;
+  blockReward: number;
+  rewards: any[];
   hash: string;
   timestamp: number;
-  reward: number;
   solver: number;
-  solverName: string;
+  index: number;
+}
+
+export interface IEnergy {
+  payload: {
+    energy: number
+    energyConsumed: number
+  }
+}
+
+export interface IRewardData {
+  event: 'string',
+  payload: {
+    index: number
+    reward: number
+  }
 }
 
 export interface IHashCash {
@@ -45,23 +44,21 @@ export interface IHashCash {
     config: {
       nextBlockReward: number;
       previousBlock: {
-        index: number;
-        data: string;
-        timestamp: number;
-        reward: number;
-        hash: string;
-        mainFactor: number;
-        shareFactor: number;
         nonce: number;
-        miner: number;
+        index: number;
+        hash: string;
         previousHash: string;
+        mainFactor: string;
+        shareFactor: string;
+        timestamp: number;
+        miner: number;
+        reward: number;
       };
       mainFactor: number;
-      nextBlockEnergy: number;
       shareFactor: number;
     };
     miners: number;
-    lastBlocks: IHashLastBlock[];
+    lastBlock: IHashLastBlock[];
   };
   event: string;
 }

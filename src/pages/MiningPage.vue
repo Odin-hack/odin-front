@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
+import socket from '@/api/socket';
 
 import { useAuthStore } from '@/stores/auth';
 import { useSocketDataStore } from '@/stores/socket-data';
-import { useInvoiceStore } from '@/stores/invoice';
 
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
@@ -18,44 +18,89 @@ import EarnedBlock from '@/components/EarnedBlock.vue';
 import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
 
 import IconPlay from '@/components/Icon/play.vue';
+import IconPause from '@/components/Icon/pause.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
-import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
-
+// import WebApp from '@twa-dev/sdk';
+import { useHashStore } from '@/stores/hash';
+import type { IHashLastBlock } from '@/types/socket-data.interface';
+import { useInvoiceStore } from '@/stores/invoice';
 import WebApp from '@twa-dev/sdk';
+import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
+import Drawer from '@/components/Drawer.vue';
 
 
-const { user } = storeToRefs(useAuthStore());
-const { userStaff, hashCash } = storeToRefs(useSocketDataStore());
+const { user, alreadyInApp, blockchainStats } = storeToRefs(useAuthStore());
+const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners } = storeToRefs(useSocketDataStore());
+const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
 
-const userInfo = computed(() => userStaff || user);
+const isMiningEnabled = ref(true);
+const isEnergy = ref(true);
+const isInvoiceModal = ref(false);
+
+if (!alreadyInApp.value) isMiningEnabled.value = false;
 
 const isDrawerVisible = ref(false);
 
-const miningContentButton = computed(() => {
-  if (user.value?.powerMode || userStaff.value?.powerMode) {
+const miningContent = computed(() => {
+  if (!isEnergy.value) {
     return {
-      buttonTheme: ButtonThemeEnum.PRIMARY,
-      buttonIcon: IconPlay,
+      buttonTheme: ButtonThemeEnum.DISABLED,
+      text: 'Start mining',
+      buttonDisabled: true,
+      buttonIcon: IconBatteryCrossed,
+      status: StatusEnum.BATTERY_LOW,
+    };
+  }
+
+  if (!isMiningEnabled.value) {
+    return {
+      buttonTheme: ButtonThemeEnum.DISABLED,
+      text: 'Start mining',
+      buttonDisabled: false,
+      buttonIcon: IconBatteryCrossed,
+      status: StatusEnum.BATTERY_LOW,
+    };
+  }
+
+  if (isMiningStarted.value) {
+    return {
+      buttonTheme: ButtonThemeEnum.WARNING,
+      text: 'Stop mining',
+      buttonIcon: IconPause,
+      buttonDisabled: false,
+      status: StatusEnum.MINING,
     };
   }
 
   return {
-    buttonTheme: ButtonThemeEnum.DISABLED,
-    buttonIcon: IconBatteryCrossed,
+    buttonTheme: ButtonThemeEnum.PRIMARY,
+    text: 'Start mining',
+    buttonIcon: IconPlay,
+    buttonDisabled: false,
+    status: StatusEnum.AWAITING,
   };
 });
 
-const difficulty = computed(() => {
-  const shareFactor = hashCash.value?.config?.shareFactor || 0;
-  const mainFactor = hashCash.value?.config?.mainFactor || 0;
+watch(energy, (val) => {
+  if ((user.value?.info?.energy <= 0 || val?.energy <= 0) && isMiningEnabled.value) {
+    isEnergy.value = false;
+    isMiningStarted.value && stopMining();
+    return;
+  }
 
-  return formatNumberWithSpacesAndSuffix( shareFactor / mainFactor, 1);
-});
+  alreadyInApp.value && (isMiningEnabled.value = true);
+}, { immediate: true });
 
-const openMiningInvoice = async () => {
+const lastBlock = computed(() => hashCash.value?.lastBlock);
+
+setInterval(() => {
+  socket.emit('mining.get_energy');
+}, 10000);
+
+const openInvoiceModal = async () => {
   await setInvoice();
 
   if (invoice.value?.link) {
@@ -66,33 +111,61 @@ const openMiningInvoice = async () => {
     if (event.status === 'paid') console.log('paid');
   });
 };
+
+const toggleMining = () => {
+  if (!alreadyInApp.value) return isInvoiceModal.value = true;
+
+  isMiningStarted.value = !isMiningStarted.value;
+
+  if (isMiningStarted.value) {
+    socket.emit('mining.start');
+    return useHashStore().startMining({});
+  }
+
+  socket.emit('mining.stop');
+};
+
+const stopMining = () => {
+  isMiningStarted.value = false;
+  socket.emit('mining.stop');
+};
+
+const drawerData = ref<IHashLastBlock | null>(null);
+
+const showMiningBlockDrawer = (item: IHashLastBlock) => {
+  drawerData.value = item;
+  isDrawerVisible.value = true;
+};
 </script>
 
 <template>
   <div class="MiningPage">
     <BatteryInfo
-      :user-info
+      :user
+      :energy
+      :is-mining-started
     />
 
     <div class="MiningPage__info">
       <InfoBlocks title="INFORMATION">
         <InfoBlock
           :type="InfoBlockTypeEnum.BLOCK"
-          :value="user?.blocks || userStaff?.blocks"
+          :value="statistics?.blocksMined || blockchainStats?.blocksMined"
         />
 
         <InfoBlock
-          :type="InfoBlockTypeEnum.DIFFICULTY"
-          :value="difficulty"
+          :type="InfoBlockTypeEnum.HOLDERS"
+          :value="statistics?.totalHolders || blockchainStats?.totalHolders"
         />
 
         <InfoBlock
           :type="InfoBlockTypeEnum.REWARD"
+          :value="formatNumberWithSpacesAndSuffix(statistics?.totalMined || blockchainStats?.totalMined || 0, 1)"
         />
 
         <InfoBlock
           :type="InfoBlockTypeEnum.ONLINE"
-          :value="hashCash?.miners"
+          :value="formatNumberWithSpacesAndSuffix(onlineMiners, 1)"
         />
       </InfoBlocks>
     </div>
@@ -101,12 +174,36 @@ const openMiningInvoice = async () => {
       <InfoBlocks title="MINING">
         <InfoBlock
           :type="InfoBlockTypeEnum.STATUS"
-          :value="StatusEnum.AWAITING"
+          :value="miningContent.status"
         />
-        <InfoBlock :type="InfoBlockTypeEnum.SHARES" />
-        <InfoBlock :type="InfoBlockTypeEnum.HASHES" />
-        <InfoBlock :type="InfoBlockTypeEnum.EARNINGS" />
+        <InfoBlock
+          :type="InfoBlockTypeEnum.SHARES"
+          :value="totalShares"
+        />
+        <InfoBlock
+          :type="InfoBlockTypeEnum.HASHES"
+          :value="totalHashes"
+        />
+        <InfoBlock
+          :type="InfoBlockTypeEnum.EARNINGS"
+          :value="(totalRewards / 1000000)"
+        />
       </InfoBlocks>
+
+      <Button
+        :theme="miningContent.buttonTheme"
+        style="margin-top: 24px"
+        :disabled="miningContent.buttonDisabled"
+        @click="toggleMining"
+      >
+        <template #icon>
+          <component
+            :is="miningContent.buttonIcon"
+          />
+        </template>
+
+        {{ miningContent.text }}
+      </Button>
     </div>
 
     <div class="MiningPage__earned">
@@ -116,31 +213,44 @@ const openMiningInvoice = async () => {
 
       <div class="MiningPage__earned__wrapper">
         <EarnedBlock
-          v-for="item in hashCash?.lastBlocks"
+          v-for="item in lastBlock"
           :key="item.index"
           :info="item"
-          @click="isDrawerVisible = true"
+          :rewards-data
+          @click="showMiningBlockDrawer(item)"
         />
       </div>
     </div>
-
-    <div class="FixedButton--bottom">
-      <Button
-        :theme="miningContentButton.buttonTheme"
-        @click="openMiningInvoice"
-      >
-        <template #icon>
-          <component
-            :is="miningContentButton.buttonIcon"
-          />
-        </template>
-
-        Start Mining
-      </Button>
-    </div>
   </div>
 
-  <MiningBlockDrawer v-model:visible="isDrawerVisible" />
+  <MiningBlockDrawer
+    v-model:visible="isDrawerVisible"
+    :data="drawerData"
+  />
+
+  <Drawer v-model:visible="isInvoiceModal">
+    <template #title>
+      Paid feature
+    </template>
+
+    <template #content>
+      <div
+        style="padding: 20px 16px 40px 16px"
+      >
+        <p>
+          At the moment, to access the launch of mining, you need to pay a fee
+        </p>
+
+        <Button
+          :theme="ButtonThemeEnum.PRIMARY"
+          style="margin-top: 24px;"
+          @click="openInvoiceModal"
+        >
+          Pay
+        </Button>
+      </div>
+    </template>
+  </Drawer>
 </template>
 
 <style scoped lang="scss">
@@ -148,7 +258,7 @@ const openMiningInvoice = async () => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-bottom: 24dvh;
+  padding-bottom: 18dvh;
 
   &__earned {
     &__wrapper {

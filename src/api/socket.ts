@@ -1,14 +1,10 @@
 import { io } from 'socket.io-client';
 import { useRuntimeConfig } from '@/composables/useRuntimeConfig';
 
-//:TODO: expand socket event types
-
+// ToDo FIX
 const socket = io(useRuntimeConfig().socketUrl, {
   transports: ['websocket'],
-  path: '/mining',
-  // query: {
-  //   api_key: 'VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self',
-  // },
+  path: '/api/socket.io',
 });
 
 export default socket;
