@@ -58,6 +58,8 @@ export const useHashStore = defineStore('hashStore', () => {
     return { startNonce, endNonce };
   };
 
+  const startCheckTermal = ref(false);
+
   const checkThermal = (isTurboMode: boolean) => {
     if (isTurboMode) return;
 
@@ -67,11 +69,13 @@ export const useHashStore = defineStore('hashStore', () => {
     if (now - lastMeasurement >= MEASURE_INTERVAL) {
       currentHashRate.value = (hashesProcessed * 1000) / (now - lastMeasurement);
 
-      if (!baselineHashRate.value) {
-        baselineHashRate.value = currentHashRate.value;
-      } else {
-        performanceRatio.value = currentHashRate.value / baselineHashRate.value;
-        needsCooldown = performanceRatio.value < HASH_THRESHOLD;
+      if (startCheckTermal.value) {
+        if (!baselineHashRate.value) {
+          baselineHashRate.value = currentHashRate.value;
+        } else {
+          performanceRatio.value = currentHashRate.value / baselineHashRate.value;
+          needsCooldown = performanceRatio.value < HASH_THRESHOLD;
+        }
       }
 
       hashesProcessed = 0;
@@ -102,6 +106,8 @@ export const useHashStore = defineStore('hashStore', () => {
     let hashes = 0;
 
     const addHashes = useThrottle(() => totalHashes.value += hashes, 1000);
+
+    setTimeout(() => startCheckTermal.value = true, 5000);
 
     const mineBlock = async () => {
       while (nonce <= endNonce) {
