@@ -20,6 +20,7 @@ export interface IUser {
   maxEnergy: number;
   powerMode: boolean;
   allowMining: boolean;
+  online: number;
   id: string;
 }
 

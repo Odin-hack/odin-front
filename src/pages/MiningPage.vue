@@ -171,7 +171,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
 
         <InfoBlock
           :type="InfoBlockTypeEnum.ONLINE"
-          :value="formatNumberWithSpacesAndSuffix(onlineMiners, 1)"
+          :value="formatNumberWithSpacesAndSuffix(user?.info?.online || onlineMiners, 1)"
         />
       </InfoBlocks>
     </div>

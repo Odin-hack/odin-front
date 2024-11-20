@@ -10,6 +10,17 @@ export interface IStatistics {
   };
 }
 
+export interface IUpdateUser {
+  event: string;
+  payload: {
+    balance?: string,
+    maxEnergy?: number,
+    powerMode?: boolean,
+    allowMining?: boolean,
+    online?: number
+  };
+}
+
 
 export interface IHashLastBlock {
   solverName: number;

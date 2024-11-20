@@ -3,7 +3,7 @@ import socket from '@/api/socket';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-import type { IEnergy, IHashCash, IRewardData, IStatistics } from '@/types/socket-data.interface';
+import type { IEnergy, IHashCash, IRewardData, IStatistics, IUpdateUser, IUser } from '@/types/socket-data.interface';
 import { useLocalStorage } from '@/composables/useLocaleStorage';
 import { useAuthStore } from '@/stores/auth';
 
@@ -48,6 +48,10 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
 
   socket.on('statistics.update', (data: IStatistics) => {
     statistics.value = data.payload;
+  });
+
+  socket.on('user.update', (data: IUpdateUser) => {
+    useAuthStore().updateUserInfo(data.payload);
   });
 
   socket.on('disconnect', () => socket.disconnect());

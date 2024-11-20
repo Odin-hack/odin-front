@@ -10,6 +10,7 @@ import { useRuntimeConfig } from '@/composables/useRuntimeConfig';
 import { useLoaderStore } from '@/stores/loader';
 
 import type { IAuthResponse, IBlockchainStats, IUserInfoEnergy, IUser } from '@/types/auth';
+import type { IUpdateUser } from '@/types/socket-data.interface';
 
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -37,6 +38,17 @@ export const useAuthStore = defineStore('authStore', () => {
       ).toString();
     }
   };
+
+  const updateUserInfo = (data: IUpdateUser['payload']) => {
+    if (!data) return;
+
+    data?.balance && (user.value.info.balance = data?.balance);
+    data?.allowMining && (user.value.info.allowMining = data?.allowMining);
+    data?.online && (user.value.info.online = data?.online);
+    data?.maxEnergy && (user.value.info.maxEnergy = data?.maxEnergy);
+    data?.powerMode && (user.value.info.powerMode = data?.powerMode);
+  };
+
   const authUser = async () => {
     loadingStore.setLoading(true);
 
@@ -61,6 +73,7 @@ export const useAuthStore = defineStore('authStore', () => {
   return {
     authUser,
     addBalance,
+    updateUserInfo,
     user,
     blockchainStats,
   };
