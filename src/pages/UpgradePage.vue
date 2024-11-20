@@ -149,7 +149,7 @@ const inviteFriend = () => WebApp?.openTelegramLink('https://t.me/share/url?url=
           style="padding: 20px 16px 40px 16px"
         >
           <p>
-            To access the power mode, you need to pay
+            To access the turbo mode, you need to pay
           </p>
 
           <Button

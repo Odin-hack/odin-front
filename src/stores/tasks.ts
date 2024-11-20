@@ -20,8 +20,13 @@ export const useTasksStore = defineStore('tasksStore', () => {
 
     if (error) return;
 
-    console.log(data);
-    // if (data?.length) tasks.value = data;
+    if (data) {
+      const taskIndex = tasks.value.findIndex(task => task.id === id);
+
+      if (taskIndex !== -1) {
+        tasks.value[taskIndex] = data;
+      }
+    }
   };
 
   return {

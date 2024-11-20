@@ -27,20 +27,20 @@ const content = computed(() => {
   return {
     [BadgeTypeEnum.DISABLED]: {
       icon: IconSun,
-      label: 'Inactive',
-      text: 'Turbo-mode x10',
+      label: 'Turbo',
+      text: 'Remove CPU limits',
       color: ColorsEnum.SECONDARY_GREY,
     },
     [BadgeTypeEnum.UNAVAILABLE]: {
       icon: IconSun,
-      label: 'Unavailable',
-      text: 'Turbo-mode x10',
+      label: 'Turbo',
+      text: 'Remove CPU limits',
       color: ColorsEnum.PRIMARY_RED,
     },
     [BadgeTypeEnum.ACTIVE]: {
       icon: IconSun,
-      label: 'Activated',
-      text: 'Turbo-mode <span>x10</span<',
+      label: 'Turbo',
+      text: 'Remove CPU limits',
       color: ColorsEnum.PRIMARY_BLUE,
     },
   }[props.type];
@@ -76,7 +76,10 @@ watch(() => props.switchActive, (value) => {
 
     <div class="Badge__content">
       <p>{{ content.label }}</p>
-      <div v-html="content.text" />
+      <div
+        class="Badge__content-info"
+        v-html="content.text"
+      />
     </div>
 
     <div class="Badge__switch">
@@ -99,12 +102,19 @@ watch(() => props.switchActive, (value) => {
 
   &__content {
     p {
-      color: var(--color-grey-light);
+      color: var(--color-primary-white);
+      font-weight: 700;
+      letter-spacing: 0.06px;
       margin-bottom: 4px;
     }
 
     :deep(span) {
       color: v-bind('content.color');
+      font-weight: 400;
+    }
+
+    &-info {
+      font-weight: 400;
     }
   }
 

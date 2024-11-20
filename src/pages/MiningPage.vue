@@ -1,40 +1,40 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { storeToRefs } from 'pinia';
+
+import WebApp from '@twa-dev/sdk';
 import socket from '@/api/socket';
 
 import { useAuthStore } from '@/stores/auth';
 import { useSocketDataStore } from '@/stores/socket-data';
+import { useHashStore } from '@/stores/hash';
+import { useInvoiceStore } from '@/stores/invoice';
+import { useTurboModeStore } from '@/stores/turbo-mode';
+import { storeToRefs } from 'pinia';
 
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 import { InfoBlockTypeEnum } from '@/types/enums/info-block.enum';
 import { StatusEnum } from '@/types/enums/status.enum';
 
+import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
+
+import Drawer from '@/components/Drawer.vue';
 import Button from '@/components/UI/Button.vue';
-import InfoBlocks from '@/components/mining/InfoBlocks.vue';
 import InfoBlock from '@/components/UI/InfoBlock.vue';
+
+import InfoBlocks from '@/components/mining/InfoBlocks.vue';
 import BatteryInfo from '@/components/BatteryInfo.vue';
 import EarnedBlock from '@/components/EarnedBlock.vue';
 import MiningBlockDrawer from '@/components/mining/BlockDrawer.vue';
-
 import IconPlay from '@/components/Icon/play.vue';
 import IconPause from '@/components/Icon/pause.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
-import { useHashStore } from '@/stores/hash';
 import type { IHashLastBlock } from '@/types/socket-data.interface';
-import { useInvoiceStore } from '@/stores/invoice';
-import WebApp from '@twa-dev/sdk';
-import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
-import Drawer from '@/components/Drawer.vue';
-import { useTurboModeStore } from '@/stores/turbo-mode';
 
 
 const { user, blockchainStats } = storeToRefs(useAuthStore());
 const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners } = storeToRefs(useSocketDataStore());
-const { isMiningStarted, totalShares, totalHashes, baselineHashRate,
-  currentHashRate,
-  performanceRatio } = storeToRefs(useHashStore());
+const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
 
@@ -194,20 +194,13 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
         <InfoBlock
           :type="InfoBlockTypeEnum.HASHES"
           :value="formatNumberWithSpacesAndSuffix(totalHashes, 1)"
+          :label="isTurboModeActive && 'TURBO'"
         />
         <InfoBlock
           :type="InfoBlockTypeEnum.EARNINGS"
           :value="(totalRewards / 1000000)"
         />
       </InfoBlocks>
-
-
-      <p style="font-size: 12px; color: green; margin-top: 8px;">
-        {{ 'baselineHashRate: ' + baselineHashRate || 0 }}<br>
-        {{ 'currentHashRate: ' + currentHashRate || 0 }}<br>
-        {{ 'performanceRatio: ' + performanceRatio || 0 }}
-      </p>
-
 
       <Button
         :theme="miningContent.buttonTheme"

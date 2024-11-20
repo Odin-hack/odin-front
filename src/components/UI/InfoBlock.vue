@@ -23,6 +23,10 @@ const props = defineProps({
     type: [String, Number] as PropType<string | number>,
     default: 0,
   },
+  label: {
+    type: String,
+    default: '',
+  },
 });
 
 const content = computed(() => {
@@ -89,6 +93,13 @@ const borderColor = computed(() => {
     <div class="InfoBlock__content">
       <p class="InfoBlock__content__title">
         {{ content.label }}
+
+        <span
+          v-if="label"
+          class="InfoBlock__content__title-tag"
+        >
+          {{ label }}
+        </span>
       </p>
 
       <Status
@@ -125,7 +136,20 @@ const borderColor = computed(() => {
 
     &__title {
       color: var(--color-grey-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &-tag {
+        font-size: 8px;
+        padding: 4px;
+        border-radius: 8px;
+        background-color: var(--color-primary-blue);
+        color: var(--color-primary-white);
+        font-weight: 500;
+      }
     }
+
   }
 }
 </style>

@@ -4,25 +4,26 @@ import { defineStore, storeToRefs } from 'pinia';
 import { useSocketDataStore } from '@/stores/socket-data';
 import { ref } from 'vue';
 import { useThrottle } from '@/composables/useThrottle';
+import { useTurboModeStore } from '@/stores/turbo-mode';
 
 export const useHashStore = defineStore('hashStore', () => {
   const { miningData } = storeToRefs(useSocketDataStore());
+  const { isTurboModeActive } = storeToRefs(useTurboModeStore());
   const isMiningStarted = ref(false);
 
   const totalShares = ref(0);
   const totalHashes = ref(0);
 
   let hashesProcessed = 0;
-  let lastMeasurement = Date.now();
 
-  const baselineHashRate = ref<number | null>(null); //
-  const currentHashRate = ref<number | null>(null); //
+  const baselineHashRate = ref<number | null>(null);
+  const currentHashRate = ref<number | null>(null);
   const performanceRatio = ref<number | null>(null);
 
   let needsCooldown = false;
-  const MEASURE_INTERVAL = 2000;
+
+  const MAX_LIMIT = 20000;
   const COOLDOWN_TIME = 1000;
-  const HASH_THRESHOLD = 0.7;
 
   const calculateHash = async (
     index: number,
@@ -58,35 +59,19 @@ export const useHashStore = defineStore('hashStore', () => {
     return { startNonce, endNonce };
   };
 
-
-  const checkThermal = (isTurboMode: boolean) => {
-    if (isTurboMode) return;
+  const checkLimits = (isTurboMode = false) => {
+    if (isTurboMode) return needsCooldown = false;
 
     hashesProcessed++;
-    const now = Date.now();
 
-    if (now - lastMeasurement >= MEASURE_INTERVAL) {
-      currentHashRate.value = (hashesProcessed * 1000) / (now - lastMeasurement);
-
-        if (!baselineHashRate.value) {
-          baselineHashRate.value = currentHashRate.value;
-        } else {
-          performanceRatio.value = currentHashRate.value / baselineHashRate.value;
-
-          if (performanceRatio.value > 1.1) {
-            baselineHashRate.value = currentHashRate.value;
-            return;
-          }
-          needsCooldown = performanceRatio.value < HASH_THRESHOLD;
-        }
-
-      hashesProcessed = 0;
-      lastMeasurement = now;
+    if (hashesProcessed >= MAX_LIMIT) {
+      needsCooldown = true;
     }
 
     if (needsCooldown) {
       setTimeout(() => {
         needsCooldown = false;
+        hashesProcessed = 0;
       }, COOLDOWN_TIME);
     }
   };
@@ -94,7 +79,6 @@ export const useHashStore = defineStore('hashStore', () => {
   const startMining = async ({
      data = '',
      minerId = 'telegramUserId',
-     isTurboMode = false,
   }) => {
     const maxNonce = 1_000_000_000;
     const rangeSize = 1_000_000;
@@ -102,9 +86,6 @@ export const useHashStore = defineStore('hashStore', () => {
     let { startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize);
 
     let nonce = startNonce;
-
-    const startTime = Date.now();
-    let shares = 0;
     let hashes = 0;
 
     const addHashes = useThrottle(() => totalHashes.value = hashes, 1000);
@@ -115,7 +96,7 @@ export const useHashStore = defineStore('hashStore', () => {
 
         if (!miningData.value || !isMiningStarted.value) return;
 
-        checkThermal(isTurboMode);
+        checkLimits(isTurboModeActive.value);
 
         hashes += 1;
         addHashes();
@@ -137,17 +118,13 @@ export const useHashStore = defineStore('hashStore', () => {
 
 
         if (result === 'valid') {
-          console.log(`Valid block found: ${hash}`);
           socket.emit('blockchain.submit_hash', {
             hash,
             nonce: nonce,
             blockIndex: miningData.value?.index,
             timestamp,
           });
-          console.log('Valid block submitted, continuing mining...');
         } else if (result === 'share') {
-          console.log(`Share found: ${hash}`);
-          shares++;
           totalShares.value++;
           socket.emit('blockchain.submit_hash', {
             hash,
@@ -175,11 +152,6 @@ export const useHashStore = defineStore('hashStore', () => {
     };
 
     await mineBlock();
-
-    const endTime = Date.now();
-    console.log(
-      `Block not found. Spent time: ${(endTime - startTime) / 1000} s. Shares: ${shares}`,
-    );
   };
 
   return {
