@@ -27,6 +27,8 @@ const myReward = computed(() => {
         <span>#{{ info?.index }}</span>
       </p>
 
+      <p>Your reward</p>
+
       <div
         class="EarnedBlock__tag"
         :class="myReward && 'EarnedBlock__tag--colored'"

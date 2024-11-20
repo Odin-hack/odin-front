@@ -249,7 +249,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
 
   <Drawer v-model:visible="isInvoiceModal">
     <template #title>
-      Paid feature
+      Pay for the subscription and start mining
     </template>
 
     <template #content>

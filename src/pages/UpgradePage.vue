@@ -66,9 +66,12 @@ const openInvoiceModal = async (value: boolean) => {
 };
 
 onMounted(async () => {
-  isLoader.value = true;
-  await tasksStore.fetchTasks();
-  isLoader.value = false;
+  if (!tasks.value?.length) {
+    isLoader.value = true;
+    await tasksStore.fetchTasks();
+    isLoader.value = false;
+  }
+
 });
 
 const friendInvite = computed(() =>
