@@ -40,7 +40,7 @@ const content = computed(() => {
       icon: IconLock,
     },
     [InfoBlockTypeEnum.REWARD]: {
-      label: 'Rewards',
+      label: 'Reward',
       icon: IconSigma,
     },
     [InfoBlockTypeEnum.SHARES]: {

@@ -3,6 +3,7 @@ import socket from '@/api/socket';
 import { defineStore, storeToRefs } from 'pinia';
 import { useSocketDataStore } from '@/stores/socket-data';
 import { ref } from 'vue';
+import { useThrottle } from '@/composables/useThrottle';
 
 export const useHashStore = defineStore('hashStore', () => {
   const { miningData } = storeToRefs(useSocketDataStore());
@@ -94,6 +95,9 @@ export const useHashStore = defineStore('hashStore', () => {
 
     const startTime = Date.now();
     let shares = 0;
+    let hashes = 0;
+
+    const addHashes = useThrottle(() => totalHashes.value += hashes, 1000);
 
     const mineBlock = async () => {
       while (nonce <= endNonce) {
@@ -118,9 +122,9 @@ export const useHashStore = defineStore('hashStore', () => {
           miningData.value?.shareFactor,
         );
 
+
         if (result === 'valid') {
           console.log(`Valid block found: ${hash}`);
-          totalShares.value += 1;
           socket.emit('blockchain.submit_hash', {
             hash,
             nonce: nonce,
@@ -130,17 +134,21 @@ export const useHashStore = defineStore('hashStore', () => {
           console.log('Valid block submitted, continuing mining...');
         } else if (result === 'share') {
           console.log(`Share found: ${hash}`);
-          totalHashes.value += 1;
+          shares++;
+          totalShares.value++;
           socket.emit('blockchain.submit_hash', {
             hash,
             nonce: nonce,
             blockIndex: miningData.value?.index,
             timestamp,
           });
-          shares++;
+
         }
 
         nonce++;
+        hashes += 1;
+
+        addHashes();
 
         if (needsCooldown) {
           await new Promise(resolve => setTimeout(resolve, COOLDOWN_TIME));

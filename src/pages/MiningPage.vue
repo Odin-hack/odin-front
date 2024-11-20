@@ -41,7 +41,7 @@ const isMiningEnabled = ref(true);
 const isEnergy = ref(true);
 const isInvoiceModal = ref(false);
 
-if (!user.value?.info.allowMining) isMiningEnabled.value = false;
+if (user.value?.info.allowMining) isMiningEnabled.value = false;
 
 const isDrawerVisible = ref(false);
 
@@ -114,7 +114,7 @@ const openInvoiceModal = async () => {
 };
 
 const toggleMining = () => {
-  if (!user.value?.info.allowMining) return isInvoiceModal.value = true;
+  if (user.value?.info.allowMining) return isInvoiceModal.value = true;
 
   isMiningStarted.value = !isMiningStarted.value;
 
@@ -164,7 +164,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
 
         <InfoBlock
           :type="InfoBlockTypeEnum.REWARD"
-          :value="formatNumberWithSpacesAndSuffix(statistics?.totalMined || blockchainStats?.totalMined || 0, 1)"
+          :value="formatNumberWithSpacesAndSuffix(hashCash?.config?.nextBlockReward / 1000000 || 0, 1)"
         />
 
         <InfoBlock
@@ -186,7 +186,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
         />
         <InfoBlock
           :type="InfoBlockTypeEnum.HASHES"
-          :value="totalHashes"
+          :value="formatNumberWithSpacesAndSuffix(totalHashes, 1)"
         />
         <InfoBlock
           :type="InfoBlockTypeEnum.EARNINGS"
