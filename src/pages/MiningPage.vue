@@ -41,7 +41,7 @@ const isMiningEnabled = ref(true);
 const isEnergy = ref(true);
 const isInvoiceModal = ref(false);
 
-if (user.value?.info.allowMining) isMiningEnabled.value = false;
+if (!user.value?.info.allowMining) isMiningEnabled.value = false;
 
 const isDrawerVisible = ref(false);
 
@@ -116,7 +116,7 @@ const openInvoiceModal = async () => {
 };
 
 const toggleMining = () => {
-  if (user.value?.info.allowMining) return isInvoiceModal.value = true;
+  if (!user.value?.info.allowMining) return isInvoiceModal.value = true;
 
   isMiningStarted.value = !isMiningStarted.value;
 
