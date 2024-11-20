@@ -41,7 +41,7 @@ const openTaskModal = () => visible.value = true;
 const { user } = useAuthStore();
 
 const handleTaskEvent = (action: TaskActionEnum) => {
-  visible.value = true;
+  visible.value = false;
 
   const type = props.task?.type.toUpperCase();
   const actionLower = action.toUpperCase();
