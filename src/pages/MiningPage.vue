@@ -21,7 +21,6 @@ import IconPlay from '@/components/Icon/play.vue';
 import IconPause from '@/components/Icon/pause.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
-// import WebApp from '@twa-dev/sdk';
 import { useHashStore } from '@/stores/hash';
 import type { IHashLastBlock } from '@/types/socket-data.interface';
 import { useInvoiceStore } from '@/stores/invoice';
@@ -33,7 +32,7 @@ import { useTurboModeStore } from '@/stores/turbo-mode';
 
 const { user, blockchainStats } = storeToRefs(useAuthStore());
 const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners } = storeToRefs(useSocketDataStore());
-const { isMiningStarted, totalShares, totalHashes, baselineHashRate, currentHashRate, performanceRatio } = storeToRefs(useHashStore());
+const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
 
@@ -195,12 +194,6 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
           :value="(totalRewards / 1000000)"
         />
       </InfoBlocks>
-
-      <p style="font-size: 12px; color: green; margin-top: 8px;">
-        {{ 'baselineHashRate: ' + baselineHashRate || 0 }}<br>
-        {{ 'currentHashRate: ' + currentHashRate || 0 }}<br>
-        {{ 'performanceRatio: ' + performanceRatio || 0 }}
-      </p>
 
       <Button
         :theme="miningContent.buttonTheme"
