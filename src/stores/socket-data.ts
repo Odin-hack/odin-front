@@ -3,7 +3,7 @@ import socket from '@/api/socket';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-import type { IEnergy, IHashCash, IRewardData, IStatistics, IUpdateUser, IUser } from '@/types/socket-data.interface';
+import type { IEnergy, IHashCash, IRewardData, IStatistics, IUpdateUser } from '@/types/socket-data.interface';
 import { useLocalStorage } from '@/composables/useLocaleStorage';
 import { useAuthStore } from '@/stores/auth';
 
