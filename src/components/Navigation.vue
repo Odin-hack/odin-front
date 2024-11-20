@@ -62,7 +62,7 @@ const tabs = ref([
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  z-index: 100;
+  z-index: 200;
 
   &__tab {
     display: flex;
