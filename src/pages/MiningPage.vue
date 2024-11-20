@@ -27,6 +27,7 @@ import type { IHashLastBlock } from '@/types/socket-data.interface';
 import { useInvoiceStore } from '@/stores/invoice';
 import WebApp from '@twa-dev/sdk';
 import { formatNumberWithSpacesAndSuffix } from '@/utils/formatters';
+import Drawer from '@/components/Drawer.vue';
 
 
 const { user, alreadyInApp, blockchainStats } = storeToRefs(useAuthStore());
@@ -36,17 +37,29 @@ const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
 
 const isMiningEnabled = ref(true);
+const isEnergy = ref(true);
+const isInvoiceModal = ref(false);
 
 if (!alreadyInApp.value) isMiningEnabled.value = false;
 
 const isDrawerVisible = ref(false);
 
 const miningContent = computed(() => {
-  if (!isMiningEnabled.value) {
+  if (!isEnergy.value) {
     return {
       buttonTheme: ButtonThemeEnum.DISABLED,
       text: 'Start mining',
       buttonDisabled: true,
+      buttonIcon: IconBatteryCrossed,
+      status: StatusEnum.BATTERY_LOW,
+    };
+  }
+
+  if (!isMiningEnabled.value) {
+    return {
+      buttonTheme: ButtonThemeEnum.DISABLED,
+      text: 'Start mining',
+      buttonDisabled: false,
       buttonIcon: IconBatteryCrossed,
       status: StatusEnum.BATTERY_LOW,
     };
@@ -73,7 +86,7 @@ const miningContent = computed(() => {
 
 watch(energy, (val) => {
   if ((user.value?.info?.energy <= 0 || val?.energy <= 0) && isMiningEnabled.value) {
-    isMiningEnabled.value = false;
+    isEnergy.value = false;
     isMiningStarted.value && stopMining();
     return;
   }
@@ -100,7 +113,7 @@ const openInvoiceModal = async () => {
 };
 
 const toggleMining = () => {
-  if (!alreadyInApp.value) return openInvoiceModal();
+  if (!alreadyInApp.value) return isInvoiceModal.value = true;
 
   isMiningStarted.value = !isMiningStarted.value;
 
@@ -214,6 +227,30 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
     v-model:visible="isDrawerVisible"
     :data="drawerData"
   />
+
+  <Drawer v-model:visible="isInvoiceModal">
+    <template #title>
+      Paid feature
+    </template>
+
+    <template #content>
+      <div
+        style="padding: 20px 16px 40px 16px"
+      >
+        <p>
+          At the moment, to access the launch of mining, you need to pay a fee
+        </p>
+
+        <Button
+          :theme="ButtonThemeEnum.PRIMARY"
+          style="margin-top: 24px;"
+          @click="openInvoiceModal"
+        >
+          Pay
+        </Button>
+      </div>
+    </template>
+  </Drawer>
 </template>
 
 <style scoped lang="scss">

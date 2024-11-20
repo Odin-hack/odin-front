@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
     if (data?.token) useLocalStorage('token').value = data?.token;
 
-    alreadyInApp.value = data?.alreadyInApp || true;
+    alreadyInApp.value = data?.alreadyInApp || false;
     user.value =  data?.appData && { info: data?.appData?.user, energy: data?.appData?.energy } || null;
     blockchainStats.value = data?.appData?.blockchainStats || null;
 
