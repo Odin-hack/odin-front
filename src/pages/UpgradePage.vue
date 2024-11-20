@@ -23,6 +23,7 @@ import TasksWrapper from '@/components/tasks/wrapper.vue';
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 import Drawer from '@/components/Drawer.vue';
 import { useTurboModeStore } from '@/stores/turbo-mode';
+import { useLoaderStore } from '@/stores/loader';
 
 
 const { user } = storeToRefs(useAuthStore());
@@ -35,6 +36,7 @@ const { energy } = storeToRefs(useSocketDataStore());
 const tasksStore = useTasksStore();
 
 const { tasks } = storeToRefs(tasksStore);
+const { isLoader } = storeToRefs(useLoaderStore());
 
 
 const isInvoiceModal = ref(false);
@@ -56,12 +58,17 @@ const openInvoiceModal = async (value: boolean) => {
   }
 
   WebApp.onEvent('invoiceClosed', (event) => {
-    if (event.status === 'paid') isTurboModeActive.value = value;
+    if (event.status === 'paid') {
+      isTurboModeActive.value = value;
+      isInvoiceModal.value = false;
+    }
   });
 };
 
 onMounted(async () => {
+  isLoader.value = true;
   await tasksStore.fetchTasks();
+  isLoader.value = false;
 });
 
 const friendInvite = computed(() =>

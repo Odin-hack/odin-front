@@ -16,14 +16,17 @@ const status = computed(() => {
     [StatusEnum.BATTERY_LOW]: {
       label: 'No energy',
       pointColor: ColorsEnum.PRIMARY_RED,
+      animation: false,
     },
     [StatusEnum.AWAITING]: {
       label: 'Awaiting',
       pointColor: ColorsEnum.PRIMARY_YELLOW,
+      animation: false,
     },
     [StatusEnum.MINING]: {
       label: 'Mining',
       pointColor: ColorsEnum.PRIMARY_GREEN,
+      animation: true,
     },
   }[props.value];
 });
@@ -31,7 +34,10 @@ const status = computed(() => {
 
 <template>
   <div class="Status">
-    <div class="Status__point" />
+    <div
+      class="Status__point"
+      :class="{'Status__point--animate': status.animation}"
+    />
     <p>{{ status?.label }}</p>
   </div>
 </template>
@@ -47,6 +53,22 @@ const status = computed(() => {
     width: 8px;
     height: 8px;
     background-color: v-bind('status.pointColor');
+
+    &--animate {
+      animation: fade 1s infinite;
+    }
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0.3
+  }
+  50% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0.3
   }
 }
 </style>

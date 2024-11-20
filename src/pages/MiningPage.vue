@@ -109,7 +109,9 @@ const openInvoiceModal = async () => {
   }
 
   WebApp.onEvent('invoiceClosed', (event) => {
-    if (event.status === 'paid') console.log('paid');
+    if (event.status === 'paid') {
+      isInvoiceModal.value = false;
+    }
   });
 };
 
