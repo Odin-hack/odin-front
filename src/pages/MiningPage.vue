@@ -47,7 +47,7 @@ const isMiningEnabled = ref(true);
 const isEnergy = ref(true);
 const isInvoiceModal = ref(false);
 
-if (!user.value?.info.allowMining) isMiningEnabled.value = false;
+if (user.value?.info.allowMining) isMiningEnabled.value = false;
 
 const isDrawerVisible = ref(false);
 
@@ -138,7 +138,7 @@ const toggleMining = () => {
     });
   }
 
-
+  useHashStore().stopMining();
   isTurboModeActive.value && (isTurboModeActive.value = false);
   userEnergyStore.stopInterval();
   socket.emit('mining.stop');
