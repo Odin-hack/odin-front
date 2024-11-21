@@ -34,7 +34,7 @@ import { useUserEnergyStore } from '@/stores/energy';
 
 
 const { user, blockchainStats } = storeToRefs(useAuthStore());
-const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners } = storeToRefs(useSocketDataStore());
+const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners,isSocketConnected } = storeToRefs(useSocketDataStore());
 const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
@@ -47,7 +47,7 @@ const isMiningEnabled = ref(true);
 const isEnergy = ref(true);
 const isInvoiceModal = ref(false);
 
-if (user.value?.info.allowMining) isMiningEnabled.value = false;
+if (!user.value?.info.allowMining) isMiningEnabled.value = false;
 
 const isDrawerVisible = ref(false);
 
@@ -122,7 +122,9 @@ const openInvoiceModal = async () => {
 };
 
 const toggleMining = () => {
-  if (user.value?.info.allowMining) return isInvoiceModal.value = true;
+  if (!socket.connected) return;
+
+  if (!user.value?.info.allowMining) return isInvoiceModal.value = true;
 
   isMiningStarted.value = !isMiningStarted.value;
 
@@ -153,6 +155,10 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
   drawerData.value = item;
   isDrawerVisible.value = true;
 };
+
+watch(isSocketConnected, (val) => {
+  if (!val && isMiningStarted.value) stopMining();
+}, { immediate: true, deep: true });
 </script>
 
 <template>
@@ -188,7 +194,10 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
     </div>
 
     <div class="MiningPage__mining">
-      <InfoBlocks title="MINING">
+      <InfoBlocks
+        title="MINING"
+        :tag="!socket.connected && 'connected'"
+      >
         <InfoBlock
           :type="InfoBlockTypeEnum.STATUS"
           :value="miningContent.status"

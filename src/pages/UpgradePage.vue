@@ -42,7 +42,7 @@ const { isLoader } = storeToRefs(useLoaderStore());
 const isInvoiceModal = ref(false);
 
 const switcherChangeHandler = (value: boolean) => {
-  if (user.value?.info.powerMode) {
+  if (!user.value?.info.powerMode) {
     isInvoiceModal.value = true;
     return;
   }

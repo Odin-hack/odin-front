@@ -14,8 +14,10 @@ import Navigation from '@/components/Navigation.vue';
 import Loader from '@/components/Loader.vue';
 import { useLocalStorage } from '@/composables/useLocaleStorage';
 import socket from '@/api/socket';
+import { useSocketDataStore } from '@/stores/socket-data';
 
 const { isLoader } = storeToRefs(useLoaderStore());
+const { isSocketConnected } = storeToRefs(useSocketDataStore());
 
 const { setScrollEl } = useScrollEl();
 
@@ -37,6 +39,10 @@ onMounted(async () => {
   socket.auth = { token: useLocalStorage('token').value };
 
   socket.connect();
+
+  if (socket.connected) {
+    isSocketConnected.value = true;
+  }
 
   setScrollEl(document.querySelector('#app') as HTMLElement || undefined);
 });

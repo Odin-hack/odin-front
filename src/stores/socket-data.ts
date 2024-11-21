@@ -9,6 +9,8 @@ import { useAuthStore } from '@/stores/auth';
 
 
 export const useSocketDataStore = defineStore('socketDataStore', () => {
+  const isSocketConnected = ref(false);
+
   const hashCash = ref<IHashCash['payload'] | null>(null);
   const miningData  = ref<{
     index: number,
@@ -54,7 +56,14 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     useAuthStore().updateUserInfo(data.payload);
   });
 
-  socket.on('disconnect', () => socket.disconnect());
+  socket.on('disconnect', () => {
+    socket.disconnect();
+    isSocketConnected.value = false;
+  });
+
+  socket.on('reconnect', () => {
+    isSocketConnected.value = true;
+  });
 
   const setMiningData = (data: IHashCash['payload']) => {
     miningData.value = {
@@ -92,5 +101,6 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     statistics,
     totalRewards,
     onlineMiners,
+    isSocketConnected,
   };
 });
