@@ -34,7 +34,7 @@ async function processNonceRange(block, startNonce, endNonce) {
             hashes = 0;
         }
 
-        // postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
+        postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
 
         nonce += 1;
     }

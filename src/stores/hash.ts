@@ -112,12 +112,15 @@ export const useHashStore = defineStore('hashStore', () => {
   };
 
   const stopMining = () => {
+    console.log('ds');
     workers.value.forEach((worker) => {
       worker.postMessage(
         JSON.stringify({
           newBlock: true,
         }),
       );
+
+      console.log(worker);
       worker.terminate();
     });
 
