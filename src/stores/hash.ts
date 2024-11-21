@@ -113,13 +113,6 @@ export const useHashStore = defineStore('hashStore', () => {
 
   const stopMining = () => {
     workers.value.forEach((worker) => {
-      worker.postMessage(
-        JSON.stringify({
-          newBlock: true,
-        }),
-      );
-
-      console.log(worker);
       worker.terminate();
     });
 
