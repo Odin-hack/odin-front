@@ -16,7 +16,6 @@ import { TaskActionEnum, TaskStatusEnum, TaskTypeEnum } from '@/types/enums/task
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
 
 import WebApp from '@twa-dev/sdk';
-import { useAuthStore } from '@/stores/auth';
 import { useTasksStore } from '@/stores/tasks';
 
 
@@ -39,8 +38,6 @@ const visible = ref(false);
 const isCopied = ref(false);
 
 const openTaskModal = () => visible.value = true;
-
-const { user } = useAuthStore();
 
 const handleTaskEvent = (action: TaskActionEnum) => {
 
