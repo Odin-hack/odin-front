@@ -37,7 +37,7 @@ export const useHashStore = defineStore('hashStore', () => {
   const addHashesToTotal = useThrottle(() => (totalHashes.value = submittedHashes), 1000);
 
   const handleWorkerMessage = (message: string) => {
-    const [status, hash, nonce, timestamp, minerId, hashes] = message.split(' ');
+    const [status, hash, nonce, timestamp] = message.split(' ');
 
     switch (status) {
       case 'valid':
