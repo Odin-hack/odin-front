@@ -79,7 +79,7 @@ const friendInvite = computed(() =>
     task.type?.toUpperCase() === TaskTypeEnum.INVITE,
 ));
 
-const inviteFriend = () => WebApp?.openTelegramLink('https://t.me/share/url?url=');
+const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user.value?.info?.refLink }`);
 </script>
 
 <template>

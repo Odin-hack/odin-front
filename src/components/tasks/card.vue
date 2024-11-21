@@ -54,8 +54,10 @@ const handleTaskEvent = (action: TaskActionEnum) => {
   }
 
   if (type === TaskTypeEnum.INVITE) {
+    const link  = props.task?.data?.find((item) => item.key === TaskActionEnum.INVITE.toLowerCase());
+
     if (actionUpper === TaskActionEnum.COPY) {
-      navigator.clipboard.writeText(user?.info?.refLink || '');
+      navigator.clipboard.writeText(link.value || '');
 
       isCopied.value = true;
 
@@ -67,7 +69,7 @@ const handleTaskEvent = (action: TaskActionEnum) => {
       return;
     }
 
-    return WebApp?.openTelegramLink(user?.info?.refLink || '');
+    return WebApp?.openTelegramLink(link.value || '');
   }
 
   if (type === TaskTypeEnum.JOIN) {
