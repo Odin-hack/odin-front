@@ -5,6 +5,7 @@ import { useSocketDataStore } from '@/stores/socket-data';
 import { ref } from 'vue';
 import { useThrottle } from '@/composables/useThrottle';
 import { useTurboModeStore } from '@/stores/turbo-mode';
+import { sha256 } from 'hash-wasm';
 
 export const useHashStore = defineStore('hashStore', () => {
   const { miningData } = storeToRefs(useSocketDataStore());
@@ -36,9 +37,7 @@ export const useHashStore = defineStore('hashStore', () => {
     const input = `${index}-${previousHash}-${data}-${nonce}-${timestamp}-${minerId}`;
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(input);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+    return await sha256(dataBuffer);
   };
 
   const isValidBlock = (
