@@ -213,7 +213,7 @@ watch(isSocketConnected, (val) => {
         />
         <InfoBlock
           :type="InfoBlockTypeEnum.EARNINGS"
-          :value="(totalRewards / 1000000)"
+          :value="Math.round((totalRewards / 1000000))"
         />
       </InfoBlocks>
 

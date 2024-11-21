@@ -33,7 +33,7 @@ const myReward = computed(() => {
         class="EarnedBlock__tag"
         :class="myReward && 'EarnedBlock__tag--colored'"
       >
-        {{ myReward ? `+ ${ myReward?.reward / 1000000 }` : 0 }} 𝚺
+        {{ myReward ? `+ ${ Math.round(myReward?.reward / 1000000) }` : 0 }} 𝚺
       </div>
     </div>
 
