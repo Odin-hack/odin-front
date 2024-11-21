@@ -34,7 +34,7 @@ import { useUserEnergyStore } from '@/stores/energy';
 
 
 const { user, blockchainStats } = storeToRefs(useAuthStore());
-const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners,isSocketConnected } = storeToRefs(useSocketDataStore());
+const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners,isSocketReconnect } = storeToRefs(useSocketDataStore());
 const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
@@ -156,7 +156,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
   isDrawerVisible.value = true;
 };
 
-watch(isSocketConnected, (val) => {
+watch(isSocketReconnect, (val) => {
   if (!val && isMiningStarted.value) stopMining();
 }, { immediate: true, deep: true });
 </script>
@@ -196,7 +196,7 @@ watch(isSocketConnected, (val) => {
     <div class="MiningPage__mining">
       <InfoBlocks
         title="MINING"
-        :tag="!socket.connected && 'connected'"
+        :tag="isSocketReconnect && 'connection'"
       >
         <InfoBlock
           :type="InfoBlockTypeEnum.STATUS"
