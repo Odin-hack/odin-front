@@ -36,25 +36,35 @@ const image = computed(() => {
 
 const isCheckedProgress = ref(false);
 const visible = ref(false);
+const isCopied = ref(false);
 
 const openTaskModal = () => visible.value = true;
 
 const { user } = useAuthStore();
 
 const handleTaskEvent = (action: TaskActionEnum) => {
-  visible.value = false;
 
 
   const type = props.task?.type.toUpperCase();
   const actionUpper = action.toUpperCase();
 
+  actionUpper !== TaskActionEnum.COPY && (visible.value = false);
   if (actionUpper === TaskActionEnum.CHECK) {
     return handleActionClick();
   }
 
   if (type === TaskTypeEnum.INVITE) {
     if (actionUpper === TaskActionEnum.COPY) {
-      return navigator.clipboard.writeText(user?.info?.refLink || '');
+      navigator.clipboard.writeText(user?.info?.refLink || '');
+
+      isCopied.value = true;
+
+      setTimeout(() => {
+        isCopied.value = false;
+        visible.value = false;
+      }, 500);
+
+      return;
     }
 
     return WebApp?.openTelegramLink(user?.info?.refLink || '');
@@ -148,7 +158,15 @@ const handleActionClick = async () => {
               :theme="index === 0 ? ButtonThemeEnum.PRIMARY : ButtonThemeEnum.SECONDARY"
               @click="handleTaskEvent(action)"
             >
-              {{ action.toUpperCase() }}
+              <p
+                v-if="action.toUpperCase() !== TaskActionEnum.COPY || action.toUpperCase() === TaskActionEnum.COPY && !isCopied"
+              >
+                {{ action.toUpperCase() }}
+              </p>
+
+              <IconCheck
+                v-if="action.toUpperCase() === TaskActionEnum.COPY && isCopied"
+              />
             </Button>
           </div>
         </div>
