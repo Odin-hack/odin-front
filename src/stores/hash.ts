@@ -4,6 +4,7 @@ import socket from '@/api/socket';
 import { useSocketDataStore } from '@/stores/socket-data';
 import { useThrottle } from '@/composables/useThrottle';
 import { useTurboModeStore } from '@/stores/turbo-mode';
+import { useAuthStore } from '@/stores/auth';
 
 export const useHashStore = defineStore('hashStore', () => {
   const isMiningStarted = ref(false);
@@ -13,6 +14,8 @@ export const useHashStore = defineStore('hashStore', () => {
 
   const { miningData } = storeToRefs(useSocketDataStore());
   const { isTurboModeActive } = storeToRefs(useTurboModeStore());
+  const { user } = storeToRefs(useAuthStore());
+
 
   const workers = ref<Worker[]>([]);
 
@@ -20,7 +23,9 @@ export const useHashStore = defineStore('hashStore', () => {
     workers.value.forEach((worker) => worker.terminate());
     workers.value = Array.from({ length: numWorkers }, () => {
       const worker = new Worker(new URL('@/workers/mining-code.js', import.meta.url));
+
       worker.onmessage = (event) => handleWorkerMessage(event.data);
+
       return worker;
     });
   };
@@ -86,7 +91,6 @@ export const useHashStore = defineStore('hashStore', () => {
       worker.postMessage(
         JSON.stringify({
           block,
-          newBlock: false,
           startNonce,
           endNonce,
         }),
@@ -104,7 +108,7 @@ export const useHashStore = defineStore('hashStore', () => {
     () => {
       if (isMiningStarted.value) {
         stopMining();
-        startMining({ minerId: null });
+        startMining({ minerId: user.value?.info.id });
       }
     },
     { deep: true },

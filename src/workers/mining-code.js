@@ -1,14 +1,10 @@
 self.onmessage = async function (event) {
     const data = JSON.parse(event.data);
 
-    newBlock = data?.newBlock || false;
-
     if (data.startNonce !== undefined && data.endNonce !== undefined) {
         await processNonceRange(data.block, data.startNonce, data.endNonce);
     }
 };
-
-let newBlock = false;
 
 async function processNonceRange(block, startNonce, endNonce) {
     let nonce = startNonce;
@@ -16,10 +12,6 @@ async function processNonceRange(block, startNonce, endNonce) {
 
     while (nonce < endNonce) {
         hashes += 1;
-        if (newBlock) {
-            postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
-            return;
-        } //TODO остановить, если пришел новый блок
 
         const timestamp = Date.now();
         const hash = await calculateHash(block.index, block.previousHash, block.data, nonce, timestamp, block.minerId);
