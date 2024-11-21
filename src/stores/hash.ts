@@ -45,6 +45,7 @@ export const useHashStore = defineStore('hashStore', () => {
         socket.emit('blockchain.submit_hash', {
           hash,
           nonce: Number(nonce),
+          blockIndex: miningData.value?.index,
           timestamp: Number(timestamp),
         });
         console.log(`Valid hash submitted: ${hash}`);
@@ -56,6 +57,7 @@ export const useHashStore = defineStore('hashStore', () => {
         socket.emit('blockchain.submit_hash', {
           hash,
           nonce: Number(nonce),
+          blockIndex: miningData.value?.index,
           timestamp: Number(timestamp),
         });
         console.log(`Share submitted: ${hash}`);
