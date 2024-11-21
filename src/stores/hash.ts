@@ -1,10 +1,9 @@
 import { defineStore, storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import socket from '@/api/socket';
 import { useSocketDataStore } from '@/stores/socket-data';
 import { useThrottle } from '@/composables/useThrottle';
 import { useTurboModeStore } from '@/stores/turbo-mode';
-
 
 export const useHashStore = defineStore('hashStore', () => {
   const isMiningStarted = ref(false);
@@ -19,21 +18,14 @@ export const useHashStore = defineStore('hashStore', () => {
 
   const initializeWorkers = (numWorkers: number) => {
     workers.value.forEach((worker) => worker.terminate());
-    workers.value = [];
-
-    for (let i = 0; i < numWorkers; i++) {
+    workers.value = Array.from({ length: numWorkers }, () => {
       const worker = new Worker(new URL('@/workers/mining-code.js', import.meta.url));
-
-      worker.onmessage = (event) => {
-        handleWorkerMessage(event.data);
-      };
-
-      workers.value.push(worker);
-    }
+      worker.onmessage = (event) => handleWorkerMessage(event.data);
+      return worker;
+    });
   };
 
   let submittedHashes = 0;
-
   const addHashesToTotal = useThrottle(() => (totalHashes.value = submittedHashes), 1000);
 
   const handleWorkerMessage = (message: string) => {
@@ -41,26 +33,14 @@ export const useHashStore = defineStore('hashStore', () => {
 
     switch (status) {
       case 'valid':
-        console.log('inside valid');
-        socket.emit('blockchain.submit_hash', {
-          hash,
-          nonce: Number(nonce),
-          blockIndex: miningData.value?.index,
-          timestamp: Number(timestamp),
-        });
-        console.log(`Valid hash submitted: ${hash}`);
-        totalShares.value++;
-        break;
-
       case 'share':
-        console.log('inside share');
         socket.emit('blockchain.submit_hash', {
           hash,
           nonce: Number(nonce),
           blockIndex: miningData.value?.index,
           timestamp: Number(timestamp),
         });
-        console.log(`Share submitted: ${hash}`);
+        if (status === 'valid') totalShares.value++;
         break;
 
       case '_':
@@ -84,20 +64,21 @@ export const useHashStore = defineStore('hashStore', () => {
   };
 
   const startMining = ({ minerId }) => {
+    if (!miningData.value) return;
+
     const numWorkers = isTurboModeActive.value ? navigator.hardwareConcurrency : 1;
-    console.log('workers', numWorkers);
     initializeWorkers(numWorkers);
 
     const block = {
-      index: miningData.value?.index,
-      previousHash: miningData.value?.previousHash,
-      mainFactor: miningData.value?.mainFactor,
-      shareFactor: miningData.value?.shareFactor,
+      index: miningData.value.index,
+      previousHash: miningData.value.previousHash,
+      mainFactor: miningData.value.mainFactor,
+      shareFactor: miningData.value.shareFactor,
       minerId,
       data: '',
     };
 
-    console.log('Mining block:', block);
+    console.log('Starting mining with block:', block);
 
     workers.value.forEach((worker, index) => {
       const { startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize, index);
@@ -114,12 +95,20 @@ export const useHashStore = defineStore('hashStore', () => {
   };
 
   const stopMining = () => {
-    workers.value.forEach((worker) => {
-      worker.terminate();
-    });
-
+    workers.value.forEach((worker) => worker.terminate());
     workers.value = [];
   };
+
+  watch(
+    [miningData, isTurboModeActive],
+    () => {
+      if (isMiningStarted.value) {
+        stopMining();
+        startMining({ minerId: null });
+      }
+    },
+    { deep: true },
+  );
 
   return {
     startMining,
