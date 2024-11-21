@@ -213,7 +213,7 @@ watch(isSocketConnected, (val) => {
         />
         <InfoBlock
           :type="InfoBlockTypeEnum.EARNINGS"
-          :value="Math.round((totalRewards / 1000000))"
+          :value="formatNumberWithSpacesAndSuffix(Math.round((totalRewards / 1000000)), 1)"
         />
       </InfoBlocks>
 
