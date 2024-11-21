@@ -157,7 +157,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
 };
 
 watch(isSocketReconnect, (val) => {
-  if (!val && isMiningStarted.value) stopMining();
+  if (val && isMiningStarted.value) stopMining();
 }, { immediate: true, deep: true });
 </script>
 
