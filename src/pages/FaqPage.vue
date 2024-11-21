@@ -34,7 +34,7 @@ const contents = [
   },
   {
     title: 'Device Performance',
-    text: 'Since your device performs real computations, it may heat up only in maximum Nitro mode.\n' +
+    text: 'Since your device performs real computations, it may heat up only in maximum Turbo mode.\n' +
         'For the rest of the time, you can mine worry-free without overheating concerns.',
   },
   {
