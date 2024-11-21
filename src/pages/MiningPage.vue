@@ -136,7 +136,7 @@ const toggleMining = () => {
     });
   }
 
-
+  useHashStore().stopMining();
   isTurboModeActive.value && (isTurboModeActive.value = false);
   userEnergyStore.stopInterval();
   socket.emit('mining.stop');
