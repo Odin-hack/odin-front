@@ -1,5 +1,3 @@
-import socket from '@/api/socket';
-
 import { defineStore, storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 import socket from '@/api/socket';
@@ -9,8 +7,6 @@ import { useTurboModeStore } from '@/stores/turbo-mode';
 import { useAuthStore } from '@/stores/auth';
 
 export const useHashStore = defineStore('hashStore', () => {
-  const { miningData } = storeToRefs(useSocketDataStore());
-  const { isTurboModeActive } = storeToRefs(useTurboModeStore());
   const isMiningStarted = ref(false);
 
   const totalShares = ref(0);
@@ -37,8 +33,8 @@ export const useHashStore = defineStore('hashStore', () => {
   let submittedHashes = 0;
   const addHashesToTotal = useThrottle(() => (totalHashes.value = submittedHashes), 1000);
 
-  const checkLimits = (isTurboMode = false) => {
-    if (isTurboMode) return needsCooldown = false;
+  const handleWorkerMessage = (message: string) => {
+    const [status, hash, nonce, timestamp] = message.split(' ');
 
     switch (status) {
       case 'valid':
@@ -52,30 +48,30 @@ export const useHashStore = defineStore('hashStore', () => {
         if (status === 'valid') totalShares.value++;
         break;
 
-    if (needsCooldown) {
-      setTimeout(() => {
-        needsCooldown = false;
-        hashesProcessed = 0;
-      }, COOLDOWN_TIME);
+      case '_':
+        submittedHashes++;
+        addHashesToTotal();
+        break;
+
+      default:
+        console.warn('Unknown message from worker:', message);
     }
   };
 
-  const startMining = async ({
-     data = '',
-     minerId = 'telegramUserId',
-  }) => {
-    const maxNonce = 1_000_000_000;
-    const rangeSize = 1_000_000;
+  const maxNonce = 1_000_000_000;
+  const rangeSize = 1_000_000;
 
-    let { startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize);
+  const getRandomNonceRange = (maxNonce: number, rangeSize: number, offset: number) => {
+    const startNonce = Math.floor(Math.random() * (maxNonce - rangeSize)) + offset * rangeSize;
+    const endNonce = startNonce + rangeSize - 1;
 
-    let nonce = startNonce;
-    let hashes = 0;
+    return { startNonce, endNonce };
+  };
 
   const startMining = ({ minerId }) => {
     if (!miningData.value) return;
 
-    const numWorkers = isTurboModeActive.value ? navigator.hardwareConcurrency : 1;
+    const numWorkers = isTurboModeActive.value ? navigator.hardwareConcurrency / 2 : 1;
     initializeWorkers(numWorkers);
 
     const block = {
@@ -89,7 +85,8 @@ export const useHashStore = defineStore('hashStore', () => {
 
     console.log('Starting mining with block:', block);
 
-        checkLimits(isTurboModeActive.value);
+    workers.value.forEach((worker, index) => {
+      const { startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize, index);
 
       worker.postMessage(
         JSON.stringify({
@@ -119,11 +116,9 @@ export const useHashStore = defineStore('hashStore', () => {
 
   return {
     startMining,
+    stopMining,
     isMiningStarted,
     totalShares,
     totalHashes,
-    baselineHashRate,
-    currentHashRate,
-    performanceRatio,
   };
 });
