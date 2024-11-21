@@ -60,8 +60,8 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     miningData.value = {
       index: data.config.previousBlock.index + 1,
       previousHash: data.config.previousBlock.hash,
-      mainFactor: BigInt(data.config.mainFactor),
-      shareFactor: BigInt(data.config.shareFactor),
+      mainFactor: data.config.mainFactor,
+      shareFactor: data.config.shareFactor,
     };
   };
 

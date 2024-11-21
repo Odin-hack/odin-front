@@ -143,6 +143,7 @@ const toggleMining = () => {
 };
 
 const stopMining = () => {
+  useHashStore().stopMining();
   isMiningStarted.value = false;
   socket.emit('mining.stop');
 };
