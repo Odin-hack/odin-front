@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue';
-import type { IHashLastBlock, IRewardData } from '@/types/socket-data.interface';
+import type { IHashCash, IHashLastBlock, IRewardData } from '@/types/socket-data.interface';
 import { formatTimestamp } from '@/utils/formatters';
 
 const props = defineProps({
@@ -8,15 +8,27 @@ const props = defineProps({
     type: Object as PropType<IHashLastBlock| null>,
     required: true,
   },
+  userId: {
+    type: Number,
+    required: true,
+  },
   rewardsData: {
     type: Array as PropType<IRewardData['payload'][]>,
+    required: true,
+  },
+  hashCash: {
+    type: Object as PropType<IHashCash['payload']>,
     required: true,
   },
 });
 
 const myReward = computed(() => {
-  return props.rewardsData?.find((reward) => reward.index === props.info?.index);
+  return props.hashCash?.lastBlock
+    ?.find((block) => block.index === props.info?.index)?.rewards
+    ?.find((reward) => reward.userId === props.userId);
 });
+
+console.log(props.userId);
 </script>
 
 <template>
