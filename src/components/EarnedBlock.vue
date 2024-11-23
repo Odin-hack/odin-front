@@ -5,11 +5,11 @@ import { formatTimestamp } from '@/utils/formatters';
 
 const props = defineProps({
   info: {
-    type: Object as PropType<IHashLastBlock| null>,
+    type: Object as PropType<IHashLastBlock | null>,
     required: true,
   },
   userId: {
-    type: Number,
+    type: String,
     required: true,
   },
   rewardsData: {
@@ -23,12 +23,25 @@ const props = defineProps({
 });
 
 const myReward = computed(() => {
-  return props.hashCash?.lastBlock
-    ?.find((block) => block.index === props.info?.index)?.rewards
-    ?.find((reward) => reward.userId === props.userId);
+  const lastBlock = props.hashCash?.lastBlock?.find((b) => b.index === props.info?.index);
+  if (!lastBlock) {
+    return 0;
+  }
+
+  if (lastBlock?.myReward) {
+    return lastBlock.myReward;
+  }
+
+  let mReward: number = 0;
+
+  const shareReward = lastBlock.rewards.find((reward) => reward.userId === props.userId)?.reward || 0;
+
+  if (shareReward) {
+    mReward += shareReward;
+  }
+  return Math.round(mReward / 10 ** 6);
 });
 
-console.log(props.userId);
 </script>
 
 <template>
@@ -45,12 +58,14 @@ console.log(props.userId);
         class="EarnedBlock__tag"
         :class="myReward && 'EarnedBlock__tag--colored'"
       >
-        {{ myReward ? `+ ${ Math.round(myReward?.reward / 1000000) }` : 0 }} 𝚺
+        {{ myReward ? `+ ${Math.round(myReward)}` : 0 }} 𝚺
       </div>
     </div>
 
     <p class="EarnedBlock__earnedBy">
-      ⤷ Created by <span>{{ info?.solverName }}</span> in {{ formatTimestamp(Number(info?.timestamp), { onlyTime: true }) }}
+      ⤷ Created by <span>{{ info?.solverName }}</span> in {{
+        formatTimestamp(Number(info?.timestamp), {onlyTime: true})
+      }}
     </p>
   </div>
 </template>
