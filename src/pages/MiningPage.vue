@@ -247,7 +247,9 @@ watch(isSocketReconnect, (val) => {
           v-for="item in lastBlock"
           :key="item.index"
           :info="item"
+          :user-id="user?.info?.id"
           :rewards-data
+          :hash-cash
           @click="showMiningBlockDrawer(item)"
         />
       </TransitionGroup>

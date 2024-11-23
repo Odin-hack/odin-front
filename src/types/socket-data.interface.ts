@@ -30,6 +30,7 @@ export interface IHashLastBlock {
   timestamp: number;
   solver: number;
   index: number;
+  myReward?: number;
 }
 
 export interface IEnergy {
