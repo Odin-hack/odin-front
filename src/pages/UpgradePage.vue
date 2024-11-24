@@ -6,8 +6,6 @@ import WebApp from '@twa-dev/sdk';
 import { useAuthStore } from '@/stores/auth';
 import { useInvoiceStore } from '@/stores/invoice';
 import { useTasksStore } from '@/stores/tasks';
-import { useHashStore } from '@/stores/hash';
-import { useSocketDataStore } from '@/stores/socket-data';
 import { storeToRefs } from 'pinia';
 
 import type { ITask } from '@/types/tasks';
@@ -24,15 +22,15 @@ import IconBlizzard from '@/components/Icon/blizzard.vue';
 import Drawer from '@/components/Drawer.vue';
 import { useTurboModeStore } from '@/stores/turbo-mode';
 import { useLoaderStore } from '@/stores/loader';
+import { useUserEnergyStore } from '@/stores/energy';
 
 
 const { user } = storeToRefs(useAuthStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
-const { isMiningStarted } = storeToRefs(useHashStore());
-const { energy } = storeToRefs(useSocketDataStore());
 
+const { miningStatus, energyLeft } = storeToRefs(useUserEnergyStore());
 const tasksStore = useTasksStore();
 
 const { tasks } = storeToRefs(tasksStore);
@@ -71,7 +69,6 @@ onMounted(async () => {
     await tasksStore.fetchTasks();
     isLoader.value = false;
   }
-
 });
 
 const friendInvite = computed(() =>
@@ -86,8 +83,8 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
   <div class="UpgradePage">
     <BatteryInfo
       :user
-      :energy
-      :is-mining-started
+      :energy-left="energyLeft"
+      :is-mining-started="miningStatus"
     />
 
     <!--    <div class="UpgradePage__upgrades">-->

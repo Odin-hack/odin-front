@@ -77,12 +77,15 @@ export const useAuthStore = defineStore('authStore', () => {
             info: { ...data?.appData?.user, refLink: data?.appData?.refLink },
             energy: data?.appData?.energy,
         } || null;
+
         useUserEnergyStore().setUpEnergy({
+            userId: data?.appData?.user?.id || '',
             energy: data?.appData?.user?.energy || 0,
             maxEnergy: data?.appData?.user?.maxEnergy || 0,
             recoveryRate: data?.appData?.energy?.recoveryRate || 0,
             consumptionRate: data?.appData?.energy?.consumptionRate || 0,
         });
+
         blockchainStats.value = data?.appData?.blockchainStats || null;
 
         loadingStore.setLoading(false);

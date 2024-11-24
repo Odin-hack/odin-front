@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { useUserEnergyStore } from '@/stores/energy';
+import { computed } from 'vue';
 
 import type { PropType } from 'vue';
 import type { IUser, IUserInfoEnergy } from '@/types/auth';
-import type { IEnergy } from '@/types/socket-data.interface';
 
 import { formatNumberWithSpaces, getPercents } from '@/utils/formatters';
 
 import IconBlizzard from '@/components/Icon/blizzard.vue';
 import IconSigmaColored from '@/components/Icon/sigmaColored.vue';
 import Progress from '@/components/UI/Progress.vue';
-import { storeToRefs } from 'pinia';
+import { MiningStatus } from '@/enum';
 
 const props = defineProps({
-  energy: {
-    type: Object as PropType<IEnergy['payload']>,
+  energyLeft: {
+    type: Number,
     required: true,
   },
   user: {
@@ -26,23 +24,13 @@ const props = defineProps({
     required: true,
   },
   isMiningStarted: {
-    type: Boolean,
-    default: false,
+    type: String as PropType<MiningStatus>,
+    default: MiningStatus.STOPPED,
   },
 });
 
-const userEnergyStore = useUserEnergyStore();
-
-const { energyLeft } = storeToRefs(useUserEnergyStore());
-
-watch(() => props.energy, (newVal) => {
-  if (newVal?.energy) {
-    userEnergyStore.setServerEnergy({ energy: newVal.energy, timestamp: Date.now() });
-  }
-});
-
 const energyPercents = computed(() =>
-  getPercents(energyLeft.value, props.user?.info?.maxEnergy || 0),
+    getPercents(props.energyLeft, props.user?.info?.maxEnergy || 0),
 );
 
 const balance = computed(() => {

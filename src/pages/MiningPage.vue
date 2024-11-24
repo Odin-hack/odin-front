@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 
 import WebApp from '@twa-dev/sdk';
 import socket from '@/api/socket';
@@ -30,44 +30,36 @@ import IconPause from '@/components/Icon/pause.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
 import type { IHashLastBlock } from '@/types/socket-data.interface';
+import { MiningStatus } from '@/enum';
+import { useUserEnergyStore } from '@/stores/energy';
 
 const { user, blockchainStats } = storeToRefs(useAuthStore());
 const {
   hashCash,
-  energy,
   statistics,
-  rewardsData,
   totalRewards,
   onlineMiners,
   isSocketReconnect,
 } = storeToRefs(useSocketDataStore());
-const { stopMining: socketStopMining } = useSocketDataStore();
-const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
+
+const { stopMining, startMining } = useUserEnergyStore();
+const { totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
+const { energyLeft, miningStatus } = storeToRefs(useUserEnergyStore());
 
 const { setInvoice } = useInvoiceStore();
 
-const isMiningEnabled = ref(true);
-const isEnergy = ref(true);
 const isInvoiceModal = ref(false);
 
-if (!user.value?.info.allowMining) isMiningEnabled.value = false;
+const isMiningPurchased = computed(() => {
+  return user.value?.info?.allowMining ?? false;
+});
 
 const isDrawerVisible = ref(false);
 
 const miningContent = computed(() => {
-  if (!isEnergy.value) {
-    return {
-      buttonTheme: ButtonThemeEnum.DISABLED,
-      text: 'Start mining',
-      buttonDisabled: true,
-      buttonIcon: IconBatteryCrossed,
-      status: StatusEnum.BATTERY_LOW,
-    };
-  }
-
-  if (!isMiningEnabled.value) {
+  if (!isMiningPurchased.value) {
     return {
       buttonTheme: ButtonThemeEnum.PRIMARY,
       text: 'Start mining',
@@ -77,34 +69,25 @@ const miningContent = computed(() => {
     };
   }
 
-  if (isMiningStarted.value) {
-    return {
-      buttonTheme: ButtonThemeEnum.WARNING,
-      text: 'Stop mining',
-      buttonIcon: IconPause,
-      buttonDisabled: false,
-      status: StatusEnum.MINING,
-    };
+  switch (miningStatus.value) {
+    case MiningStatus.MINING:
+      return {
+        buttonTheme: ButtonThemeEnum.WARNING,
+        text: 'Stop mining',
+        buttonIcon: IconPause,
+        buttonDisabled: false,
+        status: StatusEnum.MINING,
+      };
+    default:
+      return {
+        buttonTheme: ButtonThemeEnum.PRIMARY,
+        text: 'Start mining',
+        buttonIcon: IconPlay,
+        buttonDisabled: false,
+        status: StatusEnum.AWAITING,
+      };
   }
-
-  return {
-    buttonTheme: ButtonThemeEnum.PRIMARY,
-    text: 'Start mining',
-    buttonIcon: IconPlay,
-    buttonDisabled: false,
-    status: StatusEnum.AWAITING,
-  };
 });
-
-watch(energy, (val) => {
-  if ((user.value?.info?.energy <= 0 || val?.energy <= 0) && isMiningEnabled.value) {
-    isEnergy.value = false;
-    isMiningStarted.value && stopMining();
-    return;
-  }
-
-  user.value?.info.allowMining && (isMiningEnabled.value = true);
-}, { immediate: true });
 
 const lastBlock = computed(() => hashCash.value?.lastBlock);
 
@@ -131,24 +114,14 @@ const toggleMining = () => {
 
   if (!user.value?.info.allowMining) return isInvoiceModal.value = true;
 
-  isMiningStarted.value = !isMiningStarted.value;
-
-  if (isMiningStarted.value) {
-    socket.emit('mining.start');
-
-    return useHashStore().startMining({
-      minerId: user.value?.info.id,
-    });
+  switch (miningStatus.value) {
+    case MiningStatus.MINING:
+      stopMining();
+      break;
+    default:
+      startMining();
+      break;
   }
-
-  useHashStore().stopMining();
-  socketStopMining();
-  isTurboModeActive.value && (isTurboModeActive.value = false);
-};
-
-const stopMining = () => {
-  isMiningStarted.value = false;
-  socketStopMining();
 };
 
 const drawerData = ref<IHashLastBlock | null>({
@@ -167,17 +140,14 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
   isDrawerVisible.value = true;
 };
 
-watch(isSocketReconnect, (val) => {
-  if (val && isMiningStarted.value) stopMining();
-}, { immediate: true, deep: true });
 </script>
 
 <template>
   <div class="MiningPage">
     <BatteryInfo
       :user
-      :energy
-      :is-mining-started
+      :energy-left="energyLeft"
+      :is-mining-started="miningStatus"
     />
 
     <div class="MiningPage__info">

@@ -1,9 +1,12 @@
 import { defineStore, storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 import { MiningStatus } from '@/enum';
+import socket from '@/api/socket';
 import { useHashStore } from '@/stores/hash';
+import { useSocketDataStore } from '@/stores/socket-data';
 
 export const useUserEnergyStore = defineStore('userEnergy', () => {
+    const userId = ref<string>('');
     const energyLeft = ref<number>(0);
     const miningStatus = ref<MiningStatus>(MiningStatus.STOPPED);
     const maxEnergy = ref<number | null>(null);
@@ -11,16 +14,32 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
     const consumptionRate = ref<number | null>(null);
     const serverEnergy = ref<number | null>(null);
     const serverTimestamp = ref<number | null>(null);
+    const shouldReconnect = ref<boolean>(false);
 
-    const { stopMining } = useHashStore();
-    const { isMiningStarted } = storeToRefs(useHashStore());
+    const { isSocketReconnect } = storeToRefs(useSocketDataStore());
+    const { energy } = storeToRefs(useSocketDataStore());
 
-    watch(isMiningStarted, (newVal) => {
-        miningStatus.value = newVal ? MiningStatus.MINING : MiningStatus.STOPPED;
-    }, { immediate: true, deep: true });
+    watch(energy, (val) => {
+        if (val.energy) {
+            serverEnergy.value = val.energy;
+            serverTimestamp.value = Date.now();
+        }
+    });
+
+    watch(isSocketReconnect, (val) => {
+        if (miningStatus.value === MiningStatus.MINING && val) {
+            stopMining();
+            shouldReconnect.value = true;
+        }
+        if (miningStatus.value === MiningStatus.STOPPED && !val && shouldReconnect.value) {
+            startMining();
+        }
+    }, { deep: true });
 
     setInterval(() => {
-        if (!maxEnergy.value || !recoveryRate.value || !consumptionRate.value || !energyLeft.value) return;
+        if (!maxEnergy.value || !recoveryRate.value || !consumptionRate.value) {
+            return;
+        }
 
         if (energyLeft.value > 0 && miningStatus.value === MiningStatus.MINING) {
             energyLeft.value = Math.max(energyLeft.value - consumptionRate.value, 0);
@@ -29,7 +48,6 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
             energyLeft.value = Math.min(energyLeft.value + recoveryRate.value, maxEnergy.value);
         }
         if (energyLeft.value === 0) {
-            miningStatus.value = MiningStatus.STOPPED;
             stopMining();
         }
     }, 1000);
@@ -44,31 +62,42 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
         }
     }, 10_000);
 
-    const setServerEnergy = (val: { energy: number, timestamp: number }) => {
-        serverEnergy.value = val.energy;
-        serverTimestamp.value = val.timestamp;
-    };
-
     const setMaxEnergy = (val: number) => {
         maxEnergy.value = val;
     };
 
     const setUpEnergy = (opts: {
+        userId: string;
         energy: number;
         maxEnergy: number;
         recoveryRate: number;
         consumptionRate: number;
     }) => {
+        userId.value = opts.userId;
         energyLeft.value = opts.energy;
         maxEnergy.value = opts.maxEnergy;
         recoveryRate.value = opts.recoveryRate;
         consumptionRate.value = opts.consumptionRate;
     };
 
+    const startMining = () => {
+        socket.emit('mining.start');
+        miningStatus.value = MiningStatus.MINING;
+        useHashStore().startMining({ minerId: userId.value });
+    };
+
+    const stopMining = () => {
+        socket.emit('mining.stop');
+        miningStatus.value = MiningStatus.STOPPED;
+        useHashStore().stopMining();
+    };
+
     return {
         energyLeft,
+        miningStatus,
         setUpEnergy,
-        setServerEnergy,
         setMaxEnergy,
+        startMining,
+        stopMining,
     };
 });
