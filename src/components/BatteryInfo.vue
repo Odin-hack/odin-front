@@ -37,7 +37,7 @@ const { energyLeft } = storeToRefs(useUserEnergyStore());
 
 watch(() => props.energy, (newVal) => {
   if (newVal?.energy) {
-    userEnergyStore.setEnergy(newVal.energy);
+    userEnergyStore.setServerEnergy({ energy: newVal.energy, timestamp: Date.now() });
   }
 });
 
@@ -105,7 +105,7 @@ const balance = computed(() => {
   gap: 6px;
   align-items: center;
 
-  &__wrapper  {
+  &__wrapper {
     padding: 16px 20px;
     display: flex;
     gap: 16px;

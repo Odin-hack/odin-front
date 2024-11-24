@@ -9,8 +9,8 @@ import { useAuthStore } from '@/stores/auth';
 export const useHashStore = defineStore('hashStore', () => {
   const isMiningStarted = ref(false);
 
-  const totalShares = ref(0);
-  const totalHashes = ref(0);
+  const totalShares = ref<number>(0);
+  const totalHashes = ref<number>(0);
 
   const { miningData } = storeToRefs(useSocketDataStore());
   const { isTurboModeActive } = storeToRefs(useTurboModeStore());
@@ -82,8 +82,6 @@ export const useHashStore = defineStore('hashStore', () => {
       minerId,
       data: '',
     };
-
-    console.log('Starting mining with block:', block);
 
     workers.value.forEach((worker, index) => {
       const { startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize, index);

@@ -30,18 +30,23 @@ import IconPause from '@/components/Icon/pause.vue';
 import IconBatteryCrossed from '@/components/Icon/baterryCrossed.vue';
 
 import type { IHashLastBlock } from '@/types/socket-data.interface';
-import { useUserEnergyStore } from '@/stores/energy';
-
 
 const { user, blockchainStats } = storeToRefs(useAuthStore());
-const { hashCash, energy, statistics, rewardsData, totalRewards, onlineMiners,isSocketReconnect } = storeToRefs(useSocketDataStore());
+const {
+  hashCash,
+  energy,
+  statistics,
+  rewardsData,
+  totalRewards,
+  onlineMiners,
+  isSocketReconnect,
+} = storeToRefs(useSocketDataStore());
+const { stopMining: socketStopMining } = useSocketDataStore();
 const { isMiningStarted, totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
 
 const { setInvoice } = useInvoiceStore();
-
-const userEnergyStore = useUserEnergyStore();
 
 const isMiningEnabled = ref(true);
 const isEnergy = ref(true);
@@ -130,8 +135,6 @@ const toggleMining = () => {
 
   if (isMiningStarted.value) {
     socket.emit('mining.start');
-    user?.value?.info?.energy &&
-      userEnergyStore.startInterval(user?.value?.energy || null);
 
     return useHashStore().startMining({
       minerId: user.value?.info.id,
@@ -139,17 +142,25 @@ const toggleMining = () => {
   }
 
   useHashStore().stopMining();
+  socketStopMining();
   isTurboModeActive.value && (isTurboModeActive.value = false);
-  userEnergyStore.stopInterval();
-  socket.emit('mining.stop');
 };
 
 const stopMining = () => {
   isMiningStarted.value = false;
-  socket.emit('mining.stop');
+  socketStopMining();
 };
 
-const drawerData = ref<IHashLastBlock | null>(null);
+const drawerData = ref<IHashLastBlock | null>({
+  blockReward: 0,
+  myReward: 0,
+  rewards: [],
+  solver: 0,
+  solverName: 0,
+  timestamp: 0,
+  index: 0,
+  hash: '',
+});
 
 const showMiningBlockDrawer = (item: IHashLastBlock) => {
   drawerData.value = item;
@@ -196,7 +207,7 @@ watch(isSocketReconnect, (val) => {
     <div class="MiningPage__mining">
       <InfoBlocks
         title="MINING"
-        :tag="isSocketReconnect && 'connection'"
+        :tag="isSocketReconnect ? 'reconnecting...' : undefined"
       >
         <InfoBlock
           :type="InfoBlockTypeEnum.STATUS"
@@ -209,7 +220,7 @@ watch(isSocketReconnect, (val) => {
         <InfoBlock
           :type="InfoBlockTypeEnum.HASHES"
           :value="formatNumberWithSpacesAndSuffix(totalHashes, 1)"
-          :label="isTurboModeActive && 'TURBO'"
+          :label="isTurboModeActive ? 'Turbo mode' : undefined"
         />
         <InfoBlock
           :type="InfoBlockTypeEnum.EARNINGS"
@@ -307,6 +318,7 @@ watch(isSocketReconnect, (val) => {
 .list-leave-active {
   transition: all 0.5s ease;
 }
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;

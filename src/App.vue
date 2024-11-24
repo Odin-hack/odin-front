@@ -23,7 +23,6 @@ onMounted(async () => {
   if ('wakeLock' in navigator) {
     try {
       await navigator.wakeLock.request('screen');
-      console.log('Wake Lock is active');
     } catch (e) {
       console.error(e);
     }
