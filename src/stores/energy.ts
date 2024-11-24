@@ -36,8 +36,9 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
         }
     }, { deep: true });
 
+    const lock = ref<boolean>(false);
     setInterval(() => {
-        if (!maxEnergy.value || !recoveryRate.value || !consumptionRate.value) {
+        if (!maxEnergy.value || !recoveryRate.value || !consumptionRate.value || lock.value) {
             return;
         }
 
@@ -54,11 +55,13 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
 
     setInterval(() => {
         if (consumptionRate.value && serverEnergy.value && serverTimestamp.value && miningStatus.value === MiningStatus.MINING) {
+            lock.value = true;
             const now = Date.now();
             const diff = now - serverTimestamp.value;
 
             const energyToRecover = (diff / 1000) * consumptionRate.value;
             energyLeft.value = Math.max(serverEnergy.value - energyToRecover, 0);
+            lock.value = false;
         }
     }, 10_000);
 
