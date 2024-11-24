@@ -18,7 +18,10 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     mainFactor: bigint
     shareFactor: bigint
   }[]>([]);
-  const energy = ref<IEnergy['payload'] | null>(null);
+  const energy = ref<IEnergy['payload']>({
+    energy: 0,
+    energyConsumed: 0,
+  });
   const rewardsData = ref<IRewardData['payload'][]>([]);
   const statistics = ref<IStatistics['payload'] | null>(null);
   const onlineMiners = ref(0);
@@ -92,6 +95,10 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     setMiningData(data?.payload);
   });
 
+  const stopMining = () => {
+    socket.emit('mining.stop');
+  };
+
   return {
     hashCash,
     miningData,
@@ -101,5 +108,6 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
     totalRewards,
     onlineMiners,
     isSocketReconnect,
+    stopMining,
   };
 });
