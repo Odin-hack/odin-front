@@ -19,8 +19,7 @@ export const useHashStore = defineStore('hashStore', () => {
         isTurboModeActive,
         () => {
             if (miningStatus.value === MiningStatus.MINING) {
-                stopMining();
-                startMining({ minerId: user.value?.info.id });
+                restartMining();
             }
         },
         { immediate: true }, // Выполнять при инициализации
@@ -30,6 +29,11 @@ export const useHashStore = defineStore('hashStore', () => {
     const { user } = storeToRefs(useAuthStore());
 
     const workers = ref<Worker[]>([]);
+
+    const restartMining = () => {
+        stopMining();
+        startMining({ minerId: user.value?.info.id });
+    };
 
     const initializeWorkers = (numWorkers: number) => {
         workers.value.forEach((worker) => worker.terminate());
@@ -58,6 +62,9 @@ export const useHashStore = defineStore('hashStore', () => {
                     timestamp: Number(timestamp),
                 });
                 if (status === 'valid') totalShares.value++;
+                break;
+            case 'restart':
+                restartMining();
                 break;
 
             case '_':

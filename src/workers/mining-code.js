@@ -33,7 +33,8 @@ async function processNonceRange(block, startNonce, endNonce) {
         nonce += 1;
     }
 
-    postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
+
+    postMessage(`${'restart'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
 }
 
 async function calculateHash(index, previousHash, data, nonce, timestamp, minerId) {
@@ -41,7 +42,7 @@ async function calculateHash(index, previousHash, data, nonce, timestamp, minerI
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(input);
 
-    await sha256(dataBuffer);
+    return await sha256(dataBuffer);
 }
 
 function isValidBlock(hash, mainFactor, shareFactor) {
