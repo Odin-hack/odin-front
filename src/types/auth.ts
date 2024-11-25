@@ -1,3 +1,5 @@
+import type { IReferralStats } from '@/types/friends';
+
 export interface IUserInfoEnergy {
   recoveryRate: number,
   consumptionRate: number
@@ -29,7 +31,8 @@ export interface IAppData {
   blockchainStats: IBlockchainStats;
   user: IUser;
   energy: IUserInfoEnergy
-  refLink: string
+  refLink: string,
+  referralStats: IReferralStats;
 }
 
 export interface IAuthResponse {
