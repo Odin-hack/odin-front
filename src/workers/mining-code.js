@@ -11,10 +11,13 @@ self.onmessage = async function (event) {
 async function processNonceRange(block, startNonce, endNonce) {
     let nonce = startNonce;
     let hashes = 0;
+    const batchSize = 50_000;
 
     while (nonce < endNonce) {
         hashes += 1;
-        postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
+        if (hashes % batchSize === 0) {
+            postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${batchSize}`);
+        }
 
         const timestamp = Date.now();
         const hash = await calculateHash(block.index, block.previousHash, block.data, nonce, timestamp, block.minerId);

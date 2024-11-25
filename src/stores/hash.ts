@@ -50,7 +50,7 @@ export const useHashStore = defineStore('hashStore', () => {
     const addHashesToTotal = useThrottle(() => (totalHashes.value = submittedHashes), 1000);
 
     const handleWorkerMessage = (message: string) => {
-        const [status, hash, nonce, timestamp] = message.split(' ');
+        const [status, hash, nonce, timestamp, hashes] = message.split(' ');
 
         switch (status) {
             case 'valid':
@@ -68,7 +68,7 @@ export const useHashStore = defineStore('hashStore', () => {
                 break;
 
             case '_':
-                submittedHashes++;
+                submittedHashes += Number(hashes) || 0;
                 addHashesToTotal();
                 break;
 
