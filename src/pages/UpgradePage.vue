@@ -70,13 +70,6 @@ onMounted(async () => {
     isLoader.value = false;
   }
 });
-
-const friendInvite = computed(() =>
-  tasks.value?.find((task: ITask) =>
-    task.type?.toUpperCase() === TaskTypeEnum.INVITE,
-));
-
-const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user.value?.info?.refLink }`);
 </script>
 
 <template>
@@ -114,27 +107,6 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
     <TasksWrapper
       :tasks
     />
-
-    <div
-      v-if="friendInvite"
-      class="FixedButton--bottom"
-    >
-      <Button
-        :theme="ButtonThemeEnum.PRIMARY"
-        @click="inviteFriend"
-      >
-        Invite Friend
-
-        <template #badge>
-          <p>+ {{ friendInvite?.awardAmount }}</p>
-
-          <IconBlizzard
-            width="8"
-            height="10"
-          />
-        </template>
-      </Button>
-    </div>
 
     <Drawer v-model:visible="isInvoiceModal">
       <template #title>

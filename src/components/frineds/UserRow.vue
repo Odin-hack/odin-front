@@ -1,17 +1,30 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import { getAvatarColor } from '@/utils/getAvatarColor';
-import UITag from '@/components/UI/Tag.vue';
-import { TaskAwardTypeEnum } from '@/types/enums/task.enum';
-import type { PropType } from 'vue';
+
 import type { IReferral } from '@/types/socket-data.interface';
+import type { PropType } from 'vue';
+
+import { TaskAwardTypeEnum } from '@/types/enums/task.enum';
+
+import UITag from '@/components/UI/Tag.vue';
 
 
 const props = defineProps({
   friend: {
-    type: Object as PropType<IReferral>,
+    type: Object as PropType<IReferral['payload']>,
     required: true,
   },
   ignoreBorder: Boolean,
+});
+
+const formattedName = computed(() => {
+  const maxLength =  props.friend?.rewardEnergy ? 12 : 20;
+
+  return props.friend?.firstName.length > maxLength ?
+    `${props.friend?.firstName.slice(0, maxLength)}...` :
+    props.friend?.firstName;
 });
 </script>
 
@@ -19,7 +32,7 @@ const props = defineProps({
   <div class="StatsUserRow">
     <div class="StatsUserRow__avatar-wrapper">
       <img
-        v-if="friend?.photoUrl"
+        v-if="!friend?.photoUrl"
         :src="friend.photoUrl"
         alt="User avatar"
       >
@@ -30,14 +43,14 @@ const props = defineProps({
         :style="{ backgroundColor: getAvatarColor(friend?.firstName)}"
       >
         <p class="StatsUserRow__name StatsUserRow__avatar-name">
-          {{ friend?.firstName }}
+          {{ friend?.firstName[0] }}
         </p>
       </div>
     </div>
 
     <div class="StatsUserRow__name-wrapper">
       <p class="StatsUserRow__name">
-        {{ friend?.firstName.length > 12 ? `${friend?.firstName.slice(0, 12)}...` : friend?.firstName }}
+        {{ formattedName }}
       </p>
 
       <UITag

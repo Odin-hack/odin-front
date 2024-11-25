@@ -1,16 +1,27 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+
+import WebApp from '@twa-dev/sdk';
+
+import { ButtonThemeEnum } from '@/types/enums/button.enum';
+
+import { useAuthStore } from '@/stores/auth';
+import { useFriendsStore } from '@/stores/friends';
+
 import FriendsDashboard from '@/components/frineds/Dashboard.vue';
 import FriendsUserRow from '@/components/frineds/UserRow.vue';
-import { storeToRefs } from 'pinia';
-import { useFriendsStore } from '@/stores/friends';
-import { onMounted } from 'vue';
+import Button from '@/components/UI/Button.vue';
+
+import IconInviteUser from '@/components/Icon/InviteUser.vue';
+
 
 const { referralStats, friendList } = storeToRefs(useFriendsStore());
+const { user } = storeToRefs(useAuthStore());
 
+onMounted(async () => await useFriendsStore().getFriendsList());
 
-onMounted(async () => {
-  await useFriendsStore().getFriendsList();
-});
+const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user.value?.info?.refLink }`);
 </script>
 
 <template>
@@ -42,20 +53,36 @@ onMounted(async () => {
           Friend List
         </p>
 
-        <FriendsUserRow
-          v-for="(friend, index) in friendList"
-          :key="index"
-          :friend
-          class="FriendsPage__list-row"
-        />
+        <div class="FriendsPage__list-wrapper">
+          <FriendsUserRow
+            v-for="(friend, index) in friendList"
+            :key="index"
+            :friend
+            class="FriendsPage__list-row"
+          />
+        </div>
       </div>
+    </div>
+
+    <div
+      v-if="referralStats?.referralEnergy"
+      class="FixedButton--bottom"
+    >
+      <Button
+        :theme="ButtonThemeEnum.PRIMARY"
+        @click="inviteFriend"
+      >
+        <IconInviteUser />
+
+        Invite Friend
+      </Button>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .FriendsPage {
-  padding-bottom: 24dvh;
+  padding-bottom: 18dvh;
 
   &__title {
     margin-bottom: 24px;
@@ -91,6 +118,11 @@ onMounted(async () => {
   }
 
   &__list {
+    &-wrapper {
+      max-height: 50dvh;
+      overflow: auto;
+    }
+
     &-title {
       margin-top: 28px;
       margin-bottom: 12px;
