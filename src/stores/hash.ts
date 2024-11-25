@@ -19,8 +19,7 @@ export const useHashStore = defineStore('hashStore', () => {
         isTurboModeActive,
         () => {
             if (miningStatus.value === MiningStatus.MINING) {
-                stopMining();
-                startMining({ minerId: user.value?.info.id });
+                restartMining();
             }
         },
         { immediate: true }, // Выполнять при инициализации
@@ -31,10 +30,15 @@ export const useHashStore = defineStore('hashStore', () => {
 
     const workers = ref<Worker[]>([]);
 
+    const restartMining = () => {
+        stopMining();
+        startMining({ minerId: user.value?.info.id });
+    };
+
     const initializeWorkers = (numWorkers: number) => {
         workers.value.forEach((worker) => worker.terminate());
         workers.value = Array.from({ length: numWorkers }, () => {
-            const worker = new Worker(new URL('@/workers/mining-code.js', import.meta.url));
+            const worker = new Worker(new URL('@/workers/mining-code.js', import.meta.url), { type: 'module' });
 
             worker.onmessage = (event) => handleWorkerMessage(event.data);
 
@@ -46,7 +50,7 @@ export const useHashStore = defineStore('hashStore', () => {
     const addHashesToTotal = useThrottle(() => (totalHashes.value = submittedHashes), 1000);
 
     const handleWorkerMessage = (message: string) => {
-        const [status, hash, nonce, timestamp] = message.split(' ');
+        const [status, hash, nonce, timestamp, hashes] = message.split(' ');
 
         switch (status) {
             case 'valid':
@@ -59,9 +63,12 @@ export const useHashStore = defineStore('hashStore', () => {
                 });
                 if (status === 'valid') totalShares.value++;
                 break;
+            case 'restart':
+                restartMining();
+                break;
 
             case '_':
-                submittedHashes++;
+                submittedHashes += Number(hashes) || 0;
                 addHashesToTotal();
                 break;
 
@@ -73,11 +80,19 @@ export const useHashStore = defineStore('hashStore', () => {
     const maxNonce = 1_000_000_000;
     const rangeSize = 1_000_000;
 
-    const getRandomNonceRange = (maxNonce: number, rangeSize: number, offset: number) => {
-        const startNonce = Math.floor(Math.random() * (maxNonce - rangeSize)) + offset * rangeSize;
-        const endNonce = startNonce + rangeSize - 1;
-
-        return { startNonce, endNonce };
+    const getUniqueNonceRanges = (
+      maxNonce: number,
+      rangeSize: number,
+      workerCount: number,
+    ) => {
+        const ranges = [];
+        const startNonce = Math.floor(Math.random() * (maxNonce - workerCount * rangeSize));
+        for (let i = 0; i < workerCount; i++) {
+            const rangeStart = startNonce + i * rangeSize;
+            const rangeEnd = rangeStart + rangeSize - 1;
+            ranges.push({ startNonce: rangeStart, endNonce: rangeEnd });
+        }
+        return ranges;
     };
 
     const startMining = ({ minerId }) => {
@@ -95,8 +110,10 @@ export const useHashStore = defineStore('hashStore', () => {
             data: '',
         };
 
+        const nonceRanges = getUniqueNonceRanges(maxNonce, rangeSize, numWorkers);
+
         workers.value.forEach((worker, index) => {
-            const { startNonce, endNonce } = getRandomNonceRange(maxNonce, rangeSize, index);
+            const { startNonce, endNonce } = nonceRanges[index];
 
             worker.postMessage(
                 JSON.stringify({

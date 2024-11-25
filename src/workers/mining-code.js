@@ -1,3 +1,5 @@
+import CryptoJS from 'crypto-js';
+
 self.onmessage = async function (event) {
     const data = JSON.parse(event.data);
 
@@ -9,9 +11,13 @@ self.onmessage = async function (event) {
 async function processNonceRange(block, startNonce, endNonce) {
     let nonce = startNonce;
     let hashes = 0;
+    const batchSize = 50_000;
 
     while (nonce < endNonce) {
         hashes += 1;
+        if (hashes % batchSize === 0) {
+            postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${batchSize}`);
+        }
 
         const timestamp = Date.now();
         const hash = await calculateHash(block.index, block.previousHash, block.data, nonce, timestamp, block.minerId);
@@ -26,22 +32,17 @@ async function processNonceRange(block, startNonce, endNonce) {
             hashes = 0;
         }
 
-        postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
 
         nonce += 1;
     }
 
-    postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
+
+    postMessage(`${'restart'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
 }
 
 async function calculateHash(index, previousHash, data, nonce, timestamp, minerId) {
     const input = `${index}-${previousHash}-${data}-${nonce}-${timestamp}-${minerId}`;
-    const encoder = new TextEncoder();
-    const dataBuffer = encoder.encode(input);
-
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+    return CryptoJS.SHA256(input).toString(CryptoJS.enc.Hex);
 }
 
 function isValidBlock(hash, mainFactor, shareFactor) {

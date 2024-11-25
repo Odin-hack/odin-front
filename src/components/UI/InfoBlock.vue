@@ -147,6 +147,7 @@ const borderColor = computed(() => {
         background-color: var(--color-primary-blue);
         color: var(--color-primary-white);
         font-weight: 500;
+        text-align: center;
       }
     }
 

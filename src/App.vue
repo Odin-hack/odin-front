@@ -38,6 +38,13 @@ onMounted(async () => {
   socket.connect();
 
   setScrollEl(document.querySelector('#app') as HTMLElement || undefined);
+
+  WebApp.onEvent('viewportChanged', (event) => {
+    if (!event.isStateStable) {
+      socket.emit('mining.stop');
+      socket.disconnect();
+    }
+  });
 });
 </script>
 
