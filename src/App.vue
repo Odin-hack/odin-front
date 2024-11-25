@@ -40,7 +40,7 @@ onMounted(async () => {
   setScrollEl(document.querySelector('#app') as HTMLElement || undefined);
 
   WebApp.onEvent('viewportChanged', (event) => {
-    if (!event.isStateStable) {
+    if (!event?.isStateStable) {
       socket.emit('mining.stop');
       socket.disconnect();
     }
