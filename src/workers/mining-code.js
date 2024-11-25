@@ -1,3 +1,5 @@
+import { sha256 } from 'hash-wasm';
+
 self.onmessage = async function (event) {
     const data = JSON.parse(event.data);
 
@@ -39,9 +41,7 @@ async function calculateHash(index, previousHash, data, nonce, timestamp, minerI
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(input);
 
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+    await sha256(dataBuffer);
 }
 
 function isValidBlock(hash, mainFactor, shareFactor) {
