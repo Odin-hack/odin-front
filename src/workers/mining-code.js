@@ -1,4 +1,4 @@
-import { sha256 } from 'hash-wasm';
+import CryptoJS from 'crypto-js';
 
 self.onmessage = async function (event) {
     const data = JSON.parse(event.data);
@@ -39,10 +39,7 @@ async function processNonceRange(block, startNonce, endNonce) {
 
 async function calculateHash(index, previousHash, data, nonce, timestamp, minerId) {
     const input = `${index}-${previousHash}-${data}-${nonce}-${timestamp}-${minerId}`;
-    const encoder = new TextEncoder();
-    const dataBuffer = encoder.encode(input);
-
-    return await sha256(dataBuffer);
+    return CryptoJS.SHA256(input).toString(CryptoJS.enc.Hex);
 }
 
 function isValidBlock(hash, mainFactor, shareFactor) {
