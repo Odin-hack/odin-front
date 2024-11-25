@@ -14,6 +14,7 @@ async function processNonceRange(block, startNonce, endNonce) {
 
     while (nonce < endNonce) {
         hashes += 1;
+        postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
 
         const timestamp = Date.now();
         const hash = await calculateHash(block.index, block.previousHash, block.data, nonce, timestamp, block.minerId);
@@ -28,7 +29,6 @@ async function processNonceRange(block, startNonce, endNonce) {
             hashes = 0;
         }
 
-        postMessage(`${'_'} ${'_'} ${'_'} ${'_'} ${'_'} ${hashes}`);
 
         nonce += 1;
     }
