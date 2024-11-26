@@ -13,7 +13,7 @@ const props = defineProps({
 
 const data = computed(() =>[
   {
-    label: 'Total friends started / invited',
+    label: 'Total started mining / invited',
     value: `${ props.referralStats?.rewardedInvited || 0 } / ${ props.referralStats?.totalInvited || 0 }`,
   },
   {
