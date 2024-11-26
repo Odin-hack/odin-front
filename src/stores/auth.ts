@@ -12,6 +12,7 @@ import { useLoaderStore } from '@/stores/loader';
 import type { IAuthResponse, IBlockchainStats, IUserInfoEnergy, IUser } from '@/types/auth';
 import type { IUpdateUser } from '@/types/socket-data.interface';
 import { useUserEnergyStore } from '@/stores/energy';
+import { useFriendsStore } from '@/stores/friends';
 
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -52,12 +53,6 @@ export const useAuthStore = defineStore('authStore', () => {
         data?.powerMode && (user.value.info.powerMode = data?.powerMode);
     };
 
-    const addMaxEnergy = (awardAmount: number) => {
-        if (!awardAmount) return;
-
-        user.value.info.maxEnergy += awardAmount;
-    };
-
     const authUser = async () => {
         loadingStore.setLoading(true);
 
@@ -78,6 +73,8 @@ export const useAuthStore = defineStore('authStore', () => {
             energy: data?.appData?.energy,
         } || null;
 
+        useFriendsStore().setReferralStats(data?.appData?.referralStats);
+
         useUserEnergyStore().setUpEnergy({
             userId: data?.appData?.user?.id || '',
             energy: data?.appData?.user?.energy || 0,
@@ -95,7 +92,6 @@ export const useAuthStore = defineStore('authStore', () => {
         authUser,
         addBalance,
         updateUserInfo,
-        addMaxEnergy,
         user,
         blockchainStats,
     };

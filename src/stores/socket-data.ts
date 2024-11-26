@@ -3,9 +3,10 @@ import socket from '@/api/socket';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-import type { IEnergy, IHashCash, IRewardData, IStatistics, IUpdateUser } from '@/types/socket-data.interface';
+import type { IEnergy, IHashCash, IReferral, IRewardData, IStatistics, IUpdateUser } from '@/types/socket-data.interface';
 import { useLocalStorage } from '@/composables/useLocaleStorage';
 import { useAuthStore } from '@/stores/auth';
+import { useFriendsStore } from '@/stores/friends';
 
 
 export const useSocketDataStore = defineStore('socketDataStore', () => {
@@ -57,6 +58,14 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
 
   socket.on('user.update', (data: IUpdateUser) => {
     useAuthStore().updateUserInfo(data.payload);
+  });
+
+  socket.on('referral.new_friend', (data: IReferral) => {
+    useFriendsStore().addToFriendList(data.payload);
+  });
+
+  socket.on('referral.friend_activated', (data: IReferral) => {
+    useFriendsStore().updateFriend(data.payload);
   });
 
   socket.on('disconnect', () => {

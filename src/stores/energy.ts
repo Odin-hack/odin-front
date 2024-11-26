@@ -9,7 +9,7 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
     const userId = ref<string>('');
     const energyLeft = ref<number>(0);
     const miningStatus = ref<MiningStatus>(MiningStatus.STOPPED);
-    const maxEnergy = ref<number | null>(null);
+    const maxEnergy = ref<number>(0);
     const recoveryRate = ref<number | null>(null);
     const consumptionRate = ref<number | null>(null);
     const serverEnergy = ref<number | null>(null);
@@ -68,6 +68,9 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
     const setMaxEnergy = (val: number) => {
         maxEnergy.value = val;
     };
+    const addMaxEnergy = (val: number) => {
+        maxEnergy.value += val;
+    };
 
     const setUpEnergy = (opts: {
         userId: string;
@@ -97,7 +100,9 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
 
     return {
         energyLeft,
+        maxEnergy,
         miningStatus,
+        addMaxEnergy,
         setUpEnergy,
         setMaxEnergy,
         startMining,

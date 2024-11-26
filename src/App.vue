@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { RouterView } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useLoaderStore } from '@/stores/loader';
@@ -19,7 +19,9 @@ const { isLoader } = storeToRefs(useLoaderStore());
 
 const { setScrollEl } = useScrollEl();
 
+const isLoaderLocal = ref(false);
 onMounted(async () => {
+  isLoaderLocal.value = false;
   if ('wakeLock' in navigator) {
     try {
       await navigator.wakeLock.request('screen');
@@ -27,17 +29,20 @@ onMounted(async () => {
       console.error(e);
     }
   }
+
+  await useAuthStore().authUser();
+
   WebApp.expand();
   WebApp.disableVerticalSwipes();
   WebApp.enableClosingConfirmation();
 
-  await useAuthStore().authUser();
 
   socket.auth = { token: useLocalStorage('token').value };
 
   socket.connect();
 
   setScrollEl(document.querySelector('#app') as HTMLElement || undefined);
+  isLoaderLocal.value = true;
 });
 </script>
 
@@ -45,7 +50,7 @@ onMounted(async () => {
   <div class="RouterLayout">
     <Loader v-if="isLoader" />
 
-    <RouterView />
+    <RouterView v-if="isLoaderLocal" />
 
     <Navigation />
   </div>

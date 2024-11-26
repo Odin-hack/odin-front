@@ -46,7 +46,7 @@ const { stopMining, startMining } = useUserEnergyStore();
 const { totalShares, totalHashes } = storeToRefs(useHashStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
-const { energyLeft, miningStatus } = storeToRefs(useUserEnergyStore());
+const { energyLeft, miningStatus, maxEnergy } = storeToRefs(useUserEnergyStore());
 
 const { setInvoice } = useInvoiceStore();
 
@@ -147,6 +147,7 @@ const showMiningBlockDrawer = (item: IHashLastBlock) => {
     <BatteryInfo
       :user
       :energy-left="energyLeft"
+      :max-energy="maxEnergy"
       :is-mining-started="miningStatus"
     />
 

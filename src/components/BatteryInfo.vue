@@ -16,6 +16,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  maxEnergy: {
+    type: Number,
+    required: true,
+  },
   user: {
     type: Object as PropType<{
       info: IUser,
@@ -30,7 +34,7 @@ const props = defineProps({
 });
 
 const energyPercents = computed(() =>
-    getPercents(props.energyLeft, props.user?.info?.maxEnergy || 0),
+    getPercents(props.energyLeft, props.maxEnergy || 0),
 );
 
 const balance = computed(() => {
@@ -68,7 +72,7 @@ const balance = computed(() => {
           </p>
 
           <div class="BatteryInfo__content__energy__amount">
-            <p>{{ energyLeft?.toFixed(0) || 0 }} / {{ user?.info?.maxEnergy || 0 }}</p>
+            <p>{{ energyLeft?.toFixed(0) || 0 }} / {{ maxEnergy || 0 }}</p>
 
             <IconBlizzard
               size="16"
