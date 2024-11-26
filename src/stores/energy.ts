@@ -100,6 +100,7 @@ export const useUserEnergyStore = defineStore('userEnergy', () => {
 
     return {
         energyLeft,
+        maxEnergy,
         miningStatus,
         addMaxEnergy,
         setUpEnergy,

@@ -30,7 +30,7 @@ const { isTurboModeActive } = storeToRefs(useTurboModeStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
 const { referralStats } = storeToRefs(useFriendsStore());
-const { miningStatus, energyLeft } = storeToRefs(useUserEnergyStore());
+const { miningStatus, energyLeft, maxEnergy } = storeToRefs(useUserEnergyStore());
 const { tasks } = storeToRefs(tasksStore);
 const { isLoader } = storeToRefs(useLoaderStore());
 
@@ -72,6 +72,7 @@ onMounted(async () => {
     <BatteryInfo
       :user
       :energy-left="energyLeft"
+      :max-energy="maxEnergy"
       :is-mining-started="miningStatus"
     />
 
