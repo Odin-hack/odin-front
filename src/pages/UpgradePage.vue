@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import WebApp from '@twa-dev/sdk';
 
@@ -8,31 +8,29 @@ import { useInvoiceStore } from '@/stores/invoice';
 import { useTasksStore } from '@/stores/tasks';
 import { storeToRefs } from 'pinia';
 
-import type { ITask } from '@/types/tasks';
+import { useTurboModeStore } from '@/stores/turbo-mode';
+import { useLoaderStore } from '@/stores/loader';
+import { useUserEnergyStore } from '@/stores/energy';
+import { useFriendsStore } from '@/stores/friends';
 
 import { ButtonThemeEnum } from '@/types/enums/button.enum';
-import { TaskTypeEnum } from '@/types/enums/task.enum';
 
 import BatteryInfo from '@/components/BatteryInfo.vue';
 import Badge from '@/components/UI/Badge.vue';
 import Button from '@/components/UI/Button.vue';
 import TasksWrapper from '@/components/tasks/wrapper.vue';
-
-import IconBlizzard from '@/components/Icon/blizzard.vue';
 import Drawer from '@/components/Drawer.vue';
-import { useTurboModeStore } from '@/stores/turbo-mode';
-import { useLoaderStore } from '@/stores/loader';
-import { useUserEnergyStore } from '@/stores/energy';
+import InviteCard from '@/components/upgrades/InviteCard.vue';
 
+
+const tasksStore = useTasksStore();
 
 const { user } = storeToRefs(useAuthStore());
 const { isTurboModeActive } = storeToRefs(useTurboModeStore());
 const { invoice } = storeToRefs(useInvoiceStore());
 const { setInvoice } = useInvoiceStore();
-
+const { referralStats } = storeToRefs(useFriendsStore());
 const { miningStatus, energyLeft } = storeToRefs(useUserEnergyStore());
-const tasksStore = useTasksStore();
-
 const { tasks } = storeToRefs(tasksStore);
 const { isLoader } = storeToRefs(useLoaderStore());
 
@@ -40,10 +38,7 @@ const { isLoader } = storeToRefs(useLoaderStore());
 const isInvoiceModal = ref(false);
 
 const switcherChangeHandler = (value: boolean) => {
-  if (!user.value?.info.powerMode) {
-    isInvoiceModal.value = true;
-    return;
-  }
+  if (!user.value?.info.powerMode) return isInvoiceModal.value = true;
 
   isTurboModeActive.value = value;
 };
@@ -70,13 +65,6 @@ onMounted(async () => {
     isLoader.value = false;
   }
 });
-
-const friendInvite = computed(() =>
-  tasks.value?.find((task: ITask) =>
-    task.type?.toUpperCase() === TaskTypeEnum.INVITE,
-));
-
-const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user.value?.info?.refLink }`);
 </script>
 
 <template>
@@ -87,15 +75,18 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
       :is-mining-started="miningStatus"
     />
 
-    <!--    <div class="UpgradePage__upgrades">-->
-    <!--      <h3 class="SectionTitle">-->
-    <!--        UPGRADES-->
-    <!--      </h3>-->
+    <div class="UpgradePage__upgrades">
+      <h3 class="SectionTitle">
+        UPGRADES
+      </h3>
 
-    <!--      <div class="UpgradePage__upgrades__wrapper">-->
-    <!--        <UpgradeCard />-->
-    <!--      </div>-->
-    <!--    </div>-->
+      <div class="UpgradePage__upgrades__wrapper">
+        <InviteCard
+          :ref-link="user?.info?.refLink"
+          :referral-energy="referralStats?.referralEnergy"
+        />
+      </div>
+    </div>
 
     <div class="UpgradePage__upgrades">
       <h3 class="SectionTitle">
@@ -114,27 +105,6 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
     <TasksWrapper
       :tasks
     />
-
-    <div
-      v-if="friendInvite"
-      class="FixedButton--bottom"
-    >
-      <Button
-        :theme="ButtonThemeEnum.PRIMARY"
-        @click="inviteFriend"
-      >
-        Invite Friend
-
-        <template #badge>
-          <p>+ {{ friendInvite?.awardAmount }}</p>
-
-          <IconBlizzard
-            width="8"
-            height="10"
-          />
-        </template>
-      </Button>
-    </div>
 
     <Drawer v-model:visible="isInvoiceModal">
       <template #title>
@@ -164,7 +134,7 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
 
 <style scoped lang="scss">
 .UpgradePage {
-  padding-bottom: 24dvh;
+  padding-bottom: 100px;
 
   &__upgrades {
     &__wrapper {

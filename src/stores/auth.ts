@@ -12,6 +12,7 @@ import { useLoaderStore } from '@/stores/loader';
 import type { IAuthResponse, IBlockchainStats, IUserInfoEnergy, IUser } from '@/types/auth';
 import type { IUpdateUser } from '@/types/socket-data.interface';
 import { useUserEnergyStore } from '@/stores/energy';
+import { useFriendsStore } from '@/stores/friends';
 
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -77,6 +78,8 @@ export const useAuthStore = defineStore('authStore', () => {
             info: { ...data?.appData?.user, refLink: data?.appData?.refLink },
             energy: data?.appData?.energy,
         } || null;
+
+        useFriendsStore().setReferralStats(data?.appData?.referralStats);
 
         useUserEnergyStore().setUpEnergy({
             userId: data?.appData?.user?.id || '',
