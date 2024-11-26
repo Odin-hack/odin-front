@@ -16,10 +16,10 @@ export const useFriendsStore = defineStore('friends-store', () => {
   const setReferralStats = (stats: IReferralStats) => stats && (referralStats.value = stats);
 
   const updateReferralStats = (data: IReferral['payload']) => {
-    if (!data) return;
+    if (!data.totalInvited || !data.rewardedInvited) return;
 
-    data.totalInvited && (referralStats.value!.totalInvited = data.totalInvited);
-    data.rewardedInvited && (referralStats.value!.rewardedInvited = data.rewardedInvited);
+    referralStats.value!.totalInvited = data.totalInvited;
+    referralStats.value!.rewardedInvited = data.rewardedInvited;
     referralStats.value!.totalCapacityIncreased = data.totalInvited * data.rewardedInvited;
   };
 
