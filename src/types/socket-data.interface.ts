@@ -84,7 +84,6 @@ export interface IReferral {
     rewardEnergy: number
     totalInvited: number
     rewardedInvited: number
-    totalCapacityIncreased: number
   }
 }
 
