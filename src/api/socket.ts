@@ -1,5 +1,11 @@
 import { io } from 'socket.io-client';
+import { useRuntimeConfig } from '@/composables/useRuntimeConfig';
 
-const socket = io(import.meta.env.VITE_SOCKET_URL as string);
+// ToDo FIX
+const socket = io(useRuntimeConfig().socketUrl, {
+  transports: ['websocket'],
+  path: '/v1/api/socket.io',
+  reconnection: true,
+});
 
 export default socket;

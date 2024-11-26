@@ -2,17 +2,17 @@
 FROM node:18-alpine as build
 WORKDIR /app
 
-# Копирование package.json и package-lock.json
-COPY package.json package-lock.json ./
+# Копирование package.json и yarn.lock
+COPY package.json yarn.lock ./
 
 # Установка зависимостей
-RUN npm install
+RUN yarn install --frozen-lockfile
 
 # Копирование исходного кода
 COPY . .
 
 # Сборка приложения
-RUN npm run build
+RUN yarn run build
 
 # Этап 2: Запуск приложения
 FROM node:18-alpine

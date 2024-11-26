@@ -1,22 +1,59 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useLoaderStore } from '@/stores/loader';
+
+import { useScrollEl } from '@/stores/scrollEl';
+
+import { useAuthStore } from '@/stores/auth';
+
 import WebApp from '@twa-dev/sdk';
 
-const title = ref('Hello World');
+import Navigation from '@/components/Navigation.vue';
+import Loader from '@/components/Loader.vue';
+import { useLocalStorage } from '@/composables/useLocaleStorage';
+import socket from '@/api/socket';
 
-onMounted(() => {
+const { isLoader } = storeToRefs(useLoaderStore());
+
+const { setScrollEl } = useScrollEl();
+
+onMounted(async () => {
+  if ('wakeLock' in navigator) {
+    try {
+      await navigator.wakeLock.request('screen');
+    } catch (e) {
+      console.error(e);
+    }
+  }
   WebApp.expand();
+  WebApp.disableVerticalSwipes();
+  WebApp.enableClosingConfirmation();
+
+  await useAuthStore().authUser();
+
+  socket.auth = { token: useLocalStorage('token').value };
+
+  socket.connect();
+
+  setScrollEl(document.querySelector('#app') as HTMLElement || undefined);
 });
 </script>
 
 <template>
-  <header>
-    {{ title }}
-  </header>
+  <div class="RouterLayout">
+    <Loader v-if="isLoader" />
 
-  <RouterView />
+    <RouterView />
+
+    <Navigation />
+  </div>
 </template>
 
 <style scoped lang="scss">
+.RouterLayout {
+  padding: 16px;
+  height: 100dvh;
+}
 </style>

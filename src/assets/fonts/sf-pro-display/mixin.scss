@@ -1,0 +1,29 @@
+// Inter
+
+@mixin font-face-sf-pro-display-regular {
+  @font-face {
+    font-family: 'SF Pro Display';
+    src: url('@/assets/fonts/sf-pro-display/regular.OTF') format('OTF');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+@mixin font-face-sf-pro-display-medium {
+  @font-face {
+    font-family: 'SF Pro Display';
+    src: url('@/assets/fonts/sf-pro-display/medium.OTF') format('OTF');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+@mixin font-face-sf-pro-display-bold {
+  @font-face {
+    font-family: 'SF Pro Display';
+    src: url('@/assets/fonts/sf-pro-display/bold.OTF') format('OTF');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+}

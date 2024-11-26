@@ -1,0 +1,11 @@
+export enum InfoBlockTypeEnum {
+  STATUS = 'STATUS',
+  BLOCK = 'BLOCK',
+  // DIFFICULTY = 'DIFFICULTY',
+  REWARD = 'REWARD',
+  SHARES = 'SHARES',
+  HASHES = 'HASHES',
+  EARNINGS = 'EARNINGS',
+  ONLINE = 'ONLINE',
+  HOLDERS = 'HOLDERS',
+}
