@@ -16,8 +16,8 @@ export const useFriendsStore = defineStore('friends-store', () => {
     referrerEnergy: 0,
     totalCapacityIncreased: 0,
   });
+  
   const friendList = ref<IReferral['payload'][]>([]);
-
 
   const setReferralStats = (stats: IReferralStats) => stats && (referralStats.value = stats);
 
