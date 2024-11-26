@@ -32,8 +32,9 @@ const formattedName = computed(() => {
   <div class="StatsUserRow">
     <div class="StatsUserRow__avatar-wrapper">
       <img
-        v-if="!friend?.photoUrl"
-        :src="friend.photoUrl"
+        v-if="friend?.photoUrl"
+        class="StatsUserRow__avatar"
+        :src="friend?.photoUrl"
         alt="User avatar"
       >
 
@@ -71,6 +72,8 @@ const formattedName = computed(() => {
   &__avatar {
     position: relative;
     width: 40px;
+    max-width: 40px;
+    max-height: 40px;
     height: 40px;
     border-radius: 50%;
 

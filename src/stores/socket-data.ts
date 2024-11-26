@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 import type { IEnergy, IHashCash, IReferral, IRewardData, IStatistics, IUpdateUser } from '@/types/socket-data.interface';
-import { useLocalStorage } from '@/composables/useLocaleStorage';
+
 import { useAuthStore } from '@/stores/auth';
 import { useFriendsStore } from '@/stores/friends';
 
@@ -27,10 +27,6 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
   const statistics = ref<IStatistics['payload'] | null>(null);
   const onlineMiners = ref(0);
   const totalRewards = ref(0);
-
-  socket.auth = {
-    token: useLocalStorage('token').value,
-  };
 
   socket.on('mining.not_enough_energy', (data) => {
     console.log(data);
