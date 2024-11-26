@@ -84,6 +84,7 @@ onMounted(async () => {
         <InviteCard
           :ref-link="user?.info?.refLink"
           :referral-energy="referralStats?.referralEnergy"
+          :referrer-energy="referralStats?.referrerEnergy"
         />
       </div>
     </div>

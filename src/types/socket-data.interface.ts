@@ -82,6 +82,9 @@ export interface IReferral {
     firstName: string,
     photoUrl: string,
     rewardEnergy: number
+    totalInvited: number
+    rewardedInvited: number
+    totalCapacityIncreased: number
   }
 }
 

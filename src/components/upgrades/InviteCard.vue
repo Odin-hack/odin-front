@@ -17,6 +17,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  referrerEnergy: {
+    type: Number,
+    required: true,
+  },
 });
 
 const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=${ props.refLink }`);
@@ -46,14 +50,14 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
       <p>Increase your Capacity</p>
       <span>
         Get more energy capacity for each active friend.
-        After your friend start mining you will get +100 and he will get +50
+        After your friend start mining you will get +{{ referrerEnergy }} and he will get +{{ referralEnergy }}
       </span>
     </div>
 
     <div class="InviteCard__footer">
       <div class="InviteCard__footer__diff">
         <p>
-          +{{ referralEnergy }}
+          +{{ referrerEnergy }}
         </p>
 
         <IconBlizzard

@@ -18,7 +18,7 @@ const data = computed(() =>[
   },
   {
     label: 'Energy per friend',
-    value: props.referralStats?.referralEnergy || 0,
+    value: props.referralStats?.referrerEnergy || 0,
     iconEnergy: true,
   },
   {

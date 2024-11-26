@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import WebApp from '@twa-dev/sdk';
@@ -19,7 +19,29 @@ import IconInviteUser from '@/components/Icon/InviteUser.vue';
 const { referralStats, friendList } = storeToRefs(useFriendsStore());
 const { user } = storeToRefs(useAuthStore());
 
-onMounted(async () => await useFriendsStore().getFriendsList());
+const offset = ref(0);
+const limit = ref(100);
+const observerTarget = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  loadMoreFriends();
+
+  const observer = new IntersectionObserver(
+      async (entries) => {
+        if (entries[0].isIntersecting) await loadMoreFriends();
+      },
+      { threshold: 1.0 },
+  );
+
+  if (observerTarget.value) {
+    observer.observe(observerTarget.value);
+  }
+});
+
+const loadMoreFriends = async () => {
+  await useFriendsStore().getFriendsList({ offset: offset.value, limit: limit.value });
+  offset.value += limit.value;
+};
 
 const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user.value?.info?.refLink }`);
 </script>
@@ -58,7 +80,7 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
           Get more energy capacity for each active friend.
           <br>
           After your friend start mining you will get
-          +100 and he will get +50
+          +{{ referralStats?.referrerEnergy }} and he will get +{{ referralStats?.referralEnergy }}
         </p>
       </div>
 
@@ -125,11 +147,6 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
     background-color: var(--color-grey-darken);
     padding: 16px;
     border-radius: 12px;
-
-    &-wrapper {
-      max-height: 50dvh;
-      overflow: auto;
-    }
 
     &-title {
       margin-bottom: 12px;
