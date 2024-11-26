@@ -16,7 +16,7 @@ export const useFriendsStore = defineStore('friends-store', () => {
   const setReferralStats = (stats: IReferralStats) => stats && (referralStats.value = stats);
 
   const updateReferralStats = (data: IReferral['payload']) => {
-    if (!data.totalInvited || !data.rewardedInvited) return;
+    if (!data) return;
 
     referralStats.value!.totalInvited = data.totalInvited;
     referralStats.value!.rewardedInvited = data.rewardedInvited;
