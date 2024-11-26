@@ -9,7 +9,13 @@ import { useAuthStore } from '@/stores/auth';
 
 
 export const useFriendsStore = defineStore('friends-store', () => {
-  const referralStats = ref<IReferralStats | null>(null);
+  const referralStats = ref<IReferralStats>({
+    totalInvited: 0,
+    rewardedInvited: 0,
+    referralEnergy: 0,
+    referrerEnergy: 0,
+    totalCapacityIncreased: 0,
+  });
   const friendList = ref<IReferral['payload'][]>([]);
 
 
@@ -20,7 +26,7 @@ export const useFriendsStore = defineStore('friends-store', () => {
 
     referralStats.value!.totalInvited = data.totalInvited;
     referralStats.value!.rewardedInvited = data.rewardedInvited;
-    referralStats.value!.totalCapacityIncreased = data.rewardEnergy * data.rewardedInvited;
+    referralStats.value!.totalCapacityIncreased = referralStats.value!.referrerEnergy * data.rewardedInvited;
   };
 
   const addToFriendList = (friend: IReferral['payload']) => {

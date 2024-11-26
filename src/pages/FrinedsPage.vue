@@ -24,8 +24,8 @@ const limit = ref(100);
 const observerTarget = ref<HTMLElement | null>(null);
 const isLoading = ref(false);
 
-onMounted(() => {
-  loadMoreFriends();
+onMounted(async () => {
+  await loadMoreFriends();
 
   const observer = new IntersectionObserver(
     async (entries) => {
