@@ -43,7 +43,11 @@ export const useFriendsStore = defineStore('friends-store', () => {
 
     if (error) return;
 
-    if (data) return friendList.value = data;
+    if (data) {
+      if (friendList.value.length && !data.length) return;
+
+      return friendList.value = data;
+    }
   };
 
   return {

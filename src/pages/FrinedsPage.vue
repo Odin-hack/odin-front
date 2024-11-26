@@ -22,6 +22,7 @@ const { user } = storeToRefs(useAuthStore());
 const offset = ref(0);
 const limit = ref(100);
 const observerTarget = ref<HTMLElement | null>(null);
+const isLoading = ref(false);
 
 onMounted(() => {
   loadMoreFriends();
@@ -39,8 +40,20 @@ onMounted(() => {
 });
 
 const loadMoreFriends = async () => {
-  await useFriendsStore().getFriendsList({ offset: offset.value, limit: limit.value });
-  offset.value += limit.value;
+  if (isLoading.value) return;
+
+  isLoading.value = true;
+
+  const response = await useFriendsStore().getFriendsList({
+    offset: offset.value,
+    limit: limit.value,
+  });
+
+  if (response && response.length >= limit.value) {
+    offset.value += limit.value;
+  }
+
+  isLoading.value = false;
 };
 
 const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=${ user.value?.info?.refLink }`);
@@ -99,6 +112,11 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
         </div>
       </div>
     </div>
+
+    <div
+      ref="observerTarget"
+      class="FriendsPage__observer"
+    />
   </div>
 </template>
 
