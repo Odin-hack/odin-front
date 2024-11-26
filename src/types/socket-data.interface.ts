@@ -78,9 +78,10 @@ export interface IHashCash {
 export interface IReferral {
   event: string
   payload: {
+    userId: string,
     firstName: string,
     photoUrl: string,
-    rewardEnergy: string
+    rewardEnergy: number
   }
 }
 
