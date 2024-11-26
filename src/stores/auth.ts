@@ -92,7 +92,6 @@ export const useAuthStore = defineStore('authStore', () => {
         authUser,
         addBalance,
         updateUserInfo,
-        addMaxEnergy,
         user,
         blockchainStats,
     };
