@@ -32,7 +32,7 @@ const formattedName = computed(() => {
   <div class="StatsUserRow">
     <div class="StatsUserRow__avatar-wrapper">
       <img
-        v-if="!friend?.photoUrl"
+        v-if="friend?.photoUrl"
         :src="friend.photoUrl"
         alt="User avatar"
       >
