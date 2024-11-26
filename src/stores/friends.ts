@@ -5,7 +5,7 @@ import { useApi } from '@/composables/useApi';
 
 import type { IReferralStats } from '@/types/friends';
 import type { IReferral } from '@/types/socket-data.interface';
-import { useAuthStore } from '@/stores/auth';
+import { useUserEnergyStore } from '@/stores/energy';
 
 
 export const useFriendsStore = defineStore('friends-store', () => {
@@ -42,7 +42,7 @@ export const useFriendsStore = defineStore('friends-store', () => {
         : friend,
     );
 
-    useAuthStore().addMaxEnergy(updatedFriend.rewardEnergy);
+    useUserEnergyStore().addMaxEnergy(updatedFriend.rewardEnergy);
     updateReferralStats(updatedFriend);
   };
 

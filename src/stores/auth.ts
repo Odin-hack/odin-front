@@ -53,12 +53,6 @@ export const useAuthStore = defineStore('authStore', () => {
         data?.powerMode && (user.value.info.powerMode = data?.powerMode);
     };
 
-    const addMaxEnergy = (awardAmount: number) => {
-        if (!awardAmount) return;
-
-        user.value.info.maxEnergy += awardAmount;
-    };
-
     const authUser = async () => {
         loadingStore.setLoading(true);
 
