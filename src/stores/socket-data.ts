@@ -28,10 +28,6 @@ export const useSocketDataStore = defineStore('socketDataStore', () => {
   const onlineMiners = ref(0);
   const totalRewards = ref(0);
 
-  socket.auth = {
-    token: useLocalStorage('token').value,
-  };
-
   socket.on('mining.not_enough_energy', (data) => {
     console.log(data);
   });

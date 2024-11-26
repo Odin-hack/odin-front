@@ -36,7 +36,6 @@ onMounted(async () => {
   WebApp.disableVerticalSwipes();
   WebApp.enableClosingConfirmation();
 
-
   socket.auth = { token: useLocalStorage('token').value };
 
   socket.connect();
