@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 import type { IEnergy, IHashCash, IReferral, IRewardData, IStatistics, IUpdateUser } from '@/types/socket-data.interface';
-import { useLocalStorage } from '@/composables/useLocaleStorage';
+
 import { useAuthStore } from '@/stores/auth';
 import { useFriendsStore } from '@/stores/friends';
 
