@@ -34,7 +34,7 @@ export const useFriendsStore = defineStore('friends-store', () => {
         : friend,
     );
 
-    useAuthStore().addBalance(updatedFriend.rewardEnergy);
+    useAuthStore().addMaxEnergy(updatedFriend.rewardEnergy);
     updateReferralStats(updatedFriend);
   };
 
