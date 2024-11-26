@@ -35,6 +35,20 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
         :referral-stats
       />
 
+      <div
+        v-if="referralStats?.referralEnergy"
+        class="FriendsPage__invite"
+      >
+        <Button
+          :theme="ButtonThemeEnum.PRIMARY"
+          @click="inviteFriend"
+        >
+          <IconInviteUser />
+
+          Invite Friend
+        </Button>
+      </div>
+
       <div class="FriendsPage__info">
         <p class="FriendsPage__info-title">
           How to?
@@ -63,20 +77,6 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
         </div>
       </div>
     </div>
-
-    <div
-      v-if="referralStats?.referralEnergy"
-      class="FixedButton--bottom"
-    >
-      <Button
-        :theme="ButtonThemeEnum.PRIMARY"
-        @click="inviteFriend"
-      >
-        <IconInviteUser />
-
-        Invite Friend
-      </Button>
-    </div>
   </div>
 </template>
 
@@ -96,6 +96,10 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
 
     background-color: var(--color-grey-darken);
     border-radius: 12px;
+  }
+
+  &__invite {
+    margin-top: 24px;
   }
 
   &__info {
@@ -118,15 +122,17 @@ const inviteFriend = () => WebApp?.openTelegramLink(`https://t.me/share/url?url=
   }
 
   &__list {
+    background-color: var(--color-grey-darken);
+    padding: 16px;
+    border-radius: 12px;
+
     &-wrapper {
       max-height: 50dvh;
       overflow: auto;
     }
 
     &-title {
-      margin-top: 28px;
       margin-bottom: 12px;
-      padding: 0 16px;
       font-size: 16px;
       line-height: 21px;
       letter-spacing: -0.23px;

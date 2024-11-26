@@ -54,7 +54,6 @@ const formattedName = computed(() => {
       </p>
 
       <UITag
-        v-if="props.friend?.rewardEnergy"
         :amount="props.friend?.rewardEnergy"
         :type="TaskAwardTypeEnum.MAX_ENERGY"
       />
@@ -67,7 +66,7 @@ const formattedName = computed(() => {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 12px 16px;
+  padding: 12px 0;
 
   &__avatar {
     position: relative;

@@ -16,7 +16,7 @@ export const useFriendsStore = defineStore('friends-store', () => {
   const addToFriendList = (friend: IReferral['payload']) => friendList.value.unshift(friend);
   const updateFriend = (updatedFriend: IReferral['payload']) => {
     friendList.value = friendList.value.map((friend) =>
-      friend.firstName === updatedFriend.firstName
+      friend.userId === updatedFriend.userId
         ? { ...friend, rewardEnergy: updatedFriend.rewardEnergy }
         : friend,
     );
