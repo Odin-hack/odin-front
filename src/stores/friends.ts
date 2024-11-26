@@ -20,7 +20,7 @@ export const useFriendsStore = defineStore('friends-store', () => {
 
     referralStats.value!.totalInvited = data.totalInvited;
     referralStats.value!.rewardedInvited = data.rewardedInvited;
-    referralStats.value!.totalCapacityIncreased = data.totalInvited * data.rewardedInvited;
+    referralStats.value!.totalCapacityIncreased = data.rewardEnergy * data.rewardedInvited;
   };
 
   const addToFriendList = (friend: IReferral['payload']) => {

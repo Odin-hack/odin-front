@@ -28,10 +28,10 @@ onMounted(() => {
   loadMoreFriends();
 
   const observer = new IntersectionObserver(
-      async (entries) => {
-        if (entries[0].isIntersecting) await loadMoreFriends();
-      },
-      { threshold: 1.0 },
+    async (entries) => {
+      if (entries[0].isIntersecting) await loadMoreFriends();
+    },
+    { threshold: 1.0 },
   );
 
   if (observerTarget.value) {
