@@ -61,7 +61,7 @@ export const useHashStore = defineStore('hashStore', () => {
                     blockIndex: miningData.value?.index,
                     timestamp: Number(timestamp),
                 });
-                if (status === 'valid') totalShares.value++;
+                if (status === 'share') totalShares.value++;
                 break;
             case 'restart':
                 restartMining();
