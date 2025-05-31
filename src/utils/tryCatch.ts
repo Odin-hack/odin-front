@@ -21,7 +21,6 @@ export const tryCatch = async <T>(
     }
 
     data = await result.json() as T;
-
   } catch (_error) {
     error = _error as IError;
   }

@@ -1,39 +1,58 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import MiningPage from '@/pages/MiningPage.vue';
-import FaqPage from '@/pages/FaqPage.vue';
-import UpgradePage from '@/pages/UpgradePage.vue';
-import StatsPage from '@/pages/StatsPage.vue';
-import FriendsPage from '@/pages/FrinedsPage.vue';
+import { authMiddleware } from './middleware/auth';
+import AuthLayout from '@/layouts/AuthLayout.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
+import LoginPage from '@/pages/LoginPage.vue';
+import StatisticsPage from '@/pages/StatisticsPage.vue';
+import CompaniesPage from '@/pages/CompaniesPage.vue';
+import CampaignsPage from '@/pages/CampaignsPage.vue';
+
+const routes = [
+  {
+    path: '/login',
+    component: AuthLayout,
+    children: [
+      {
+        path: '',
+        name: 'Login',
+        component: LoginPage,
+        meta: { requiresAuth: false }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: MainLayout,
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'statistics',
+        name: 'Statistics',
+        component: StatisticsPage
+      },
+      {
+        path: 'companies',
+        name: 'Companies',
+        component: CompaniesPage
+      },
+      {
+        path: 'campaigns',
+        name: 'campaigns',
+        component: CampaignsPage,
+        meta: {
+          requiresAuth: true,
+        },
+      }
+    ]
+  },
+  { path: '/:pathMatch(.*)*', redirect: '/login' }
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'mining',
-      component: MiningPage,
-    },
-    {
-      path: '/faq',
-      name: 'faq',
-      component: FaqPage,
-    },
-    {
-      path: '/upgrades',
-      name: 'upgrade',
-      component: UpgradePage,
-    },
-    {
-      path: '/stats',
-      name: 'stats',
-      component: StatsPage,
-    },
-    {
-      path: '/friends',
-      name: 'Friends',
-      component: FriendsPage,
-    },
-  ],
+  routes
 });
+
+router.beforeEach(authMiddleware);
 
 export default router;

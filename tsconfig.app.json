@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
-    "../sigma-front/env.d.ts",
+    "../vue-dev-kit/env.d.ts",
     "src/**/*",
     "src/**/*.vue"
   ],
@@ -12,7 +12,7 @@
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 
-    "baseUrl": "../sigma-front",
+    "baseUrl": "../vue-dev-kit",
     "paths": {
       "@/*": ["./src/*"]
     }
