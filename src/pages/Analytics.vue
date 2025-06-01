@@ -16,11 +16,11 @@
                 <v-icon color="primary" size="large" class="mr-3">mdi-bullhorn</v-icon>
                 <div class="text-h6">Total Campaigns</div>
               </div>
-              <div class="text-h4 font-weight-bold primary--text">{{ overview?.data?.total_campaigns || 0 }}</div>
+              <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_campaigns || 0 }}</div>
               <div class="d-flex align-center mt-2">
                 <v-icon color="success" size="small" class="mr-1">mdi-check-circle</v-icon>
               <div class="text-caption text-grey">
-                  Active: {{ overview?.data?.active_campaigns || 0 }}
+                  Active: {{ overview?.active_campaigns || 0 }}
                 </div>
               </div>
             </v-card-text>
@@ -33,11 +33,11 @@
                 <v-icon color="primary" size="large" class="mr-3">mdi-account-group</v-icon>
                 <div class="text-h6">Total Ad Groups</div>
               </div>
-              <div class="text-h4 font-weight-bold primary--text">{{ overview?.data?.total_ad_groups || 0 }}</div>
+              <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_ad_groups || 0 }}</div>
               <div class="d-flex align-center mt-2">
                 <v-icon color="success" size="small" class="mr-1">mdi-check-circle</v-icon>
               <div class="text-caption text-grey">
-                  Active: {{ overview?.data?.active_ad_groups || 0 }}
+                  Active: {{ overview?.active_ad_groups || 0 }}
                 </div>
               </div>
             </v-card-text>
@@ -50,11 +50,11 @@
                 <v-icon color="primary" size="large" class="mr-3">mdi-advertisement</v-icon>
                 <div class="text-h6">Total Ads</div>
               </div>
-              <div class="text-h4 font-weight-bold primary--text">{{ overview?.data?.total_ads || 0 }}</div>
+              <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_ads || 0 }}</div>
               <div class="d-flex align-center mt-2">
                 <v-icon color="success" size="small" class="mr-1">mdi-check-circle</v-icon>
                 <div class="text-caption text-grey">
-                  Active: {{ overview?.data?.active_ads || 0 }}
+                  Active: {{ overview?.active_ads || 0 }}
                 </div>
               </div>
             </v-card-text>

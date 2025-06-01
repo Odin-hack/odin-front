@@ -90,7 +90,7 @@ const handleSubmit = async () => {
       email: form.value.email,
       password: form.value.password
     }
-
+    
     const response = await fetch(`${config.authUrl}/users/sign_in`, {
       method: 'POST',
       headers: {
@@ -100,13 +100,12 @@ const handleSubmit = async () => {
     })
 
     if (response.status !== 200) {
-      const data = await response.json()
-      error.value = data.error || 'Failed to login'
+      error.value = response?.error || 'Failed to login'
       return
     }
-
     localStorage.setItem('user', JSON.stringify(userData))
-    await authStore.login(form.value.email, form.value.password)
+
+    await authStore.login(userData)
     emit('success')
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Failed to login'

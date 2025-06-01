@@ -122,8 +122,8 @@ const handleSubmit = async () => {
       return
     }
 
-    localStorage.setItem('user', JSON.stringify(data))
-    await authStore.login(form.value.email, form.value.password)
+    localStorage.setItem('user', JSON.stringify(userData))
+    await authStore.login(userData)
     emit('success')
 
   } catch (e) {
