@@ -73,7 +73,7 @@ const router = useRouter()
 const activeTab = ref('login')
 
 const handleAuthSuccess = () => {
-  router.push('/')
+  router.push('/campaigns')
 }
 </script>
 

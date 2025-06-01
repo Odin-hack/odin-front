@@ -46,13 +46,13 @@ onMounted(async () => {
         </div>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-menu>
+      <v-menu v-if="isAuthenticated">
         <template v-slot:activator="{ props }">
           <v-avatar color="primary" size="32" v-bind="props" class="cursor-pointer mr-2">
             <v-icon>mdi-account</v-icon>
           </v-avatar>
         </template>
-        <v-list density="compact">
+        <v-list density="compact" >
           <v-list-item @click="handleLogout" prepend-icon="mdi-logout">
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item>

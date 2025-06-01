@@ -11,9 +11,17 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(false)
   const user = ref<User | null>(null)
 
+  // Ініціалізація з localStorage
+  const savedUser = localStorage.getItem('user')
+  if (savedUser) {
+    user.value = JSON.parse(savedUser)
+    isAuthenticated.value = true
+  }
+
   const login = async (email: string, password: string) => {
     isAuthenticated.value = true
     user.value = { email }
+    localStorage.setItem('user', JSON.stringify(user.value))
     console.log('Login: isAuthenticated', isAuthenticated.value)
     return true
   }
@@ -29,6 +37,8 @@ export const useAuthStore = defineStore('auth', () => {
         picture: payload.picture
       }
       
+      localStorage.setItem('user', JSON.stringify(user.value))
+      
       console.log('Google Login: isAuthenticated', isAuthenticated.value)
       return true
     } catch (error) {
@@ -40,6 +50,7 @@ export const useAuthStore = defineStore('auth', () => {
   const logout = () => {
     isAuthenticated.value = false
     user.value = null
+    localStorage.removeItem('user')
   }
 
   return {

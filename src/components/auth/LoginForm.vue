@@ -1,13 +1,15 @@
 <template>
   <v-form
-    ref="form"
-    v-model="isValid"
+    class="mt-2"
+    ref="formRef"
     @submit.prevent="handleSubmit"
   >
+    <!-- Якщо є помилка, показуємо її -->
     <ErrorAlert
       :error="error"
       @close="error = null"
     />
+
     <v-text-field
       v-model="form.email"
       label="Email"
@@ -21,22 +23,27 @@
       required
       class="mb-4"
     />
+
     <v-text-field
       v-model="form.password"
       label="Password"
       type="password"
       variant="outlined"
       prepend-inner-icon="mdi-lock"
-      :rules="[(v) => !!v || 'Password is required']"
+      :rules="[
+        (v) => !!v || 'Password is required'
+      ]"
+      @blur="handleBlur"
       required
       class="mb-6"
     />
+
     <v-btn
       block
       color="primary"
       type="submit"
       :loading="loading"
-      :disabled="!isValid"
+      :disabled="loading || !form.email || !form.password"
       size="large"
       class="text-none"
     >
@@ -47,10 +54,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import ErrorAlert from '@/components/common/ErrorAlert.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useConfig } from '@/composables/useConfig'
+
+type VuetifyFormInstance = InstanceType<typeof import('vuetify/components').VForm>
 
 const emit = defineEmits<{
   (e: 'success'): void
@@ -58,16 +67,20 @@ const emit = defineEmits<{
 
 const authStore = useAuthStore()
 const config = useConfig()
+
 const form = ref({
   email: '',
   password: ''
 })
-const isValid = ref(false)
+
+const formRef = ref<VuetifyFormInstance | null>(null)
+
 const loading = ref(false)
 const error = ref<string | null>(null)
 
 const handleSubmit = async () => {
-  if (!isValid.value) return
+  const isFormValid = formRef.value?.validate()
+  if (!isFormValid) return
 
   loading.value = true
   error.value = null
@@ -77,7 +90,7 @@ const handleSubmit = async () => {
       email: form.value.email,
       password: form.value.password
     }
-    
+
     const response = await fetch(`${config.authUrl}/users/sign_in`, {
       method: 'POST',
       headers: {
@@ -86,12 +99,12 @@ const handleSubmit = async () => {
       body: JSON.stringify({ user: userData })
     })
 
-    if (response.status === 401) {
+    if (response.status !== 200) {
       const data = await response.json()
       error.value = data.error || 'Failed to login'
       return
     }
-    
+
     localStorage.setItem('user', JSON.stringify(userData))
     await authStore.login(form.value.email, form.value.password)
     emit('success')
@@ -107,4 +120,4 @@ const handleSubmit = async () => {
 .v-text-field {
   border-radius: 8px;
 }
-</style> 
+</style>
