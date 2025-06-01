@@ -245,7 +245,7 @@
           </v-stepper>
         </v-card-text>
   
-        <v-card-actions>
+        <v-card-actions class="action-stack">
           <v-spacer />
           <v-btn
             color="grey"
@@ -591,5 +591,20 @@
 
 .v-stepper-item {
   min-width: 100px;
+}
+
+.action-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .action-stack {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .action-stack .v-btn {
+    width: 100%;
+  }
 }
 </style> 

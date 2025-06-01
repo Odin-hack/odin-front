@@ -128,7 +128,9 @@ function onAddCompany(newCompany: any) {
     display: none;
   }
   .fab-add-company {
-    display: flex !important;
+    opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
   }
 }
 </style> 

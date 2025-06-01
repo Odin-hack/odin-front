@@ -19,9 +19,6 @@
               <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_campaigns || 0 }}</div>
               <div class="d-flex align-center mt-2">
                 <v-icon color="success" size="small" class="mr-1">mdi-check-circle</v-icon>
-              <div class="text-caption text-grey">
-                  Active: {{ overview?.active_campaigns || 0 }}
-                </div>
               </div>
             </v-card-text>
           </v-card>
@@ -36,9 +33,6 @@
               <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_ad_groups || 0 }}</div>
               <div class="d-flex align-center mt-2">
                 <v-icon color="success" size="small" class="mr-1">mdi-check-circle</v-icon>
-              <div class="text-caption text-grey">
-                  Active: {{ overview?.active_ad_groups || 0 }}
-                </div>
               </div>
             </v-card-text>
           </v-card>
@@ -53,9 +47,6 @@
               <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_ads || 0 }}</div>
               <div class="d-flex align-center mt-2">
                 <v-icon color="success" size="small" class="mr-1">mdi-check-circle</v-icon>
-                <div class="text-caption text-grey">
-                  Active: {{ overview?.active_ads || 0 }}
-                </div>
               </div>
             </v-card-text>
           </v-card>

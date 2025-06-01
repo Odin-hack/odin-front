@@ -8,19 +8,21 @@
       <v-icon color="primary" size="36" class="mr-3">mdi-domain</v-icon>
       <span class="text-h5 font-weight-bold">{{ campaign.name }}</span>
       <v-spacer />
-      <v-chip
-        :color="campaign.status === 'enabled' ? 'success' : campaign.status === 'paused' ? 'warning' : 'error'"
-        variant="tonal"
-        size="small"
-        class="mr-3"
-      >
-        <v-icon start size="18">mdi-circle</v-icon>
-        {{ campaign.status }}
-      </v-chip>
-      <v-chip color="primary" variant="tonal" size="small" class="mr-3">
-        <v-icon start size="18">mdi-bullhorn</v-icon>
-        {{ campaign.ad_groups.length }} ad groups
-      </v-chip>
+      <div class="chips-row">
+        <v-chip
+          :color="campaign.status === 'enabled' ? 'success' : campaign.status === 'paused' ? 'warning' : 'error'"
+          variant="tonal"
+          size="small"
+          class="mr-3"
+        >
+          <v-icon start size="18">mdi-circle</v-icon>
+          {{ campaign.status }}
+        </v-chip>
+        <v-chip color="primary" variant="tonal" size="small" class="mr-3">
+          <v-icon start size="18">mdi-bullhorn</v-icon>
+          {{ campaign.ad_groups.length }} ad groups
+        </v-chip>
+      </div>
       <v-btn icon size="small" color="primary" class="company-edit-btn" @click="showEditCompany = true">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
@@ -134,5 +136,22 @@ const handleAdGroupSave = (adGroup: AdGroup) => {
 .add-group-btn .v-icon {
   font-size: 20px;
   margin-right: 8px;
+}
+.chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+@media (max-width: 600px) {
+  .chips-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .chips-row .v-chip {
+    margin-right: 0 !important;
+    width: 100%;
+  }
 }
 </style> 
