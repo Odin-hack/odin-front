@@ -56,21 +56,54 @@
       
                   <v-row>
                     <v-col cols="6">
-                      <v-text-field
-                        v-model="formData.start_date"
-                        label="Дата початку"
-                        type="date"
-                        :rules="[(v: string) => !!v || 'Дата початку обовʼязкова']"
-                        required
-                      />
+                      <v-menu
+                        v-model="startMenu"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px"
+                      >
+                        <template #activator="{ props }">
+                          <v-text-field
+                            :model-value="formattedStartDate"
+                            label="Дата початку"
+                            readonly
+                            v-bind="props"
+                            :rules="[(v: string) => !!v || 'Дата початку обовʼязкова']"
+                            required
+                          />
+                        </template>
+                        <v-date-picker
+                          v-model="formData.start_date"
+                          @update:model-value="startMenu = false"
+                          locale="uk-UA"
+                        />
+                      </v-menu>
                     </v-col>
                     <v-col cols="6">
-                      <v-text-field
-                        v-model="formData.end_date"
-                        label="Дата завершення"
-                        type="date"
-                        :min="formData.start_date"
-                      />
+                      <v-menu
+                        v-model="endMenu"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px"
+                      >
+                        <template #activator="{ props }">
+                          <v-text-field
+                            :model-value="formattedEndDate"
+                            label="Дата завершення"
+                            readonly
+                            v-bind="props"
+                            :min="formData.start_date"
+                          />
+                        </template>
+                        <v-date-picker
+                          v-model="formData.end_date"
+                          @update:model-value="endMenu = false"
+                          :min="formData.start_date"
+                          locale="uk-UA"
+                        />
+                      </v-menu>
                     </v-col>
                   </v-row>
       
@@ -512,7 +545,22 @@
     set: (value) => emit('update:modelValue', value),
   });
   
-
+  const startMenu = ref(false)
+  const endMenu = ref(false)
+  
+  function formatDateDMY(date: string) {
+    if (!date) return ''
+    const d = new Date(date)
+    if (isNaN(d.getTime())) return date
+    const day = String(d.getDate()).padStart(2, '0')
+    const month = String(d.getMonth() + 1).padStart(2, '0')
+    const year = d.getFullYear()
+    return `${day}.${month}.${year}`
+  }
+  
+  const formattedStartDate = computed(() => formatDateDMY(formData.value.start_date))
+  const formattedEndDate = computed(() => formatDateDMY(formData.value.end_date))
+  
   const close = () => {
     modal.value = false
     emit('update:modelValue', false)
@@ -748,6 +796,7 @@
   flex-wrap: wrap;
   gap: 8px;
 }
+
 @media (max-width: 600px) {
   .action-stack {
     flex-direction: column;
@@ -756,5 +805,18 @@
   .action-stack .v-btn {
     width: 100%;
   }
+}
+
+/* Додаємо стилі для полів з календарем */
+:deep(.v-field__input) {
+  padding-right: 40px !important;
+}
+
+:deep(.v-field__append-inner) {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
 }
 </style> 

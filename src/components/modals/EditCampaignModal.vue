@@ -25,10 +25,10 @@
           />
 
           <v-text-field
-            v-model="formData.budget"
+            v-model.number="formData.budget"
             label="Денний бюджет"
             type="number"
-            prefix="₴"
+            prefix="$"
             :rules="[
               (v: number) => !!v || 'Бюджет обовʼязковий',
               (v: number) => v > 0 || 'Бюджет має бути більше 0'
@@ -60,12 +60,12 @@
             v-model="formData.channelType"
             label="Тип каналу"
             :items="[
-                      { title: 'Пошук', value: 'search' },
-                      { title: 'Подорожі', value: 'travel' },
-                      { title: 'Відео', value: 'video' },
-                      { title: 'Шопінг', value: 'shopping' },
-                      { title: 'Локальні послуги', value: 'local_services' }
-                    ]"
+              { title: 'Пошук', value: 'search' },
+              { title: 'Подорожі', value: 'travel' },
+              { title: 'Відео', value: 'video' },
+              { title: 'Шопінг', value: 'shopping' },
+              { title: 'Локальні послуги', value: 'local_services' }
+            ]"
             :rules="[(v: string) => !!v || 'Тип каналу обовʼязковий']"
             required
           />
