@@ -9,12 +9,6 @@
     >
       <v-list nav>
         <v-list-item
-          to="/companies"
-          :active="$route.path.startsWith('/companies')"
-          prepend-icon="mdi-domain"
-          title="Companies"
-        />
-        <v-list-item
           to="/campaigns"
           :active="$route.path.startsWith('/campaigns')"
           prepend-icon="mdi-bullhorn"

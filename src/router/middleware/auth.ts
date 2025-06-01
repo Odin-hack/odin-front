@@ -20,7 +20,7 @@ export const authMiddleware = (
   }
 
   if (to.name === 'Login' && authStore.isAuthenticated) {
-    next({ name: 'Companies' })
+    next({ name: 'campaigns' })
     return
   }
 

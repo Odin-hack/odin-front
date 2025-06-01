@@ -54,14 +54,6 @@
           </v-row>
 
           <v-select
-            v-model="formData.biddingStrategy"
-            label="Bidding Strategy"
-            :items="biddingStrategies"
-            :rules="[v => !!v || 'Bidding strategy is required']"
-            required
-          />
-
-          <v-select
             v-model="formData.channelType"
             label="Channel Type"
             :items="channelTypes"
@@ -96,7 +88,9 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import type { Campaign, CampaignCreateData } from '@/types/googleAds';
+import { useCampaignStore } from '@/stores/campaignStore';
 
+const campaignStore = useCampaignStore();
 const props = defineProps<{
   modelValue: boolean;
   campaign?: Campaign;
@@ -108,17 +102,16 @@ const emit = defineEmits<{
   (e: 'submit', data: CampaignCreateData): void;
 }>();
 
-const form = ref();
-const isValid = ref(false);
-
-const formData = ref<CampaignCreateData>({
+const form = ref({
   name: '',
   budget: 0,
   startDate: '',
   endDate: '',
-  biddingStrategy: '',
-  channelType: '',
+  biddingStrategy: 'MAXIMIZE_CONVERSIONS',
+  channelType: 'SEARCH'
 });
+
+const isValid = ref(false);
 
 const isEdit = computed(() => !!props.campaign);
 const modal = computed({
@@ -126,52 +119,62 @@ const modal = computed({
   set: (value) => emit('update:modelValue', value),
 });
 
-// Списки для вибору
 const biddingStrategies = [
-  'MAXIMIZE_CONVERSIONS',
-  'MAXIMIZE_CONVERSION_VALUE',
-  'TARGET_CPA',
-  'TARGET_ROAS',
-  'TARGET_SPEND',
+  { title: 'Maximize Conversions', value: 'MAXIMIZE_CONVERSIONS' },
+  { title: 'Target CPA', value: 'TARGET_CPA' },
+  { title: 'Target ROAS', value: 'TARGET_ROAS' }
 ];
 
 const channelTypes = [
-  'SEARCH',
-  'DISPLAY',
-  'VIDEO',
-  'SHOPPING',
-  'MULTI_CHANNEL',
+  { title: 'Search', value: 'SEARCH' },
+  { title: 'Display', value: 'DISPLAY' },
+  { title: 'Video', value: 'VIDEO' }
 ];
 
-// Оновлення форми при редагуванні
 watch(() => props.campaign, (newCampaign) => {
   if (newCampaign) {
-    formData.value = {
+    form.value = {
       name: newCampaign.name,
       budget: newCampaign.budget_amount_micros / 1000000,
       startDate: newCampaign.start_date,
       endDate: newCampaign.end_date || '',
       biddingStrategy: newCampaign.bidding_strategy_type,
-      channelType: newCampaign.advertising_channel_type,
+      channelType: newCampaign.advertising_channel_type
     };
   } else {
-    // Скидання форми при створенні
-    formData.value = {
-      name: '',
-      budget: 0,
-      startDate: '',
-      endDate: '',
-      biddingStrategy: '',
-      channelType: '',
-    };
+    resetForm();
   }
 }, { immediate: true });
 
-// Відправка форми
+const resetForm = () => {
+  form.value = {
+    name: '',
+    budget: 0,
+    startDate: '',
+    endDate: '',
+    biddingStrategy: 'MAXIMIZE_CONVERSIONS',
+    channelType: 'SEARCH'
+  };
+};
+
 const handleSubmit = async () => {
-  const { valid } = await form.value.validate();
-  if (valid) {
-    emit('submit', formData.value);
+  try {
+    const data = {
+      name: form.value.name,
+      budget: form.value.budget,
+      startDate: form.value.startDate,
+      endDate: form.value.endDate || undefined,
+      biddingStrategy: form.value.biddingStrategy,
+      channelType: form.value.channelType
+    };
+    if (isEdit.value) {
+      await campaignStore.updateCampaign(props.campaign.id, data);
+    } else {
+      await campaignStore.createCampaign(data);
+    }
+    resetForm();
+  } catch (error) {
+    console.error('Error saving campaign:', error);
   }
 };
 </script> 

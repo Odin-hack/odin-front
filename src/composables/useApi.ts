@@ -9,14 +9,29 @@ interface ApiResponse<T> {
   error: any | null;
 }
 
-const defaultParams = (): RequestInit => {
-  const token = useLocalStorage('token');
+function toBase64Unicode(str: string): string {
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) =>
+      String.fromCharCode(parseInt(p1, 16))
+    )
+  );
+}
 
+function encodeUtf8ToBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+const defaultParams = (): RequestInit => {
+  const userJson = useLocalStorage('user').value;
+  const user = userJson ? JSON.parse(userJson) : null;
+  const raw = `${user.email}:${user.password}`;
+  const base64Header = `Basic ${btoa(raw)}` 
+
+ 
   return {
     headers: {
-      'Content-Type': 'application/json',
       'x-forwarded-for': 'test',
-      ...(token.value && { Authorization: `Bearer ${token.value}` }),
+      ...(user && { Authorization: base64Header }),
     },
   };
 };
@@ -41,12 +56,21 @@ export const useApi = async <T>(
     ...defaultOptions,
     ...options,
     method,
-    ...(options?.body ? { body: JSON.stringify(options?.body) } : {}),
   };
 
+  // Add Content-Type header only if body is not FormData
+  if (options?.body && !(options.body instanceof FormData)) {
+    mergedOptions.headers = {
+      ...mergedOptions.headers,
+      'Content-Type': 'application/json',
+    };
+    mergedOptions.body = JSON.stringify(options.body);
+  }
   const url = `${useRuntimeConfig().appUrlServer}${endpoint}`;
 
+
   const { data, error } = await tryCatch<T>(fetch(url, mergedOptions));
+
 
   if (error) {
     return onError<T>(error);

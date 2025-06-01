@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
-import LoginSidebar from '@/components/LoginSidebar.vue';
 import { useAuthStore } from '@/stores/auth';
 
 import { useScrollEl } from '@/stores/scrollEl';

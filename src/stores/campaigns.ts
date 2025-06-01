@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import type { Campaign, CampaignStats, CampaignCreateData } from '@/types/googleAds';
 import { getCampaigns, createCampaign, getCampaignStats, updateCampaignStatus } from '@/api/googleAds';
+import { useCampaignsApi } from '@/api/campaigns';
 
-// Функція для трансформації даних від API до типу Campaign
 const transformCampaign = (data: any): Campaign => {
   return {
     id: data.campaign.id,
@@ -19,15 +19,16 @@ const transformCampaign = (data: any): Campaign => {
 
 export const useCampaignsStore = defineStore('campaigns', () => {
   const campaigns = ref<Campaign[]>([]);
+  const currentCampaign = ref<Campaign | null>(null);
   const loading = ref(false);
   const error = ref<string | null>(null);
   const initialized = ref(false);
 
-  // Ініціалізація стор
+  const campaignsApi = useCampaignsApi();
+
   const initialize = async () => {
     if (!initialized.value) {
       try {
-        // Пробуємо отримати список кампаній для ініціалізації клієнта
         await getCampaigns('123-456-7890');
         initialized.value = true;
       } catch (err) {
@@ -36,12 +37,10 @@ export const useCampaignsStore = defineStore('campaigns', () => {
     }
   };
 
-  // Отримання списку кампаній
   const fetchCampaigns = async (customerId: string) => {
     loading.value = true;
     error.value = null;
     try {
-      await initialize();
       const response = await getCampaigns(customerId);
       campaigns.value = response.map(transformCampaign);
     } catch (err) {
@@ -52,7 +51,6 @@ export const useCampaignsStore = defineStore('campaigns', () => {
     }
   };
 
-  // Створення нової кампанії
   const createNewCampaign = async (customerId: string, data: CampaignCreateData) => {
     loading.value = true;
     error.value = null;
@@ -71,7 +69,6 @@ export const useCampaignsStore = defineStore('campaigns', () => {
     }
   };
 
-  // Отримання статистики кампанії
   const fetchCampaignStats = async (customerId: string, campaignId: string) => {
     try {
       await initialize();
@@ -83,7 +80,6 @@ export const useCampaignsStore = defineStore('campaigns', () => {
     }
   };
 
-  // Оновлення статусу кампанії
   const updateStatus = async (customerId: string, campaignId: string, status: 'ENABLED' | 'PAUSED' | 'REMOVED') => {
     loading.value = true;
     error.value = null;
@@ -105,8 +101,39 @@ export const useCampaignsStore = defineStore('campaigns', () => {
     }
   };
 
+  const createCampaign = async (data: Partial<Campaign>) => {
+    try {
+      loading.value = true;
+      error.value = null;
+      const campaign = await campaignsApi.createCampaign(data);
+      campaigns.value.push(campaign);
+      return campaign;
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to create campaign';
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const fetchCampaign = async (id: string) => {
+    try {
+      loading.value = true;
+      error.value = null;
+      const campaign = await campaignsApi.getCampaign(id);
+      currentCampaign.value = campaign;
+      return campaign;
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to fetch campaign';
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     campaigns,
+    currentCampaign,
     loading,
     error,
     initialized,
@@ -115,5 +142,7 @@ export const useCampaignsStore = defineStore('campaigns', () => {
     createNewCampaign,
     fetchCampaignStats,
     updateStatus,
+    createCampaign,
+    fetchCampaign
   };
 }); 

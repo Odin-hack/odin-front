@@ -6,30 +6,9 @@ import { createPinia } from 'pinia';
 import vue3GoogleLogin from 'vue3-google-login';
 
 // Chart.js registration (fixes 'linear' scale error)
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  CategoryScale,
-  RadialLinearScale,
-  ArcElement
-} from 'chart.js'
+import { Chart, registerables } from 'chart.js';
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  CategoryScale,
-  RadialLinearScale,
-  ArcElement
-)
+Chart.register(...registerables);
 
 // Vuetify
 import 'vuetify/styles';

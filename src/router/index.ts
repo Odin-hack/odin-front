@@ -1,21 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { authMiddleware } from './middleware/auth';
+import { authMiddleware } from '@/middleware/auth';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
-import LoginPage from '@/pages/LoginPage.vue';
-import StatisticsPage from '@/pages/StatisticsPage.vue';
 import CompaniesPage from '@/pages/CompaniesPage.vue';
-import CampaignsPage from '@/pages/CampaignsPage.vue';
+import AnalyticsPage from '@/pages/Analytics.vue';
 
 const routes = [
   {
-    path: '/login',
+    path: '/auth',
     component: AuthLayout,
     children: [
       {
         path: '',
-        name: 'Login',
-        component: LoginPage,
+        name: 'auth',
+        component: () => import('@/pages/AuthPage.vue'),
         meta: { requiresAuth: false }
       }
     ]
@@ -26,26 +24,18 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
-        path: 'statistics',
-        name: 'Statistics',
-        component: StatisticsPage
-      },
-      {
-        path: 'companies',
-        name: 'Companies',
+        path: 'campaigns',
+        name: 'campaigns',
         component: CompaniesPage
       },
       {
-        path: 'campaigns',
-        name: 'campaigns',
-        component: CampaignsPage,
-        meta: {
-          requiresAuth: true,
-        },
+        path: 'statistics',
+        name: 'statistics',
+        component: AnalyticsPage
       }
     ]
   },
-  { path: '/:pathMatch(.*)*', redirect: '/login' }
+  { path: '/:pathMatch(.*)*', redirect: '/auth' }
 ];
 
 const router = createRouter({

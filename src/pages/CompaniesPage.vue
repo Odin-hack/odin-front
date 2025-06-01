@@ -4,7 +4,7 @@
       <v-col cols="12" md="12">
         <div class="d-flex align-center mb-4">
           <v-icon color="primary" size="36" class="mr-2">mdi-domain</v-icon>
-          <span class="text-h5 font-weight-bold">Companies</span>
+          <span class="text-h5 font-weight-bold">Campaigns</span>
           <v-spacer />
           <v-btn
             color="primary"
@@ -12,15 +12,15 @@
             @click="showAddCompany = true"
           >
             <v-icon start>mdi-plus</v-icon>
-            Add Company
+            Add Campaign
           </v-btn>
         </div>
         <v-divider class="mb-4" />
         <div class="company-list">
-          <CompanyCard
-            v-for="company in companies"
-            :key="company.name"
-            :company="company"
+          <CampaignCard
+            v-for="campaign in companies"
+            :key="campaign.name"
+            :campaign="campaign"
             class="mb-6"
           />
         </div>
@@ -44,12 +44,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import CompanyCard from '@/components/cards/CompanyCard.vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import CampaignCard from '@/components/cards/CampaignCard.vue'
 import AddCompanyModal from '@/components/modals/AddCompanyModal.vue'
+import { useCampaignStore } from '@/stores/campaignStore'
 
 const showAddCompany = ref(false)
 const isScrolled = ref(false)
+const campaignsStore = useCampaignStore()
+
+const companies = computed(() => campaignsStore.campaigns)
 
 function handleScroll() {
   isScrolled.value = window.scrollY > 100
@@ -57,60 +61,13 @@ function handleScroll() {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  campaignsStore.getAllCampaigns()
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-const companies = ref([
-  {
-    name: 'Acme Corp',
-    ads: [
-      {
-        id: 1,
-        name: 'Summer Sale',
-        images: [
-          'https://picsum.photos/seed/acme1/400/180',
-          'https://picsum.photos/seed/acme2/400/180',
-          'https://picsum.photos/seed/acme3/400/180',
-          'https://picsum.photos/seed/acme4/400/180',
-          'https://picsum.photos/seed/acme5/400/180',
-          'https://picsum.photos/seed/acme6/400/180',
-          'https://picsum.photos/seed/acme7/400/180',
-          'https://picsum.photos/seed/acme8/400/180'
-        ]
-      },
-      {
-        id: 2,
-        name: 'Winter Promo',
-        images: [
-          'https://picsum.photos/seed/acme9/400/180',
-          'https://picsum.photos/seed/acme10/400/180',
-          'https://picsum.photos/seed/acme11/400/180',
-          'https://picsum.photos/seed/acme12/400/180',
-          'https://picsum.photos/seed/acme13/400/180'
-        ]
-      }
-    ]
-  },
-  {
-    name: 'Beta LLC',
-    ads: [
-      {
-        id: 3,
-        name: 'Beta Launch',
-        images: [
-          'https://picsum.photos/seed/beta1/400/180',
-          'https://picsum.photos/seed/beta2/400/180',
-          'https://picsum.photos/seed/beta3/400/180',
-          'https://picsum.photos/seed/beta4/400/180',
-          'https://picsum.photos/seed/beta5/400/180'
-        ]
-      }
-    ]
-  }
-])
 
 function onAddCompany(newCompany: any) {
   companies.value.push(newCompany)

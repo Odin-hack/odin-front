@@ -56,30 +56,12 @@
 
             <v-divider class="my-4">OR</v-divider>
 
-            <div class="d-flex justify-center">
-              <GoogleLogin
-                :callback="handleGoogleLogin"
-                :error="handleGoogleError"
-                class="mb-2"
-              >
-                <v-btn
-                  color="white"
-                  class="google-btn"
-                  :loading="googleLoading"
-                  min-width="240"
-                >
-                  <v-icon start color="#4285F4" size="20">mdi-google</v-icon>
-                  <span class="google-btn-text">Sign in with Google</span>
-                </v-btn>
-              </GoogleLogin>
-            </div>
-
             <v-btn
               variant="text"
               block
-              @click="handleForgotPassword"
+              @click="handleRegister"
             >
-              Forgot Password?
+              Register
             </v-btn>
           </v-form>
         </v-card>
@@ -118,7 +100,6 @@ const handleLogin = async () => {
   if (!valid) return
   loading.value = true
   try {
-    // imitation: fail if password is 'fail'
     if (password.value === 'fail') {
       error.value = 'Invalid email or password'
       return
@@ -126,7 +107,7 @@ const handleLogin = async () => {
     const success = await authStore.login(email.value, password.value)
     if (success) {
       await nextTick()
-      router.replace('/companies')
+      router.replace('/campaigns')
     }
   } finally {
     loading.value = false
@@ -138,7 +119,7 @@ const handleGoogleLogin = async (response: any) => {
   try {
     const success = await authStore.loginWithGoogle(response.credential)
     if (success) {
-      router.push('/companies')
+      router.push('/campaigns')
     }
   } finally {
     googleLoading.value = false
@@ -149,8 +130,8 @@ const handleGoogleError = (error: any) => {
   console.error('Google login error:', error)
 }
 
-const handleForgotPassword = () => {
-  error.value = 'Password recovery is not implemented yet'
+const handleRegister = () => {
+  router.push('/register')
 }
 </script>
 

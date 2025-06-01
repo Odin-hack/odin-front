@@ -76,10 +76,14 @@ const { campaigns, loading, error } = storeToRefs(store);
 // Стан для модальних вікон
 const showCreateModal = ref(false);
 const showEditModal = ref(false);
-const selectedCampaign = ref<Campaign | undefined>(undefined);
+const selectedCampaign = ref<Campaign | null>(null);
 
 // Статистика кампаній
-const campaignStats = ref<Record<string, any>>({});
+const campaignStats = ref({
+  total: 0,
+  active: 0,
+  paused: 0
+});
 
 // Завантаження кампаній при монтуванні компонента
 onMounted(async () => {
@@ -104,18 +108,17 @@ const handleEdit = (campaign: Campaign) => {
 
 // Обробка оновлення кампанії
 const handleUpdate = async (data: CampaignCreateData) => {
-  if (!selectedCampaign.value) return;
-
-  try {
-    await store.updateStatus(
-      '123-456-7890', // Замініть на реальний customer_id
-      selectedCampaign.value.id,
-      'ENABLED'
-    );
-    showEditModal.value = false;
-    selectedCampaign.value = undefined;
-  } catch (err) {
-    console.error('Error updating campaign:', err);
+  if (selectedCampaign.value) {
+    try {
+      await store.updateCampaign(
+        '123-456-7890', // Замініть на реальний customer_id
+        selectedCampaign.value.id,
+        data
+      );
+      showEditModal.value = false;
+    } catch (err) {
+      console.error('Error updating campaign:', err);
+    }
   }
 };
 </script> 

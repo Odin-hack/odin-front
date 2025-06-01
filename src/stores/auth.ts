@@ -20,8 +20,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   const loginWithGoogle = async (credential: string) => {
     try {
-      // Тут можна додати валідацію токена на бекенді
-      console.log('Google Login: credential', credential)
       const payload = JSON.parse(atob(credential.split('.')[1]))
       
       isAuthenticated.value = true
