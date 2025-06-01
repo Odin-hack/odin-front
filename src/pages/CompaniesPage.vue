@@ -4,7 +4,7 @@
       <v-col cols="12" md="12">
         <div class="d-flex align-center mb-4">
           <v-icon color="primary" size="36" class="mr-2">mdi-domain</v-icon>
-          <span class="text-h5 font-weight-bold">Campaigns</span>
+          <span class="text-h5 font-weight-bold">Кампанії</span>
           <v-spacer />
           <v-btn
             color="primary"
@@ -12,7 +12,7 @@
             @click="showAddCompany = true"
           >
             <v-icon start>mdi-plus</v-icon>
-            Add Campaign
+            Додати кампанію
           </v-btn>
         </div>
         <v-divider class="mb-4" />

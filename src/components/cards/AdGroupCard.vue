@@ -10,11 +10,11 @@
         class="mr-3 asset-group-chip"
       >
         <v-icon start size="18">mdi-circle</v-icon>
-        {{ adGroup.status }}
+        {{ adGroup.status === 'enabled' ? 'Активна' : adGroup.status === 'paused' ? 'Пауза' : 'Вимкнена' }}
       </v-chip>
       <v-chip color="primary" variant="tonal" size="small" class="mr-3 asset-group-chip">
         <v-icon start size="18">mdi-image</v-icon>
-        {{ adGroup?.ads?.length }} ads
+        {{ adGroup?.ads?.length }} оголошень
       </v-chip>
       <v-btn icon size="small" color="primary" class="asset-group-edit-btn" @click="showEditAssetGroup = true">
         <v-icon>mdi-pencil</v-icon>
@@ -89,7 +89,7 @@
         prepend-icon="mdi-plus-circle"
         @click="showAddAd = true"
       >
-        Add Ad
+        Додати оголошення
       </v-btn>
     </div>
     <EditAdGroupModal

@@ -5,25 +5,25 @@
     >
       <v-card>
         <v-card-title>
-          {{ isEdit ? 'Edit Campaign' : 'Create Campaign' }}
+          {{ isEdit ? 'Редагувати кампанію' : 'Створити кампанію' }}
       </v-card-title>
   
       <v-card-text>
           <v-stepper v-model="currentStep">
             <v-stepper-header>
-              <v-stepper-item value="1" title="Campaign">
+              <v-stepper-item value="1" title="Кампанія">
                 <template v-slot:title>
-                  <span class="text-caption">Campaign</span>
+                  <span class="text-caption">Кампанія</span>
                 </template>
               </v-stepper-item>
-              <v-stepper-item value="2" title="Ad Group">
+              <v-stepper-item value="2" title="Група оголошень">
                 <template v-slot:title>
-                  <span class="text-caption">Ad Group</span>
+                  <span class="text-caption">Група оголошень</span>
                 </template>
               </v-stepper-item>
-              <v-stepper-item value="3" title="Ads">
+              <v-stepper-item value="3" title="Оголошення">
                 <template v-slot:title>
-                  <span class="text-caption">Ads</span>
+                  <span class="text-caption">Оголошення</span>
                 </template>
               </v-stepper-item>
             </v-stepper-header>
@@ -37,19 +37,19 @@
                 >
                   <v-text-field
                     v-model="formData.name"
-                    label="Campaign Name"
-                    :rules="[(v: string) => !!v || 'Name is required']"
+                    label="Назва кампанії"
+                    :rules="[(v: string) => !!v || 'Назва обовʼязкова']"
                     required
                   />
       
                   <v-text-field
                     v-model.number="formData.budget_amount_micros"
-                    label="Daily Budget"
+                    label="Денний бюджет"
                     type="number"
-                    prefix="$"
+                    prefix="₴"
                     :rules="[
-                      (v: number) => !!v || 'Budget is required',
-                      (v: number) => v > 0 || 'Budget must be greater than 0'
+                      (v: number) => !!v || 'Бюджет обовʼязковий',
+                      (v: number) => v > 0 || 'Бюджет має бути більше 0'
                     ]"
                     required
                   />
@@ -58,16 +58,16 @@
                     <v-col cols="6">
                       <v-text-field
                         v-model="formData.start_date"
-                        label="Start Date"
+                        label="Дата початку"
                         type="date"
-                        :rules="[(v: string) => !!v || 'Start date is required']"
+                        :rules="[(v: string) => !!v || 'Дата початку обовʼязкова']"
                         required
                       />
                     </v-col>
                     <v-col cols="6">
                       <v-text-field
                         v-model="formData.end_date"
-                        label="End Date"
+                        label="Дата завершення"
                         type="date"
                         :min="formData.start_date"
                       />
@@ -76,9 +76,9 @@
       
                   <v-select
                     v-model="formData.advertising_channel_type"
-                    label="Channel Type"
-                    :items="['search', 'travel', 'video', 'shopping', 'local_services']"
-                    :rules="[(v: string) => !!v || 'Channel type is required']"
+                    label="Тип каналу"
+                    :items="['пошук', 'подорожі', 'відео', 'шопінг', 'локальні послуги']"
+                    :rules="[(v: string) => !!v || 'Тип каналу обовʼязковий']"
                     required
                   />
                 </v-form>
@@ -92,33 +92,36 @@
                 >
                   <v-text-field
                     v-model="formData.ad_group_name"
-                    label="Ad Group Name"
-                    :rules="[(v) => !!v || 'Name is required']"
+                    label="Назва групи оголошень"
+                    :rules="[(v) => !!v || 'Назва обовʼязкова']"
                     required
                   />
                   <v-select
                     v-model="formData.ad_group_status"
-                    label="Status"
+                    label="Статус"
                     :items="['enabled', 'paused', 'removed']"
-                    :rules="[(v) => !!v || 'Status is required']"
+                    :rules="[(v) => !!v || 'Статус обовʼязковий']"
                     required
                   />
                   <v-text-field
                     v-model.number="formData.cpc_bid_micros"
-                    label="CPC Bid"
+                    class="mb-2"
+                    label="Ставка CPC"
                     type="number"
-                    prefix="$"
+                    prefix="₴"
                     :rules="[
-                      (v) => !!v || 'CPC Bid is required',
-                      (v) => v > 0 || 'CPC Bid must be greater than 0'
+                      (v) => !!v || 'Ставка обовʼязкова',
+                      (v) => v > 0 || 'Ставка має бути більше 0'
                     ]"
                     required
+                    hint="Ціна за натиск"
+                    persistent-hint
                   />
                   <v-select
                     v-model="formData.ad_group_type"
-                    label="Ad Group Type"
-                    :items="['search_standard', 'search_dynamic', 'display_standard', 'display_smart']"
-                    :rules="[(v) => !!v || 'Ad Group Type is required']"
+                    label="Тип групи оголошень"
+                    :items="['search_standard', 'display_standard', 'display_smart']"
+                    :rules="[(v) => !!v || 'Тип групи обовʼязковий']"
                     required
                   />
                 </v-form>
@@ -133,7 +136,7 @@
                   <div v-for="(ad, index) in formData.ads" :key="index" class="mb-4">
                     <v-card class="pa-4">
                       <v-card-title class="text-subtitle-1">
-                        Ad {{ index + 1 }}
+                        Оголошення {{ index + 1 }}
                         <v-btn
                           icon="mdi-delete"
                           variant="text"
@@ -144,58 +147,58 @@
                       </v-card-title>
                       <v-text-field
                         v-model="ad.name"
-                        label="Ad Name"
-                        :rules="[(v) => !!v || 'Name is required']"
+                        label="Назва оголошення"
+                        :rules="[(v) => !!v || 'Назва обовʼязкова']"
                         required
                         @blur="fetchRecommendedCountriesForAdName"
                       />
                       <v-select
                         v-model="ad.status"
-                        label="Status"
+                        label="Статус"
                         :items="['enabled', 'paused', 'removed']"
-                        :rules="[(v) => !!v || 'Status is required']"
+                        :rules="[(v) => !!v || 'Статус обовʼязковий']"
                         required
                       />
                       <v-select
                         v-model="ad.ad_type"
-                        label="Ad Type"
+                        label="Тип оголошення"
                         :items="['text', 'image', 'video']"
-                        :rules="[(v) => !!v || 'Ad Type is required']"
+                        :rules="[(v) => !!v || 'Тип оголошення обовʼязковий']"
                         required
                       />
                       <v-text-field
                         v-model="ad.final_url"
-                        label="Final URL"
-                        :rules="[(v) => !!v || 'Final URL is required']"
+                        label="Фінальний URL"
+                        :rules="[(v) => !!v || 'URL обовʼязковий']"
                         required
                       />
                       <v-text-field
                         v-model="ad.headline1"
-                        label="Headline 1"
-                        :rules="[(v) => !!v || 'Headline 1 is required']"
+                        label="Заголовок 1"
+                        :rules="[(v) => !!v || 'Заголовок обовʼязковий']"
                         required
                       />
                       <v-text-field
                         v-model="ad.headline2"
-                        label="Headline 2"
-                        :rules="[(v) => !!v || 'Headline 2 is required']"
+                        label="Заголовок 2"
+                        :rules="[(v) => !!v || 'Заголовок обовʼязковий']"
                         required
                       />
                       <v-textarea
                         v-model="ad.description"
-                        label="Description"
-                        :rules="[(v) => !!v || 'Description is required']"
+                        label="Опис"
+                        :rules="[(v) => !!v || 'Опис обовʼязковий']"
                         required
                         rows="2"
                       />
                         <v-select
                         v-model="ad.countries"
-                        label="Countries"
+                        label="Країни"
                         :items="countryOptions"
                         multiple
                         chips
                         clearable
-                        :rules="[(v) => v && v.length > 0 || 'At least one country is required']"
+                        :rules="[(v) => v && v.length > 0 || 'Потрібно вибрати хоча б одну країну']"
                         required
                         class="mb-2"
                         />
@@ -222,9 +225,9 @@
                         </v-btn>
                       <v-file-input
                         v-model="ad.image"
-                        label="Image"
+                        label="Зображення"
                         accept="image/*"
-                        :rules="[(v) => !v || v.size < 5000000 || 'Image size should be less than 5 MB']"
+                        :rules="[(v) => !v || v.size < 5000000 || 'Зображення має бути менше 5 МБ']"
                         prepend-icon="mdi-camera"
                         show-size
                         counter
@@ -237,7 +240,7 @@
                     @click="addAd"
                     class="mt-2"
                   >
-                    Add Another Ad
+                    Додати ще одне оголошення
                   </v-btn>
                 </v-form>
               </v-stepper-window-item>
@@ -252,7 +255,7 @@
             variant="text"
             @click="$emit('update:modelValue', false)"
           >
-            Cancel
+            Скасувати
           </v-btn>
           <v-btn
             v-if="currentStep !== '1'"
@@ -260,7 +263,7 @@
             variant="text"
             @click="goToPreviousStep"
           >
-            Back
+            Назад
           </v-btn>
           <template v-if="currentStep === '1'">
             <v-btn
@@ -268,14 +271,14 @@
               @click="handleSubmit(true)"
               :disabled="!isCampaignValid"
             >
-              Skip and Create Campaigns
+              Пропустити і створити кампанію
             </v-btn>
             <v-btn
               color="primary"
               @click="goToNextStep"
               :disabled="!isCampaignValid"
             >
-              Next
+              Далі
             </v-btn>
           </template>
           <v-btn
@@ -283,7 +286,7 @@
             color="primary"
             @click="goToNextStep"
           >
-            Next
+            Далі
           </v-btn>
           <v-btn
             v-else
@@ -292,7 +295,7 @@
             :disabled="!isValid"
             @click="handleSubmit(false)"
           >
-            {{ isEdit ? 'Save' : 'Create' }}
+            {{ isEdit ? 'Зберегти' : 'Створити' }}
               </v-btn>
       </v-card-actions>
     </v-card>
@@ -344,7 +347,7 @@
   const isAdsValid = ref(false);
   
   const countryOptions = [
-    'Ukraine', 'Poland', 'Germany', 'France', 'USA', 'Canada', 'United Kingdom', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway', 'Finland', 'Denmark', 'Czech Republic', 'Austria', 'Switzerland', 'Belgium', 'Portugal', 'Romania', 'Hungary', 'Slovakia', 'Bulgaria', 'Greece', 'Turkey', 'Estonia', 'Latvia', 'Lithuania', 'Ireland', 'Croatia', 'Serbia', 'Slovenia', 'Luxembourg', 'Iceland', 'Malta', 'Cyprus', 'Moldova', 'Georgia', 'Armenia', 'Azerbaijan', 'Kazakhstan', 'Uzbekistan', 'Belarus', 'Russia', 'China', 'Japan', 'South Korea', 'India', 'Australia', 'New Zealand', 'Brazil', 'Argentina', 'Mexico', 'Chile', 'Colombia', 'South Africa', 'Egypt', 'Israel', 'Saudi Arabia', 'UAE', 'Qatar', 'Singapore', 'Thailand', 'Vietnam', 'Malaysia', 'Indonesia', 'Philippines', 'Pakistan', 'Bangladesh', 'Nigeria', 'Kenya', 'Morocco', 'Algeria', 'Tunisia', 'Libya', 'Sudan', 'Ethiopia', 'Ghana', 'Ivory Coast', 'Cameroon', 'Senegal', 'Angola', 'Mozambique', 'Tanzania', 'Uganda', 'Zambia', 'Zimbabwe', 'Botswana', 'Namibia', 'Madagascar', 'Mauritius', 'Seychelles', 'Malawi', 'Rwanda', 'Burundi', 'Somalia', 'Congo', 'Gabon', 'Equatorial Guinea', 'Guinea', 'Sierra Leone', 'Liberia', 'Togo', 'Benin', 'Burkina Faso', 'Niger', 'Chad', 'Central African Republic', 'South Sudan', 'Eritrea', 'Djibouti', 'Comoros', 'Sao Tome and Principe', 'Cape Verde', 'Gambia', 'Guinea-Bissau', 'Lesotho', 'Swaziland', 'Western Sahara'
+    'Україна', 'Польща', 'Німеччина', 'Франція', 'США', 'Канада', 'Велика Британія', 'Іспанія', 'Італія', 'Нідерланди', 'Швеція', 'Норвегія', 'Фінляндія', 'Данія', 'Чехія', 'Австрія', 'Швейцарія', 'Бельгія', 'Португалія', 'Румунія', 'Угорщина', 'Словаччина', 'Болгарія', 'Греція', 'Туреччина', 'Естонія', 'Латвія', 'Литва', 'Ірландія', 'Хорватія', 'Сербія', 'Словенія', 'Люксембург', 'Ісландія', 'Мальта', 'Кіпр', 'Молдова', 'Грузія', 'Вірменія', 'Азербайджан', 'Казахстан', 'Узбекистан', 'Білорусь', 'Росія', 'Китай', 'Японія', 'Південна Корея', 'Індія', 'Австралія', 'Нова Зеландія', 'Бразилія', 'Аргентина', 'Мексика', 'Чилі', 'Колумбія', 'ПАР', 'Єгипет', 'Ізраїль', 'Саудівська Аравія', 'ОАЕ', 'Катар', 'Сінгапур', 'Таїланд', 'Вʼєтнам', 'Малайзія', 'Індонезія', 'Філіппіни', 'Пакистан', 'Бангладеш', 'Нігерія', 'Кенія', 'Марокко', 'Алжир', 'Туніс', 'Лівія', 'Судан', 'Ефіопія', 'Гана', 'Кот-дʼІвуар', 'Камерун', 'Сенегал', 'Ангола', 'Мозамбік', 'Танзанія', 'Уганда', 'Замбія', 'Зімбабве', 'Ботсвана', 'Намібія', 'Мадагаскар', 'Маврикій', 'Сейшели', 'Малаві', 'Руанда', 'Бурунді', 'Сомалі', 'Конго', 'Габон', 'Екваторіальна Гвінея', 'Гвінея', 'Сьєрра-Леоне', 'Ліберія', 'Того', 'Бенін', 'Буркіна-Фасо', 'Нігер', 'Чад', 'ЦАР', 'Південний Судан', 'Еритрея', 'Джибуті', 'Коморські Острови', 'Сан-Томе і Принсіпі', 'Кабо-Верде', 'Гамбія', 'Гвінея-Бісау', 'Лесото', 'Свазіленд', 'Західна Сахара'
   ]
   
   const formData = ref({

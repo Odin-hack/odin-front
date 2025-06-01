@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <h1 class="text-h4 mb-6">Analytics Overview</h1>
+          <h1 class="text-h4 mb-6">Аналітика</h1>
         </v-col>
       </v-row>
 
@@ -14,7 +14,7 @@
             <v-card-text>
               <div class="d-flex align-center mb-4">
                 <v-icon color="primary" size="large" class="mr-3">mdi-bullhorn</v-icon>
-                <div class="text-h6">Total Campaigns</div>
+                <div class="text-h6">Всього кампаній</div>
               </div>
               <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_campaigns || 0 }}</div>
               <div class="d-flex align-center mt-2">
@@ -28,7 +28,7 @@
             <v-card-text>
               <div class="d-flex align-center mb-4">
                 <v-icon color="primary" size="large" class="mr-3">mdi-account-group</v-icon>
-                <div class="text-h6">Total Ad Groups</div>
+                <div class="text-h6">Всього груп оголошень</div>
               </div>
               <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_ad_groups || 0 }}</div>
               <div class="d-flex align-center mt-2">
@@ -42,7 +42,7 @@
             <v-card-text>
               <div class="d-flex align-center mb-4">
                 <v-icon color="primary" size="large" class="mr-3">mdi-advertisement</v-icon>
-                <div class="text-h6">Total Ads</div>
+                <div class="text-h6">Всього оголошень</div>
               </div>
               <div class="text-h4 font-weight-bold primary--text">{{ overview?.total_ads || 0 }}</div>
               <div class="d-flex align-center mt-2">
@@ -59,20 +59,20 @@
           <v-card elevation="2" class="campaign-card">
             <v-card-title class="d-flex align-center">
               <v-icon color="warning" class="mr-2">mdi-clock-alert</v-icon>
-              Campaigns Ending Soon
+              Кампанії, що скоро завершаться
               <v-spacer></v-spacer>
               <v-chip color="warning" variant="outlined" class="ml-2">
-                {{ endingSoon?.length || 0 }} campaigns
+                {{ endingSoon?.length || 0 }} кампаній
               </v-chip>
             </v-card-title>
             <v-card-text>
               <v-table>
                 <thead>
                   <tr>
-                    <th class="text-left">Name</th>
-                    <th class="text-left">End Date</th>
-                    <th class="text-right">Budget</th>
-                    <th class="text-center">Status</th>
+                    <th class="text-left">Назва</th>
+                    <th class="text-left">Дата завершення</th>
+                    <th class="text-right">Бюджет</th>
+                    <th class="text-center">Статус</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -93,7 +93,7 @@
                         class="status-chip"
                         variant="flat"
                       >
-                        {{ campaign.status }}
+                        {{ campaign.status === 'enabled' ? 'Активна' : campaign.status === 'paused' ? 'Пауза' : 'Вимкнена' }}
                       </v-chip>
                     </td>
                   </tr>
@@ -110,21 +110,21 @@
           <v-card elevation="2" class="campaign-card">
             <v-card-title class="d-flex align-center">
               <v-icon color="error" class="mr-2">mdi-alert-circle</v-icon>
-              Empty Campaigns
+              Порожні кампанії
               <v-spacer></v-spacer>
               <v-chip color="error" variant="outlined" class="ml-2">
-                {{ emptyCampaigns?.length || 0 }} campaigns
+                {{ emptyCampaigns?.length || 0 }} кампаній
               </v-chip>
             </v-card-title>
             <v-card-text class="pa-0">
               <v-table density="comfortable" hover>
                 <thead>
                   <tr>
-                    <th class="text-left">Name</th>
-                    <th class="text-left">Start Date</th>
-                    <th class="text-left">End Date</th>
-                    <th class="text-right">Budget</th>
-                    <th class="text-center status-column">Status</th>
+                    <th class="text-left">Назва</th>
+                    <th class="text-left">Дата початку</th>
+                    <th class="text-left">Дата завершення</th>
+                    <th class="text-right">Бюджет</th>
+                    <th class="text-center status-column">Статус</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -152,7 +152,7 @@
                           variant="flat"
                           density="comfortable"
                         >
-                          {{ campaign.status }}
+                          {{ campaign.status === 'enabled' ? 'Активна' : campaign.status === 'paused' ? 'Пауза' : 'Вимкнена' }}
                         </v-chip>
                       </div>
                     </td>
@@ -170,6 +170,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useAnalytics } from '@/composables/useAnalytics'
+import type { AnalyticsOverview, Campaign } from '@/composables/useAnalytics'
 
 // API hooks
 const { getOverview, getEndingSoon, getEmptyCampaigns } = useAnalytics()
@@ -180,9 +181,9 @@ const emptyCampaigns = ref<Campaign[]>([])
 const loading = ref(true)
 
 const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('uk-UA', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'UAH'
   }).format(value)
 }
 

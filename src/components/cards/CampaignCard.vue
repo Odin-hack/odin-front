@@ -16,11 +16,11 @@
           class="mr-3"
         >
           <v-icon start size="18">mdi-circle</v-icon>
-          {{ campaign.status }}
+          {{ campaign.status === 'enabled' ? 'Активна' : campaign.status === 'paused' ? 'Пауза' : 'Вимкнена' }}
         </v-chip>
         <v-chip color="primary" variant="tonal" size="small" class="mr-3">
           <v-icon start size="18">mdi-bullhorn</v-icon>
-          {{ campaign.ad_groups.length }} ad groups
+          {{ campaign.ad_groups.length }} груп оголошень
         </v-chip>
       </div>
       <v-btn icon size="small" color="primary" class="company-edit-btn" @click="showEditCompany = true">
@@ -33,7 +33,7 @@
         <AdGroupCard :adGroup="group" />
       </v-col>
       <v-col cols="12" md="12" v-else>
-        <p>No ad groups found</p>
+        <p>Груп оголошень не знайдено</p>
       </v-col>
     </v-row>
     <div class="d-flex align-center justify-end mt-4">
@@ -44,7 +44,7 @@
         prepend-icon="mdi-plus-circle"
         @click="showAddAdGroup = true"
       >
-        Add Ad Group
+        Додати групу оголошень
       </v-btn>
     </div>
     <EditCampaignModal

@@ -11,7 +11,7 @@
 
     <v-text-field
       v-model="form.email"
-      label="Email"
+      label="Електронна пошта"
       type="email"
       variant="outlined"
       prepend-inner-icon="mdi-email"
@@ -25,7 +25,7 @@
 
     <v-text-field
       v-model="form.password"
-      label="Password"
+      label="Пароль"
       type="password"
       variant="outlined"
       prepend-inner-icon="mdi-lock"
@@ -39,7 +39,7 @@
 
     <v-text-field
       v-model="form.password_confirmation"
-      label="Confirm Password"
+      label="Підтвердіть пароль"
       type="password"
       variant="outlined"
       prepend-inner-icon="mdi-lock-check"
@@ -61,7 +61,7 @@
       class="text-none"
     >
       <v-icon start>mdi-account-plus</v-icon>
-      Create Account
+      Створити акаунт
     </v-btn>
   </v-form>
 </template>

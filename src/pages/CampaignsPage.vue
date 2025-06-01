@@ -3,13 +3,13 @@
     <v-row>
       <v-col cols="12">
         <div class="d-flex justify-space-between align-center mb-4">
-          <h1 class="text-h4">Campaigns</h1>
+          <h1 class="text-h4">Кампанії</h1>
           <v-btn
             color="primary"
             prepend-icon="mdi-plus"
             @click="showCreateModal = true"
           >
-            Create Campaign
+            Створити кампанію
           </v-btn>
         </div>
 
@@ -29,8 +29,8 @@
 
         <template v-else>
           <div v-if="campaigns.length === 0" class="text-center pa-4">
-            <p class="text-h6">No campaigns found</p>
-            <p class="text-body-1">Create your first campaign to get started</p>
+            <p class="text-h6">Кампанії не знайдено</p>
+            <p class="text-body-1">Створіть свою першу кампанію, щоб почати</p>
           </div>
 
           <template v-else>

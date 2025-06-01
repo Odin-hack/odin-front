@@ -5,7 +5,7 @@
   >
     <v-card>
       <v-card-title>
-        Edit Campaign
+        Редагувати кампанію
       </v-card-title>
       <ErrorAlert
         :error="campaignStore.error"
@@ -19,19 +19,19 @@
         >
           <v-text-field
             v-model="formData.name"
-            label="Campaign Name"
-            :rules="[(v: string) => !!v || 'Name is required']"
+            label="Назва кампанії"
+            :rules="[(v: string) => !!v || 'Назва обовʼязкова']"
             required
           />
 
           <v-text-field
-            v-model.number="formData.budget"
-            label="Daily Budget"
+            v-model="formData.budget"
+            label="Денний бюджет"
             type="number"
-            prefix="$"
+            prefix="₴"
             :rules="[
-              (v: number) => !!v || 'Budget is required',
-              (v: number) => v > 0 || 'Budget must be greater than 0'
+              (v: number) => !!v || 'Бюджет обовʼязковий',
+              (v: number) => v > 0 || 'Бюджет має бути більше 0'
             ]"
             required
           />
@@ -40,16 +40,16 @@
             <v-col cols="6">
               <v-text-field
                 v-model="formData.startDate"
-                label="Start Date"
+                label="Дата початку"
                 type="date"
-                :rules="[(v: string) => !!v || 'Start date is required']"
+                :rules="[(v: string) => !!v || 'Дата початку обовʼязкова']"
                 required
               />
             </v-col>
             <v-col cols="6">
               <v-text-field
                 v-model="formData.endDate"
-                label="End Date"
+                label="Дата завершення"
                 type="date"
                 :min="formData.startDate"
               />
@@ -73,7 +73,7 @@
           variant="text"
           @click="close"
         >
-          Cancel
+          Скасувати'
         </v-btn>
         <v-btn
           color="primary"
@@ -81,7 +81,7 @@
           :disabled="!isFormValid"
           @click="handleSubmit"
         >
-          Save
+          Зберегти
         </v-btn>
       </v-card-actions>
     </v-card>

@@ -5,7 +5,7 @@
   >
     <v-card>
       <v-card-title>
-        {{ isEdit ? 'Edit Campaign' : 'Create Campaign' }}
+        {{ isEdit ? 'Редагувати кампанію' : 'Створити кампанію' }}
       </v-card-title>
 
       <v-card-text>
@@ -16,19 +16,19 @@
         >
           <v-text-field
             v-model="formData.name"
-            label="Campaign Name"
-            :rules="[v => !!v || 'Name is required']"
+            label="Назва кампанії"
+            :rules="[v => !!v || 'Назва обовʼязкова']"
             required
           />
 
           <v-text-field
             v-model.number="formData.budget"
-            label="Daily Budget"
+            label="Щоденний бюджет"
             type="number"
-            prefix="$"
+            prefix="₴"
             :rules="[
-              v => !!v || 'Budget is required',
-              v => v > 0 || 'Budget must be greater than 0'
+              v => !!v || 'Бюджет обовʼязковий',
+              v => v > 0 || 'Бюджет має бути більше 0'
             ]"
             required
           />
@@ -37,16 +37,16 @@
             <v-col cols="6">
               <v-text-field
                 v-model="formData.startDate"
-                label="Start Date"
+                label="Дата початку"
                 type="date"
-                :rules="[v => !!v || 'Start date is required']"
+                :rules="[v => !!v || 'Дата початку обовʼязкова']"
                 required
               />
             </v-col>
             <v-col cols="6">
               <v-text-field
                 v-model="formData.endDate"
-                label="End Date"
+                label="Дата закінчення"
                 type="date"
                 :min="formData.startDate"
               />
@@ -55,9 +55,9 @@
 
           <v-select
             v-model="formData.channelType"
-            label="Channel Type"
+            label="Тип каналу"
             :items="channelTypes"
-            :rules="[v => !!v || 'Channel type is required']"
+            :rules="[v => !!v || 'Тип каналу обовʼязковий']"
             required
           />
         </v-form>

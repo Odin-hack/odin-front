@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="modal" max-width="800px">
     <v-card>
-      <v-card-title>Add New Ad</v-card-title>
+      <v-card-title>Додати нове оголошення</v-card-title>
       <v-card-text>
         <ErrorAlert
           :error="error"
@@ -10,58 +10,58 @@
         <v-form ref="form" v-model="isValid">
           <v-text-field
             v-model="localAd.name"
-            label="Ad Name"
-            :rules="[(v) => !!v || 'Name is required']"
+            label="Назва оголошення"
+            :rules="[(v) => !!v || 'Назва обовʼязкова']"
             required
             @blur="fetchRecommendedCountriesForAdName"
           />
           <v-select
             v-model="localAd.status"
-            label="Status"
+            label="Статус"
             :items="['enabled', 'paused', 'removed']"
-            :rules="[(v) => !!v || 'Status is required']"
+            :rules="[(v) => !!v || 'Статус обовʼязковий']"
             required
           />
           <v-select
             v-model="localAd.ad_type"
-            label="Ad Type"
+            label="Тип оголошення"
             :items="['text', 'image', 'video']"
-            :rules="[(v) => !!v || 'Ad Type is required']"
+            :rules="[(v) => !!v || 'Тип оголошення обовʼязковий']"
             required
           />
           <v-text-field
             v-model="localAd.final_url"
-            label="Final URL"
-            :rules="[(v) => !!v || 'Final URL is required']"
+            label="Фінальний URL"
+            :rules="[(v) => !!v || 'URL обовʼязковий']"
             required
           />
           <v-text-field
             v-model="localAd.headline1"
-            label="Headline 1"
-            :rules="[(v) => !!v || 'Headline 1 is required']"
+            label="Заголовок 1"
+            :rules="[(v) => !!v || 'Заголовок обовʼязковий']"
             required
           />
           <v-text-field
             v-model="localAd.headline2"
-            label="Headline 2"
-            :rules="[(v) => !!v || 'Headline 2 is required']"
+            label="Заголовок 2"
+            :rules="[(v) => !!v || 'Заголовок обовʼязковий']"
             required
           />
           <v-textarea
             v-model="localAd.description"
-            label="Description"
-            :rules="[(v) => !!v || 'Description is required']"
+            label="Опис"
+            :rules="[(v) => !!v || 'Опис обовʼязковий']"
             required
             rows="2"
           />
           <v-select
             v-model="localAd.countries"
-            label="Countries"
+            label="Країни"
             :items="countryOptions"
             multiple
             chips
             clearable
-            :rules="[(v) => v && v.length > 0 || 'At least one country is required']"
+            :rules="[(v) => v && v.length > 0 || 'Потрібно вибрати хоча б одну країну']"
             required
             class="mb-2"
           />
@@ -113,9 +113,9 @@
           :loading="loading"
           :disabled="loading"
         >
-          Save
+          Зберегти
         </v-btn>
-        <v-btn text @click="close">Cancel</v-btn>
+        <v-btn text @click="close">Скасувати</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -166,7 +166,7 @@ const isValid = ref(false)
 const loading = ref(false)
 
 const countryOptions = [
-  'Ukraine', 'Poland', 'Germany', 'France', 'USA', 'Canada', 'United Kingdom', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway', 'Finland', 'Denmark', 'Czech Republic', 'Austria', 'Switzerland', 'Belgium', 'Portugal', 'Romania', 'Hungary', 'Slovakia', 'Bulgaria', 'Greece', 'Turkey', 'Estonia', 'Latvia', 'Lithuania', 'Ireland', 'Croatia', 'Serbia', 'Slovenia', 'Luxembourg', 'Iceland', 'Malta', 'Cyprus', 'Moldova', 'Georgia', 'Armenia', 'Azerbaijan', 'Kazakhstan', 'Uzbekistan', 'Belarus', 'Russia', 'China', 'Japan', 'South Korea', 'India', 'Australia', 'New Zealand', 'Brazil', 'Argentina', 'Mexico', 'Chile', 'Colombia', 'South Africa', 'Egypt', 'Israel', 'Saudi Arabia', 'UAE', 'Qatar', 'Singapore', 'Thailand', 'Vietnam', 'Malaysia', 'Indonesia', 'Philippines', 'Pakistan', 'Bangladesh', 'Nigeria', 'Kenya', 'Morocco', 'Algeria', 'Tunisia', 'Libya', 'Sudan', 'Ethiopia', 'Ghana', 'Ivory Coast', 'Cameroon', 'Senegal', 'Angola', 'Mozambique', 'Tanzania', 'Uganda', 'Zambia', 'Zimbabwe', 'Botswana', 'Namibia', 'Madagascar', 'Mauritius', 'Seychelles', 'Malawi', 'Rwanda', 'Burundi', 'Somalia', 'Congo', 'Gabon', 'Equatorial Guinea', 'Guinea', 'Sierra Leone', 'Liberia', 'Togo', 'Benin', 'Burkina Faso', 'Niger', 'Chad', 'Central African Republic', 'South Sudan', 'Eritrea', 'Djibouti', 'Comoros', 'Sao Tome and Principe', 'Cape Verde', 'Gambia', 'Guinea-Bissau', 'Lesotho', 'Swaziland', 'Western Sahara'
+  'Україна', 'Польща', 'Німеччина', 'Франція', 'США', 'Канада', 'Велика Британія', 'Іспанія', 'Італія', 'Нідерланди', 'Швеція', 'Норвегія', 'Фінляндія', 'Данія', 'Чехія', 'Австрія', 'Швейцарія', 'Бельгія', 'Португалія', 'Румунія', 'Угорщина', 'Словаччина', 'Болгарія', 'Греція', 'Туреччина', 'Естонія', 'Латвія', 'Литва', 'Ірландія', 'Хорватія', 'Сербія', 'Словенія', 'Люксембург', 'Ісландія', 'Мальта', 'Кіпр', 'Молдова', 'Грузія', 'Вірменія', 'Азербайджан', 'Казахстан', 'Узбекистан', 'Білорусь', 'Росія', 'Китай', 'Японія', 'Південна Корея', 'Індія', 'Австралія', 'Нова Зеландія', 'Бразилія', 'Аргентина', 'Мексика', 'Чилі', 'Колумбія', 'ПАР', 'Єгипет', 'Ізраїль', 'Саудівська Аравія', 'ОАЕ', 'Катар', 'Сінгапур', 'Таїланд', 'Вʼєтнам', 'Малайзія', 'Індонезія', 'Філіппіни', 'Пакистан', 'Бангладеш', 'Нігерія', 'Кенія', 'Марокко', 'Алжир', 'Туніс', 'Лівія', 'Судан', 'Ефіопія', 'Гана', 'Кот-дʼІвуар', 'Камерун', 'Сенегал', 'Ангола', 'Мозамбік', 'Танзанія', 'Уганда', 'Замбія', 'Зімбабве', 'Ботсвана', 'Намібія', 'Мадагаскар', 'Маврикій', 'Сейшели', 'Малаві', 'Руанда', 'Бурунді', 'Сомалі', 'Конго', 'Габон', 'Екваторіальна Гвінея', 'Гвінея', 'Сьєрра-Леоне', 'Ліберія', 'Того', 'Бенін', 'Буркіна-Фасо', 'Нігер', 'Чад', 'ЦАР', 'Південний Судан', 'Еритрея', 'Джибуті', 'Коморські Острови', 'Сан-Томе і Принсіпі', 'Кабо-Верде', 'Гамбія', 'Гвінея-Бісау', 'Лесото', 'Свазіленд', 'Західна Сахара'
 ]
 
 const localAd = ref<Ad>({

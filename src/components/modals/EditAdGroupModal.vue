@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="modal" max-width="400">
     <v-card>
-      <v-card-title>Edit Ad Group</v-card-title>
+      <v-card-title>Редагувати групу оголошень</v-card-title>
       <v-card-text>
         <ErrorAlert
           :error="error"
@@ -14,33 +14,33 @@
         >
           <v-text-field
             v-model="localAdGroup.name"
-            label="Ad Group Name"
-            :rules="[(v) => !!v || 'Name is required']"
+            label="Назва групи оголошень"
+            :rules="[(v) => !!v || 'Назва обовʼязкова']"
             required
           />
           <v-select
             v-model="localAdGroup.status"
-            label="Status"
+            label="Статус"
             :items="['enabled', 'paused', 'removed']"
-            :rules="[(v) => !!v || 'Status is required']"
+            :rules="[(v) => !!v || 'Статус обовʼязковий']"
             required
           />
           <v-text-field
             v-model.number="localAdGroup.cpc_bid_micros"
-            label="CPC Bid"
+            label="Ставка CPC"
             type="number"
-            prefix="$"
+            prefix="₴"
             :rules="[
-              (v) => !!v || 'CPC Bid is required',
-              (v) => v > 0 || 'CPC Bid must be greater than 0'
+              (v) => !!v || 'Ставка обовʼязкова',
+              (v) => v > 0 || 'Ставка має бути більше 0'
             ]"
             required
           />
           <v-select
             v-model="localAdGroup.ad_group_type"
-            label="Ad Group Type"
+            label="Тип групи оголошень"
             :items="['search_standard', 'search_dynamic', 'display_standard', 'display_smart']"
-            :rules="[(v) => !!v || 'Ad Group Type is required']"
+            :rules="[(v) => !!v || 'Тип групи обовʼязковий']"
             required
           />
         </v-form>
@@ -52,7 +52,7 @@
           variant="text"
           @click="close"
         >
-          Cancel
+          Скасувати
         </v-btn>
         <v-btn
           color="primary"
@@ -60,7 +60,7 @@
           :disabled="!isValid"
           @click="save"
         >
-          Save
+          Зберегти
         </v-btn>
       </v-card-actions>
     </v-card>

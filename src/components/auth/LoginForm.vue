@@ -12,7 +12,7 @@
 
     <v-text-field
       v-model="form.email"
-      label="Email"
+      label="Електронна пошта"
       type="email"
       variant="outlined"
       prepend-inner-icon="mdi-email"
@@ -26,7 +26,7 @@
 
     <v-text-field
       v-model="form.password"
-      label="Password"
+      label="Пароль"
       type="password"
       variant="outlined"
       prepend-inner-icon="mdi-lock"

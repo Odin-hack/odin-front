@@ -5,12 +5,12 @@
         <v-card class="pa-6 rounded-lg" elevation="4">
           <div class="text-center mb-6">
             <h1 class="text-h4 font-weight-bold mb-2">
-              {{ activeTab === 'login' ? 'Welcome Back' : 'Create Account' }}
+              {{ activeTab === 'login' ? 'Ласкаво просимо назад' : 'Створити акаунт' }}
             </h1>
             <p class="text-body-1 text-medium-emphasis">
               {{ activeTab === 'login' 
-                ? 'Sign in to continue to your account' 
-                : 'Sign up to get started' }}
+                ? 'Увійдіть в акаунт' 
+                : 'Створити акаунт' }}
             </p>
           </div>
 
@@ -22,11 +22,11 @@
           >
             <v-tab value="login" class="text-none">
               <v-icon start>mdi-login</v-icon>
-              Login
+              Увійти
             </v-tab>
             <v-tab value="register" class="text-none">
               <v-icon start>mdi-account-plus</v-icon>
-              Register
+              Зареєструватися
             </v-tab>
           </v-tabs>
 
@@ -45,15 +45,15 @@
           <div class="text-center">
             <p class="text-body-2 text-medium-emphasis">
               {{ activeTab === 'login' 
-                ? "Don't have an account?" 
-                : 'Already have an account?' }}
+                ? "Немає акаунту?" 
+                : 'Уже є акаунт?' }}
               <v-btn
                 variant="text"
                 color="primary"
                 class="text-none"
                 @click="activeTab = activeTab === 'login' ? 'register' : 'login'"
               >
-                {{ activeTab === 'login' ? 'Register' : 'Login' }}
+                {{ activeTab === 'login' ? 'Зареєструватися' : 'Увійти' }}
               </v-btn>
             </p>
           </div>

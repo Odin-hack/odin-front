@@ -66,6 +66,7 @@ interface ApiResponse<T> {
   message?: string;
 }
 
+export type { AnalyticsOverview, Campaign };
 export const useAnalytics = () => {
   const getOverview = async (): Promise<ApiResponse<AnalyticsOverview>> => {
     const response = await useApi<AnalyticsOverview>('GET', '/analytics/overview')
