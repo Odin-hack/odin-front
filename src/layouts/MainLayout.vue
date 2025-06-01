@@ -12,13 +12,13 @@
           to="/campaigns"
           :active="$route.path.startsWith('/campaigns')"
           prepend-icon="mdi-bullhorn"
-          title="Campaigns"
+          title="Кампанії"
         />
         <v-list-item
           to="/statistics"
           :active="$route.path.startsWith('/statistics')"
           prepend-icon="mdi-chart-bar"
-          title="Statistics"
+          title="Статистика"
         />
       </v-list>
     </v-navigation-drawer>
