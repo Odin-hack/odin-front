@@ -17,7 +17,13 @@
           <v-select
             v-model="localAdGroup.status"
             label="Статус"
-            :items="['enabled', 'paused', 'removed']"
+            :items="[
+              { title: 'Активний', value: 'enabled' },
+              { title: 'Пауза', value: 'paused' },
+              { title: 'Вимкнений', value: 'removed' }
+            ]"
+            item-title="title"
+            item-value="value"
             :rules="[(v) => !!v || 'Статус обовʼязковий']"
             required
           />
