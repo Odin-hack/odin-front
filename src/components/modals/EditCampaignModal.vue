@@ -58,9 +58,15 @@
 
           <v-select
             v-model="formData.channelType"
-            label="Channel Type"
-            :items="channelTypes"
-            :rules="[(v: string) => !!v || 'Channel type is required']"
+            label="Тип каналу"
+            :items="[
+                      { title: 'Пошук', value: 'search' },
+                      { title: 'Подорожі', value: 'travel' },
+                      { title: 'Відео', value: 'video' },
+                      { title: 'Шопінг', value: 'shopping' },
+                      { title: 'Локальні послуги', value: 'local_services' }
+                    ]"
+            :rules="[(v: string) => !!v || 'Тип каналу обовʼязковий']"
             required
           />
         </v-form>

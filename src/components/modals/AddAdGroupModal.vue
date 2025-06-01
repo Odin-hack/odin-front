@@ -122,5 +122,12 @@ async function save() {
 
 function close() {
   modal.value = false
+  error.value = null
+  localAdGroup.value = {
+    name: '',
+    status: 'enabled',
+    cpc_bid_micros: 0,
+    ad_group_type: 'search_standard'
+  }
 }
 </script> 

@@ -77,7 +77,15 @@
                   <v-select
                     v-model="formData.advertising_channel_type"
                     label="Тип каналу"
-                    :items="['пошук', 'подорожі', 'відео', 'шопінг', 'локальні послуги']"
+                    :items="[
+                      { title: 'Пошук', value: 'search' },
+                      { title: 'Подорожі', value: 'travel' },
+                      { title: 'Відео', value: 'video' },
+                      { title: 'Шопінг', value: 'shopping' },
+                      { title: 'Локальні послуги', value: 'local_services' }
+                    ]"
+                    item-title="title"
+                    item-value="value"
                     :rules="[(v: string) => !!v || 'Тип каналу обовʼязковий']"
                     required
                   />
@@ -99,7 +107,13 @@
                   <v-select
                     v-model="formData.ad_group_status"
                     label="Статус"
-                    :items="['enabled', 'paused', 'removed']"
+                    :items="[
+                      { title: 'Активний', value: 'enabled' },
+                      { title: 'Пауза', value: 'paused' },
+                      { title: 'Вимкнений', value: 'removed' }
+                    ]"
+                    item-title="title"
+                    item-value="value"
                     :rules="[(v) => !!v || 'Статус обовʼязковий']"
                     required
                   />
@@ -155,7 +169,13 @@
                       <v-select
                         v-model="ad.status"
                         label="Статус"
-                        :items="['enabled', 'paused', 'removed']"
+                        :items="[
+                        { title: 'Активний', value: 'enabled' },
+                        { title: 'Пауза', value: 'paused' },
+                        { title: 'Вимкнений', value: 'removed' }
+                        ]"
+                        item-title="title"
+                        item-value="value"
                         :rules="[(v) => !!v || 'Статус обовʼязковий']"
                         required
                       />
@@ -198,6 +218,8 @@
                         multiple
                         chips
                         clearable
+                        item-title="title"
+                        item-value="value"
                         :rules="[(v) => v && v.length > 0 || 'Потрібно вибрати хоча б одну країну']"
                         required
                         class="mb-2"
@@ -253,7 +275,7 @@
           <v-btn
             color="grey"
             variant="text"
-            @click="$emit('update:modelValue', false)"
+            @click="close"
           >
             Скасувати
           </v-btn>
@@ -347,7 +369,125 @@
   const isAdsValid = ref(false);
   
   const countryOptions = [
-    'Україна', 'Польща', 'Німеччина', 'Франція', 'США', 'Канада', 'Велика Британія', 'Іспанія', 'Італія', 'Нідерланди', 'Швеція', 'Норвегія', 'Фінляндія', 'Данія', 'Чехія', 'Австрія', 'Швейцарія', 'Бельгія', 'Португалія', 'Румунія', 'Угорщина', 'Словаччина', 'Болгарія', 'Греція', 'Туреччина', 'Естонія', 'Латвія', 'Литва', 'Ірландія', 'Хорватія', 'Сербія', 'Словенія', 'Люксембург', 'Ісландія', 'Мальта', 'Кіпр', 'Молдова', 'Грузія', 'Вірменія', 'Азербайджан', 'Казахстан', 'Узбекистан', 'Білорусь', 'Росія', 'Китай', 'Японія', 'Південна Корея', 'Індія', 'Австралія', 'Нова Зеландія', 'Бразилія', 'Аргентина', 'Мексика', 'Чилі', 'Колумбія', 'ПАР', 'Єгипет', 'Ізраїль', 'Саудівська Аравія', 'ОАЕ', 'Катар', 'Сінгапур', 'Таїланд', 'Вʼєтнам', 'Малайзія', 'Індонезія', 'Філіппіни', 'Пакистан', 'Бангладеш', 'Нігерія', 'Кенія', 'Марокко', 'Алжир', 'Туніс', 'Лівія', 'Судан', 'Ефіопія', 'Гана', 'Кот-дʼІвуар', 'Камерун', 'Сенегал', 'Ангола', 'Мозамбік', 'Танзанія', 'Уганда', 'Замбія', 'Зімбабве', 'Ботсвана', 'Намібія', 'Мадагаскар', 'Маврикій', 'Сейшели', 'Малаві', 'Руанда', 'Бурунді', 'Сомалі', 'Конго', 'Габон', 'Екваторіальна Гвінея', 'Гвінея', 'Сьєрра-Леоне', 'Ліберія', 'Того', 'Бенін', 'Буркіна-Фасо', 'Нігер', 'Чад', 'ЦАР', 'Південний Судан', 'Еритрея', 'Джибуті', 'Коморські Острови', 'Сан-Томе і Принсіпі', 'Кабо-Верде', 'Гамбія', 'Гвінея-Бісау', 'Лесото', 'Свазіленд', 'Західна Сахара'
+    { title: 'Україна', value: 'Ukraine' },
+    { title: 'Польща', value: 'Poland' },
+    { title: 'Німеччина', value: 'Germany' },
+    { title: 'Франція', value: 'France' },
+    { title: 'США', value: 'USA' },
+    { title: 'Канада', value: 'Canada' },
+    { title: 'Велика Британія', value: 'United Kingdom' },
+    { title: 'Іспанія', value: 'Spain' },
+    { title: 'Італія', value: 'Italy' },
+    { title: 'Нідерланди', value: 'Netherlands' },
+    { title: 'Швеція', value: 'Sweden' },
+    { title: 'Норвегія', value: 'Norway' },
+    { title: 'Фінляндія', value: 'Finland' },
+    { title: 'Данія', value: 'Denmark' },
+    { title: 'Чехія', value: 'Czech Republic' },
+    { title: 'Австрія', value: 'Austria' },
+    { title: 'Швейцарія', value: 'Switzerland' },
+    { title: 'Бельгія', value: 'Belgium' },
+    { title: 'Португалія', value: 'Portugal' },
+    { title: 'Румунія', value: 'Romania' },
+    { title: 'Угорщина', value: 'Hungary' },
+    { title: 'Словаччина', value: 'Slovakia' },
+    { title: 'Болгарія', value: 'Bulgaria' },
+    { title: 'Греція', value: 'Greece' },
+    { title: 'Туреччина', value: 'Turkey' },
+    { title: 'Естонія', value: 'Estonia' },
+    { title: 'Латвія', value: 'Latvia' },
+    { title: 'Литва', value: 'Lithuania' },
+    { title: 'Ірландія', value: 'Ireland' },
+    { title: 'Хорватія', value: 'Croatia' },
+    { title: 'Сербія', value: 'Serbia' },
+    { title: 'Словенія', value: 'Slovenia' },
+    { title: 'Люксембург', value: 'Luxembourg' },
+    { title: 'Ісландія', value: 'Iceland' },
+    { title: 'Мальта', value: 'Malta' },
+    { title: 'Кіпр', value: 'Cyprus' },
+    { title: 'Молдова', value: 'Moldova' },
+    { title: 'Грузія', value: 'Georgia' },
+    { title: 'Вірменія', value: 'Armenia' },
+    { title: 'Азербайджан', value: 'Azerbaijan' },
+    { title: 'Казахстан', value: 'Kazakhstan' },
+    { title: 'Узбекистан', value: 'Uzbekistan' },
+    { title: 'Білорусь', value: 'Belarus' },
+    { title: 'Росія', value: 'Russia' },
+    { title: 'Китай', value: 'China' },
+    { title: 'Японія', value: 'Japan' },
+    { title: 'Південна Корея', value: 'South Korea' },
+    { title: 'Індія', value: 'India' },
+    { title: 'Австралія', value: 'Australia' },
+    { title: 'Нова Зеландія', value: 'New Zealand' },
+    { title: 'Бразилія', value: 'Brazil' },
+    { title: 'Аргентина', value: 'Argentina' },
+    { title: 'Мексика', value: 'Mexico' },
+    { title: 'Чилі', value: 'Chile' },
+    { title: 'Колумбія', value: 'Colombia' },
+    { title: 'ПАР', value: 'South Africa' },
+    { title: 'Єгипет', value: 'Egypt' },
+    { title: 'Ізраїль', value: 'Israel' },
+    { title: 'Саудівська Аравія', value: 'Saudi Arabia' },
+    { title: 'ОАЕ', value: 'UAE' },
+    { title: 'Катар', value: 'Qatar' },
+    { title: 'Сінгапур', value: 'Singapore' },
+    { title: 'Таїланд', value: 'Thailand' },
+    { title: 'Вʼєтнам', value: 'Vietnam' },
+    { title: 'Малайзія', value: 'Malaysia' },
+    { title: 'Індонезія', value: 'Indonesia' },
+    { title: 'Філіппіни', value: 'Philippines' },
+    { title: 'Пакистан', value: 'Pakistan' },
+    { title: 'Бангладеш', value: 'Bangladesh' },
+    { title: 'Нігерія', value: 'Nigeria' },
+    { title: 'Кенія', value: 'Kenya' },
+    { title: 'Марокко', value: 'Morocco' },
+    { title: 'Алжир', value: 'Algeria' },
+    { title: 'Туніс', value: 'Tunisia' },
+    { title: 'Лівія', value: 'Libya' },
+    { title: 'Судан', value: 'Sudan' },
+    { title: 'Ефіопія', value: 'Ethiopia' },
+    { title: 'Гана', value: 'Ghana' },
+    { title: 'Кот-дʼІвуар', value: 'Ivory Coast' },
+    { title: 'Камерун', value: 'Cameroon' },
+    { title: 'Сенегал', value: 'Senegal' },
+    { title: 'Ангола', value: 'Angola' },
+    { title: 'Мозамбік', value: 'Mozambique' },
+    { title: 'Танзанія', value: 'Tanzania' },
+    { title: 'Уганда', value: 'Uganda' },
+    { title: 'Замбія', value: 'Zambia' },
+    { title: 'Зімбабве', value: 'Zimbabwe' },
+    { title: 'Ботсвана', value: 'Botswana' },
+    { title: 'Намібія', value: 'Namibia' },
+    { title: 'Мадагаскар', value: 'Madagascar' },
+    { title: 'Маврикій', value: 'Mauritius' },
+    { title: 'Сейшели', value: 'Seychelles' },
+    { title: 'Малаві', value: 'Malawi' },
+    { title: 'Руанда', value: 'Rwanda' },
+    { title: 'Бурунді', value: 'Burundi' },
+    { title: 'Сомалі', value: 'Somalia' },
+    { title: 'Конго', value: 'Congo' },
+    { title: 'Габон', value: 'Gabon' },
+    { title: 'Екваторіальна Гвінея', value: 'Equatorial Guinea' },
+    { title: 'Гвінея', value: 'Guinea' },
+    { title: 'Сьєрра-Леоне', value: 'Sierra Leone' },
+    { title: 'Ліберія', value: 'Liberia' },
+    { title: 'Того', value: 'Togo' },
+    { title: 'Бенін', value: 'Benin' },
+    { title: 'Буркіна-Фасо', value: 'Burkina Faso' },
+    { title: 'Нігер', value: 'Niger' },
+    { title: 'Чад', value: 'Chad' },
+    { title: 'ЦАР', value: 'Central African Republic' },
+    { title: 'Південний Судан', value: 'South Sudan' },
+    { title: 'Еритрея', value: 'Eritrea' },
+    { title: 'Джибуті', value: 'Djibouti' },
+    { title: 'Коморські Острови', value: 'Comoros' },
+    { title: 'Сан-Томе і Принсіпі', value: 'Sao Tome and Principe' },
+    { title: 'Кабо-Верде', value: 'Cape Verde' },
+    { title: 'Гамбія', value: 'Gambia' },
+    { title: 'Гвінея-Бісау', value: 'Guinea-Bissau' },
+    { title: 'Лесото', value: 'Lesotho' },
+    { title: 'Свазіленд', value: 'Swaziland' },
+    { title: 'Західна Сахара', value: 'Western Sahara' }
   ]
   
   const formData = ref({
@@ -371,6 +511,13 @@
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value),
   });
+  
+
+  const close = () => {
+    modal.value = false
+    emit('update:modelValue', false)
+    resetForm()
+  }
   
   const canProceed = computed(() => {
     switch (currentStep.value) {
