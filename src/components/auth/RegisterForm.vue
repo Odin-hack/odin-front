@@ -117,7 +117,7 @@ const handleSubmit = async () => {
 
     const data = await response.json()
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       error.value = data.error || 'Failed to register'
       return
     }
